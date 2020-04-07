@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_ffffff"
+    tools:context="com.yiwo.friendscometogether.newpage.SuperLikeActivity">
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        style="@style/rl_top_bar">
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            style="@style/rl_return">
+
+            <ImageView
+                android:id="@+id/btn_back"
+                style="@style/iv_return" />
+
+        </RelativeLayout>
+        <TextView
+            style="@style/tv_top_title"
+            android:text="缘分天空"
+             />
+    <RelativeLayout
+        android:id="@+id/rl_Sx"
+        android:layout_width="100px"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true">
+        <ImageView
+            android:layout_centerInParent="true"
+            android:id="@+id/iv_Sx"
+            android:src="@mipmap/youju_shaixuan_white"
+            android:layout_centerVertical="true"
+            android:layout_width="50px"
+            android:layout_height="50px" />
+    </RelativeLayout>
+
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_matching_text"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="250px"
+                android:text="暂时没有找到和您匹配的人\完善个人标签会增加匹配的几率哦！"
+                android:textSize="36px"
+                android:lineSpacingExtra="20px"
+                android:textColor="@color/black_333333"
+                android:lines="2"
+                android:layout_marginRight="80px"
+                android:layout_marginLeft="80px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_super_like"
+                    android:layout_marginTop="30px"
+                    android:layout_marginLeft="11px"
+                    android:layout_marginRight="11px"
+                    android:layout_marginBottom="10px"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

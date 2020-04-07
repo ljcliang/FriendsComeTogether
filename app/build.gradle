@@ -1,0 +1,202 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'bugly'
+bugly {
+    appId = '20d02c310e' // 注册时分配的App ID
+    appKey = 'fc38b23a-e164-4948-af8d-50ce85a16a72' // 注册时分配的App Key
+    debug = true
+    upload = true
+    uploadMapping = true
+    uploadSymbol = true
+}
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.yiwo.friendscometogether"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 50
+        versionName "5.0"
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "7a137fcfcb18e425ef3ccbd7", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+        ]
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('D:/project/FriendsComeTogether/mykey.jks')
+            storePassword "123456"
+            keyAlias "mykey"
+            keyPassword "123456"
+        }
+        debug {
+            keyAlias 'mykey'
+            storeFile file('D:/project/FriendsComeTogether/mykey.jks')
+            keyPassword '123456'
+            storePassword '123456'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.release
+        }
+    }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    configurations {
+        compile.exclude group: 'org.jetbrains', module: 'annotations'
+    }
+
+
+
+    configurations.all {
+
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+
+            def requested = details.requested
+
+            if (requested.group == 'com.android.support') {
+
+                if (!requested.name.startsWith("multidex")) {
+
+                    details.useVersion '26.1.0' //这里改为你项目使用的版本即可
+
+                }
+
+            }
+
+        }
+
+    }
+
+    greendao {
+        schemaVersion 2
+        daoPackage 'com.yiwo.friendscometogether.greendao.gen'
+        targetGenDir 'src/main/java'
+    }
+}
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:support-v4:26.1.0'
+    androidTestCompile('com.android.support:support-annotations:26.1.0') {
+        force = true
+    }
+    compile project(path: ':uikit')
+    compile project(path: ':Fulive')
+    compile project(path: ':library')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    api 'com.jakewharton:butterknife:8.4.0'
+    implementation 'com.android.support:design:26.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    //    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    //    compile 'com.zhy:okhttputils:2.0.0'
+    compile 'com.google.code.gson:gson:2.2.4'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    compile 'com.youth.banner:banner:1.4.10'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.github.chengzipi:Searchbox:v1.0.0'
+    implementation 'me.yatoooon:screenadaptation:1.1.1'
+    compile 'com.vise.xiaoyaoyou:xsnow:2.1.9'
+    compile 'com.yanzhenjie:recyclerview-swipe:1.1.4'
+    compile 'com.contrarywind:Android-PickerView:4.1.5'
+    compile 'com.github.donkingliang:ImageSelector:1.6.8'
+    compile 'com.android.support:cardview-v7:26.+'
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    implementation 'top.zibin:Luban:1.1.8'
+    compile 'com.android.support:multidex:1.0.3'
+    compile 'cn.jiguang.sdk:jpush:3.1.1'
+    compile 'cn.jiguang.sdk:jcore:1.1.9'
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-6'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-6'
+    compile 'com.scwang.smartrefresh:SmartRefreshHorizontal:1.1.0'
+    compile 'de.hdodenhof:circleimageview:2.2.0'
+    compile 'com.jph.takephoto:takephoto_library:4.0.3'
+    //必选，可兼容市面上绝大部分设备
+    implementation 'com.github.dueeeke.dkplayer:dkplayer-java:2.5.7'
+//    implementation 'com.github.dueeeke.dkplayer:dkplayer-armv7a:2.5.7'
+    //可选，里面包含StandardVideoController的实现
+    implementation 'com.github.dueeeke.dkplayer:dkplayer-ui:2.5.7'
+    //可选，用于兼容一些其他的CPU架构
+    implementation 'com.github.dueeeke.dkplayer:dkplayer-armv5:2.5.7'
+    implementation 'com.github.dueeeke.dkplayer:dkplayer-arm64:2.5.7'
+    implementation 'com.github.dueeeke.dkplayer:dkplayer-x86:2.5.7'
+    implementation 'com.github.dueeeke.dkplayer:dkplayer-x86_64:2.5.7'
+
+//    //    # 必选，内部默认使用系统mediaplayer进行解码
+//    implementation 'com.github.dueeeke.dkplayer:dkplayer-java:3.2.6'
+//
+////    # 可选，包含StandardVideoController的实现
+//    implementation 'com.github.dueeeke.dkplayer:dkplayer-ui:3.2.6'
+//
+////    # 可选，使用exoplayer进行解码
+//    implementation 'com.github.dueeeke.dkplayer:player-exo:3.2.6'
+//
+////    # 可选，使用ijkplayer进行解码
+//    implementation 'com.github.dueeeke.dkplayer:player-ijk:3.2.6'
+//
+////    # 可选，如需要缓存或者抖音预加载功能请引入此库
+//    implementation 'com.github.dueeeke.dkplayer:videocache:3.2.6'
+
+    compile 'me.zhouzhuo.zzletterssidebar:zz-letters-sidebar:1.0.2'
+    implementation files('libs/alipaySdk-20180601.jar')
+    compile 'com.github.hackware1993:MagicIndicator:1.5.0'
+    implementation files('libs/MiPush_SDK_Client_3_6_12.jar')
+    //    implementation files('libs/nim-push-6.0.0.jar')
+    compile 'org.greenrobot:greendao:3.1.0'
+    compile 'org.greenrobot:greendao-generator:3.1.0'
+    compile 'com.huawei.android.hms:push:2.6.3.301'
+    // 小米、华为、魅族、fcm 推送
+    implementation 'com.netease.nimlib:push:5.5.0'
+    compile 'com.tencent.bugly:crashreport:2.1.9'
+    //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    compile 'com.tencent.bugly:nativecrashreport:3.0'
+    //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+    implementation files('libs/vcloudUpload.jar')
+    implementation files('libs/nos-android-sdk-allin-2.0.3.jar')
+    implementation files('libs/Livestreaming_v2.1.0.jar')
+    implementation files('libs/NELivePlayer-1.3.0.jar')
+    compile 'com.github.Jay-Goo:RangeSeekBar:v1.0.7'
+    //okhttp + 拦截器
+    api 'com.squareup.okhttp3:okhttp:3.4.1'
+    api 'com.github.bumptech.glide:okhttp3-integration:4.3.1'
+    //
+    compile 'com.tencent.sonic:sdk:3.1.0'
+    compile 'com.github.yyued:SVGAPlayer-Android:2.0.0'
+    implementation files('libs/Transcode-2.5.5.jar')
+    implementation 'com.github.xiaohaibin:XBanner:1.7.3'
+}

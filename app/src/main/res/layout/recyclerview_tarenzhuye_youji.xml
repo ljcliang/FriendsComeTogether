@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:test="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_taren_youji"
+    android:orientation="vertical"
+    android:background="@color/white_ffffff"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tv_youji_time"
+        android:text=""
+        android:textSize="30px"
+        android:textStyle="bold"
+        android:textColor="@color/black_333333"
+        android:layout_marginTop="26px"
+        android:lines="1"
+        android:ellipsize="end"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+    <com.yiwo.friendscometogether.widget.CustomRoundAngleImageView
+        test:radius1="16px"
+        android:layout_marginTop="20px"
+        android:id="@+id/iv_taren_pics0"
+        android:src="@mipmap/zanwutupian"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="354px" />
+    <LinearLayout
+        android:layout_marginTop="6px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.yiwo.friendscometogether.widget.CustomRoundAngleImageView
+            android:id="@+id/iv_taren_pics1"
+            test:radius1="16px"
+            android:src="@mipmap/zanwutupian"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_marginRight="3.5px"
+            android:layout_height="176px" />
+        <com.yiwo.friendscometogether.widget.CustomRoundAngleImageView
+            android:id="@+id/iv_taren_pics2"
+            test:radius1="16px"
+            android:layout_marginRight="3.5px"
+            android:layout_marginLeft="3.5px"
+            android:src="@mipmap/zanwutupian"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="176px" />
+        <com.yiwo.friendscometogether.widget.CustomRoundAngleImageView
+            android:id="@+id/iv_taren_pics3"
+            test:radius1="16px"
+            android:layout_marginLeft="3.5px"
+            android:src="@mipmap/zanwutupian"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="176px" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_youji_name"
+        android:lines="1"
+        android:ellipsize="end"
+        android:layout_marginTop="20px"
+        android:text=""
+        android:textSize="44px"
+        android:textColor="#272A2C"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:layout_marginTop="20px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/ll_youji_location"
+            android:background="@drawable/bg_white_efeff3_8px"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="52px">
+            <ImageView
+                android:layout_marginRight="4px"
+                android:layout_marginLeft="18px"
+                android:src="@mipmap/location_blue"
+                android:layout_width="22px"
+                android:layout_height="28px" />
+            <TextView
+                android:id="@+id/tv_youji_location"
+                android:layout_marginRight="18px"
+                android:textColor="#272A2C"
+                android:textSize="26px"
+                android:text=""
+                android:lines="1"
+                android:ellipsize="end"
+                android:maxWidth="300px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="52px">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_marginRight="12px"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/eye_black"
+                    android:layout_width="48px"
+                    android:layout_height="31px" />
+                <TextView
+                    android:id="@+id/tv_youji_see_num"
+                    android:layout_marginRight="30px"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:text="35"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="28px"
+                    android:textColor="#272A2C"
+                    android:maxWidth="150px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_pinglun"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_marginRight="12px"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/xiaoxi_rv"
+                    android:layout_width="42px"
+                    android:layout_height="37px" />
+                <TextView
+                    android:id="@+id/tv_youji_pinglun_num"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:text="26"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="28px"
+                    android:textColor="#272A2C"
+                    android:maxWidth="100px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_feelgoods"
+        android:lines="1"
+        android:ellipsize="end"
+        android:layout_marginTop="10px"
+        android:text=""
+        android:textColor="#505050"
+        android:textSize="24px"
+
+        android:layout_width="400px"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:id="@+id/llComment1"
+        android:orientation="horizontal"
+        android:layout_marginTop="10px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_youji_pinglun_username_0"
+            android:text=""
+            android:textColor="#272A2C"
+            android:textSize="28px"
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:ellipsize="middle"
+            android:maxWidth="200px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_youji_pinglun_content_0"
+            android:text=""
+            android:maxLength="85"
+            android:ellipsize="end"
+            android:textColor="#505050"
+            android:textSize="28px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llComment2"
+        android:orientation="horizontal"
+        android:layout_marginTop="4px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_youji_pinglun_username_1"
+            android:text=""
+            android:textColor="#272A2C"
+            android:textSize="28px"
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:ellipsize="middle"
+            android:maxWidth="200px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_youji_pinglun_content_1"
+            android:text=""
+            android:maxLength="85"
+            android:ellipsize="end"
+            android:textColor="#505050"
+            android:textSize="28px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tvAllCommentNum"
+        android:layout_marginTop="10px"
+        android:textSize="24px"
+        android:textColor="#D84C37"
+        android:lines="1"
+        android:ellipsize="end"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_marginTop="40px"
+        android:background="#979797"
+        android:layout_width="match_parent"
+        android:layout_height="2px"></View>
+
+
+</LinearLayout>

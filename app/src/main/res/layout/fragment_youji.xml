@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F8F8">
+
+    <RelativeLayout
+        android:id="@+id/fragment_youji_rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="128px"
+        android:background="@color/red_d84c37">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:layout_alignParentBottom="true">
+
+
+            <RelativeLayout
+                android:id="@+id/rl_back"
+                android:layout_width="88px"
+                android:layout_height="match_parent">
+                <ImageView
+                    style="@style/iv_return" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/searchLl"
+                android:layout_width="508px"
+                android:layout_height="70px"
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_white_12px">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+
+                        android:layout_width="25px"
+                        android:layout_height="25px"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="12px"
+                        android:src="@mipmap/serach" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="搜索友记"
+                        android:textColor="#747577"
+                        android:textSize="28px" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:visibility="visible"
+                android:id="@+id/rl_nearby"
+                android:layout_width="100px"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true">
+
+                <ImageView
+                    android:id="@+id/iv_nearby"
+                    android:layout_width="50px"
+                    android:layout_height="50px"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="30px"
+                    android:src="@mipmap/youji_location" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/fragment_youji_refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/fragment_youji_rl_top">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_youji"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15px"
+            android:layout_marginRight="15px"
+            android:layout_marginTop="8px" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</RelativeLayout>

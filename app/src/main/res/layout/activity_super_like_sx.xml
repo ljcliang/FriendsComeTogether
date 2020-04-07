@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yiwo.friendscometogether.newpage.SuperLikeSxActivity">
+
+    <RelativeLayout
+        style="@style/rl_top_bar">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            style="@style/rl_return">
+
+            <ImageView
+                style="@style/iv_return" />
+
+        </RelativeLayout>
+
+        <TextView
+            style="@style/tv_top_title"
+            android:text="筛选设置"
+             />
+        <RelativeLayout
+            android:id="@+id/rl_sure"
+            android:layout_alignParentRight="true"
+            android:layout_width="100px"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:text="确定"
+                android:textSize="30px"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_marginLeft="38px"
+        android:textSize="28px"
+        android:textColor="@color/black_333333"
+        android:layout_marginTop="30px"
+        android:text="你想要怎样的另一半？"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_marginTop="26px"
+        android:layout_width="match_parent"
+        android:layout_height="68px">
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0px"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv1"
+                android:background="@drawable/bg_gray_20px"
+                android:layout_marginRight="25px"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:textColor="@color/black_333333"
+                android:textSize="28px"
+                android:text="小哥哥"
+                android:layout_width="230px"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0px"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv2"
+                android:background="@drawable/bg_red_20px"
+                android:layout_marginLeft="25px"
+                android:gravity="center"
+                android:textColor="@color/white_ffffff"
+                android:textSize="28px"
+                android:text="小姐姐"
+                android:layout_width="230px"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginLeft="38px"
+        android:layout_marginTop="70px"
+        android:textSize="28px"
+        android:textColor="@color/black_333333"
+        android:text="你希望你的另一半在哪里？"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_marginTop="26px"
+        android:layout_width="match_parent"
+        android:layout_height="68px">
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0px"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv3"
+                android:background="@drawable/bg_gray_20px"
+                android:layout_marginRight="25px"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:textColor="@color/black_333333"
+                android:textSize="28px"
+                android:text="同城优选"
+                android:layout_width="230px"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0px"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv4"
+                android:background="@drawable/bg_red_20px"
+                android:layout_marginLeft="25px"
+                android:gravity="center"
+                android:textColor="@color/white_ffffff"
+                android:textSize="28px"
+                android:text="都可以"
+                android:layout_width="230px"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginLeft="38px"
+        android:layout_marginTop="70px"
+        android:textColor="@color/black_333333"
+        android:textSize="28px"
+        android:text="你希望另一半的年龄"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_marginRight="90px"
+        android:layout_marginLeft="38px"
+        android:layout_marginTop="10px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_age"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/black_333333"
+            android:textSize="28px"
+            android:text="25-30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.yiwo.friendscometogether.widget.RangeSeekBar
+            android:id="@+id/seekbar"
+            android:layout_below="@+id/tv_age"
+            android:layout_width="match_parent"
+            android:layout_height="32px"
+            app:min="1"
+            app:max="100"
+            app:lineColorEdge="#BBBBBB"
+            app:lineColorSelected="#4CD964"
+            app:seekBarResId="@mipmap/circle"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:layout_marginLeft="38px"
+        android:layout_marginRight="90px"
+        android:layout_marginTop="70px"
+        android:layout_width="match_parent"
+        android:layout_height="101px">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="是否单身"
+            android:textColor="@color/black_333333"
+            android:textSize="28px" />
+
+        <ImageView
+            android:id="@+id/iv_expand_search"
+            android:src="@mipmap/switch_on"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="104px"
+            android:layout_height="71px" />
+
+    </RelativeLayout>
+    
+    <View
+        android:layout_marginTop="40px"
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="2px"/>
+
+</LinearLayout>

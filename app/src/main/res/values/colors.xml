@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="colorPrimary">#3F51B5</color>
+  <color name="colorPrimaryDark">#d84c37</color>
+  <color name="colorAccent">#d84c37</color>
+  <!--颜色面板-->
+  <color name="yellow_ffc822">#ffc822</color>
+  <color name="blue_2681fc">#2681fc</color>
+  <color name="purple_8071f9">#8071f9</color>
+  <color name="blue_3dc4ff">#3dc4ff</color>
+  <color name="gray_c4ced3">#c4ced3</color>
+  <color name="gray_a0a0a0">#a0a0a0</color>
+  <color name="red_ff3e50">#ff3e50</color>
+  <color name="green_06d413">#06d413</color>
+  <color name="black_252323">#252323</color>
+  <color name="white_ffffff">#ffffff</color>
+  <color name="white_F8F8F8">#F8F8F8</color>
+  <color name="translate">#00000000</color>
+  <color name="blue_54affd">#54affd</color>
+  <color name="yellow_ff9d00">#ff9d00</color>
+  <color name="yellow_F5A623">#F5A623</color>
+  <color name="black_626262">#626262</color>
+  <color name="gray_979797">#979797</color>
+  <color name="gray_999999">#999999</color>\
+  <color name="gray_f1f1f1">#f1f1f1</color>
+  <color name="gray_cacaca">#cacaca</color>
+  <color name="blue_449CFA">#449CFA</color>
+  <color name="black_333333">#333333</color>
+  <color name="black_f8f8f8">#f2f2f2</color>
+  <color name="yellow_fea81f">#fea81f</color>
+  <color name="gray_e5e5e5">#e5e5e5</color>
+  <color name="gray_101010">#10101000</color>
+  <color name="black_101010">#101010</color>
+  <color name="red_F71F1F">#F71F1F</color>
+  <color name="red_d84c37">#d84c37</color>
+  <color name="gray_909090">#909090</color>
+  <color name="line">#f2f2f2</color>
+
+  <color name="background">#FFFFFF</color>
+  <color name="split_line">#11112233</color>
+  <color name="text1">#ff9d00</color>
+  <color name="text2">#333333</color>
+
+  <color name="color1">#F0F0F0</color>
+  <color name="color2">#FFFFFF</color>
+  <color name="color3">#B0B0B0</color>
+  <color name="color4">#666666</color>
+  <color name="color5">#57C5E8</color>
+
+  <color name="bg_edittext_color">#00000000</color>
+
+  <color name="bg_horizontal_line_color">#80a3a4a7</color>
+  <color name="bg_horizontal_btn_normal">#eeeeee</color>
+  <color name="bg_horizontal_btn_selected">#70a3a4a7</color>
+
+  <color name="bg_indicator_point_normal">#D8D8D8</color>
+  <color name="bg_indicator_point_selected">#A6A6A6</color>
+
+  <color name="mix_audio_bg">#80000000</color>
+  <color name="color_upload_normal">#999999</color>
+  <color name="color_upload_fail">#f05b60</color>
+  <color name="color_black_CC000000">#CC000000</color>
+  <color name="color_blue_FF2084FF">#FF2084FF</color>
+  <color name="color_black_cc000000">#cc000000</color>
+  <color name="color_white_66ffffff">#66ffffff</color>
+  <color name="color_grey_1affffff">#1AFFFFFF</color>
+  <color name="color_gray_73ffffff">#73ffffff</color>
+  <color name="color_gray_1affffff">#1AFFFFFF</color>
+  <color name="color_chat_text">#ffffff</color>
+  <color name="color_chat_text_name">#d84c37</color>
+  <color name="list_divider">#534f4d</color>
+  <color name="list_select">#238efa</color>
+</resources>

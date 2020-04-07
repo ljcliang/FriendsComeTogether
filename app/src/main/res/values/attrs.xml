@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Round_Image_View">
+        <attr name="radius1" format="dimension"/>
+        <attr name="left_top_radius1" format="dimension"/>
+        <attr name="right_top_radius1" format="dimension"/>
+        <attr name="right_bottom_radius1" format="dimension"/>
+        <attr name="left_bottom_radius1" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="RangeSeekBar">
+        <attr name="max" format="float"/>
+        <attr name="min" format="float"/>
+        <attr name="reserve" format="float"/>
+        <attr name="cells" format="integer"/>
+        <attr name="lineColorSelected" format="color"/>
+        <attr name="lineColorEdge" format="color"/>
+        <attr name="seekBarResId" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="EmojiconStyle">
+        <attr name="emojiconGridViewStyle" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="Emojicon">
+        <attr name="emojiconSize" format="dimension" />
+        <attr name="emojiconAlignment" format="enum">
+            <enum name="bottom" value="0" />
+            <enum name="baseline" value="1" />
+        </attr>
+        <attr name="emojiconTextStart" format="integer" />
+        <attr name="emojiconTextLength" format="integer" />
+        <attr name="emojiconUseSystemDefault" format="boolean" />
+    </declare-styleable>
+
+
+    <!--新的滑动控件-->
+    <declare-styleable name="SwipeFlingView">
+        <attr name="rotation_degrees" format="float"/>
+        <attr name="min_adapter_stack" format="integer"/>
+        <attr name="max_visible" format="integer"/>
+    </declare-styleable>
+
+</resources>

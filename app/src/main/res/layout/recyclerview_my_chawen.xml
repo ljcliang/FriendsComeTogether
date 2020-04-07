@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white_ffffff"
+    android:id="@+id/ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:lines="1"
+        android:ellipsize="end"
+        android:id="@+id/tv_title"
+        android:layout_marginTop="30px"
+        android:layout_marginLeft="32px"
+        android:layout_marginRight="32px"
+        android:textStyle="bold"
+        android:textColor="@color/black_333333"
+        android:textSize="32px"
+        android:text="多年的期待等待，只为放飞那一个的浪漫（2018 年清迈水灯节）"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_alignParentTop="true"
+            android:id="@+id/tv_date"
+            android:layout_gravity="left"
+            android:layout_marginLeft="32px"
+            android:layout_marginTop="10px"
+            android:textColor="#505050"
+            android:textSize="24px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_staus"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="32px"
+            android:layout_marginTop="10px"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="30px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_pics"
+        android:layout_marginTop="10px"
+        android:layout_marginLeft="32px"
+        android:layout_marginRight="32px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_delete"
+        android:gravity="center"
+        android:background="@drawable/bg_red_border_26px"
+        android:textColor="#d84c37"
+        android:textSize="24px"
+        android:text="删除"
+        android:layout_marginBottom="20px"
+        android:layout_marginTop="30px"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="236px"
+        android:layout_height="52px" />
+
+    <View
+        android:background="@color/line"
+        android:layout_width="match_parent"
+        android:layout_height="2px"/>
+
+</LinearLayout>

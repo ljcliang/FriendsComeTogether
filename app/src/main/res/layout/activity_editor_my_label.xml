@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:orientation="vertical"
+    tools:context="com.yiwo.friendscometogether.newpage.EditorMyLabelActivity">
+
+    <RelativeLayout
+       style="@style/rl_top_bar">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="100px"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="取消"
+                android:textColor="@color/white_ffffff"
+                android:textSize="32px" />
+
+        </RelativeLayout>
+
+        <TextView
+            style="@style/tv_top_title"
+            android:text="我的标签"
+             />
+
+        <RelativeLayout
+            android:id="@+id/rl_save"
+            android:layout_width="100px"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="完成"
+                android:textColor="@color/white_ffffff"
+                android:textSize="32px" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24px"
+        android:layout_marginRight="24px"
+        android:layout_marginTop="130px">
+
+        <EditText
+            android:id="@+id/edit_lable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50px"
+            android:background="#F5F5F5"
+            android:lines="1"
+            android:textColor="#5B5B5A"
+            android:textCursorDrawable="@drawable/bg_cursor_mylabel"
+            android:textSize="32px" />
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/rl_clear"
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:layout_alignBottom="@+id/edit_lable"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/iv_clear"
+                android:layout_width="30px"
+                android:layout_height="30px"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="2px"
+                android:src="@mipmap/clear" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_marginLeft="24px"
+        android:layout_marginRight="24px"
+        android:layout_marginTop="4px"
+        android:background="#979797" />
+</LinearLayout>

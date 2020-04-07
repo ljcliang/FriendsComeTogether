@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:test="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_f1f1f1"
+    tools:context="com.yiwo.friendscometogether.pages.DetailsToBePaidActivity">
+
+    <RelativeLayout
+        android:id="@+id/activity_details_to_pay_rl_top"
+        style="@style/rl_top_bar">
+
+        <TextView
+            android:id="@+id/activity_details_to_pay_tv_status"
+            android:text="订单详情"
+            style="@style/tv_top_title" />
+        
+        <RelativeLayout
+            android:id="@+id/activity_details_to_pay_rl_back"
+            android:layout_width="100px"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/iv_return" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <ScrollView
+        android:layout_above="@+id/ll_bottom"
+        android:layout_below="@+id/activity_details_to_pay_rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_marginTop="20px"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_marginLeft="25px"
+                android:layout_marginRight="25px"
+                android:layout_marginBottom="10px"
+                android:background="@drawable/bg_white_30px"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="78px">
+                    <LinearLayout
+                        android:layout_marginLeft="26px"
+                        android:layout_centerVertical="true"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:src="@mipmap/order_icon"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="10px"
+                            android:layout_width="30px"
+                            android:layout_height="30px" />
+                        <TextView
+                            android:layout_gravity="center_vertical"
+                            android:textStyle="bold"
+                            android:id="@+id/activity_details_to_pay_tv_title"
+                            android:textColor="#333333"
+                            android:textSize="26px"
+                            android:text="云南旅游"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_order_status"
+                        android:layout_marginRight="26px"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:textColor="#D84C37"
+                        android:textSize="26px"
+                        android:text="待付款"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+                <View
+                    android:background="@color/gray_f1f1f1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="210px">
+
+                    <com.yiwo.friendscometogether.widget.CustomRoundAngleImageView
+                        test:radius1="40px"
+                        android:id="@+id/activity_details_to_pay_iv_title"
+                        android:scaleType="centerCrop"
+                        android:layout_marginLeft="24px"
+                        android:layout_centerVertical="true"
+                        android:layout_width="180px"
+                        android:layout_height="180px" />
+                    <LinearLayout
+                        android:layout_centerVertical="true"
+                        android:layout_alignTop="@+id/activity_details_to_pay_iv_title"
+                        android:layout_marginLeft="20px"
+                        android:orientation="vertical"
+                        android:layout_toRightOf="@+id/activity_details_to_pay_iv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="170px">
+                        <TextView
+                            android:layout_weight="1"
+                            android:id="@+id/tv_start_time"
+                            android:textColor="@color/gray_999999"
+                            android:textSize="24px"
+                            android:text="开始时间："
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:layout_weight="1"
+                            android:id="@+id/tv_end_time"
+                            android:textColor="@color/gray_999999"
+                            android:textSize="24px"
+                            android:text="结束时间："
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+
+                        <TextView
+                            android:layout_weight="1"
+                            android:textColor="@color/gray_999999"
+                            android:textSize="24px"
+                            android:id="@+id/tv_people_num"
+                            android:text="参加人数："
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:layout_weight="1"
+                            android:textColor="@color/gray_999999"
+                            android:textSize="24px"
+                            android:id="@+id/tv_noname"
+                            android:text="是否匿名："
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </RelativeLayout>
+                <View
+                    android:background="@color/gray_f1f1f1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="80px">
+                    <TextView
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        android:id="@+id/activity_details_to_pay_tv_price_details"
+                        android:layout_marginLeft="40px"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/black_333333"
+                        android:textSize="28px"
+                        android:text="自费"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/activity_details_to_pay_tv_price"
+                        android:layout_marginRight="24px"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:textColor="#D84C37"
+                        android:textSize="24px"
+                        android:text="合计：¥8888"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:paddingBottom="40px"
+                android:layout_marginTop="20px"
+                android:orientation="vertical"
+                android:background="@color/white_ffffff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textStyle="bold"
+                    android:text="订单信息"
+                    android:textSize="28px"
+                    android:textColor="@color/color_black_333333"
+                    android:layout_marginTop="40px"
+                    android:layout_marginLeft="38px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/activity_details_to_pay_tv_order_number"
+                    android:layout_marginLeft="38px"
+                    android:layout_marginTop="22px"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="26px"
+                    android:text="订单编号："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:textSize="26px"
+                    android:layout_marginLeft="38px"
+                    android:layout_marginTop="18px"
+                    android:textColor="@color/gray_999999"
+                    android:id="@+id/activity_details_to_pay_tv_trade_number"
+                    android:text="交易号："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:visibility="visible"
+                    android:textSize="26px"
+                    android:layout_marginLeft="38px"
+                    android:layout_marginTop="18px"
+                    android:textColor="@color/gray_999999"
+                    android:id="@+id/activity_details_to_pay_tv_create_time"
+                    android:text="创建时间："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:visibility="visible"
+                    android:textSize="26px"
+                    android:layout_marginLeft="38px"
+                    android:layout_marginTop="18px"
+                    android:textColor="@color/gray_999999"
+                    android:id="@+id/activity_details_to_pay_tv_youhuiquan"
+                    android:text="优惠券："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:visibility="gone"
+                    android:textSize="26px"
+                    android:layout_marginLeft="38px"
+                    android:layout_marginTop="18px"
+                    android:textColor="@color/gray_999999"
+                    android:id="@+id/activity_details_to_pay_tv_pay_time"
+                    android:text="付款时间："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:textSize="26px"
+                    android:layout_marginLeft="38px"
+                    android:layout_marginTop="18px"
+                    android:textColor="@color/gray_999999"
+                    android:id="@+id/activity_details_to_pay_tv_pay_ok_time"
+                    android:text="成交时间：2018-04-02 12：12：31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:visibility="gone"
+                    android:textSize="26px"
+                    android:layout_marginLeft="38px"
+                    android:layout_marginTop="18px"
+                    android:textColor="@color/gray_999999"
+                    android:id="@+id/activity_details_to_pay_tv_who_pay"
+                    android:text="费用：邀请人已支付 "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:visibility="gone"
+                    android:textSize="26px"
+                    android:layout_marginLeft="38px"
+                    android:layout_marginTop="18px"
+                    android:textColor="@color/gray_999999"
+                    android:id="@+id/tv_return_money"
+                    android:text="退款金额：0.00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/ll_return_why"
+                    android:layout_marginLeft="38px"
+                    android:layout_marginRight="38px"
+                    android:layout_marginTop="18px"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textSize="26px"
+                        android:text="活动取消原因："
+                        android:textColor="@color/gray_999999"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_return_why"
+                        android:textSize="26px"
+                        android:text="退款原因退款原因退款原因退款原因退款原因退款原因"
+                        android:textColor="@color/gray_999999"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:textStyle="bold"
+                android:lines="1"
+                android:ellipsize="end"
+                android:layout_marginTop="40px"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/tv_return_know"
+                android:textSize="26px"
+                android:text=""
+                android:textColor="@color/gray_999999"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:id="@+id/ll_bottom"
+        android:background="@color/white_ffffff"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="100px">
+        <RelativeLayout
+            android:id="@+id/rl_btns"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/details_to_pay_rv_tv_cancle_trip"
+                    android:text="取消活动"
+                    android:layout_marginRight="20px"
+                    android:gravity="center"
+                    android:textSize="26px"
+                    android:textColor="#686868"
+                    android:background="@drawable/bg_gray_border_27px"
+                    android:layout_width="150px"
+                    android:layout_height="54px" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/details_to_pay_rv_tv_delete_trip"
+                    android:background="@drawable/bg_gray_border_27px"
+                    android:layout_marginRight="20px"
+                    android:gravity="center"
+                    android:textSize="26px"
+                    android:textColor="#686868"
+                    android:text="删除活动"
+                    android:layout_width="150px"
+                    android:layout_height="54px" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/details_to_pay_rv_tv_to_trip"
+                    android:textColor="#D84C37"
+                    android:background="@drawable/bg_red_border_27px"
+                    android:gravity="center"
+                    android:layout_marginRight="20px"
+                    android:layout_alignParentRight="true"
+                    android:textSize="26px"
+                    android:text="待行程"
+                    android:layout_width="150px"
+                    android:layout_height="54px" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/details_to_pay_rv_tv_triping"
+                    android:textColor="#D84C37"
+                    android:background="@drawable/bg_red_border_27px"
+                    android:gravity="center"
+                    android:layout_marginRight="20px"
+                    android:layout_alignParentRight="true"
+                    android:textSize="26px"
+                    android:text="行程中"
+                    android:layout_width="150px"
+                    android:layout_height="54px" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/details_to_pay_rv_tv_comment"
+                    android:textColor="#D84C37"
+                    android:background="@drawable/bg_red_border_27px"
+                    android:gravity="center"
+                    android:layout_marginRight="20px"
+                    android:layout_alignParentRight="true"
+                    android:textSize="26px"
+                    android:text="评价"
+                    android:layout_width="150px"
+                    android:layout_height="54px" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/details_to_pay_rv_tv_payment"
+                    android:textColor="#D84C37"
+                    android:layout_width="150px"
+                    android:layout_height="54px"
+                    android:layout_marginRight="20px"
+                    android:background="@drawable/bg_red_border_27px"
+                    android:textSize="26px"
+                    android:gravity="center"
+                    android:layout_alignParentRight="true"
+                    android:text="付款"
+                     />
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/details_to_pay_rv_tv_ok_return"
+                    android:textColor="#D84C37"
+                    android:background="@drawable/bg_red_border_27px"
+                    android:gravity="center"
+                    android:layout_marginRight="20px"
+                    android:layout_alignParentRight="true"
+                    android:textSize="26px"
+                    android:text="已退款"
+                    android:layout_width="150px"
+                    android:layout_height="54px" />
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/details_to_pay_rv_tv_returning"
+                    android:textColor="#D84C37"
+                    android:background="@drawable/bg_red_border_27px"
+                    android:gravity="center"
+                    android:layout_marginRight="20px"
+                    android:layout_alignParentRight="true"
+                    android:textSize="26px"
+                    android:text="退款中"
+                    android:layout_width="150px"
+                    android:layout_height="54px" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+        <TextView
+            android:background="@color/red_d84c37"
+            android:id="@+id/tv_niming_staus"
+            android:textSize="30px"
+            android:textColor="@color/white_ffffff"
+            android:lines="1"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</RelativeLayout>

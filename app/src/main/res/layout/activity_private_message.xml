@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yiwo.friendscometogether.newpage.PrivateMessageActivity">
+    <RelativeLayout
+        style="@style/rl_top_bar">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            style="@style/rl_return">
+
+            <ImageView
+                style="@style/iv_return" />
+
+        </RelativeLayout>
+
+        <TextView
+            style="@style/tv_top_title"
+            android:text="私信"
+             />
+    <RelativeLayout
+        android:id="@+id/rl_clear"
+        android:layout_alignParentRight="true"
+        android:layout_width="100px"
+        android:layout_height="match_parent">
+        <TextView
+            android:textColor="@color/white_ffffff"
+            android:textSize="30px"
+            android:text="清空"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    </RelativeLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_private_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+        </ScrollView>
+</LinearLayout>

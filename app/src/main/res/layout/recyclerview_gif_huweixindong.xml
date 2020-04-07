@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/iv_gif"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:id="@+id/ll_icon"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:scaleType="fitXY"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/huweixindong_icon_bg"
+                        android:layout_width="200px"
+                        android:layout_height="200px" />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_centerInParent="true"
+                        android:id="@+id/iv_icon_mine"
+                        android:src="@mipmap/my_head"
+                        android:layout_width="167px"
+                        android:layout_height="167px" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/huweixindong_icon_bg"
+                        android:layout_width="200px"
+                        android:layout_height="200px" />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_centerInParent="true"
+                        android:id="@+id/iv_icon_other"
+                        android:src="@mipmap/my_head"
+                        android:layout_width="167px"
+                        android:layout_height="167px" />
+                </RelativeLayout>
+            </LinearLayout>
+            <ImageView
+                android:src="@drawable/huweixindong_text"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="190px"
+                android:layout_height="80px" />
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/btn_liaotian"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80px"
+        android:background="@drawable/bg_a1833a_5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="100px" >
+        <LinearLayout
+            android:layout_marginRight="100px"
+            android:layout_marginLeft="70px"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/btn_message"
+                android:layout_marginLeft="8px"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/tv_mashanglianxi"
+                android:layout_width="70px"
+                android:layout_height="70px" />
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:id="@+id/tv_mashanglianxi"
+                android:layout_centerInParent="true"
+                android:textSize="40px"
+                android:textColor="@color/white_ffffff"
+                android:text="马上联系"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>
