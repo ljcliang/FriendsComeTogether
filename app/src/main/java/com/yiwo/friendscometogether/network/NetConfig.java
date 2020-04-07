@@ -458,5 +458,9 @@ public class NetConfig {
     public static String yj_video = "action/ac_newHome/yj_video";
     //action/ac_newHome/homePageGz action/ac_newHome/homePageGz   首页关注接口  传uid用户id
     public static String homePageGz = "action/ac_newHome/homePageGz";
-
+//    action/ac_newHome/homeGoodsList   友铺接口   传page , uid
+    public static String homeGoodsList = "action/ac_newHome/homeGoodsList";
+//action/ac_newHome/yjVideoList   游记视频列表
+//传page 分页  uid用户id
+public static String yjVideoList = "action/ac_newHome/yjVideoList";
 }

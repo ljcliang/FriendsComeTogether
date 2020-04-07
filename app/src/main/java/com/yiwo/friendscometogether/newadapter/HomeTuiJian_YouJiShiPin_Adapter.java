@@ -151,7 +151,7 @@ public class HomeTuiJian_YouJiShiPin_Adapter extends RecyclerView.Adapter<HomeTu
             Glide.with(context).load(data.get(position).getInPerson().get(3)).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_canyu4);
         }
         if (data.get(position).getInPerson().size()>4){
-            holder.iv_canyu4.setVisibility(View.VISIBLE);
+            holder.iv_canyu5.setVisibility(View.VISIBLE);
             Glide.with(context).load(data.get(position).getInPerson().get(4)).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_canyu5);
         }
 

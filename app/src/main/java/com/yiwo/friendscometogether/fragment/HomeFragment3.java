@@ -71,11 +71,14 @@ import com.yiwo.friendscometogether.newadapter.HomeTuiJian_JianTuShiKe_Adapter;
 import com.yiwo.friendscometogether.newadapter.HomeTuiJian_ReMenDuiZhang_Adapter;
 import com.yiwo.friendscometogether.newadapter.HomeTuiJian_YouJiShiPin_Adapter;
 import com.yiwo.friendscometogether.newadapter.HomeTui_JianJingCaiLuXian_Adapter;
+import com.yiwo.friendscometogether.newadapter.HomeYouPu_Adapter;
+import com.yiwo.friendscometogether.newadapter.Home_YouJiShiPin_0407_Adapter;
 import com.yiwo.friendscometogether.newmodel.HomeDataModel;
 import com.yiwo.friendscometogether.newmodel.HomeGuanZhuModel;
 import com.yiwo.friendscometogether.newmodel.HomeTuiJianModel;
 import com.yiwo.friendscometogether.newmodel.HomeTuiJianYouJiShiPinModel;
-import com.yiwo.friendscometogether.newmodel.HomeVideoListModel;
+import com.yiwo.friendscometogether.newmodel.HomeYouPuModel;
+import com.yiwo.friendscometogether.newmodel.Home_youjiShiPin_0407_model;
 import com.yiwo.friendscometogether.newpage.MessageActivity;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.pages.CityActivity;
@@ -219,13 +222,14 @@ public class HomeFragment3 extends BaseFragment {
 
     //友铺
     RecyclerView rv_youpu;//小视频
-    private HomeListVideoAdapter adapterVideos;//视频列表适配器
+    private HomeYouPu_Adapter youPuAdapter;//视频列表适配器
+    private List<HomeYouPuModel.ObjBean> listYouPu = new ArrayList<>();
 
     //友记
     RecyclerView recyclerView3;//友记
-    private HomeListYouJiAdapter adapterYouji;//友记列表适配器
-    private List<HomeDataModel.ObjBean> mListYouJi = new ArrayList<>();//友记列表list
-    private List<HomeVideoListModel.ObjBean> mListVideos = new ArrayList<>();//视频列表list
+    private Home_YouJiShiPin_0407_Adapter adapterYouji;//友记列表适配器
+    private List<Home_youjiShiPin_0407_model.ObjBean> mListYouJi = new ArrayList<>();//友记列表list
+
     private int page1 = 1;
     private int page2 = 1;
     private int page3 = 1;
@@ -425,7 +429,7 @@ public class HomeFragment3 extends BaseFragment {
 
 
         recyclerView3 = view3.findViewById(R.id.rv_home_3);
-        rv_youpu = view4.findViewById(R.id.rv_home_4);
+        rv_youpu = view4.findViewById(R.id.rv_youpu);
 
         PagerAdapter pagerAdapter = new PagerAdapter() {
 
@@ -868,8 +872,8 @@ public class HomeFragment3 extends BaseFragment {
                     }
                 });
         //友记
-        ViseHttp.POST(NetConfig.homeYouJi)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.homeYouJi))
+        ViseHttp.POST(NetConfig.yjVideoList)
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.yjVideoList))
                 .addParam("uid", uid)
 //                .addParam("city", cityName)
                 .request(new ACallback<String>() {
@@ -879,22 +883,17 @@ public class HomeFragment3 extends BaseFragment {
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.getInt("code") == 200){
                                 Gson gson = new Gson();
-                                HomeDataModel model = gson.fromJson(data, HomeDataModel.class);
+                                Home_youjiShiPin_0407_model model = gson.fromJson(data, Home_youjiShiPin_0407_model.class);
                                 page3 = 2;
                                 mListYouJi = model.getObj();
                                 if (mListYouJi.size()>0){
                                     if (hasPermission()){
-                                        preLoadYouJi_youji_and_guanzhu(mListYouJi);
+                                        preLoadYouJi_youji(mListYouJi);
                                     }else {
                                         requestPermission();
                                     }
                                 }
-                                adapterYouji = new HomeListYouJiAdapter(mListYouJi);
-                                adapterYouji.setOnLongClickListener(new HomeListYouJiAdapter.OnLongClickListener() {
-                                    @Override
-                                    public void OnLongClick(int position) {
-                                    }
-                                });
+                                adapterYouji = new Home_YouJiShiPin_0407_Adapter(mListYouJi);
                                 // /设置布局管理器为2列，纵向
                                 StaggeredGridLayoutManager mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL){
                                     @Override
@@ -914,9 +913,9 @@ public class HomeFragment3 extends BaseFragment {
                     public void onFail(int errCode, String errMsg) {
                     }
                 });
-        //小视频
-        ViseHttp.POST(NetConfig.homeVideo)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.homeVideo))
+        //友铺
+        ViseHttp.POST(NetConfig.homeGoodsList)
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.homeGoodsList))
                 .addParam("uid", uid)
                 .request(new ACallback<String>() {
                     @Override
@@ -925,9 +924,9 @@ public class HomeFragment3 extends BaseFragment {
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.getInt("code") == 200){
                                 Gson gson = new Gson();
-                                HomeVideoListModel model = gson.fromJson(data, HomeVideoListModel.class);
+                                HomeYouPuModel model = gson.fromJson(data, HomeYouPuModel.class);
                                 page4 = 2;
-                                mListVideos = model.getObj();
+                                listYouPu = model.getObj();
                                 // /设置布局管理器为2列，纵向
                                 StaggeredGridLayoutManager mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL){
                                     @Override
@@ -936,8 +935,8 @@ public class HomeFragment3 extends BaseFragment {
                                     }
                                 };
                                 rv_youpu.setLayoutManager(mLayoutManager);
-                                adapterVideos = new HomeListVideoAdapter(mListVideos);
-                                rv_youpu.setAdapter(adapterVideos);
+                                youPuAdapter = new HomeYouPu_Adapter(listYouPu);
+                                rv_youpu.setAdapter(youPuAdapter);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -1045,8 +1044,8 @@ public class HomeFragment3 extends BaseFragment {
                                 });
                         break;
                     case "3":
-                        ViseHttp.POST(NetConfig.homeYouJi)
-                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.homeYouJi))
+                        ViseHttp.POST(NetConfig.yjVideoList)
+                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.yjVideoList))
                                 .addParam("uid", uid)
 //                                .addParam("city", cityName)
                                 .addParam("page",page3+"")
@@ -1058,11 +1057,11 @@ public class HomeFragment3 extends BaseFragment {
                                             JSONObject jsonObject = new JSONObject(data);
                                             if(jsonObject.getInt("code") == 200){
                                                 Gson gson = new Gson();
-                                                HomeDataModel model = gson.fromJson(data, HomeDataModel.class);
+                                                Home_youjiShiPin_0407_model model = gson.fromJson(data, Home_youjiShiPin_0407_model.class);
 //                                        mList.clear();
                                                 if (model.getObj().size()>0){
                                                     mListYouJi.addAll(model.getObj());
-                                                    preLoadYouJi_youji_and_guanzhu(model.getObj());
+                                                    preLoadYouJi_youji(model.getObj());
                                                     adapterYouji.notifyDataSetChanged();
                                                     page3++;
                                                 }
@@ -1083,8 +1082,8 @@ public class HomeFragment3 extends BaseFragment {
                                 });
                         break;
                     case "4":
-                        ViseHttp.POST(NetConfig.homeVideo)
-                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.homeVideo))
+                        ViseHttp.POST(NetConfig.homeGoodsList)
+                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.homeGoodsList))
                                 .addParam("uid", uid)
                                 .addParam("page",page4+"")
                                 .request(new ACallback<String>() {
@@ -1095,10 +1094,10 @@ public class HomeFragment3 extends BaseFragment {
                                             JSONObject jsonObject = new JSONObject(data);
                                             if(jsonObject.getInt("code") == 200){
                                                 Gson gson = new Gson();
-                                                HomeVideoListModel model = gson.fromJson(data, HomeVideoListModel.class);
+                                                HomeYouPuModel model = gson.fromJson(data, HomeYouPuModel.class);
                                                 if (model.getObj().size()>0){
-                                                    mListVideos.addAll(model.getObj());
-                                                    adapterVideos.notifyDataSetChanged();
+                                                    listYouPu.addAll(model.getObj());
+                                                    youPuAdapter.notifyDataSetChanged();
                                                     page4++;
                                                 }
                                                 refreshLayout.finishLoadMore(1000);
@@ -1325,7 +1324,7 @@ public class HomeFragment3 extends BaseFragment {
 //        }
 //        dialog_loading = WeiboDialogUtils.createLoadingDialog(getContext(),"加载中...");
         switch (type){
-            case "1":
+            case "2":
                 ViseHttp.POST(NetConfig.homeTuiJian)
                         .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.homeTuiJian))
                         .addParam("uid", uid)
@@ -1447,7 +1446,7 @@ public class HomeFragment3 extends BaseFragment {
                             }
                         });
                 break;
-            case "2":
+            case "1":
                 ViseHttp.POST(NetConfig.homePageGz)
                         .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.homePageGz))
                         .addParam("uid", uid)
@@ -1481,8 +1480,8 @@ public class HomeFragment3 extends BaseFragment {
                         });
                 break;
             case "3":
-                ViseHttp.POST(NetConfig.homeYouJi)
-                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.homeYouJi))
+                ViseHttp.POST(NetConfig.yjVideoList)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.yjVideoList))
                         .addParam("uid", uid)
 //                        .addParam("city", cityName)
                         .request(new ACallback<String>() {
@@ -1492,12 +1491,12 @@ public class HomeFragment3 extends BaseFragment {
                                     JSONObject jsonObject = new JSONObject(data);
                                     if(jsonObject.getInt("code") == 200){
                                         Gson gson = new Gson();
-                                        HomeDataModel model = gson.fromJson(data, HomeDataModel.class);
+                                        Home_youjiShiPin_0407_model model = gson.fromJson(data, Home_youjiShiPin_0407_model.class);
                                         page3 = 2;
                                         mListYouJi.clear();
                                         mListYouJi.addAll(model.getObj());
                                         if (hasPermission()){
-                                            preLoadYouJi_youji_and_guanzhu(mListYouJi);
+                                            preLoadYouJi_youji(mListYouJi);
                                         }else {
                                             requestPermission();
                                         }
@@ -1516,8 +1515,8 @@ public class HomeFragment3 extends BaseFragment {
                         });
                 break;
             case "4":
-                ViseHttp.POST(NetConfig.homeVideo)
-                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.homeVideo))
+                ViseHttp.POST(NetConfig.homeGoodsList)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.homeGoodsList))
                         .addParam("uid", uid)
                         .request(new ACallback<String>() {
                             @Override
@@ -1526,11 +1525,11 @@ public class HomeFragment3 extends BaseFragment {
                                     JSONObject jsonObject = new JSONObject(data);
                                     if(jsonObject.getInt("code") == 200){
                                         Gson gson = new Gson();
-                                        HomeVideoListModel model = gson.fromJson(data, HomeVideoListModel.class);
+                                        HomeYouPuModel model = gson.fromJson(data, HomeYouPuModel.class);
                                         page4 = 2;
-                                        mListVideos.clear();
-                                        mListVideos.addAll(model.getObj());
-                                        adapterVideos.notifyDataSetChanged();
+                                        listYouPu.clear();
+                                        listYouPu.addAll(model.getObj());
+                                        youPuAdapter.notifyDataSetChanged();
 //                                        WeiboDialogUtils.closeDialog(dialog_loading);
                                     }
                                 } catch (JSONException e) {
@@ -1655,7 +1654,7 @@ public class HomeFragment3 extends BaseFragment {
                     break;
                 case "android.friendscometogether.HomeFragment.YouJi":
                     for (int i =0;i<mListYouJi.size();i++){
-                        if (mListYouJi.get(i).getPfID().equals(id)){
+                        if (mListYouJi.get(i).getFmID().equals(id)){
                             mListYouJi.remove(i);
                             adapterYouji.notifyDataSetChanged();
                             break;
@@ -1663,13 +1662,13 @@ public class HomeFragment3 extends BaseFragment {
                     }
                     break;
                 case "android.friendscometogether.HomeFragment.Video":
-                    for (int i =0;i<mListVideos.size();i++){
-                        if (mListVideos.get(i).getVID().equals(id)){
-                            mListVideos.remove(i);
-                            adapterVideos.notifyDataSetChanged();
-                            break;
-                        }
-                    }
+//                    for (int i =0;i<listYouPu.size();i++){
+//                        if (listYouPu.get(i).getVID().equals(id)){
+//                            listYouPu.remove(i);
+//                            adapterVideos.notifyDataSetChanged();
+//                            break;
+//                        }
+//                    }
                     break;
             }
         }
@@ -1708,7 +1707,7 @@ public class HomeFragment3 extends BaseFragment {
                 if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                     requestPermission();
                 } else {
-                    preLoadYouJi_youji_and_guanzhu(mListYouJi);
+                    preLoadYouJi_youji(mListYouJi);
                     preLoadYouJi_guanzhu(mListGuanzhu);
                     preLoadYouJi_tuijain(listJianTuShiKe);
                 }
@@ -1716,11 +1715,10 @@ public class HomeFragment3 extends BaseFragment {
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-    private void preLoadYouJi_youji_and_guanzhu(List<HomeDataModel.ObjBean> list) {
+    private void preLoadYouJi_youji(List<Home_youjiShiPin_0407_model.ObjBean> list) {
         Log.d("读写内存权限","youquanxian");
         for (int i = 0 ;i<list.size();i++){
-            if (list.get(i).getData_type().equals("2")){//为友记  的情况
-                            String url = NetConfig.BaseUrl+"action/ac_article/youJiWeb?id="+list.get(i).getPfID()+"&uid="+uid;
+                            String url = NetConfig.BaseUrl+"action/ac_article/youJiWeb?id="+list.get(i).getFmID()+"&uid="+uid;
                 SonicSessionConfig.Builder sessionConfigBuilder = new SonicSessionConfig.Builder();
                 sessionConfigBuilder.setSupportLocalServer(true);
                 HashMap mapRp = new HashMap();
@@ -1731,7 +1729,6 @@ public class HomeFragment3 extends BaseFragment {
                 sessionConfigBuilder.setCustomResponseHeaders(mapRp);
                 boolean preloadSuccess = SonicEngine.getInstance().preCreateSession(url, sessionConfigBuilder.build());
                 Log.d("preloadpreloadp",preloadSuccess+""+url);
-            }
         }
     }
     private void preLoadYouJi_guanzhu(List<HomeGuanZhuModel.ObjBean.YjVideoBean> list) {
@@ -1792,7 +1789,7 @@ public class HomeFragment3 extends BaseFragment {
             if (hasPermission()){
                 preLoadYouJi_tuijain(listJianTuShiKe);
                 preLoadYouJi_guanzhu(mListGuanzhu);
-                preLoadYouJi_youji_and_guanzhu(mListYouJi);
+                preLoadYouJi_youji(mListYouJi);
             }else {
                 requestPermission();
             }
