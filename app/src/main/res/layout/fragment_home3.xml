@@ -262,7 +262,7 @@
                             android:id="@+id/tv_rl4"
                             android:layout_centerInParent="true"
                             android:textSize="50px"
-                            android:text="视频"
+                            android:text="友铺"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 

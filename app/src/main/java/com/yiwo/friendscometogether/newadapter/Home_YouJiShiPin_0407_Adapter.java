@@ -151,12 +151,12 @@ public class Home_YouJiShiPin_0407_Adapter extends RecyclerView.Adapter<Home_You
             }
         });
         if (TextUtils.isEmpty(data.get(position).getFmpartyID())){
-            holder.ll_xiangguan_huodong.setVisibility(View.GONE);
+            holder.rl_xiangguan_huodong.setVisibility(View.GONE);
         }else {
-            holder.ll_xiangguan_huodong.setVisibility(View.VISIBLE);
+            holder.rl_xiangguan_huodong.setVisibility(View.VISIBLE);
         }
         holder.tv_huodong.setText(data.get(position).getPfInfo());
-        holder.ll_xiangguan_huodong.setOnClickListener(new View.OnClickListener() {
+        holder.rl_xiangguan_huodong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!TextUtils.isEmpty(data.get(position).getFmpartyID())){
@@ -178,8 +178,7 @@ public class Home_YouJiShiPin_0407_Adapter extends RecyclerView.Adapter<Home_You
         ImageView iv_head;
         TextView tv_name,tv_level,tv_address,tv_content,tv_huodong,tv_canyu,tv_look_num;
         ImageView iv_level,iv_canyu1,iv_canyu2,iv_canyu3,iv_canyu4,iv_play;
-        LinearLayout ll_xiangguan_huodong;
-        RelativeLayout rl_all,rl_canyuxiezuo;
+        RelativeLayout rl_all,rl_canyuxiezuo,rl_xiangguan_huodong;
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -198,7 +197,7 @@ public class Home_YouJiShiPin_0407_Adapter extends RecyclerView.Adapter<Home_You
             iv_canyu3 = itemView.findViewById(R.id.iv_canyu3);
             iv_canyu4 = itemView.findViewById(R.id.iv_canyu4);
             iv_play = itemView.findViewById(R.id.iv_play);
-            ll_xiangguan_huodong = itemView.findViewById(R.id.ll_xiangguan_huodong);
+            rl_xiangguan_huodong = itemView.findViewById(R.id.rl_xiangguan_huodong);
             rl_canyuxiezuo = itemView.findViewById(R.id.rl_canyuxiezuo);
             rl_all= itemView.findViewById(R.id.rl_all);
         }

@@ -462,5 +462,7 @@ public class NetConfig {
     public static String homeGoodsList = "action/ac_newHome/homeGoodsList";
 //action/ac_newHome/yjVideoList   游记视频列表
 //传page 分页  uid用户id
-public static String yjVideoList = "action/ac_newHome/yjVideoList";
+    public static String yjVideoList = "action/ac_newHome/yjVideoList";
+// action/ac_captainMission/missionInfo   队长页接口  传uid
+    public static String missionInfo = "action/ac_captainMission/missionInfo";
 }

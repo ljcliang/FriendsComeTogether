@@ -16,11 +16,24 @@
         <item name="android:layout_centerInParent">true</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="tv_top_title_dp">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:textStyle">bold</item>
+    </style>
     <!--顶部bar样式
     <RelativeLayout-->
     <style name="rl_top_bar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">88px</item>
+        <item name="android:background">#d84c37</item>
+    </style>
+    <style name="rl_top_bar_dp">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
         <item name="android:background">#d84c37</item>
     </style>
     <!--返回图片样式-->
@@ -32,6 +45,16 @@
         <item name="android:src">@mipmap/back_w</item>
         <item name="android:layout_marginLeft">20px</item>
         <item name="android:layout_marginRight">20px</item>
+    </style>
+    <style name="iv_return_dp">
+        <item name="android:layout_width">10dp</item>
+        <item name="android:layout_height">16dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@mipmap/back_w</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
     </style>
     <!--返回RelativeLayout样式-->
     <style name="rl_return">

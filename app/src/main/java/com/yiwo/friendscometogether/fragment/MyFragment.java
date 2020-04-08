@@ -26,6 +26,7 @@ import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newpage.AllHuoDongActivity;
 import com.yiwo.friendscometogether.newpage.AllRememberActivity;
 import com.yiwo.friendscometogether.newpage.ChongZhi_ZengSongListActivity;
+import com.yiwo.friendscometogether.newpage.DuiZhangZhuanShuActivity;
 import com.yiwo.friendscometogether.newpage.GuanZhuActivity;
 import com.yiwo.friendscometogether.newpage.MessageActivity;
 import com.yiwo.friendscometogether.newpage.MyContactActivity;
@@ -380,8 +381,10 @@ public class MyFragment extends BaseFragment {
 //                intent.setClass(getContext(),RenWuWebActivity.class);
 //                intent.putExtra("url",NetConfig.BaseUrl+NetConfig.gameList);
 //                startActivity(intent);
-                intent.setClass(getContext(),RenWuActivity.class);
+//                intent.setClass(getContext(),RenWuActivity.class);
+                intent.setClass(getContext(), DuiZhangZhuanShuActivity.class);
                 startActivity(intent);
+
                 break;
             case R.id.rl_pay_rank:
                 if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {

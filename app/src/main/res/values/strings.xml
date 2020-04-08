@@ -1,6 +1,31 @@
 <resources>
     <string name="app_name">瞳伴</string>
     <string name="title_activity_base">BaseActivity</string>
+    <string name="cancle">取消</string>
+
+    <string name="title">请选择时间</string>
+    <string name="commit">确定</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="hour">时</string>
+    <string name="minute">分</string>
+    <string name="select_date">选择日期</string>
+
+    <string name="current_date">当前日期</string>
+    <string name="select_time">选择时间</string>
+    <string name="current_time">当前时间</string>
+    <string name="no_filter">无滤镜</string>
+
+    <string name="filter_a">滤镜A</string>
+    <string name="filter_b">滤镜B</string>
+    <string name="filter_c">滤镜C</string>
+    <string name="filter_d">滤镜D</string>
+    <string name="no_gift">当前还没收到礼物</string>
+
+    <string name="share_tip">直播地址已复制,请到第三方播放器打开,或分享给好友</string>
+    <string name="footer_detail_horizontal_pulling">滑动查看更多</string>
+    <string name="footer_detail_horizontal_release">释放查看更多</string>
     <string-array name="lowerletter">
         <item>A</item>
         <item>B</item>
@@ -29,29 +54,4 @@
         <item>Y</item>
         <item>Z</item>
     </string-array>
-
-    <string name="cancle">取消</string>
-    <string name="title">请选择时间</string>
-    <string name="commit">确定</string>
-    <string name="year">年</string>
-    <string name="month">月</string>
-    <string name="day">日</string>
-    <string name="hour">时</string>
-    <string name="minute">分</string>
-
-    <string name="select_date">选择日期</string>
-    <string name="current_date">当前日期</string>
-    <string name="select_time">选择时间</string>
-    <string name="current_time">当前时间</string>
-
-    <string name="no_filter">无滤镜</string>
-    <string name="filter_a">滤镜A</string>
-    <string name="filter_b">滤镜B</string>
-    <string name="filter_c">滤镜C</string>
-    <string name="filter_d">滤镜D</string>
-
-    <string name="no_gift">当前还没收到礼物</string>
-    <string name="share_tip">直播地址已复制,请到第三方播放器打开,或分享给好友</string>
-    <string name="footer_detail_horizontal_pulling">滑动查看更多</string>
-    <string name="footer_detail_horizontal_release">释放查看更多</string>
 </resources>

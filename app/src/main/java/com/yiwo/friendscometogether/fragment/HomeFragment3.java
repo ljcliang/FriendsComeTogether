@@ -226,7 +226,7 @@ public class HomeFragment3 extends BaseFragment {
     private List<HomeYouPuModel.ObjBean> listYouPu = new ArrayList<>();
 
     //友记
-    RecyclerView recyclerView3;//友记
+    RecyclerView rv_youji;//友记
     private Home_YouJiShiPin_0407_Adapter adapterYouji;//友记列表适配器
     private List<Home_youjiShiPin_0407_model.ObjBean> mListYouJi = new ArrayList<>();//友记列表list
 
@@ -286,7 +286,7 @@ public class HomeFragment3 extends BaseFragment {
 
         view1 = getLayoutInflater().inflate(R.layout.home_lay_guanzhu, null);
         view2 = getLayoutInflater().inflate(R.layout.home_lay_tuijian, null);
-        view3 = getLayoutInflater().inflate(R.layout.layout_home_youji, null);
+        view3 = getLayoutInflater().inflate(R.layout.home_lay_youji, null);
         view4 = getLayoutInflater().inflate(R.layout.home_lay_youpu, null);
         viewList.add(view1);
         viewList.add(view2);
@@ -428,7 +428,7 @@ public class HomeFragment3 extends BaseFragment {
         });
 
 
-        recyclerView3 = view3.findViewById(R.id.rv_home_3);
+        rv_youji = view3.findViewById(R.id.rv_youji);
         rv_youpu = view4.findViewById(R.id.rv_youpu);
 
         PagerAdapter pagerAdapter = new PagerAdapter() {
@@ -901,8 +901,8 @@ public class HomeFragment3 extends BaseFragment {
                                         return false;
                                     }
                                 };
-                                recyclerView3.setLayoutManager(mLayoutManager);
-                                recyclerView3.setAdapter(adapterYouji);
+                                rv_youji.setLayoutManager(mLayoutManager);
+                                rv_youji.setAdapter(adapterYouji);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
