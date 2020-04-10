@@ -170,10 +170,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
+                        android:marqueeRepeatLimit="marquee_forever"
                         android:id="@+id/tv_shop_name"
                         android:text="隶属：哈尔滨观光国际旅行社；哈尔滨环球国旅..."
-                        android:maxLines="1"
-                        android:ellipsize="end"
                         android:textSize="15sp"
                         android:textColor="#666666"
                         android:layout_margin="10dp"
@@ -193,15 +194,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                         <RelativeLayout
+                            android:id="@+id/rl_btn_setlive"
                             android:layout_alignParentLeft="true"
                             android:layout_toLeftOf="@+id/iv_sanjiao"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent">
                         </RelativeLayout>
                         <TextView
+                            android:id="@+id/tv_live_time"
                             android:textSize="15sp"
                             android:textColor="@color/black_101010"
                             android:text="直播时间设置"
+                            android:maxLines="1"
+                            android:ellipsize="end"
                             android:layout_centerInParent="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -253,6 +258,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/tv_huodong_tuanqi"
                         android:text="选择团期"
                         android:textColor="@color/black_333333"
                         android:textSize="16sp"
@@ -291,227 +297,39 @@
                         </RelativeLayout>
                     </LinearLayout>
                 </RelativeLayout>
-                <TextView
-                    android:text="奖励任务"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="24dp"
-                    android:textColor="@color/black_333333"
-                    android:textSize="16sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <RelativeLayout
-                    android:layout_marginLeft="41dp"
-                    android:layout_marginRight="44dp"
+                <LinearLayout
+                    android:id="@+id/ll_jianglirenwu"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="38dp">
+                    android:layout_height="wrap_content">
                     <TextView
-                        android:text="完成带队出团"
-                        android:id="@+id/tv_text1"
-                        android:layout_centerVertical="true"
-                        android:textSize="14sp"
+                        android:text="奖励任务"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="24dp"
                         android:textColor="@color/black_333333"
+                        android:textSize="16sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
-                    <TextView
-                        android:id="@+id/tv_jindu1"
-                        android:text="0/1"
-                        android:textSize="14sp"
-                        android:textColor="@color/red_d84c37"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toRightOf="@+id/tv_text1"
-                        android:layout_centerVertical="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:id="@+id/btn_quwancheng1"
-                        android:textSize="12sp"
-                        android:gravity="center"
-                        android:text="去完成"
-                        android:textColor="@color/white_ffffff"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:background="@drawable/bg_d84c37_30px"
-                        android:layout_width="56dp"
-                        android:layout_height="20dp"/>
-                    <View
-                        android:layout_alignParentBottom="true"
-                        android:background="#d8d8d8"
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_jianglirenwu"
+                        android:layout_marginLeft="41dp"
+                        android:layout_marginRight="44dp"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_marginLeft="41dp"
-                    android:layout_marginRight="44dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="38dp">
-                    <TextView
-                        android:text="发布相应图文"
-                        android:id="@+id/tv_text2"
-                        android:layout_centerVertical="true"
-                        android:textSize="14sp"
-                        android:textColor="@color/black_333333"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <TextView
-                        android:id="@+id/tv_jindu2"
-                        android:text="0/5"
-                        android:textSize="14sp"
-                        android:textColor="@color/red_d84c37"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toRightOf="@+id/tv_text2"
-                        android:layout_centerVertical="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:id="@+id/btn_quwancheng2"
+                        android:text="随机奖励金 最高188元   完成 100%"
                         android:textSize="12sp"
-                        android:gravity="center"
-                        android:text="去完成"
                         android:textColor="@color/white_ffffff"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:background="@drawable/bg_d84c37_30px"
-                        android:layout_width="56dp"
-                        android:layout_height="20dp"/>
-                    <View
-                        android:layout_alignParentBottom="true"
-                        android:background="#d8d8d8"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_marginLeft="41dp"
-                    android:layout_marginRight="44dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="38dp">
-                    <TextView
-                        android:text="发布相应视频"
-                        android:id="@+id/tv_text3"
-                        android:layout_centerVertical="true"
-                        android:textSize="14sp"
-                        android:textColor="@color/black_333333"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:id="@+id/tv_jindu3"
-                        android:text="0/2"
-                        android:textSize="14sp"
-                        android:textColor="@color/red_d84c37"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toRightOf="@+id/tv_text3"
-                        android:layout_centerVertical="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:id="@+id/btn_quwancheng3"
-                        android:textSize="12sp"
                         android:gravity="center"
-                        android:text="去完成"
-                        android:textColor="@color/white_ffffff"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
                         android:background="@drawable/bg_d84c37_30px"
-                        android:layout_width="56dp"
-                        android:layout_height="20dp"/>
-                    <View
-                        android:layout_alignParentBottom="true"
-                        android:background="#d8d8d8"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_marginLeft="41dp"
-                    android:layout_marginRight="44dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="38dp">
-                    <TextView
-                        android:text="完成一次直播"
-                        android:id="@+id/tv_text4"
-                        android:layout_centerVertical="true"
-                        android:textSize="14sp"
-                        android:textColor="@color/black_333333"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:id="@+id/tv_jindu4"
-                        android:text="0/20分钟"
-                        android:textSize="14sp"
-                        android:textColor="@color/red_d84c37"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toRightOf="@+id/tv_text4"
-                        android:layout_centerVertical="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:id="@+id/btn_quwancheng4"
-                        android:textSize="12sp"
-                        android:gravity="center"
-                        android:text="去完成"
-                        android:textColor="@color/white_ffffff"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:background="@drawable/bg_d84c37_30px"
-                        android:layout_width="56dp"
-                        android:layout_height="20dp"/>
-                    <View
-                        android:layout_alignParentBottom="true"
-                        android:background="#d8d8d8"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_marginLeft="41dp"
-                    android:layout_marginRight="44dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="38dp">
-                    <TextView
-                        android:text="分享带队活动"
-                        android:id="@+id/tv_text5"
-                        android:layout_centerVertical="true"
-                        android:textSize="14sp"
-                        android:textColor="@color/black_333333"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:id="@+id/tv_jindu5"
-                        android:text="0/1"
-                        android:textSize="14sp"
-                        android:textColor="@color/red_d84c37"
-                        android:layout_marginLeft="5dp"
-                        android:layout_toRightOf="@+id/tv_text5"
-                        android:layout_centerVertical="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:id="@+id/btn_quwancheng5"
-                        android:textSize="12sp"
-                        android:gravity="center"
-                        android:text="去完成"
-                        android:textColor="@color/white_ffffff"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:background="@drawable/bg_d84c37_30px"
-                        android:layout_width="56dp"
-                        android:layout_height="20dp"/>
-                    <View
-                        android:layout_alignParentBottom="true"
-                        android:background="#d8d8d8"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"/>
-                </RelativeLayout>
-                <TextView
-                    android:text="随机奖励金 最高188元   完成 100%"
-                    android:textSize="12sp"
-                    android:textColor="@color/white_ffffff"
-                    android:gravity="center"
-                    android:background="@drawable/bg_d84c37_30px"
-                    android:layout_marginTop="23dp"
-                    android:layout_marginBottom="25dp"
-                    android:layout_marginLeft="68dp"
-                    android:layout_marginRight="67dp"
-                    android:layout_width="242dp"
-                    android:layout_height="32dp"/>
+                        android:layout_marginTop="23dp"
+                        android:layout_marginBottom="25dp"
+                        android:layout_marginLeft="68dp"
+                        android:layout_marginRight="67dp"
+                        android:layout_width="242dp"
+                        android:layout_height="32dp"/>
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:orientation="vertical"

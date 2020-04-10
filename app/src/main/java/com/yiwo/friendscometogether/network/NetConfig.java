@@ -465,4 +465,12 @@ public class NetConfig {
     public static String yjVideoList = "action/ac_newHome/yjVideoList";
 // action/ac_captainMission/missionInfo   队长页接口  传uid
     public static String missionInfo = "action/ac_captainMission/missionInfo";
+//    action/ac_captainMission/searchShop   搜索商家接口   传 keyWord 搜索词  uid用户id
+    public static String searchShop = "action/ac_captainMission/searchShop";
+//    action/ac_captainMission/keepShop   保存商家接口  传uid 用户id    shopID商家id
+    public static String keepShop = "action/ac_captainMission/keepShop";
+//    action/ac_captainMission/pfList   获取活动接口  传uid 用户id   keyWord 关键词
+    public static String pfListDuizhangZhuanShu = "action/ac_captainMission/pfList";
+//action/ac_captainMission/getMission       传uid 用户id   pfID活动id  phase_id期数id   type  1删除上一个任务
+    public static String getMission = "action/ac_captainMission/getMission";
 }
