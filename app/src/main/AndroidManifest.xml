@@ -217,6 +217,8 @@
         <activity android:name=".newpage.MoreCommentHuodongActivity" />
         <activity android:name=".webpages.ShopInfoWebActivity" />
         <activity android:name=".webpages.YouHuiQuanWebActivity" />
+        <activity android:name=".webpages.DuiZhangShangPuWebActivity" />
+        <activity android:name=".webpages.ShouRuMingXiWebActivity" />
         <activity android:name=".webpages.ApplyActivityAgreementWebActivity" />
         <activity android:name=".newpage.PersonImpressionActivity" />
         <activity android:name=".newpage.FindFriendByTelActivity" />

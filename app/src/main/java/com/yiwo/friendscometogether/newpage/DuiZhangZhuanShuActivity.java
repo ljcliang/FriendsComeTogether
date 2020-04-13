@@ -27,15 +27,19 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
+import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.shareboard.SnsPlatform;
+import com.umeng.socialize.utils.ShareBoardlistener;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.dbmodel.DuiZhangFenZuDbModel;
+import com.yiwo.friendscometogether.model.ActiveShareModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.JiangLiRenWuAdapter;
 import com.yiwo.friendscometogether.newadapter.LiShuGongSiChooseAdapter;
@@ -44,10 +48,15 @@ import com.yiwo.friendscometogether.newmodel.DuiZhangXuanZeHuoDongModel;
 import com.yiwo.friendscometogether.newmodel.DuiZhangZhuanShuModel;
 import com.yiwo.friendscometogether.newmodel.LiShuGongSiSearchModel;
 import com.yiwo.friendscometogether.newmodel.TongBiPriceModel;
+import com.yiwo.friendscometogether.pages.ApplyActivity;
 import com.yiwo.friendscometogether.pages.UserAgreementActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.utils.ShareUtils;
 import com.yiwo.friendscometogether.wangyiyunshipin.wangyiyunlive.EnterLiveActivity;
+import com.yiwo.friendscometogether.webpages.DuiZhangShangPuWebActivity;
 import com.yiwo.friendscometogether.webpages.RenWuWebActivity;
+import com.yiwo.friendscometogether.webpages.ShouRuMingXiWebActivity;
+import com.yiwo.friendscometogether.webpages.YouHuiQuanWebActivity;
 import com.yiwo.friendscometogether.widget.CustomDatePicker;
 
 import org.json.JSONException;
@@ -63,6 +72,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.yiwo.friendscometogether.utils.TokenUtils.getToken;
 
 public class DuiZhangZhuanShuActivity extends BaseActivity {
 
@@ -86,6 +97,22 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
     RecyclerView rvJiangLiRenWu;
     @BindView(R.id.ll_jianglirenwu)
     LinearLayout ll_jianglirenwu;
+    @BindView(R.id.tv_jindu)
+    TextView tv_jindu;
+
+    @BindView(R.id.iv_message_xuanzehuodong)
+    ImageView ivTiShiHuoDong;
+    @BindView(R.id.iv_game_tishi1)
+    ImageView ivGameTiShi1;
+    @BindView(R.id.iv_game_tishi2)
+    ImageView ivGameTiShi2;
+    @BindView(R.id.iv_game_tishi3)
+    ImageView ivGameTiShi3;
+    @BindView(R.id.iv_game_tishi4)
+    ImageView ivGameTiShi4;
+    @BindView(R.id.iv_game_tishi5)
+    ImageView ivGameTiShi5;
+
     private JiangLiRenWuAdapter jiangLiRenWuAdapter;
     private CustomDatePicker customDatePicker;
     private String now;
@@ -100,8 +127,6 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
     private PopupWindow popupWindowLiShuGongSi;//选择隶属公司
     private List<DuiZhangZhuanShuModel.ObjBean.ShopNameBean> listSearchGongSiTemp = new ArrayList<>();
     private EditText edtSearch;
-
-    private static final int REQUEST_CODE_XUAN_ZE_HUO_DONG =1;
     private DuiZhangXuanZeHuoDongModel.ObjBean yiXuanHuoDongModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,13 +197,26 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                                 }
                                 tvShopName.setSelected(true);
                                 tvHuoDongTuanqi.setText(TextUtils.isEmpty(duiZhangZhuanShuModel.getObj().getPftitle())? "选择团期" : duiZhangZhuanShuModel.getObj().getPftitle());
+                                tv_jindu.setText("随机奖励金 最高188元   完成 "+duiZhangZhuanShuModel.getObj().getJindu());
                                 if (duiZhangZhuanShuModel.getObj().getMission().size()>0){
                                     ll_jianglirenwu.setVisibility(View.VISIBLE);
-                                    jiangLiRenWuAdapter = new JiangLiRenWuAdapter(duiZhangZhuanShuModel.getObj().getMission());
+                                    jiangLiRenWuAdapter = new JiangLiRenWuAdapter(duiZhangZhuanShuModel.getObj().getMission(), new JiangLiRenWuAdapter.SharePf() {
+                                        @Override
+                                        public void share() {
+                                            sharePf(duiZhangZhuanShuModel.getObj().getPfID());
+                                        }
+                                    });
                                     LinearLayoutManager manager = new LinearLayoutManager(DuiZhangZhuanShuActivity.this);
                                     manager.setOrientation(LinearLayoutManager.VERTICAL);
                                     rvJiangLiRenWu.setLayoutManager(manager);
                                     rvJiangLiRenWu.setAdapter(jiangLiRenWuAdapter);
+                                    if (duiZhangZhuanShuModel.getObj().getIfover().equals("1")){
+//                                        tv_jindu.setTextColor(getResources().getColor(R.color.white_ffffff));
+                                        tv_jindu.setBackgroundResource(R.drawable.bg_d84c37_30px);
+                                    }else {
+//                                        tv_jindu.setTextColor(getResources().getColor(R.color.black_101010));
+                                        tv_jindu.setBackgroundResource(R.drawable.bg_d8d8d8_30px);
+                                    }
                                 }else {
                                     ll_jianglirenwu.setVisibility(View.GONE);
                                 }
@@ -202,14 +240,26 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.rl_btn_bangding,R.id.rl_btn_startlive,R.id.rl_btn_setlive,R.id.rl_btn_xuanzehuodong,R.id.rl_back,
+    @OnClick({R.id.rl_btn_bangding,R.id.rl_btn_startlive,R.id.rl_btn_setlive,R.id.rl_btn_xuanzehuodong,R.id.rl_back,R.id.ll_wodeshangpu,R.id.ll_shourumingxi,
+            R.id.iv_message_xuanzehuodong,R.id.iv_game_tishi1,R.id.iv_game_tishi2,R.id.iv_game_tishi3,R.id.iv_game_tishi4,R.id.iv_game_tishi5,R.id.iv_zhanghu_tishi1,
             R.id.rl_btn_game_start1,R.id.rl_btn_game_start2,R.id.rl_btn_game_start3,R.id.rl_btn_game_start4,R.id.rl_btn_game_start5,
             R.id.tv_shop_name})
     public void onClick(View v){
         Intent intent = new Intent();
+        AlertDialog.Builder builder = new AlertDialog.Builder(DuiZhangZhuanShuActivity.this);
         switch (v.getId()){
             case R.id.rl_back:
                 onBackPressed();
+                break;
+            case R.id.ll_wodeshangpu:
+                intent.setClass(DuiZhangZhuanShuActivity.this, DuiZhangShangPuWebActivity.class);
+                intent.putExtra("url",duiZhangZhuanShuModel.getObj().getGoodsShop());
+                startActivity(intent);
+                break;
+            case R.id.ll_shourumingxi:
+                intent.setClass(DuiZhangZhuanShuActivity.this, ShouRuMingXiWebActivity.class);
+                intent.putExtra("url",duiZhangZhuanShuModel.getObj().getComeInInfo());
+                startActivity(intent);
                 break;
             case R.id.rl_btn_bangding:
                 mShareAPI.getPlatformInfo(DuiZhangZhuanShuActivity.this, SHARE_MEDIA.WEIXIN, umAuthListener);//绑定微信
@@ -221,8 +271,7 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                 EnterLiveActivity.start(DuiZhangZhuanShuActivity.this);
                 break;
             case R.id.rl_btn_xuanzehuodong:
-                intent.setClass(DuiZhangZhuanShuActivity.this,XuanZeTuanQiActivity.class);
-                startActivityForResult(intent, REQUEST_CODE_XUAN_ZE_HUO_DONG);
+                XuanZeTuanQiActivity.startActivity(DuiZhangZhuanShuActivity.this,yiXuanHuoDongModel,duiZhangZhuanShuModel.getObj().getIfover());
                 break;
             case R.id.rl_btn_game_start1://知识问答
                 startWeb("http://www.tongbanapp.com/action/ac_coupon/questionAnswerGame");//知识问答链接
@@ -239,14 +288,88 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                 break;
             case R.id.rl_btn_game_start5://队员分组
                 if (yiXuanHuoDongModel == null|| TextUtils.isEmpty(yiXuanHuoDongModel.getPfID())||yiXuanHuoDongModel.getPfID() == null){
-                    Intent itHuoDong = new Intent(DuiZhangZhuanShuActivity.this, XuanZeTuanQiActivity.class);
-                    startActivityForResult(itHuoDong, REQUEST_CODE_XUAN_ZE_HUO_DONG);
+                    builder.setMessage("当前未选择活动，请选择活动！")
+                            .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    XuanZeTuanQiActivity.startActivity(DuiZhangZhuanShuActivity.this,yiXuanHuoDongModel,duiZhangZhuanShuModel.getObj().getIfover());
+                                }
+                            })
+                            .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
                     break;
                 }
                 youxiFenZu();
                 break;
             case R.id.tv_shop_name:
                 showPopupWindowChooseGongSi();
+                break;
+            case R.id.iv_message_xuanzehuodong:
+                builder.setMessage(duiZhangZhuanShuModel.getObj().getMesMission())
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+                break;
+            case R.id.iv_game_tishi1:
+                builder.setMessage(duiZhangZhuanShuModel.getObj().getMesQuestion())
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+                break;
+            case R.id.iv_game_tishi2:
+                builder.setMessage(duiZhangZhuanShuModel.getObj().getMesPictxt())
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+                break;
+            case R.id.iv_game_tishi3:
+                builder.setMessage(duiZhangZhuanShuModel.getObj().getMesArea())
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+                break;
+            case R.id.iv_game_tishi4:
+                builder.setMessage(duiZhangZhuanShuModel.getObj().getMesGuess())
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+                break;
+            case R.id.iv_game_tishi5:
+                builder.setMessage(duiZhangZhuanShuModel.getObj().getMesGroup())
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+                break;
+            case R.id.iv_zhanghu_tishi1:
+                builder.setMessage(duiZhangZhuanShuModel.getObj().getMesWx())
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
                 break;
         }
     }
@@ -540,11 +663,62 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(DuiZhangZhuanShuActivity.this).onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_XUAN_ZE_HUO_DONG && resultCode == 1){
+        if (requestCode == XuanZeTuanQiActivity.REQUEST_CODE_XUAN_ZE_HUO_DONG && resultCode == 1){
             yiXuanHuoDongModel = (DuiZhangXuanZeHuoDongModel.ObjBean) data.getSerializableExtra("xuanzehuodong");
             if (yiXuanHuoDongModel != null){
-
-            }
+//                tvHuoDongTuanqi.setText(yiXuanHuoDongModel.getPftitle() + "["+yiXuanHuoDongModel.getPhase_begin_time()+"]");
+                initData();
+           }
         }
+    }
+    private void sharePf(String pfID){
+
+        ViseHttp.POST(NetConfig.shareMission)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.shareMission))
+                .addParam("pfID", pfID)
+                .addParam("uid", spImp.getUID())
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        Log.d("saddsadsad",data);
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+
+        ViseHttp.POST(NetConfig.activeShareUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.activeShareUrl))
+                .addParam("id", pfID)
+                .addParam("type", "0")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200) {
+                                Gson gson = new Gson();
+                                final ActiveShareModel shareModel = gson.fromJson(data, ActiveShareModel.class);
+                                new ShareAction(DuiZhangZhuanShuActivity.this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+                                        .setShareboardclickCallback(new ShareBoardlistener() {
+                                            @Override
+                                            public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                                                ShareUtils.shareWeb(DuiZhangZhuanShuActivity.this, shareModel.getObj().getUrl()+"&uid="+spImp.getUID(), shareModel.getObj().getTitle(),
+                                                        shareModel.getObj().getDesc(), shareModel.getObj().getImages(), share_media);
+                                            }
+                                        }).open();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
     }
 }

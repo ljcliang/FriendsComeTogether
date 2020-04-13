@@ -471,6 +471,8 @@ public class NetConfig {
     public static String keepShop = "action/ac_captainMission/keepShop";
 //    action/ac_captainMission/pfList   获取活动接口  传uid 用户id   keyWord 关键词
     public static String pfListDuizhangZhuanShu = "action/ac_captainMission/pfList";
-//action/ac_captainMission/getMission       传uid 用户id   pfID活动id  phase_id期数id   type  1删除上一个任务
+//action/ac_captainMission/getMission       传uid 用户id   pfID活动id  phase_id期数id
     public static String getMission = "action/ac_captainMission/getMission";
+//    action/ac_captainMission/shareMission  去分享接口      传uid 用户id  pfID活动iD
+    public static String shareMission = "action/ac_captainMission/shareMission";
 }

@@ -7,7 +7,7 @@ public class DuiZhangZhuanShuModel {
     /**
      * code : 200
      * message : 获取成功!
-     * obj : {"mesMission":"","mesQuestion":"","mesPictxt":"","mesArea":"","mesGuess":"","mesGroup":"","mesWx":"","mesBank":"","pftitle":"","phase_id":"","pfID":"","beginTime":"","endTime":"","userpic":"http://www.tongbanapp.com/uploads/header/2019/12/31/ab17a31d0c6d8acc7fa5d64847390bee157776891312.png","username":"花生","usergrade":"1","levelName":"0","shopName":[{"id":"1","shopname":"哈尔滨友来友约文化传媒有限公司","checkIn":"1"},{"id":"8","shopname":"8090婚恋","checkIn":"1"}],"zbTime":"2025-01-01 00:00","jindu":"0","mission":[{"valname":"0","name":"完成带队出团","type":"0"},{"valname":"0","name":"发布相应图文","type":"1"},{"valname":"0","name":"发布相应视频","type":"2"},{"valname":"0","name":"完成一次直播","type":"3"},{"valname":"0","name":"分享带队活动","type":"4"}]}
+     * obj : {"mesMission":"","mesQuestion":"","mesPictxt":"","mesArea":"","mesGuess":"","mesGroup":"","mesWx":"","mesBank":"","goodsShop":"http://www.tongbanapp.com/index.php/action/ac_goods/goodsList?uid=4&myID=4","comeInInfo":"http://www.tongbanapp.com/index.php/action/ac_captainMission/comeInInfo?uid=4","info":"芽庄市是越南中南部沿海城市，以其质朴的海滩和卓越的潜水环境迅速成为受欢迎的国际旅游目的地，依山傍海、林木郁郁葱葱，芽庄湾是世界最美丽的海湾之一。","shareUrl":"http://www.tongbanapp.com/index.php/action/ac_activity/youJuWebShare?pfID=85","pfpic":"http://www.tongbanapp.com/uploads/xingcheng/20191223/18aa8a62c5bf43ee78302fad6aa25c21.jpg","pftitle":"玩转芽庄8日游","phase_id":"523","pfID":"85","beginTime":"2020-12-31","endTime":"2020-12-31","userpic":"http://www.tongbanapp.com/uploads/header/2019/12/31/ab17a31d0c6d8acc7fa5d64847390bee157776891312.png","username":"花生","usergrade":"1","levelName":"0","shopName":[{"id":"1","shopname":"哈尔滨友来友约文化传媒有限公司","checkIn":"1"},{"id":"15","shopname":"哈尔滨观光国际旅行社有限公司","checkIn":"1"}],"zbTime":"2025-01-01 00:00","jindu":"0%","ifover":"0","mission":[{"valname":"0/1","name":"完成带队出团","type":"0","button":"","status":""},{"valname":"0/5","name":"发布相应图文","type":"1","button":"去完成","status":"0"},{"valname":"0/2","name":"发布相应视频","type":"2","button":"去完成","status":"0"},{"valname":"0/20分钟","name":"完成一次直播","type":"3","button":"去完成","status":"0"},{"valname":"0/1","name":"分享带队活动","type":"4","button":"去分享","status":"0"}]}
      */
 
     private int code;
@@ -48,19 +48,25 @@ public class DuiZhangZhuanShuModel {
          * mesGroup :
          * mesWx :
          * mesBank :
-         * pftitle :
-         * phase_id :
-         * pfID :
-         * beginTime :
-         * endTime :
+         * goodsShop : http://www.tongbanapp.com/index.php/action/ac_goods/goodsList?uid=4&myID=4
+         * comeInInfo : http://www.tongbanapp.com/index.php/action/ac_captainMission/comeInInfo?uid=4
+         * info : 芽庄市是越南中南部沿海城市，以其质朴的海滩和卓越的潜水环境迅速成为受欢迎的国际旅游目的地，依山傍海、林木郁郁葱葱，芽庄湾是世界最美丽的海湾之一。
+         * shareUrl : http://www.tongbanapp.com/index.php/action/ac_activity/youJuWebShare?pfID=85
+         * pfpic : http://www.tongbanapp.com/uploads/xingcheng/20191223/18aa8a62c5bf43ee78302fad6aa25c21.jpg
+         * pftitle : 玩转芽庄8日游
+         * phase_id : 523
+         * pfID : 85
+         * beginTime : 2020-12-31
+         * endTime : 2020-12-31
          * userpic : http://www.tongbanapp.com/uploads/header/2019/12/31/ab17a31d0c6d8acc7fa5d64847390bee157776891312.png
          * username : 花生
          * usergrade : 1
          * levelName : 0
-         * shopName : [{"id":"1","shopname":"哈尔滨友来友约文化传媒有限公司","checkIn":"1"},{"id":"8","shopname":"8090婚恋","checkIn":"1"}]
+         * shopName : [{"id":"1","shopname":"哈尔滨友来友约文化传媒有限公司","checkIn":"1"},{"id":"15","shopname":"哈尔滨观光国际旅行社有限公司","checkIn":"1"}]
          * zbTime : 2025-01-01 00:00
-         * jindu : 0
-         * mission : [{"valname":"0","name":"完成带队出团","type":"0"},{"valname":"0","name":"发布相应图文","type":"1"},{"valname":"0","name":"发布相应视频","type":"2"},{"valname":"0","name":"完成一次直播","type":"3"},{"valname":"0","name":"分享带队活动","type":"4"}]
+         * jindu : 0%
+         * ifover : 0
+         * mission : [{"valname":"0/1","name":"完成带队出团","type":"0","button":"","status":""},{"valname":"0/5","name":"发布相应图文","type":"1","button":"去完成","status":"0"},{"valname":"0/2","name":"发布相应视频","type":"2","button":"去完成","status":"0"},{"valname":"0/20分钟","name":"完成一次直播","type":"3","button":"去完成","status":"0"},{"valname":"0/1","name":"分享带队活动","type":"4","button":"去分享","status":"0"}]
          */
 
         private String mesMission;
@@ -71,6 +77,11 @@ public class DuiZhangZhuanShuModel {
         private String mesGroup;
         private String mesWx;
         private String mesBank;
+        private String goodsShop;
+        private String comeInInfo;
+        private String info;
+        private String shareUrl;
+        private String pfpic;
         private String pftitle;
         private String phase_id;
         private String pfID;
@@ -82,6 +93,7 @@ public class DuiZhangZhuanShuModel {
         private String levelName;
         private String zbTime;
         private String jindu;
+        private String ifover;
         private List<ShopNameBean> shopName;
         private List<MissionBean> mission;
 
@@ -147,6 +159,46 @@ public class DuiZhangZhuanShuModel {
 
         public void setMesBank(String mesBank) {
             this.mesBank = mesBank;
+        }
+
+        public String getGoodsShop() {
+            return goodsShop;
+        }
+
+        public void setGoodsShop(String goodsShop) {
+            this.goodsShop = goodsShop;
+        }
+
+        public String getComeInInfo() {
+            return comeInInfo;
+        }
+
+        public void setComeInInfo(String comeInInfo) {
+            this.comeInInfo = comeInInfo;
+        }
+
+        public String getInfo() {
+            return info;
+        }
+
+        public void setInfo(String info) {
+            this.info = info;
+        }
+
+        public String getShareUrl() {
+            return shareUrl;
+        }
+
+        public void setShareUrl(String shareUrl) {
+            this.shareUrl = shareUrl;
+        }
+
+        public String getPfpic() {
+            return pfpic;
+        }
+
+        public void setPfpic(String pfpic) {
+            this.pfpic = pfpic;
         }
 
         public String getPftitle() {
@@ -237,6 +289,14 @@ public class DuiZhangZhuanShuModel {
             this.jindu = jindu;
         }
 
+        public String getIfover() {
+            return ifover;
+        }
+
+        public void setIfover(String ifover) {
+            this.ifover = ifover;
+        }
+
         public List<ShopNameBean> getShopName() {
             return shopName;
         }
@@ -291,14 +351,18 @@ public class DuiZhangZhuanShuModel {
 
         public static class MissionBean {
             /**
-             * valname : 0
+             * valname : 0/1
              * name : 完成带队出团
              * type : 0
+             * button :
+             * status :
              */
 
             private String valname;
             private String name;
             private String type;
+            private String button;
+            private String status;
 
             public String getValname() {
                 return valname;
@@ -322,6 +386,22 @@ public class DuiZhangZhuanShuModel {
 
             public void setType(String type) {
                 this.type = type;
+            }
+
+            public String getButton() {
+                return button;
+            }
+
+            public void setButton(String button) {
+                this.button = button;
+            }
+
+            public String getStatus() {
+                return status;
+            }
+
+            public void setStatus(String status) {
+                this.status = status;
             }
         }
     }
