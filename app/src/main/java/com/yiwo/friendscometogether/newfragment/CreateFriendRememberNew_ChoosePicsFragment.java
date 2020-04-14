@@ -12,7 +12,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -34,20 +32,17 @@ import com.yiwo.friendscometogether.create_friendremember.PicBean;
 import com.yiwo.friendscometogether.create_friendremember.PicMuluModel;
 import com.yiwo.friendscometogether.create_friendremember.PicsMuLuAdapter;
 import com.yiwo.friendscometogether.newpage.CreateFriendRememberActivity1;
-import com.yiwo.friendscometogether.newpage.CreateFriendRememberNew_ChoosePicsActivity;
 import com.yiwo.friendscometogether.widget.choose_pics_view.BitmapUtils;
 import com.yiwo.friendscometogether.widget.choose_pics_view.CoordinatorLinearLayout;
 import com.yiwo.friendscometogether.widget.choose_pics_view.CoordinatorRecyclerView;
 import com.yiwo.friendscometogether.widget.choose_pics_view.MCropImageView;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

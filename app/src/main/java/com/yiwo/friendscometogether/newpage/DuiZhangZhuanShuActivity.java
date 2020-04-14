@@ -38,6 +38,7 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.custom.TitleMessageOkDialog;
 import com.yiwo.friendscometogether.dbmodel.DuiZhangFenZuDbModel;
 import com.yiwo.friendscometogether.model.ActiveShareModel;
 import com.yiwo.friendscometogether.network.NetConfig;
@@ -309,67 +310,75 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                 showPopupWindowChooseGongSi();
                 break;
             case R.id.iv_message_xuanzehuodong:
-                builder.setMessage(duiZhangZhuanShuModel.getObj().getMesMission())
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).show();
+                TitleMessageOkDialog titleMessageOkDialog = new TitleMessageOkDialog(DuiZhangZhuanShuActivity.this, "",
+                        duiZhangZhuanShuModel.getObj().getMesMission(), "知道了", new TitleMessageOkDialog.OnBtnClickListenner() {
+                    @Override
+                    public void onclick(Dialog dialog) {
+                        dialog.dismiss();
+                    }
+                });
+                titleMessageOkDialog.show();
                 break;
             case R.id.iv_game_tishi1:
-                builder.setMessage(duiZhangZhuanShuModel.getObj().getMesQuestion())
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).show();
+//                duiZhangZhuanShuModel.getObj().getMesQuestion()
+                TitleMessageOkDialog titleMessageOkDialog1 = new TitleMessageOkDialog(DuiZhangZhuanShuActivity.this, "",
+                        duiZhangZhuanShuModel.getObj().getMesQuestion() , "知道了", new TitleMessageOkDialog.OnBtnClickListenner() {
+                    @Override
+                    public void onclick(Dialog dialog) {
+                        dialog.dismiss();
+                    }
+                });
+                titleMessageOkDialog1.show();
                 break;
             case R.id.iv_game_tishi2:
-                builder.setMessage(duiZhangZhuanShuModel.getObj().getMesPictxt())
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).show();
+                TitleMessageOkDialog titleMessageOkDialog2 = new TitleMessageOkDialog(DuiZhangZhuanShuActivity.this, "",
+                        duiZhangZhuanShuModel.getObj().getMesPictxt(), "知道了", new TitleMessageOkDialog.OnBtnClickListenner() {
+                    @Override
+                    public void onclick(Dialog dialog) {
+                        dialog.dismiss();
+                    }
+                });
+                titleMessageOkDialog2.show();
                 break;
             case R.id.iv_game_tishi3:
-                builder.setMessage(duiZhangZhuanShuModel.getObj().getMesArea())
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).show();
+                TitleMessageOkDialog titleMessageOkDialog3 = new TitleMessageOkDialog(DuiZhangZhuanShuActivity.this, "",
+                        duiZhangZhuanShuModel.getObj().getMesArea(), "知道了", new TitleMessageOkDialog.OnBtnClickListenner() {
+                    @Override
+                    public void onclick(Dialog dialog) {
+                        dialog.dismiss();
+                    }
+                });
+                titleMessageOkDialog3.show();
                 break;
             case R.id.iv_game_tishi4:
-                builder.setMessage(duiZhangZhuanShuModel.getObj().getMesGuess())
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).show();
+                TitleMessageOkDialog titleMessageOkDialog4 = new TitleMessageOkDialog(DuiZhangZhuanShuActivity.this, "",
+                        duiZhangZhuanShuModel.getObj().getMesGuess(), "知道了", new TitleMessageOkDialog.OnBtnClickListenner() {
+                    @Override
+                    public void onclick(Dialog dialog) {
+                        dialog.dismiss();
+                    }
+                });
+                titleMessageOkDialog4.show();
                 break;
             case R.id.iv_game_tishi5:
-                builder.setMessage(duiZhangZhuanShuModel.getObj().getMesGroup())
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).show();
+                TitleMessageOkDialog titleMessageOkDialog5 = new TitleMessageOkDialog(DuiZhangZhuanShuActivity.this, "",
+                        duiZhangZhuanShuModel.getObj().getMesGroup(), "知道了", new TitleMessageOkDialog.OnBtnClickListenner() {
+                    @Override
+                    public void onclick(Dialog dialog) {
+                        dialog.dismiss();
+                    }
+                });
+                titleMessageOkDialog5.show();
                 break;
             case R.id.iv_zhanghu_tishi1:
-                builder.setMessage(duiZhangZhuanShuModel.getObj().getMesWx())
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).show();
+                TitleMessageOkDialog titleMessageOkDialog6 = new TitleMessageOkDialog(DuiZhangZhuanShuActivity.this, "",
+                        duiZhangZhuanShuModel.getObj().getMesWx(), "知道了", new TitleMessageOkDialog.OnBtnClickListenner() {
+                    @Override
+                    public void onclick(Dialog dialog) {
+                        dialog.dismiss();
+                    }
+                });
+                titleMessageOkDialog6.show();
                 break;
         }
     }

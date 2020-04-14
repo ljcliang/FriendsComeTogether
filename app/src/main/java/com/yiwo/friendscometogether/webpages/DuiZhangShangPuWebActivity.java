@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseWebActivity;
+import com.yiwo.friendscometogether.newpage.FaBuShangPinActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,11 +33,16 @@ public class DuiZhangShangPuWebActivity extends BaseWebActivity {
         initWebView(webView,url);
         webView.addJavascriptInterface(new DuiZhangShangPuWebActivity.AndroidInterface(),"Android");//交互
     }
-    @OnClick({R.id.rl_back})
+    @OnClick({R.id.rl_back,R.id.btn_fabushangpin})
     public void OnClick(View view){
         switch (view.getId()) {
             case R.id.rl_back:
                 finish();
+                break;
+            case R.id.btn_fabushangpin:
+                Intent intent = new Intent();
+                intent.setClass(DuiZhangShangPuWebActivity.this, FaBuShangPinActivity.class);
+                startActivity(intent);
                 break;
         }
     }
