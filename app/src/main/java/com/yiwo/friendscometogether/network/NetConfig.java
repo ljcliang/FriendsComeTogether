@@ -475,4 +475,13 @@ public class NetConfig {
     public static String getMission = "action/ac_captainMission/getMission";
 //    action/ac_captainMission/shareMission  去分享接口      传uid 用户id  pfID活动iD
     public static String shareMission = "action/ac_captainMission/shareMission";
+//    action/ac_captainMission/overMission   领取任务奖励   传uid用户id
+    public static String overMission = "action/ac_captainMission/overMission";
+//    action/ac_goods/tagList   标签列表   返回id标签id  name标签名
+    public static String tagList = "action/ac_goods/tagList";
+//    action/ac_goods/addServe 添加服务   传uid 用户id name 名字 info详情
+    public static String addServe = "action/ac_goods/addServe";
+//    action/ac_goods/serveList服务列表  传uid用户id
+    public static String serveList = "action/ac_goods/serveList";
+//    action/ac_goods/addGoods  添加商品接口   传uid用户id   goodsInfo 商品信息 json字符串     goods_files 图片名称
 }
