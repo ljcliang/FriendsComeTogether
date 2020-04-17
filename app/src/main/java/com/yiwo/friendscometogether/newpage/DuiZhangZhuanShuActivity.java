@@ -244,7 +244,7 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
     @OnClick({R.id.rl_btn_bangding,R.id.rl_btn_startlive,R.id.rl_btn_setlive,R.id.rl_btn_xuanzehuodong,R.id.rl_back,R.id.ll_wodeshangpu,R.id.ll_shourumingxi,
             R.id.iv_message_xuanzehuodong,R.id.iv_game_tishi1,R.id.iv_game_tishi2,R.id.iv_game_tishi3,R.id.iv_game_tishi4,R.id.iv_game_tishi5,R.id.iv_zhanghu_tishi1,
             R.id.rl_btn_game_start1,R.id.rl_btn_game_start2,R.id.rl_btn_game_start3,R.id.rl_btn_game_start4,R.id.rl_btn_game_start5,
-            R.id.tv_shop_name})
+            R.id.tv_shop_name,R.id.tv_jindu})
     public void onClick(View v){
         Intent intent = new Intent();
         AlertDialog.Builder builder = new AlertDialog.Builder(DuiZhangZhuanShuActivity.this);
@@ -273,6 +273,13 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                 break;
             case R.id.rl_btn_xuanzehuodong:
                 XuanZeTuanQiActivity.startActivity(DuiZhangZhuanShuActivity.this,yiXuanHuoDongModel,duiZhangZhuanShuModel.getObj().getIfover());
+                break;
+            case R.id.tv_jindu:
+                if (duiZhangZhuanShuModel.getObj().getIfover().equals("1")){
+                    callJiangLi();
+                }else {
+
+                }
                 break;
             case R.id.rl_btn_game_start1://知识问答
                 startWeb("http://www.tongbanapp.com/action/ac_coupon/questionAnswerGame");//知识问答链接
@@ -382,6 +389,37 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                 break;
         }
     }
+
+    private void callJiangLi() {
+        ViseHttp.POST(NetConfig.overMission)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.overMission))
+                .addParam("uid", spImp.getUID())
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(DuiZhangZhuanShuActivity.this);
+                            builder.setMessage(data)
+                                    .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+    }
+
     private void startWeb(String string){
         Intent intent = new Intent();
         intent.setClass(DuiZhangZhuanShuActivity.this, RenWuWebActivity.class);

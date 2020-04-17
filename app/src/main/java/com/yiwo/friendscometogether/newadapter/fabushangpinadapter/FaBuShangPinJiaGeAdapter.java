@@ -1,23 +1,17 @@
 package com.yiwo.friendscometogether.newadapter.fabushangpinadapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.model.UserFocusModel;
-import com.yiwo.friendscometogether.newmodel.FabuShangPinUpLoadModel;
-import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
+import com.yiwo.friendscometogether.newmodel.ShangPinUpLoadModel;
 import com.yiwo.friendscometogether.sp.SpImp;
 
 import java.util.List;
@@ -29,10 +23,10 @@ import java.util.List;
 public class FaBuShangPinJiaGeAdapter extends RecyclerView.Adapter<FaBuShangPinJiaGeAdapter.ViewHolder> {
 
     private Context context;
-    private List<FabuShangPinUpLoadModel.SpecBean> data;
+    private List<ShangPinUpLoadModel.SpecBean> data;
     private SpImp spImp;
     private DeleteItemListenner listenner;
-    public FaBuShangPinJiaGeAdapter(List<FabuShangPinUpLoadModel.SpecBean> data,DeleteItemListenner listenner) {
+    public FaBuShangPinJiaGeAdapter(List<ShangPinUpLoadModel.SpecBean> data, DeleteItemListenner listenner) {
         this.data = data;
         this.listenner = listenner;
     }
@@ -59,6 +53,75 @@ public class FaBuShangPinJiaGeAdapter extends RecyclerView.Adapter<FaBuShangPinJ
                 listenner.deleteItem(position);
             }
         });
+        holder.edt_jiage.setText(data.get(position).getNowPrice());
+        holder.edt_yuan_jiage.setText(data.get(position).getOldPrice());
+        holder.edt_guige.setText(data.get(position).getSpec());
+        holder.edt_kucun.setText(data.get(position).getAllNum());
+
+        holder.edt_guige.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                data.get(position).setSpec(s.toString());
+            }
+        });
+        holder.edt_jiage.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                data.get(position).setNowPrice(s.toString());
+            }
+        });
+        holder.edt_yuan_jiage.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                data.get(position).setOldPrice(s.toString());
+            }
+        });
+        holder.edt_kucun.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                data.get(position).setAllNum(s.toString());
+            }
+        });
     }
 
     @Override
@@ -67,9 +130,14 @@ public class FaBuShangPinJiaGeAdapter extends RecyclerView.Adapter<FaBuShangPinJ
     }
     class ViewHolder extends RecyclerView.ViewHolder{
         RelativeLayout rl_btn_delete;
+        EditText edt_jiage,edt_guige,edt_kucun,edt_yuan_jiage;
         public ViewHolder(View itemView) {
             super(itemView);
             rl_btn_delete = itemView.findViewById(R.id.rl_btn_minus);
+            edt_jiage = itemView.findViewById(R.id.edt_jiage);
+            edt_guige = itemView.findViewById(R.id.edt_guige);
+            edt_kucun = itemView.findViewById(R.id.edt_kucun);
+            edt_yuan_jiage = itemView.findViewById(R.id.edt_yuan_jiage);
         }
     }
     public interface DeleteItemListenner{

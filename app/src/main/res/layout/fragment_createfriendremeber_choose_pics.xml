@@ -78,10 +78,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <com.yiwo.friendscometogether.widget.choose_pics_view.MCropImageView
+            android:visibility="gone"
             android:id="@+id/crop_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <com.yiwo.friendscometogether.widget.choose_pics_view.CoordinatorRecyclerView
+            android:layout_marginTop="30px"
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent">

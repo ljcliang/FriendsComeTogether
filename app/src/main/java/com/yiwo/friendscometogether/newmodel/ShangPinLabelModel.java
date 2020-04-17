@@ -1,14 +1,13 @@
 package com.yiwo.friendscometogether.newmodel;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class ShangPinServiceModel {
+public class ShangPinLabelModel {
 
     /**
      * code : 200
      * message : 获取成功
-     * obj : [{"id":"1","name":"七天包退","info":"未满七天就给退货"},{"id":"2","name":"30天包换","info":"一个月内出现问题就换新的"},{"id":"3","name":"永久维修","info":"终身维修"}]
+     * obj : [{"id":"1","name":"食品"},{"id":"2","name":"果蔬"},{"id":"3","name":"玩具"},{"id":"4","name":"箱包"},{"id":"5","name":"鞋帽"},{"id":"6","name":"衣物"},{"id":"7","name":"数码"},{"id":"8","name":"办公"},{"id":"9","name":"软件"},{"id":"10","name":"日常"}]
      */
 
     private int code;
@@ -39,18 +38,15 @@ public class ShangPinServiceModel {
         this.obj = obj;
     }
 
-    public static class ObjBean implements Serializable {
+    public static class ObjBean {
         /**
          * id : 1
-         * name : 七天包退
-         * info : 未满七天就给退货
+         * name : 食品
          */
 
         private String id;
         private String name;
-        private String info;
         private boolean isChecked = false;
-
         public String getId() {
             return id;
         }
@@ -65,14 +61,6 @@ public class ShangPinServiceModel {
 
         public void setName(String name) {
             this.name = name;
-        }
-
-        public String getInfo() {
-            return info;
-        }
-
-        public void setInfo(String info) {
-            this.info = info;
         }
 
         public boolean isChecked() {

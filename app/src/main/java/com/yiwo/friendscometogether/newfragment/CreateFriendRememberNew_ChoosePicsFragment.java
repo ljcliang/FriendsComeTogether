@@ -58,8 +58,8 @@ public class CreateFriendRememberNew_ChoosePicsFragment extends BaseFragment {
     TextView textView;
     @BindView(R.id.recycler)
     CoordinatorRecyclerView recyclerView;
-    @BindView(R.id.crop_view)
-    MCropImageView mMCropImageView;
+//    @BindView(R.id.crop_view) //20200417隐藏大图片
+//    MCropImageView mMCropImageView;
     @BindView(R.id.coordinator_layout)
     CoordinatorLinearLayout mCoordinatorLayout;
 
@@ -100,7 +100,7 @@ public class CreateFriendRememberNew_ChoosePicsFragment extends BaseFragment {
         myAdapter.setNewData(data_pic);
 //        Log.d("sssssssss",datas.get(0).getList().get(0).getPath());
         if (data_pic!= null && data_pic.size()>0){
-            mMCropImageView.setImagePath(data_pic.get(0).getPath());
+//            mMCropImageView.setImagePath(data_pic.get(0).getPath());
         }
         // 实现回调接口
         recyclerView.setOnCoordinatorListener(new CoordinatorRecyclerView.OnCoordinatorListener() {
@@ -147,7 +147,7 @@ public class CreateFriendRememberNew_ChoosePicsFragment extends BaseFragment {
                 ArrayList<String> list = new ArrayList<>();
                 boolean isFirst = true;
                 String new_path = "/storage/emulated/0/Pictures/"+"瞳伴diyi友记_"+System.currentTimeMillis() + ".jpg";
-                BitmapUtils.saveBitmap(mMCropImageView.convertToBitmap(),new_path);
+//                BitmapUtils.saveBitmap(mMCropImageView.convertToBitmap(),new_path);
                 for (Map.Entry<Integer, String> entry : map_choose_postion.entrySet()) {
 //                    Log.d("ddaad",";;Key:"+entry.getKey()+"//Value:"+entry.getValue());
 //                    if (isFirst&&map_choose_postion.size()>0){
@@ -309,7 +309,7 @@ public class CreateFriendRememberNew_ChoosePicsFragment extends BaseFragment {
                 data_pic.addAll(datas.get(postion).getList());
                 choose_num = 0;
                 map_choose_postion.clear();
-                mMCropImageView.setImagePath(data_pic.get(0).getPath());
+//                mMCropImageView.setImagePath(data_pic.get(0).getPath());
                 myAdapter.setNewData(data_pic);
                 popupWindow.dismiss();
             }
@@ -414,7 +414,7 @@ public class CreateFriendRememberNew_ChoosePicsFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
 //                    Log.d("ssss",item.getPath());
-                    mMCropImageView.setImagePath(item.getPath());
+//                    mMCropImageView.setImagePath(item.getPath());
                     if (item.getSelected()){
 //                        item.setSelected(false);
 //                        rl.setBackground(null);

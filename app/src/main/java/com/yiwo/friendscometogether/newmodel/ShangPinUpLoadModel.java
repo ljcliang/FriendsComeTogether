@@ -2,7 +2,7 @@ package com.yiwo.friendscometogether.newmodel;
 
 import java.util.List;
 
-public class FabuShangPinUpLoadModel {
+public class ShangPinUpLoadModel {
 
     /**
      * goodsName : 苹果
@@ -66,24 +66,24 @@ public class FabuShangPinUpLoadModel {
          * allNum : 100
          */
 
-        private int oldPrice;
-        private int nowPrice;
-        private String spec;
-        private int allNum;
+        private String oldPrice = "";
+        private String nowPrice = "";
+        private String spec = "";
+        private String allNum = "";
 
-        public int getOldPrice() {
+        public String getOldPrice() {
             return oldPrice;
         }
 
-        public void setOldPrice(int oldPrice) {
+        public void setOldPrice(String oldPrice) {
             this.oldPrice = oldPrice;
         }
 
-        public int getNowPrice() {
+        public String getNowPrice() {
             return nowPrice;
         }
 
-        public void setNowPrice(int nowPrice) {
+        public void setNowPrice(String nowPrice) {
             this.nowPrice = nowPrice;
         }
 
@@ -95,11 +95,11 @@ public class FabuShangPinUpLoadModel {
             this.spec = spec;
         }
 
-        public int getAllNum() {
+        public String getAllNum() {
             return allNum;
         }
 
-        public void setAllNum(int allNum) {
+        public void setAllNum(String allNum) {
             this.allNum = allNum;
         }
     }

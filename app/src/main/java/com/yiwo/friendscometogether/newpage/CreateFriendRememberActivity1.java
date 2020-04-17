@@ -42,7 +42,9 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.custom.MyAlertDialog;
 import com.yiwo.friendscometogether.custom.SetPasswordDialog;
+import com.yiwo.friendscometogether.custom.TitleMessageOkDialog;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.CityModel;
 import com.yiwo.friendscometogether.model.GetFriendActiveListModel;
@@ -233,6 +235,11 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                 model.setFirstPic(false);
             }
             mList.add(model);
+            if ((!etTitle.getText().toString().equals(""))&&mList.size()>0){
+                rlComplete.setVisibility(View.VISIBLE);
+            }else {
+                rlComplete.setVisibility(View.GONE);
+            }
         }
         adapter.notifyDataSetChanged();
     }
@@ -267,6 +274,11 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
             public void onDeleteImg(int i) {
                 mList.remove(i);
                 adapter.notifyDataSetChanged();
+                if ((!etTitle.getText().toString().equals(""))&&mList.size()>0){
+                rlComplete.setVisibility(View.VISIBLE);
+            }else {
+                rlComplete.setVisibility(View.GONE);
+            }
             }
         }, new NewCreateFriendRemberIntercalationAdapter.OnAddDescribeListener() {
             @Override
@@ -412,6 +424,11 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
             if(temp.length()>=300){
                 Toast.makeText(CreateFriendRememberActivity1.this, "您输入的字数已经超过了限制", Toast.LENGTH_SHORT).show();
             }
+            if ((!etTitle.getText().toString().equals(""))&&mList.size()>0){
+                rlComplete.setVisibility(View.VISIBLE);
+            }else {
+                rlComplete.setVisibility(View.GONE);
+            }
         }
     };
 
@@ -466,7 +483,8 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
             R.id.activity_create_friend_remember_rl_time_start, R.id.activity_create_friend_remember_rl_time_end, R.id.activity_create_friend_remember_rl_activity_city,
             R.id.activity_create_friend_remember_rl_price, R.id.activity_create_friend_remember_rl_complete, R.id.activity_create_friend_remember_rl_set_password,
             R.id.activity_create_friend_remember_iv_add, R.id.activity_create_friend_remember_iv_delete, R.id.activity_create_friend_remember_rl_label,
-            R.id.activity_create_friend_remember_rl_active_title, R.id.activity_create_friend_remember_rl_is_intercalation, R.id.rl_more,R.id.rl_choose_address})
+            R.id.activity_create_friend_remember_rl_active_title, R.id.activity_create_friend_remember_rl_is_intercalation, R.id.rl_more,R.id.rl_choose_address,
+            R.id.btn_jixuchaungzuo,R.id.btn_lijifabu,R.id.iv_tuanyou_canxie_message})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.activity_create_friend_remember_rl_back:
@@ -513,27 +531,24 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
 
                 break;
             case R.id.activity_create_friend_remember_rl_complete:
-                if(TextUtils.isEmpty(etTitle.getText().toString())){
-                    Toast.makeText(CreateFriendRememberActivity1.this, "请填写标题", Toast.LENGTH_SHORT).show();
-                }else if (TextUtils.isEmpty(tvLabel.getText().toString())){
-                    Toast.makeText(CreateFriendRememberActivity1.this, "请选择标签", Toast.LENGTH_SHORT).show();
-                }
-                //20190225 限制友记上传图片数量 1
-                else if(mList.size()<1){
-                    Toast.makeText(CreateFriendRememberActivity1.this, "请至少上传1张照片", Toast.LENGTH_SHORT).show();
-                }else if (TextUtils.isEmpty(tvCity.getText().toString())){
-                    Toast.makeText(CreateFriendRememberActivity1.this, "请填写地点", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    //判断如果填写开始时间和结束时间   结束时间必须大于开始时间
-                    if (!tvTimeStart.getText().toString().equals("")&&!tvTimeEnd.getText().toString().equals("")){
-                        if (StringUtils.getTimeCompareSize(tvTimeStart.getText().toString(),tvTimeEnd.getText().toString())==1){
-                            Toast.makeText(CreateFriendRememberActivity1.this, "活动开始时间不能大于结束时间", Toast.LENGTH_SHORT).show();
-                            break;
-                        }
+                //判断如果填写开始时间和结束时间   结束时间必须大于开始时间
+                if (!tvTimeStart.getText().toString().equals("")&&!tvTimeEnd.getText().toString().equals("")){
+                    if (StringUtils.getTimeCompareSize(tvTimeStart.getText().toString(),tvTimeEnd.getText().toString())==1){
+                        Toast.makeText(CreateFriendRememberActivity1.this, "活动开始时间不能大于结束时间", Toast.LENGTH_SHORT).show();
+                        break;
                     }
-                    showCompletePopupwindow();
                 }
+                next_tocaogao();
+                break;
+            case R.id.iv_tuanyou_canxie_message:
+                TitleMessageOkDialog dialog = new TitleMessageOkDialog(CreateFriendRememberActivity1.this, "提示",
+                        "是否允许团友一起创作，大家一起写，\n来一次有趣的文章接龙。", "知道了", new TitleMessageOkDialog.OnBtnClickListenner() {
+                    @Override
+                    public void onclick(Dialog dialog) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
                 break;
             case R.id.activity_create_friend_remember_rl_set_password:
                 SetPasswordDialog setPasswordDialog = new SetPasswordDialog(CreateFriendRememberActivity1.this, new SetPasswordDialog.SetPasswordListener() {
@@ -551,15 +566,6 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                 setPasswordDialog.show();
                 break;
             case R.id.activity_create_friend_remember_iv_add:
-//                //限数量的多选(比喻最多9张)
-//                ImageSelector.builder()
-//                        .useCamera(true) // 设置是否使用拍照
-//                        .setSingle(true)  //设置是否单选
-//                        .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
-////                        .setSelected(selected) // 把已选的图片传入默认选中。
-//                        .start(CreateFriendRememberActivity.this, REQUEST_CODE); // 打开相册
-
-                // 初始化TakePhoto选取头像的配置
                 TakePhoto takePhoto = getTakePhoto();
                 CropOptions.Builder builder = new CropOptions.Builder();
                 builder.setAspectX(1500).setAspectY(744);
@@ -594,27 +600,6 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                     break;
                 }
                 showFriendRememberLabelPop();
-//                OptionsPickerView pvOptions1 = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
-//                    @Override
-//                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
-//                        //返回的分别是三个级别的选中位置
-////                        String tx = options1Items.get(options1).getPickerViewText() + "-" +
-////                                options2Items.get(options1).get(options2) + "-" +
-////                                options3Items.get(options1).get(options2).get(options3);
-//                        tvLabel.setText(labelList.get(options1).getPickerViewText());
-//                        yourChoiceId = labelList.get(options1).getLID();
-//                    }
-//                })
-//                        .setTitleText("标签选择")
-//                        .setDividerColor(Color.BLACK)
-//                        .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
-//                        .setContentTextSize(20)
-//                        .build();
-//
-//        /*pvOptions.setPicker(options1Items);//一级选择器
-//        pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
-//                pvOptions1.setPicker(labelList);//三级选择器
-//                pvOptions1.show();
                 break;
             case R.id.activity_create_friend_remember_rl_active_title:
                 //活动标题
@@ -657,6 +642,12 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
             case R.id.rl_more:
                 rlMore.setVisibility(View.GONE);
                 llContent.setVisibility(View.VISIBLE);
+                break;
+            case R.id.btn_jixuchaungzuo:
+                next();
+                break;
+            case R.id.btn_lijifabu:
+                fabu();
                 break;
         }
     }
@@ -784,6 +775,11 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
             for (int i = 0; i < pic.size(); i++) {
                 Log.i("333", pic.get(i));
                 mList.add(new NewUserIntercalationPicModel(pic.get(i), ""));
+                if ((!etTitle.getText().toString().equals(""))&&mList.size()>0){
+                rlComplete.setVisibility(View.VISIBLE);
+            }else {
+                rlComplete.setVisibility(View.GONE);
+            }
             }
             adapter.notifyDataSetChanged();
         }
@@ -876,23 +872,22 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
-        AlertDialog.Builder builder = new AlertDialog.Builder(CreateFriendRememberActivity1.this);
-        builder.setMessage("是否保存至草稿")
-                .setNegativeButton("保存", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //判断如果填写开始时间和结束时间   结束时间必须大于开始时间
-                        if (!tvTimeStart.getText().toString().equals("")&&!tvTimeEnd.getText().toString().equals("")){
-                            if (StringUtils.getTimeCompareSize(tvTimeStart.getText().toString(),tvTimeEnd.getText().toString())==1){
-                                Toast.makeText(CreateFriendRememberActivity1.this, "活动开始时间不能大于结束时间", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                        }
-                        next_tocaogao();
-                    }
-                }).setPositiveButton("放弃", new DialogInterface.OnClickListener() {
+        MyAlertDialog dialog = new MyAlertDialog(CreateFriendRememberActivity1.this, "是否保存在草稿箱",
+                "保存在草稿箱可在草稿箱中继续编辑\n" + "不保存则内容将被清除", "保存", "不保存", new MyAlertDialog.DialogListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void agreeBtnListen() {
+                //判断如果填写开始时间和结束时间   结束时间必须大于开始时间
+                if (!tvTimeStart.getText().toString().equals("")&&!tvTimeEnd.getText().toString().equals("")){
+                    if (StringUtils.getTimeCompareSize(tvTimeStart.getText().toString(),tvTimeEnd.getText().toString())==1){
+                        Toast.makeText(CreateFriendRememberActivity1.this, "活动开始时间不能大于结束时间", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                next_tocaogao();
+            }
+
+            @Override
+            public void disAgreeBtnListen() {
                 CreateFriendRememberActivity1.this.finish();
             }
         });
@@ -903,7 +898,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
         else if(mList.size()<1){
             CreateFriendRememberActivity1.this.finish();
         }else {
-            builder.show();
+            dialog.show();
         }
 
     }
@@ -974,180 +969,234 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
         return detail;
     }
 
-    private void showCompletePopupwindow() {
+//    private void showCompletePopupwindow() {
+//
+//        View view = LayoutInflater.from(CreateFriendRememberActivity1.this).inflate(R.layout.popupwindow_complete, null);
+//        ScreenAdapterTools.getInstance().loadView(view);
+//
+//        TextView tvRelease = view.findViewById(R.id.popupwindow_complete_tv_release);
+////        TextView tvSave = view.findViewById(R.id.popupwindow_complete_tv_save);
+//        TextView tvNext = view.findViewById(R.id.popupwindow_complete_tv_next);
+//        TextView tvCancel = view.findViewById(R.id.popupwindow_complete_tv_cancel);
+//
+//        popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
+//        popupWindow.setTouchable(true);
+//        popupWindow.setFocusable(true);
+//        // 设置点击窗口外边窗口消失
+//        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        popupWindow.setOutsideTouchable(true);
+//        popupWindow.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+//        // 设置popWindow的显示和消失动画
+//        popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
+//        WindowManager.LayoutParams params = getWindow().getAttributes();
+//        params.alpha = 0.5f;
+//        getWindow().setAttributes(params);
+//        popupWindow.update();
+//
+//        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+//
+//            // 在dismiss中恢复透明度
+//            public void onDismiss() {
+//                WindowManager.LayoutParams params = getWindow().getAttributes();
+//                params.alpha = 1f;
+//                getWindow().setAttributes(params);
+//            }
+//        });
+//
+//        tvCancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                popupWindow.dismiss();
+//            }
+//        });
+//
+//        tvRelease.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                fabu();
+//            }
+//        });
+//        tvNext.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                next();
+//            }
+//        });
+//
+//    }
 
-        View view = LayoutInflater.from(CreateFriendRememberActivity1.this).inflate(R.layout.popupwindow_complete, null);
-        ScreenAdapterTools.getInstance().loadView(view);
-
-        TextView tvRelease = view.findViewById(R.id.popupwindow_complete_tv_release);
-//        TextView tvSave = view.findViewById(R.id.popupwindow_complete_tv_save);
-        TextView tvNext = view.findViewById(R.id.popupwindow_complete_tv_next);
-        TextView tvCancel = view.findViewById(R.id.popupwindow_complete_tv_cancel);
-
-        popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
-        popupWindow.setTouchable(true);
-        popupWindow.setFocusable(true);
-        // 设置点击窗口外边窗口消失
-        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        popupWindow.setOutsideTouchable(true);
-        popupWindow.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
-        // 设置popWindow的显示和消失动画
-        popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
-        WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.alpha = 0.5f;
-        getWindow().setAttributes(params);
-        popupWindow.update();
-
-        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
-            // 在dismiss中恢复透明度
-            public void onDismiss() {
-                WindowManager.LayoutParams params = getWindow().getAttributes();
-                params.alpha = 1f;
-                getWindow().setAttributes(params);
+    private void fabu() {
+        if(TextUtils.isEmpty(etTitle.getText().toString())){
+            Toast.makeText(CreateFriendRememberActivity1.this, "请填写标题", Toast.LENGTH_SHORT).show();
+            return;
+        }else if (TextUtils.isEmpty(tvLabel.getText().toString())){
+            Toast.makeText(CreateFriendRememberActivity1.this, "请选择标签", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //20190225 限制友记上传图片数量 1
+        else if(mList.size()<1){
+            Toast.makeText(CreateFriendRememberActivity1.this, "请至少上传1张照片", Toast.LENGTH_SHORT).show();
+            return;
+        }else if (TextUtils.isEmpty(tvCity.getText().toString())){
+            Toast.makeText(CreateFriendRememberActivity1.this, "请填写地点", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else {
+            //判断如果填写开始时间和结束时间   结束时间必须大于开始时间
+            if (!tvTimeStart.getText().toString().equals("")&&!tvTimeEnd.getText().toString().equals("")){
+                if (StringUtils.getTimeCompareSize(tvTimeStart.getText().toString(),tvTimeEnd.getText().toString())==1){
+                    Toast.makeText(CreateFriendRememberActivity1.this, "活动开始时间不能大于结束时间", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
-        });
-
-        tvCancel.setOnClickListener(new View.OnClickListener() {
+        }
+        dialog = WeiboDialogUtils.createLoadingDialog(CreateFriendRememberActivity1.this, "请等待...");
+        spImp.setLastCreateYouJiLabelText(tvLabel.getText().toString());
+        spImp.setLastCreateYouJiLabelId(yourChoiceId);
+        spImp.setLastCreateYouJiAddress(tvCity.getText().toString());
+        Observable<Map<String, File>> observable = Observable.create(new ObservableOnSubscribe<Map<String, File>>() {
             @Override
-            public void onClick(View view) {
-                popupWindow.dismiss();
-            }
-        });
-
-        tvRelease.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog = WeiboDialogUtils.createLoadingDialog(CreateFriendRememberActivity1.this, "请等待...");
-                spImp.setLastCreateYouJiLabelText(tvLabel.getText().toString());
-                spImp.setLastCreateYouJiLabelId(yourChoiceId);
-                spImp.setLastCreateYouJiAddress(tvCity.getText().toString());
-                Observable<Map<String, File>> observable = Observable.create(new ObservableOnSubscribe<Map<String, File>>() {
-                    @Override
-                    public void subscribe(final ObservableEmitter<Map<String, File>> e) throws Exception {
-                        final Map<String, File> map = new LinkedHashMap<>();
-                        final List<String> list = new ArrayList<>();
-                        for (int i = 0; i < mList.size(); i++) {
-                            if (mList.get(i).getFirstPic()){
-                                list.add(0,mList.get(i).getPic());
-                            }else {
-                                list.add(mList.get(i).getPic());
+            public void subscribe(final ObservableEmitter<Map<String, File>> e) throws Exception {
+                final Map<String, File> map = new LinkedHashMap<>();
+                final List<String> list = new ArrayList<>();
+                for (int i = 0; i < mList.size(); i++) {
+                    if (mList.get(i).getFirstPic()){
+                        list.add(0,mList.get(i).getPic());
+                    }else {
+                        list.add(mList.get(i).getPic());
+                    }
+                }
+                Luban.with(CreateFriendRememberActivity1.this)
+                        .load(list)
+                        .ignoreBy(100)
+                        .filter(new CompressionPredicate() {
+                            @Override
+                            public boolean apply(String path) {
+                                return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
                             }
-                        }
-                        Luban.with(CreateFriendRememberActivity1.this)
-                                .load(list)
-                                .ignoreBy(100)
-                                .filter(new CompressionPredicate() {
-                                    @Override
-                                    public boolean apply(String path) {
-                                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                        })
+                        .setCompressListener(new OnCompressListener() {
+                            @Override
+                            public void onStart() {
+                                // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                            }
+
+                            @Override
+                            public void onSuccess(File file) {
+                                // TODO 压缩成功后调用，返回压缩后的图片文件
+                                files.add(file);
+                                Log.e("222", list.size() + "..." + files.size());
+                                if (files.size() == list.size()) {
+                                    for (int i = 0; i < files.size(); i++) {
+                                        map.put("fmpic[" + i + "]", files.get(i));
                                     }
-                                })
-                                .setCompressListener(new OnCompressListener() {
-                                    @Override
-                                    public void onStart() {
-                                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
-                                    }
+                                    Log.e("222", map.size() + "");
+                                    e.onNext(map);
+                                }
+                                files.clear();
+                            }
 
-                                    @Override
-                                    public void onSuccess(File file) {
-                                        // TODO 压缩成功后调用，返回压缩后的图片文件
-                                        files.add(file);
-                                        Log.e("222", list.size() + "..." + files.size());
-                                        if (files.size() == list.size()) {
-                                            for (int i = 0; i < files.size(); i++) {
-                                                map.put("fmpic[" + i + "]", files.get(i));
-                                            }
-                                            Log.e("222", map.size() + "");
-                                            e.onNext(map);
-                                        }
-                                    }
+                            @Override
+                            public void onError(Throwable e) {
+                                // TODO 当压缩过程出现问题时调用
+                            }
+                        }).launch();
 
-                                    @Override
-                                    public void onError(Throwable e) {
-                                        // TODO 当压缩过程出现问题时调用
-                                    }
-                                }).launch();
-
-                    }
-                });
-                Observer<Map<String, File>> observer = new Observer<Map<String, File>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Map<String, File> value) {
-                        ViseHttp.UPLOAD(NetConfig.userRelease)
-                                .addHeader("Content-Type","multipart/form-data")
-                                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.userRelease))
-                                .addParam("fmtitle", etTitle.getText().toString())
-                                .addParam("fmcontent", etContent.getText().toString())
-                                .addParam("fmaddress", tvCity.getText().toString())
-                                .addParam("uid", uid)
-                                .addParam("fmlable", yourChoiceId)
-                                .addParam("fmgotime", tvTimeStart.getText().toString())
-                                .addParam("fmendtime", tvTimeEnd.getText().toString())
-                                .addParam("percapitacost", etPrice.getText().toString())
-                                .addParam("activity_id", TextUtils.isEmpty(tvActiveTitle.getText().toString())?"0":yourChoiceActiveId)
-                                .addParam("insertatext", tvIsIntercalation.getText().toString().equals("是")?"0":"1")
-                                .addParam("accesspassword", password)
-                                .addParam("type", "0")
-                                .addFiles(value)
-                                .request(new ACallback<String>() {
-                                    @Override
-                                    public void onSuccess(String data) {
-                                        Log.e("222", data);
-                                        try {
-                                            JSONObject jsonObject = new JSONObject(data);
-                                            if (jsonObject.getInt("code") == 200) {
-                                                Toast.makeText(CreateFriendRememberActivity1.this, jsonObject.getString("message") + "", Toast.LENGTH_SHORT).show();
-                                                WeiboDialogUtils.closeDialog(dialog);
-                                                finish();
-                                            }else {
-                                                WeiboDialogUtils.closeDialog(dialog);
-                                                Toast.makeText(CreateFriendRememberActivity1.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                                            }
-                                        } catch (JSONException e) {
-                                            WeiboDialogUtils.closeDialog(dialog);
-                                            Toast.makeText(CreateFriendRememberActivity1.this, "上传失败", Toast.LENGTH_SHORT).show();
-                                            e.printStackTrace();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFail(int errCode, String errMsg) {
-                                        Log.e("222", errMsg);
-                                        WeiboDialogUtils.closeDialog(dialog);
-                                    }
-                                });
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        WeiboDialogUtils.closeDialog(dialog);
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        WeiboDialogUtils.closeDialog(dialog);
-                    }
-                };
-                observable.subscribeOn(Schedulers.newThread())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(observer);
             }
         });
-        tvNext.setOnClickListener(new View.OnClickListener() {
+        Observer<Map<String, File>> observer = new Observer<Map<String, File>>() {
             @Override
-            public void onClick(View view) {
-                next();
-            }
-        });
+            public void onSubscribe(Disposable d) {
 
+            }
+
+            @Override
+            public void onNext(Map<String, File> value) {
+                ViseHttp.UPLOAD(NetConfig.userRelease)
+                        .addHeader("Content-Type","multipart/form-data")
+                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.userRelease))
+                        .addParam("fmtitle", etTitle.getText().toString())
+                        .addParam("fmcontent", etContent.getText().toString())
+                        .addParam("fmaddress", tvCity.getText().toString())
+                        .addParam("uid", uid)
+                        .addParam("fmlable", yourChoiceId)
+                        .addParam("fmgotime", tvTimeStart.getText().toString())
+                        .addParam("fmendtime", tvTimeEnd.getText().toString())
+                        .addParam("percapitacost", etPrice.getText().toString())
+                        .addParam("activity_id", TextUtils.isEmpty(tvActiveTitle.getText().toString())?"0":yourChoiceActiveId)
+                        .addParam("insertatext", tvIsIntercalation.getText().toString().equals("是")?"0":"1")
+                        .addParam("accesspassword", password)
+                        .addParam("type", "0")
+                        .addFiles(value)
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                Log.e("222", data);
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if (jsonObject.getInt("code") == 200) {
+                                        Toast.makeText(CreateFriendRememberActivity1.this, jsonObject.getString("message") + "", Toast.LENGTH_SHORT).show();
+                                        WeiboDialogUtils.closeDialog(dialog);
+                                        finish();
+                                    }else {
+                                        WeiboDialogUtils.closeDialog(dialog);
+                                        Toast.makeText(CreateFriendRememberActivity1.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    WeiboDialogUtils.closeDialog(dialog);
+                                    Toast.makeText(CreateFriendRememberActivity1.this, "上传失败", Toast.LENGTH_SHORT).show();
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+                                Log.e("222", errMsg);
+                                WeiboDialogUtils.closeDialog(dialog);
+                            }
+                        });
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                WeiboDialogUtils.closeDialog(dialog);
+            }
+
+            @Override
+            public void onComplete() {
+                WeiboDialogUtils.closeDialog(dialog);
+            }
+        };
+        observable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
     }
+
     private void next(){//保存草稿并跳转续写
+        if(TextUtils.isEmpty(etTitle.getText().toString())){
+            Toast.makeText(CreateFriendRememberActivity1.this, "请填写标题", Toast.LENGTH_SHORT).show();
+            return;
+        }else if (TextUtils.isEmpty(tvLabel.getText().toString())){
+            Toast.makeText(CreateFriendRememberActivity1.this, "请选择标签", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //20190225 限制友记上传图片数量 1
+        else if(mList.size()<1){
+            Toast.makeText(CreateFriendRememberActivity1.this, "请至少上传1张照片", Toast.LENGTH_SHORT).show();
+            return;
+        }else if (TextUtils.isEmpty(tvCity.getText().toString())){
+            Toast.makeText(CreateFriendRememberActivity1.this, "请填写地点", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else {
+            //判断如果填写开始时间和结束时间   结束时间必须大于开始时间
+            if (!tvTimeStart.getText().toString().equals("")&&!tvTimeEnd.getText().toString().equals("")){
+                if (StringUtils.getTimeCompareSize(tvTimeStart.getText().toString(),tvTimeEnd.getText().toString())==1){
+                    Toast.makeText(CreateFriendRememberActivity1.this, "活动开始时间不能大于结束时间", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+        }
         dialog = WeiboDialogUtils.createLoadingDialog(CreateFriendRememberActivity1.this, "请等待...");
         Observable<Map<String, File>> observable = Observable.create(new ObservableOnSubscribe<Map<String, File>>() {
             @Override
@@ -1212,6 +1261,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                                     Log.e("222", map.size() + "");
                                     e.onNext(map);
                                 }
+                                files.clear();
                             }
 
                             @Override
@@ -1360,6 +1410,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                                     Log.e("222", map.size() + "");
                                     e.onNext(map);
                                 }
+                                files.clear();
                             }
 
                             @Override

@@ -67,7 +67,7 @@ public class HomeTuiJian_JianTuShiKe_Adapter extends RecyclerView.Adapter<HomeTu
         holder.tv_level.setText("Lv."+data.get(position).getUsergrade());
         holder.tv_now_tatus.setText(data.get(position).getNowStatus());
         holder.tv_address.setText(data.get(position).getFmaddress());
-        holder.tv_content.setText(data.get(position).getFmcontent());
+        holder.tv_content.setText(data.get(position).getFmtitle());
         holder.tv_pf_name.setText(data.get(position).getPftitle());
         if (data.get(position).getPlList().size()>0){
             holder.tv_ping_lun_name1.setText(data.get(position).getPlList().get(0).getUsername()+"：");

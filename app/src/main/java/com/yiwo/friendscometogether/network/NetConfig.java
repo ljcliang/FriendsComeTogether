@@ -484,4 +484,7 @@ public class NetConfig {
 //    action/ac_goods/serveList服务列表  传uid用户id
     public static String serveList = "action/ac_goods/serveList";
 //    action/ac_goods/addGoods  添加商品接口   传uid用户id   goodsInfo 商品信息 json字符串     goods_files 图片名称
+    public static String addGoods = "action/ac_goods/addGoods";
+//action/ac_goods/delServe   删除服务   传uid 用户id   sID 服务id
+    public static String delServe = "action/ac_goods/delServe";
 }
