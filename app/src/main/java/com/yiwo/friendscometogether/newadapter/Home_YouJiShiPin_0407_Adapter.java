@@ -4,36 +4,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.vise.xsnow.http.ViseHttp;
-import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.network.NetConfig;
-import com.yiwo.friendscometogether.newmodel.HomeTuiJianYouJiShiPinModel;
 import com.yiwo.friendscometogether.newmodel.Home_youjiShiPin_0407_model;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
-import com.yiwo.friendscometogether.pages.ArticleCommentActivity;
-import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.VideoActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
-import com.yiwo.friendscometogether.utils.TokenUtils;
-import com.yiwo.friendscometogether.utils.ViewUtil;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity2;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -64,7 +50,7 @@ public class Home_YouJiShiPin_0407_Adapter extends RecyclerView.Adapter<Home_You
         holder.tv_name.setText(data.get(position).getUsername());
         holder.tv_level.setText("Lv."+data.get(position).getUsergrade());
         holder.tv_address.setText(data.get(position).getFmaddress());
-        holder.tv_content.setText(data.get(position).getFmtitle());
+        holder.tv_content.setText("    "+data.get(position).getFmaddress()+" · "+data.get(position).getFmtitle());
 
         holder.tv_look_num.setText(data.get(position).getFmlook());
         Glide.with(context).load(data.get(position).getUserpic()).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_head);
@@ -107,7 +93,11 @@ public class Home_YouJiShiPin_0407_Adapter extends RecyclerView.Adapter<Home_You
             holder.iv_canyu4.setVisibility(View.VISIBLE);
             Glide.with(context).load(data.get(position).getInPerson().get(3)).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_canyu4);
         }
-
+        if (data.get(position).getIfCaptain().equals("1")){
+            holder.iv_level.setVisibility(View.VISIBLE);
+        }else {
+            holder.iv_level.setVisibility(View.GONE);
+        }
         switch (data.get(position).getLevelName()){
             case "0":
                 holder.iv_level.setImageResource(R.mipmap.level_qingtong);

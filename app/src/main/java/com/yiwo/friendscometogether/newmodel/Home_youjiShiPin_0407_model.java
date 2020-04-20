@@ -56,6 +56,7 @@ public class Home_youjiShiPin_0407_model {
          * palyUrl :
          * tp : 0
          * gz : 1
+         * "ifCaptain": "0",
          * picList : ["http://www.tongbanapp.com/uploads/article/20200407/0-7df68047f3901ac6766e1a34ca79ef694310.jpg","http://www.tongbanapp.com/uploads/header/2020/04/07/ee57f7a177327e9373516a947d5ede041586215031644.jpg","http://www.tongbanapp.com/uploads/header/2020/04/07/ee57f7a177327e9373516a947d5ede041586215031602.jpg","http://www.tongbanapp.com/uploads/header/2020/04/07/ee57f7a177327e9373516a947d5ede041586215031137.jpg"]
          * cNum : 0
          * plList : [{"fctitle":"好吃的样子","username":"鲁迅先生"},{"fctitle":"明早就做","username":"星越"}]
@@ -81,6 +82,7 @@ public class Home_youjiShiPin_0407_model {
         private String gz;
         private String cNum;
         private String inPersonNum;
+        private String ifCaptain;
         private List<String> picList;
         private List<PlListBean> plList;
         private List<InPersonBean> inPerson;
@@ -251,6 +253,14 @@ public class Home_youjiShiPin_0407_model {
 
         public void setInPerson(List<InPersonBean> inPerson) {
             this.inPerson = inPerson;
+        }
+
+        public String getIfCaptain() {
+            return ifCaptain;
+        }
+
+        public void setIfCaptain(String ifCaptain) {
+            this.ifCaptain = ifCaptain;
         }
 
         public static class PlListBean {

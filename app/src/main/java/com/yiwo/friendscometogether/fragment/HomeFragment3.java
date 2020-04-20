@@ -94,6 +94,7 @@ import com.yiwo.friendscometogether.wangyiyunshipin.DemoCache;
 import com.yiwo.friendscometogether.wangyiyunshipin.server.entity.RoomInfoEntity;
 import com.yiwo.friendscometogether.wangyiyunshipin.wangyiyunlive.LiveRoomActivity;
 import com.yiwo.friendscometogether.webpages.MyJiFenActivity;
+import com.yiwo.friendscometogether.widget.FullyLinearLayoutManager;
 import com.yiwo.friendscometogether.widget.ScrollListenScrollView;
 import com.yiwo.friendscometogether.widget.ViewPagerForScrollView;
 
@@ -364,12 +365,13 @@ public class HomeFragment3 extends BaseFragment {
         //队长铺子
         rlDuiZhangPuZi = view2.findViewById(R.id.rl_duizhangpuzi);
         rvDuizhangPuZi = view2.findViewById(R.id.rv_duizhangpuzi);
-        LinearLayoutManager managerDuiZhangPuZi = new LinearLayoutManager(getContext()){
+        FullyLinearLayoutManager managerDuiZhangPuZi = new FullyLinearLayoutManager(getContext()){
             @Override
             public boolean canScrollVertically() {
                 return false;
             }
         };
+        managerDuiZhangPuZi.setOrientation(LinearLayoutManager.VERTICAL);
         rvDuizhangPuZi.setLayoutManager(managerDuiZhangPuZi);
         duiZhangPuZiAdapter =  new HomeTuiJian_DuiZhangPuZi_Adapter(listDuiZhangPuZi);
         rvDuizhangPuZi.setAdapter(duiZhangPuZiAdapter);
@@ -558,7 +560,7 @@ public class HomeFragment3 extends BaseFragment {
                         tvRl2.setTextColor(Color.parseColor("#999999"));
                         tvRl3.setTextColor(Color.parseColor("#333333"));
                         tvRl4.setTextColor(Color.parseColor("#999999"));
-                        rl_top.setBackgroundResource(R.drawable.bg_white_down_30px);
+                        rl_top.setBackgroundResource(R.drawable.bg_white_down_40px);
 //                        tvRl1.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 //                        tvRl2.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 //                        tvRl3.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
@@ -580,7 +582,7 @@ public class HomeFragment3 extends BaseFragment {
                         tvRl2.setTextColor(Color.parseColor("#999999"));
                         tvRl3.setTextColor(Color.parseColor("#999999"));
                         tvRl4.setTextColor(Color.parseColor("#333333"));
-                        rl_top.setBackgroundResource(R.drawable.bg_white_down_30px);
+                        rl_top.setBackgroundResource(R.drawable.bg_white_down_40px);
 //                        tvRl1.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 //                        tvRl2.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 //                        tvRl3.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
@@ -773,7 +775,7 @@ public class HomeFragment3 extends BaseFragment {
                                 //队长铺子
                                 listDuiZhangPuZi.clear();
                                 listDuiZhangPuZi.addAll(model.getObj().getGoods());
-                                reMenDuiZhangAdapter.notifyDataSetChanged();
+                                duiZhangPuZiAdapter.notifyDataSetChanged();
                                 if (listDuiZhangPuZi.size()>0){
                                     rlDuiZhangPuZi.setVisibility(View.VISIBLE);
                                 }else {
@@ -1383,7 +1385,7 @@ public class HomeFragment3 extends BaseFragment {
                                         //队长铺子
                                         listDuiZhangPuZi.clear();
                                         listDuiZhangPuZi.addAll(model.getObj().getGoods());
-                                        reMenDuiZhangAdapter.notifyDataSetChanged();
+                                        duiZhangPuZiAdapter.notifyDataSetChanged();
                                         if (listDuiZhangPuZi.size()>0){
                                             rlDuiZhangPuZi.setVisibility(View.VISIBLE);
                                         }else {

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:test="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white_ffffff"
+    android:background="#f6f6f6"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_alignTop="@+id/ll_top"
         android:layout_alignBottom="@+id/ll_bottom"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="27dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <View
@@ -16,7 +16,6 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:background="@drawable/bg_white_5dp"
-            android:elevation="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </RelativeLayout>
@@ -29,8 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_marginTop="32dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginTop="37dp"
             android:orientation="vertical"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -116,6 +114,7 @@
                 </RelativeLayout>
             </RelativeLayout>
             <LinearLayout
+                android:layout_marginRight="4dp"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="right"
                 android:layout_width="wrap_content"
@@ -140,14 +139,15 @@
                     android:layout_height="18dp" />
             </LinearLayout>
             <TextView
+                android:layout_marginRight="5dp"
                 android:id="@+id/tv_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="6dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:ellipsize="end"
                 android:text="巴兰海滩，乌鲁瓦图情人崖，海龟岛刻录机布皇宫海结受到法律上的风..."
-                android:textSize="12sp"
+                android:textSize="16sp"
                 android:textColor="@color/black_101010"
-                android:maxLines="2"
+                android:lines="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <LinearLayout
@@ -172,7 +172,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="58dp" />
                 <com.yiwo.friendscometogether.widget.CustomRoundAngleImageView
-                    android:layout_marginRight="3dp"
                     android:layout_weight="1"
                     test:radius1="5dp"
                     android:id="@+id/iv_small_3"
@@ -183,10 +182,10 @@
             </LinearLayout>
         </LinearLayout>
         <RelativeLayout
-            android:elevation="3dp"
-            android:layout_margin="3dp"
+            android:elevation="1dp"
+            android:layout_marginRight="3dp"
             android:background="@drawable/bg_white_5dp"
-            android:layout_weight="1.4"
+            android:layout_weight="1.3"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <com.yiwo.friendscometogether.widget.CustomRoundAngleImageView
@@ -209,7 +208,7 @@
         android:orientation="vertical"
         android:id="@+id/ll_bottom"
         android:layout_below="@+id/ll_top"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="3dp"
         android:layout_marginBottom="6dp"
         android:layout_marginRight="19dp"
         android:layout_marginLeft="14dp"
@@ -375,7 +374,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <LinearLayout
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="5dp"
                 android:id="@+id/ll_comment1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -406,7 +405,7 @@
                     android:textSize="13sp" />
             </LinearLayout>
             <LinearLayout
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:id="@+id/ll_comment2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

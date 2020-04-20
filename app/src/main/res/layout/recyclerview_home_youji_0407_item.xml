@@ -5,11 +5,12 @@
     android:elevation="1dp"
     android:id="@+id/rl_all"
     android:background="@drawable/bg_white_5dp"
-    android:layout_marginLeft="3dp"
-    android:layout_marginRight="3dp"
+    android:layout_marginLeft="1.5dp"
+    android:layout_marginRight="1.5dp"
     android:layout_marginTop="3dp"
     android:layout_marginBottom="3dp"
-    android:layout_width="170dp"
+    android:paddingBottom="7dp"
+    android:layout_width="172dp"
     android:layout_height="wrap_content">
     <com.yiwo.friendscometogether.widget.CustomRoundAngleImageView
         android:id="@+id/iv_big"
@@ -30,7 +31,7 @@
             android:layout_height="wrap_content">
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_head"
-                android:elevation="5dp"
+                android:elevation="3dp"
                 android:layout_alignParentRight="true"
                 android:src="@mipmap/my_head"
                 android:layout_marginLeft="5dp"
@@ -83,6 +84,7 @@
             </LinearLayout>
         </RelativeLayout>
         <RelativeLayout
+            android:visibility="gone"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="3dp"
@@ -90,33 +92,7 @@
             android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_centerVertical="true"
-                android:id="@+id/ll_see_num"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginRight="5dp"
-                    android:src="@mipmap/liulan_new" />
-                <TextView
-                    android:id="@+id/tv_look_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginRight="10dp"
-                    android:ellipsize="end"
-                    android:lines="1"
-                    android:maxWidth="50dp"
-                    android:text="35"
-                    android:textColor="#272A2C"
-                    android:textSize="12sp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_centerVertical="true"
                 android:gravity="right"
-                android:layout_toRightOf="@+id/ll_see_num"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -130,63 +106,70 @@
                     android:textSize="12sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-                <ImageView
-                    android:layout_gravity="center_vertical"
-                    android:src="@mipmap/loc_red"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"/>
             </LinearLayout>
         </RelativeLayout>
-        <TextView
-            android:id="@+id/tv_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="3dp"
-            android:text="美丽的太阳岛上，唯美街道漫步小镇，不要惬.."
-            android:textSize="15sp"
-            android:textColor="@color/black_101010"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
         <RelativeLayout
-            android:layout_marginRight="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/dingwei_0420"
+                android:layout_width="16dp"
+                android:layout_height="16dp"/>
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="3dp"
+                android:text="    美丽的太阳岛上，唯美街道漫步小镇，不要惬.."
+                android:textSize="14sp"
+                android:textColor="@color/black_101010"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginRight="7dp"
             android:layout_marginLeft="2dp"
             android:id="@+id/rl_xiangguan_huodong"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="8dp"
             android:layout_gravity="right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_toLeftOf="@+id/iv_guanlian"
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:id="@+id/tv_huodong"
-                android:layout_marginRight="2dp"
+                android:layout_marginRight="3dp"
                 android:text="巴厘岛七日休闲旅"
                 android:layout_centerVertical="true"
+                android:gravity="right"
                 android:textSize="13sp"
                 android:textColor="#666666"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <ImageView
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:id="@+id/iv_guanlian"
                 android:src="@mipmap/guanlian"
-                android:layout_width="20dp"
-                android:layout_height="20dp"/>
+                android:layout_width="18dp"
+                android:layout_height="18dp"/>
         </RelativeLayout>
         <RelativeLayout
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="8dp"
             android:id="@+id/rl_canyuxiezuo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RelativeLayout
+                android:layout_centerVertical="true"
                 android:id="@+id/rl_canyu_head"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -197,6 +180,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp" />
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:visibility="visible"
                     android:id="@+id/iv_canyu2"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="18dp"
@@ -204,6 +188,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp" />
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:visibility="gone"
                     android:id="@+id/iv_canyu3"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="35dp"
@@ -211,6 +196,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp" />
                 <de.hdodenhof.circleimageview.CircleImageView
+                    android:visibility="gone"
                     android:id="@+id/iv_canyu4"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="51dp"
@@ -218,13 +204,14 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp" />
             </RelativeLayout>
-
-
             <TextView
-                android:layout_marginLeft="2dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/ll_see_num"
                 android:layout_toRightOf="@+id/rl_canyu_head"
                 android:id="@+id/tv_canyu"
-                android:text="···25人参与写作"
+                android:text="25人参与写作"
                 android:textColor="#666666"
                 android:layout_gravity="center_vertical"
                 android:textSize="12sp"
@@ -232,6 +219,32 @@
                 android:ellipsize="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="2dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/ll_see_num"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:src="@mipmap/liulan_0420" />
+                <TextView
+                    android:id="@+id/tv_look_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:maxWidth="50dp"
+                    android:text="35"
+                    android:textColor="@color/black_666666"
+                    android:textSize="12sp" />
+            </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
     <ImageView

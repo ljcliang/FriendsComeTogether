@@ -21,7 +21,6 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newmodel.HomeGuanZhuModel;
-import com.yiwo.friendscometogether.newmodel.HomeTuiJianYouJiShiPinModel;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.pages.ArticleCommentActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
@@ -153,7 +152,11 @@ public class HomeGuanZhu_YouJiShiPin_Adapter extends RecyclerView.Adapter<HomeGu
             holder.iv_canyu4.setVisibility(View.VISIBLE);
             Glide.with(context).load(data.get(position).getInPerson().get(4)).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_canyu5);
         }
-
+        if (data.get(position).getIfCaptain().equals("1")){
+            holder.iv_level.setVisibility(View.VISIBLE);
+        }else {
+            holder.iv_level.setVisibility(View.GONE);
+        }
         switch (data.get(position).getLevelName()){
             case "0":
                 holder.iv_level.setImageResource(R.mipmap.level_qingtong);

@@ -60,6 +60,7 @@ public class HomeTuiJianYouJiShiPinModel {
          * palyUrl :
          * tp : 0
          * gz : 0
+         * "ifCaptain": "0",
          * picList : ["http://www.tongbanapp.com/uploads/article/20190416/0-02300d94d1d8c90662d4c1bc41fa1aec6383.jpg","","",""]
          * cNum : 0
          * plList : [{"fctitle":"👍🏻","username":"小五"},{"fctitle":"真好看","username":"橙汁"}]
@@ -85,6 +86,7 @@ public class HomeTuiJianYouJiShiPinModel {
         private String gz;
         private String cNum;
         private String inPersonNum;
+        private String ifCaptain;
         private List<String> picList;
         private List<PlListBean> plList;
         private List<InPersonBean> inPerson;
@@ -255,6 +257,14 @@ public class HomeTuiJianYouJiShiPinModel {
 
         public void setInPerson(List<InPersonBean> inPerson) {
             this.inPerson = inPerson;
+        }
+
+        public String getIfCaptain() {
+            return ifCaptain;
+        }
+
+        public void setIfCaptain(String ifCaptain) {
+            this.ifCaptain = ifCaptain;
         }
 
         public static class PlListBean {

@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:test="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_margin="4dp"
-    android:elevation="5dp"
-    android:translationZ="1dp"
     android:id="@+id/rl_all"
-    android:background="@drawable/bg_white_10dp"
-    xmlns:test="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_white_border_eaeaea10dp"
     android:layout_width="115dp"
-    android:layout_height="170dp">
+    android:layout_height="165dp">
     <RelativeLayout
         android:id="@+id/rl_top"
         android:layout_width="wrap_content"
@@ -75,7 +73,7 @@
                 android:id="@+id/tv_level_label"
                 android:layout_below="@+id/iv_level"
                 android:layout_centerHorizontal="true"
-                android:textColor="@color/black_101010"
+                android:textColor="@color/black_333333"
                 android:textSize="12sp"
                 android:ems="1"
                 android:text="青铜队长"
@@ -87,9 +85,9 @@
             android:maxLength="5"
             android:ellipsize="middle"
             android:layout_below="@+id/rl_level"
-            android:layout_marginTop="11dp"
+            android:layout_marginTop="8dp"
             android:layout_marginLeft="8dp"
-            android:textColor="@color/black_101010"
+            android:textColor="@color/black_333333"
             android:textSize="14sp"
             android:text="旅游达人"
             android:layout_width="wrap_content"
@@ -98,7 +96,7 @@
     <LinearLayout
         android:layout_marginTop="3dp"
         android:layout_below="@+id/rl_top"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -111,7 +109,7 @@
             android:layout_marginLeft="6dp"
             android:layout_marginRight="8dp"
             android:id="@+id/tv_sign"
-            android:textColor="@color/black_101010"
+            android:textColor="@color/black_333333"
             android:textSize="12sp"
             android:maxLines="2"
             android:ellipsize="end"

@@ -4,7 +4,7 @@
     xmlns:test="http://schemas.android.com/apk/res-auto"
     android:background="@color/white_ffffff"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="181dp">
 
     <RelativeLayout
         android:id="@+id/rl_all"
@@ -13,14 +13,12 @@
         android:layout_alignTop="@+id/iv_big"
         android:layout_alignBottom="@+id/iv_big"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="155dp">
         <View
-            android:translationZ="2dp"
-            android:elevation="3dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:layout_marginRight="3dp"
-            android:background="@drawable/bg_white_5dp"
+            android:background="@drawable/bg_f8f8f8_5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </RelativeLayout>
@@ -41,7 +39,7 @@
         android:layout_toRightOf="@+id/iv_big"
         android:layout_marginRight="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="155dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

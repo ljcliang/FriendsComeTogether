@@ -216,6 +216,7 @@ public class HomeGuanZhuModel {
              * palyUrl :
              * tp : 0
              * gz : 1
+             * "ifCaptain": "0",
              * picList : ["http://www.tongbanapp.com/uploads/article/20191209/0-cfc99fd7dd56a9c76ba0c12362bb1ba55641.jpeg","http://www.tongbanapp.com/uploads/header/2019/12/09/21708ec6f9dcdbad8843de2dc6db627d1575881320574.jpg","http://www.tongbanapp.com/uploads/header/2019/12/09/21708ec6f9dcdbad8843de2dc6db627d1575881320325.jpg","http://www.tongbanapp.com/uploads/header/2019/12/09/21708ec6f9dcdbad8843de2dc6db627d1575881320548.jpg"]
              * cNum : 10
              * plList : [{"fctitle":"😄😄","username":"丸子"},{"fctitle":"玩的愉快","username":"小新"}]
@@ -237,6 +238,7 @@ public class HomeGuanZhuModel {
             private String userID;
             private String pfInfo;
             private String palyUrl;
+            private String ifCaptain;
             private String tp;
             private String gz;
             private String cNum;
@@ -411,6 +413,14 @@ public class HomeGuanZhuModel {
 
             public void setInPerson(List<InPersonBean> inPerson) {
                 this.inPerson = inPerson;
+            }
+
+            public String getIfCaptain() {
+                return ifCaptain;
+            }
+
+            public void setIfCaptain(String ifCaptain) {
+                this.ifCaptain = ifCaptain;
             }
 
             public static class PlListBean {
