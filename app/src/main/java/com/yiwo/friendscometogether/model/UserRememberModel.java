@@ -11,7 +11,7 @@ public class UserRememberModel {
     /**
      * code : 200
      * message : 获取成功
-     * obj : [{"fmID":"15","fmtitle":"6组","fmpic":"http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg","fmgotime":"2018-07-25","fmendtime":"2018-07-31","percapitacost":"1.00","fmlook":"0","fmfavorite":"0","fmtime":"2018-07-25 17:24:31"}]
+     * obj : [{"fmID":"2424","fmtitle":"云朵～","fmpic":"http://www.tongbanapp.com/uploads/article/20200421/0-d0f72cea9667c70f5bb8861e420c209b8151.jpeg","fmgotime":"","fmendtime":"","percapitacost":"","fmlook":"7","fmfavorite":"0","fmtime":"2020-04-21 13:47","fm_small_img":"uploads/articlesmall/20200421/CR-MwYp4RMFQyn0.jpeg","fmpartyID":"0","inNum":"0","pftitle":"测试假数据测试假数据测试假数据"}]
      */
 
     private int code;
@@ -44,15 +44,19 @@ public class UserRememberModel {
 
     public static class ObjBean {
         /**
-         * fmID : 15
-         * fmtitle : 6组
-         * fmpic : http://47.92.136.19/uploads/header/2018/06/27/52b94a60085237df2b0ceb1a7599f91b15300847792.jpg
-         * fmgotime : 2018-07-25
-         * fmendtime : 2018-07-31
-         * percapitacost : 1.00
-         * fmlook : 0
+         * fmID : 2424
+         * fmtitle : 云朵～
+         * fmpic : http://www.tongbanapp.com/uploads/article/20200421/0-d0f72cea9667c70f5bb8861e420c209b8151.jpeg
+         * fmgotime :
+         * fmendtime :
+         * percapitacost :
+         * fmlook : 7
          * fmfavorite : 0
-         * fmtime : 2018-07-25 17:24:31
+         * fmtime : 2020-04-21 13:47
+         * fm_small_img : uploads/articlesmall/20200421/CR-MwYp4RMFQyn0.jpeg
+         * fmpartyID : 0
+         * inNum : 0
+         * pftitle : 测试假数据测试假数据测试假数据
          */
 
         private String fmID;
@@ -64,6 +68,10 @@ public class UserRememberModel {
         private String fmlook;
         private String fmfavorite;
         private String fmtime;
+        private String fm_small_img;
+        private String fmpartyID;
+        private String inNum;
+        private String pftitle;
 
         public String getFmID() {
             return fmID;
@@ -135,6 +143,38 @@ public class UserRememberModel {
 
         public void setFmtime(String fmtime) {
             this.fmtime = fmtime;
+        }
+
+        public String getFm_small_img() {
+            return fm_small_img;
+        }
+
+        public void setFm_small_img(String fm_small_img) {
+            this.fm_small_img = fm_small_img;
+        }
+
+        public String getFmpartyID() {
+            return fmpartyID;
+        }
+
+        public void setFmpartyID(String fmpartyID) {
+            this.fmpartyID = fmpartyID;
+        }
+
+        public String getInNum() {
+            return inNum;
+        }
+
+        public void setInNum(String inNum) {
+            this.inNum = inNum;
+        }
+
+        public String getPftitle() {
+            return pftitle;
+        }
+
+        public void setPftitle(String pftitle) {
+            this.pftitle = pftitle;
         }
     }
 }

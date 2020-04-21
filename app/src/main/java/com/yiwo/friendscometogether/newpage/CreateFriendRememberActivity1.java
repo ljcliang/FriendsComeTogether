@@ -1093,7 +1093,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                                     Log.e("222", map.size() + "");
                                     e.onNext(map);
                                 }
-                                files.clear();
+//                                files.clear();
                             }
 
                             @Override
@@ -1261,7 +1261,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                                     Log.e("222", map.size() + "");
                                     e.onNext(map);
                                 }
-                                files.clear();
+//                                files.clear();
                             }
 
                             @Override
@@ -1410,7 +1410,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                                     Log.e("222", map.size() + "");
                                     e.onNext(map);
                                 }
-                                files.clear();
+//                                files.clear();
                             }
 
                             @Override

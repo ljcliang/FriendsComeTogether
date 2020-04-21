@@ -19,7 +19,13 @@
             android:layout_width="100px"
             android:layout_height="match_parent">
 
-            <ImageView style="@style/iv_return" />
+            <TextView
+                android:layout_centerInParent="true"
+                android:textColor="@color/white_ffffff"
+                android:textSize="30px"
+                android:text="取消"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </RelativeLayout>
 
@@ -194,7 +200,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="40px"
                     android:text="0/300"
-                    android:textColor="@color/black_333333"
+                    android:textColor="#9d9d9d"
                     android:textSize="28px" />
 
             </RelativeLayout>
@@ -210,11 +216,11 @@
 
                 <ImageView
                     android:id="@+id/activity_create_friend_remember_iv_activity_city"
-                    android:layout_width="40px"
-                    android:layout_height="40px"
+                    android:layout_width="45px"
+                    android:layout_height="45px"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="40px"
-                    android:src="@mipmap/activity_place" />
+                    android:src="@mipmap/didian" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -223,7 +229,7 @@
                     android:layout_marginLeft="12px"
                     android:layout_toRightOf="@+id/activity_create_friend_remember_iv_activity_city"
                     android:text="地点"
-                    android:textColor="@color/black_333333"
+                    android:textColor="@color/black_666666"
                     android:textSize="28px" />
 
                 <!--<ImageView-->
@@ -275,11 +281,11 @@
 
                 <ImageView
                     android:id="@+id/activity_create_friend_remember_iv_active_title"
-                    android:layout_width="40px"
-                    android:layout_height="40px"
+                    android:layout_width="45px"
+                    android:layout_height="45px"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="40px"
-                    android:src="@mipmap/activities_require_r" />
+                    android:src="@mipmap/guanlian_round" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -287,8 +293,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="12px"
                     android:layout_toRightOf="@+id/activity_create_friend_remember_iv_active_title"
-                    android:text="所属活动"
-                    android:textColor="@color/black_333333"
+                    android:text="关联路线活动"
+                    android:textColor="@color/black_666666"
                     android:textSize="28px" />
 
                 <ImageView
@@ -326,11 +332,11 @@
 
                 <ImageView
                     android:id="@+id/activity_create_friend_remember_iv_price"
-                    android:layout_width="40px"
-                    android:layout_height="40px"
+                    android:layout_width="45px"
+                    android:layout_height="45px"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="40px"
-                    android:src="@mipmap/price" />
+                    android:src="@mipmap/feiyong" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -338,8 +344,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="12px"
                     android:layout_toRightOf="@+id/activity_create_friend_remember_iv_price"
-                    android:text="人均费用"
-                    android:textColor="@color/black_333333"
+                    android:text="费用"
+                    android:textColor="@color/black_666666"
                     android:textSize="28px" />
 
                 <!--<ImageView-->
@@ -379,11 +385,11 @@
 
                 <ImageView
                     android:id="@+id/activity_create_friend_remember_iv_time_start"
-                    android:layout_width="40px"
-                    android:layout_height="40px"
+                    android:layout_width="45px"
+                    android:layout_height="45px"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="40px"
-                    android:src="@mipmap/time_start" />
+                    android:src="@mipmap/shijian" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -392,7 +398,7 @@
                     android:layout_marginLeft="12px"
                     android:layout_toRightOf="@+id/activity_create_friend_remember_iv_time_start"
                     android:text="开始时间"
-                    android:textColor="@color/black_333333"
+                    android:textColor="@color/black_666666"
                     android:textSize="28px" />
 
                 <ImageView
@@ -428,11 +434,11 @@
 
                 <ImageView
                     android:id="@+id/activity_create_friend_remember_iv_time_end"
-                    android:layout_width="40px"
-                    android:layout_height="40px"
+                    android:layout_width="45px"
+                    android:layout_height="45px"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="40px"
-                    android:src="@mipmap/time_end" />
+                    android:src="@mipmap/shijian" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -441,7 +447,7 @@
                     android:layout_marginLeft="12px"
                     android:layout_toRightOf="@+id/activity_create_friend_remember_iv_time_end"
                     android:text="结束时间"
-                    android:textColor="@color/black_333333"
+                    android:textColor="@color/black_666666"
                     android:textSize="28px" />
 
                 <ImageView
@@ -477,11 +483,11 @@
 
                 <ImageView
                     android:id="@+id/activity_create_friend_remember_iv_label"
-                    android:layout_width="40px"
-                    android:layout_height="40px"
+                    android:layout_width="45px"
+                    android:layout_height="45px"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="40px"
-                    android:src="@mipmap/label_create_friend_remember" />
+                    android:src="@mipmap/biaoqian" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -490,7 +496,7 @@
                     android:layout_marginLeft="12px"
                     android:layout_toRightOf="@+id/activity_create_friend_remember_iv_label"
                     android:text="标签"
-                    android:textColor="@color/black_333333"
+                    android:textColor="@color/black_666666"
                     android:textSize="28px" />
 
                 <ImageView
@@ -528,11 +534,11 @@
 
                 <ImageView
                     android:id="@+id/activity_create_friend_remember_iv_encryption"
-                    android:layout_width="40px"
-                    android:layout_height="40px"
+                    android:layout_width="45px"
+                    android:layout_height="45px"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="40px"
-                    android:src="@mipmap/article_lock" />
+                    android:src="@mipmap/jiami" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -541,7 +547,7 @@
                     android:layout_marginLeft="12px"
                     android:layout_toRightOf="@+id/activity_create_friend_remember_iv_encryption"
                     android:text="浏览加密"
-                    android:textColor="@color/black_333333"
+                    android:textColor="@color/black_666666"
                     android:textSize="28px" />
 
                 <ImageView
@@ -561,7 +567,7 @@
                     android:layout_marginRight="10px"
                     android:layout_toLeftOf="@+id/activity_create_friend_remember_iv_encryption_right"
                     android:text="不设密码"
-                    android:textColor="@color/black_333333"
+                    android:textColor="#9d9d9d"
                     android:textSize="28px" />
 
             </RelativeLayout>
@@ -580,17 +586,17 @@
                     android:id="@+id/activity_create_friend_remember_iv_is_intercalation"
                     android:layout_marginLeft="35px"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/person_is_single"
-                    android:layout_width="50px"
-                    android:layout_height="50px" />
+                    android:src="@mipmap/xiezuo"
+                    android:layout_width="45px"
+                    android:layout_height="45px" />
 
                 <TextView
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10px"
                     android:layout_toRightOf="@+id/activity_create_friend_remember_iv_is_intercalation"
                     android:textSize="28px"
-                    android:textColor="@color/black_333333"
-                    android:text="是否允许队友插文"
+                    android:textColor="@color/black_666666"
+                    android:text="团队参写"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -606,7 +612,7 @@
                 <TextView
                     android:layout_toLeftOf="@+id/activity_create_friend_remember_iv_is_intercalation_right"
                     android:id="@+id/activity_create_friend_remember_tv_is_intercalation"
-                    android:textColor="@color/black_333333"
+                    android:textColor="#9d9d9d"
                     android:textSize="28px"
                     android:layout_marginRight="10px"
                     android:layout_centerVertical="true"
