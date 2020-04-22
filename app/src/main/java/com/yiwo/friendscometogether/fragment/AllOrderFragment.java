@@ -3,14 +3,12 @@ package com.yiwo.friendscometogether.fragment;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -35,47 +33,23 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.FragmentAllOrderAdapter;
-import com.yiwo.friendscometogether.adapter.FragmentToPayAdapter;
 import com.yiwo.friendscometogether.base.OrderBaseFragment;
 import com.yiwo.friendscometogether.custom.EditContentDialog;
-import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.AllOrderFragmentModel;
-import com.yiwo.friendscometogether.model.FocusOnToFriendTogetherModel;
 import com.yiwo.friendscometogether.model.OrderToPayModel;
-import com.yiwo.friendscometogether.model.PayFragmentModel;
-import com.yiwo.friendscometogether.model.UserFocusModel;
-import com.yiwo.friendscometogether.model.UserReleaseModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.network.UMConfig;
-import com.yiwo.friendscometogether.pages.ApplyActivity;
-import com.yiwo.friendscometogether.pages.CreateFriendRememberActivity;
-import com.yiwo.friendscometogether.pages.CreateIntercalationActivity;
-import com.yiwo.friendscometogether.pages.MyFocusActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
-import com.yiwo.friendscometogether.utils.StringUtils;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import top.zibin.luban.CompressionPredicate;
-import top.zibin.luban.Luban;
-import top.zibin.luban.OnCompressListener;
-
-import static com.umeng.socialize.utils.DeviceConfig.context;
 
 /**
  * Created by Administrator on 2018/7/18.

@@ -1,8 +1,12 @@
 package com.yiwo.friendscometogether.newadapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +14,27 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.UserRememberModel;
+import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.EditorFriendRememberActivity;
+import com.yiwo.friendscometogether.pages.ModifyFriendRememberActivity;
 import com.yiwo.friendscometogether.pages.TeamIntercalationActivity;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity2;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
+
+import static com.yiwo.friendscometogether.utils.TokenUtils.getToken;
 
 /**
  * Created by Administrator on 2018/12/18.
@@ -64,12 +78,73 @@ public class MyRememberAdapter extends RecyclerView.Adapter<MyRememberAdapter.Vi
             }
         });
 
+        if (data.get(position).getType().equals("0")){
+            holder.tvFaBuStatus.setText("已发布");
+            holder.tvFaBuStatus.setTextColor(Color.parseColor("#666666"));
+            holder.tvFaBuStatus.setBackgroundResource(R.drawable.bg_66666_border_3dp);
+        }else {
+            holder.tvFaBuStatus.setText("未发布");
+            holder.tvFaBuStatus.setTextColor(Color.parseColor("#d84c37"));
+            holder.tvFaBuStatus.setBackgroundResource(R.drawable.bg_d84c37_border_3dp);
+            holder.tvFaBuStatus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage("确定发布？")
+                            .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    ViseHttp.POST(NetConfig.releaseDraftUrl)
+                                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.releaseDraftUrl))
+                                            .addParam("id", data.get(position).getFmID())
+                                            .request(new ACallback<String>() {
+                                                @Override
+                                                public void onSuccess(String data1) {
+                                                    Log.d("asaasas",data1);
+                                                    try {
+                                                        JSONObject jsonObject = new JSONObject(data1);
+                                                        if(jsonObject.getInt("code") == 200){
+                                                            Toast.makeText(context, jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
+                                                            data.get(position).setType("0");
+                                                            notifyDataSetChanged();
+                                                        }else {
+                                                            Intent intent = new Intent();
+                                                            Toast.makeText(context, jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
+                                                            intent.setClass(context, ModifyFriendRememberActivity.class);
+                                                            intent.putExtra("id", data.get(position).getFmID());
+                                                            context.startActivity(intent);
+                                                        }
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onFail(int errCode, String errMsg) {
+
+                                                }
+                                            });
+                                }
+                            })
+                            .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
+                }
+            });
+        }
         holder.tvEditor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.putExtra("id", data.get(position).getFmID());
-                intent.putExtra("draft", "1");
+                if (data.get(position).getType().equals("0")){
+                    intent.putExtra("draft", "1");//已发布状态
+                }else {
+                    intent.putExtra("draft", "2");//未发布状态
+                }
                 intent.setClass(context, EditorFriendRememberActivity.class);
                 context.startActivity(intent);
             }
@@ -118,6 +193,7 @@ public class MyRememberAdapter extends RecyclerView.Adapter<MyRememberAdapter.Vi
         private TextView tvFaBuShiJian;
         private TextView tvGuanLianHuoDong;
         private TextView tvCanYuXieZuo;
+        private TextView tvFaBuStatus;
         private RelativeLayout rlCanYuXieZuo;
         private View viewZhuPian,viewXuXie;
         public ViewHolder(View itemView) {
@@ -135,6 +211,7 @@ public class MyRememberAdapter extends RecyclerView.Adapter<MyRememberAdapter.Vi
             rlCanYuXieZuo = itemView.findViewById(R.id.rl_canyuxiezuo);
             viewZhuPian = itemView.findViewById(R.id.view_zhupian);
             viewXuXie = itemView.findViewById(R.id.view_xuxie);
+            tvFaBuStatus = itemView.findViewById(R.id.tv_staus);
         }
     }
 

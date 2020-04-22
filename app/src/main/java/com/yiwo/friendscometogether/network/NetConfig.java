@@ -52,7 +52,7 @@ public class NetConfig {
     public static String userLabel = "action/ac_public/Label";
     //友记发布
     public static String userRelease = "action/ac_article/InsertArticle";
-    //用户友记列表(草稿)
+    //用户友记列表(草稿)// 传参  type  不传  返回所有已发布和草稿，传 1 返回所有草稿，传0返回已发布的友记
     public static String userRemember = "action/ac_article/Listofarticles";
     //添加插文
     public static String userIntercalation = "action/ac_article/Intercalation";

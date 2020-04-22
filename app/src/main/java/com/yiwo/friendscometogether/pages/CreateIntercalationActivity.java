@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.UserIntercalationPicModel;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.newpage.CreateFriendRememberActivity1;
 import com.yiwo.friendscometogether.sp.SpImp;
 
 import org.json.JSONException;
@@ -73,23 +75,23 @@ import top.zibin.luban.OnCompressListener;
 
 import static com.vise.utils.io.IOUtil.copy;
 
+//创建续写页面
 public class CreateIntercalationActivity extends BaseActivity {
 
     @BindView(R.id.activity_create_intercalation_rl_back)
     RelativeLayout rlBack;
     @BindView(R.id.activity_create_intercalation_rv)
     RecyclerView recyclerView;
-    @BindView(R.id.activity_create_intercalation_rl_complete)
-    RelativeLayout rlComplete;
     @BindView(R.id.activity_create_intercalation_et_title)
     EditText etTitle;
     @BindView(R.id.activity_create_intercalation_et_content)
     EditText etContent;
     @BindView(R.id.activity_create_intercalation_tv_text_num)
     TextView tvContentNum;
-    @BindView(R.id.activity_create_intercalation_tv_complete)
-    TextView tvComplete;
-
+    @BindView(R.id.ll_bottom)
+    LinearLayout llbtnsJiXu_FaBu;//从创建友记入口进来 type 为 0 未发布状态
+    @BindView(R.id.ll_bottom2)
+    LinearLayout llBaoCun ; //从编辑友记入口进来 草稿 状态是 2 ，已发布状态是 1
     private IntercalationAdapter adapter;
     private List<UserIntercalationPicModel> mList;
 
@@ -124,11 +126,17 @@ public class CreateIntercalationActivity extends BaseActivity {
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
-        type = intent.getStringExtra("type");
-        if(type.equals("1")){
-            tvComplete.setText("发布");
-        }else if(type.equals("2")){
-            tvComplete.setText("保存");
+        type = intent.getStringExtra("type");//草稿 状态是 2 ，已发布状态是 1 ,从创建友记页面进入状态是0（也是未发布状态
+        Log.d("sssssaaaaa ",""+type);
+        if(type.equals("0")){
+            llBaoCun.setVisibility(View.GONE);
+            llbtnsJiXu_FaBu.setVisibility(View.VISIBLE);
+            Log.d("sssssaaaaa  ","创建友记进入");
+        }
+        else {
+            llBaoCun.setVisibility(View.VISIBLE);
+            llbtnsJiXu_FaBu.setVisibility(View.GONE);
+            Log.d("sssssaaaaa  ","编辑友记进入");
         }
 
         uid = spImp.getUID();
@@ -203,89 +211,33 @@ public class CreateIntercalationActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.activity_create_intercalation_rl_back, R.id.activity_create_intercalation_rl_complete})
+    @OnClick({R.id.activity_create_intercalation_rl_back,R.id.btn_baocun,R.id.btn_jixuchaungzuo,R.id.btn_lijifabu})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.activity_create_intercalation_rl_back:
                 onBackPressed();
                 break;
-            case R.id.activity_create_intercalation_rl_complete:
-                if (mList.size() == 0) {
-                    toToast(CreateIntercalationActivity.this, "请至少上传一张图片");
-                }else if(TextUtils.isEmpty(etTitle.getText().toString())){
-                    toToast(CreateIntercalationActivity.this, "请添加标题");
+            case R.id.btn_lijifabu:
+                complete(0,false);//发布
+                break;
+            case R.id.btn_jixuchaungzuo:
+                complete(1,true);//存草稿 并且再次打开创建续写页面进行创作
+                break;
+            case R.id.btn_baocun:
+                if (type.equals("1")){
+                    complete(0,false);//发布
                 }else {
-                    if(type.equals("0")){
-                        showCompletePopupwindow();
-                    }else if(type.equals("1")){
-                        complete(0);
-                    }else if(type.equals("2")){
-                        complete(1);
-                    }
+                    complete(1,false);//存草稿
                 }
                 break;
         }
     }
-
-    private void showCompletePopupwindow() {
-
-        View view = LayoutInflater.from(CreateIntercalationActivity.this).inflate(R.layout.popupwindow_complete, null);
-        ScreenAdapterTools.getInstance().loadView(view);
-
-        TextView tvRelease = view.findViewById(R.id.popupwindow_complete_tv_release);
-//        TextView tvSave = view.findViewById(R.id.popupwindow_complete_tv_save);
-        TextView tvNext = view.findViewById(R.id.popupwindow_complete_tv_next);
-        TextView tvCancel = view.findViewById(R.id.popupwindow_complete_tv_cancel);
-        tvNext.setText("保存草稿");
-
-        popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
-        popupWindow.setTouchable(true);
-        popupWindow.setFocusable(true);
-        // 设置点击窗口外边窗口消失
-        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        popupWindow.setOutsideTouchable(true);
-        popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
-        // 设置popWindow的显示和消失动画
-        popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
-        WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.alpha = 0.5f;
-        getWindow().setAttributes(params);
-        popupWindow.update();
-
-        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
-            // 在dismiss中恢复透明度
-            public void onDismiss() {
-                WindowManager.LayoutParams params = getWindow().getAttributes();
-                params.alpha = 1f;
-                getWindow().setAttributes(params);
-            }
-        });
-
-        tvCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                popupWindow.dismiss();
-            }
-        });
-        tvRelease.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                complete(0);
-            }
-        });
-        tvNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                complete(1);
-            }
-        });
-    }
-
     /**
      * 发布
+     * type 0 发布，1存草稿
+     * openagain 发布并且再次打开创作页面
      */
-    private void complete(final int type) {
+    private void complete(final int stuas,boolean openagain) {
 
         dialog = WeiboDialogUtils.createLoadingDialog(CreateIntercalationActivity.this, "请等待...");
         Observable<Map<String, File>> observable = Observable.create(new ObservableOnSubscribe<Map<String, File>>() {
@@ -355,7 +307,7 @@ public class CreateIntercalationActivity extends BaseActivity {
                         .addParam("content", etContent.getText().toString())
                         .addParam("id", id)
                         .addParam("uid", uid)
-                        .addParam("type", type + "")
+                        .addParam("type", stuas + "")
                         .addParam("describe", describe)
                         .addFiles(value)
                         .request(new ACallback<String>() {
@@ -367,6 +319,13 @@ public class CreateIntercalationActivity extends BaseActivity {
                                     if (jsonObject.getInt("code") == 200) {
                                         toToast(CreateIntercalationActivity.this, "创建成功");
                                         WeiboDialogUtils.closeDialog(dialog);
+                                        if (openagain){
+                                            Intent intent = new Intent();
+                                            intent.putExtra("id", id);
+                                            intent.putExtra("type", type);//传0为当前友记为未发布状态
+                                            intent.setClass(CreateIntercalationActivity.this, CreateIntercalationActivity.class);
+                                            startActivity(intent);
+                                        }
                                         onBackPressed();
                                     }
                                 } catch (JSONException e) {

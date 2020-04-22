@@ -11,7 +11,7 @@ public class UserRememberModel {
     /**
      * code : 200
      * message : 获取成功
-     * obj : [{"fmID":"2424","fmtitle":"云朵～","fmpic":"http://www.tongbanapp.com/uploads/article/20200421/0-d0f72cea9667c70f5bb8861e420c209b8151.jpeg","fmgotime":"","fmendtime":"","percapitacost":"","fmlook":"7","fmfavorite":"0","fmtime":"2020-04-21 13:47","fm_small_img":"uploads/articlesmall/20200421/CR-MwYp4RMFQyn0.jpeg","fmpartyID":"0","inNum":"0","pftitle":"测试假数据测试假数据测试假数据"}]
+     * obj : [{"fmID":"2445","fmtitle":"再来一个表情包，存草稿","fmpic":"http://www.tongbanapp.com/uploads/article/20200421/0-b7f49501c347e0286465af304d3b28f87979.jpg","fmgotime":"","fmendtime":"","percapitacost":"","fmlook":"2","fmfavorite":"0","fmtime":"2020-04-21 16:13","fm_small_img":"uploads/articlesmall/20200421/CR-Xvj4CI0wBhRl.jpg","fmpartyID":"0","insertatext":"1","type":"1","inNum":"0","pftitle":"无"},{"fmID":"2424","fmtitle":"云朵～","fmpic":"http://www.tongbanapp.com/uploads/article/20200421/0-d0f72cea9667c70f5bb8861e420c209b8151.jpeg","fmgotime":"","fmendtime":"","percapitacost":"","fmlook":"78","fmfavorite":"0","fmtime":"2020-04-21 13:47","fm_small_img":"uploads/articlesmall/20200421/CR-MwYp4RMFQyn0.jpeg","fmpartyID":"0","insertatext":"0","type":"0","inNum":"2","pftitle":"无"}]
      */
 
     private int code;
@@ -44,19 +44,21 @@ public class UserRememberModel {
 
     public static class ObjBean {
         /**
-         * fmID : 2424
-         * fmtitle : 云朵～
-         * fmpic : http://www.tongbanapp.com/uploads/article/20200421/0-d0f72cea9667c70f5bb8861e420c209b8151.jpeg
+         * fmID : 2445
+         * fmtitle : 再来一个表情包，存草稿
+         * fmpic : http://www.tongbanapp.com/uploads/article/20200421/0-b7f49501c347e0286465af304d3b28f87979.jpg
          * fmgotime :
          * fmendtime :
          * percapitacost :
-         * fmlook : 7
+         * fmlook : 2
          * fmfavorite : 0
-         * fmtime : 2020-04-21 13:47
-         * fm_small_img : uploads/articlesmall/20200421/CR-MwYp4RMFQyn0.jpeg
+         * fmtime : 2020-04-21 16:13
+         * fm_small_img : uploads/articlesmall/20200421/CR-Xvj4CI0wBhRl.jpg
          * fmpartyID : 0
+         * insertatext : 1
+         * type : 1
          * inNum : 0
-         * pftitle : 测试假数据测试假数据测试假数据
+         * pftitle : 无
          */
 
         private String fmID;
@@ -70,6 +72,8 @@ public class UserRememberModel {
         private String fmtime;
         private String fm_small_img;
         private String fmpartyID;
+        private String insertatext;
+        private String type;
         private String inNum;
         private String pftitle;
 
@@ -159,6 +163,22 @@ public class UserRememberModel {
 
         public void setFmpartyID(String fmpartyID) {
             this.fmpartyID = fmpartyID;
+        }
+
+        public String getInsertatext() {
+            return insertatext;
+        }
+
+        public void setInsertatext(String insertatext) {
+            this.insertatext = insertatext;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
         }
 
         public String getInNum() {

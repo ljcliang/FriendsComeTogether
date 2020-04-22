@@ -20,6 +20,7 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/rl_draft"
             android:layout_alignParentRight="true"
             android:layout_width="140px"

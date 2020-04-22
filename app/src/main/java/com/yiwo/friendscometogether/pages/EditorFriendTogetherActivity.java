@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +24,8 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.adapter.EditorFriendRememberAdapter;
 import com.yiwo.friendscometogether.adapter.EditorFriendTogetherAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
-import com.yiwo.friendscometogether.model.EditorFriendRememberModel;
 import com.yiwo.friendscometogether.model.GetEditorFriendTogetherModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 

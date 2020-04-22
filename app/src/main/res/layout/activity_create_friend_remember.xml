@@ -388,7 +388,7 @@
                     android:layout_marginRight="40px"
                     android:layout_marginLeft="10px"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/round_jiantou_xia"
+                    android:src="@mipmap/zhankai"
                     android:layout_width="45px"
                     android:layout_height="45px" />
 
@@ -675,7 +675,7 @@
             android:textSize="32px"
             android:gravity="center"
             android:textColor="@color/white_ffffff"
-            android:text="继续创作"
+            android:text="保存继续"
             android:layout_marginRight="2px"
             android:background="@drawable/bg_d84c37_left_30px"
             android:layout_weight="1"

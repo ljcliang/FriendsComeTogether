@@ -503,26 +503,6 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                 customDatePicker2.show(now);
                 break;
             case R.id.rl_choose_address:
-//                OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
-//                    @Override
-//                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
-//                        //返回的分别是三个级别的选中位置
-//                        String tx = options1Items.get(options1).getPickerViewText() + "-" +
-//                                options2Items.get(options1).get(options2) + "-" +
-//                                options3Items.get(options1).get(options2).get(options3);
-//                        tvCity.setText(tx);
-//                    }
-//                })
-//                        .setTitleText("城市选择")
-//                        .setDividerColor(Color.BLACK)
-//                        .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
-//                        .setContentTextSize(20)
-//                        .build();
-//
-//        /*pvOptions.setPicker(options1Items);//一级选择器
-//        pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
-//                pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
-//                pvOptions.show();
                 Intent it = new Intent(CreateFriendRememberActivity1.this, CityActivity.class);
                 it.putExtra(ActivityConfig.ACTIVITY, "createYouJi");
                 startActivityForResult(it, REQUEST_CODE_GET_CITY);
@@ -968,63 +948,6 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
         }
         return detail;
     }
-
-//    private void showCompletePopupwindow() {
-//
-//        View view = LayoutInflater.from(CreateFriendRememberActivity1.this).inflate(R.layout.popupwindow_complete, null);
-//        ScreenAdapterTools.getInstance().loadView(view);
-//
-//        TextView tvRelease = view.findViewById(R.id.popupwindow_complete_tv_release);
-////        TextView tvSave = view.findViewById(R.id.popupwindow_complete_tv_save);
-//        TextView tvNext = view.findViewById(R.id.popupwindow_complete_tv_next);
-//        TextView tvCancel = view.findViewById(R.id.popupwindow_complete_tv_cancel);
-//
-//        popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
-//        popupWindow.setTouchable(true);
-//        popupWindow.setFocusable(true);
-//        // 设置点击窗口外边窗口消失
-//        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//        popupWindow.setOutsideTouchable(true);
-//        popupWindow.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
-//        // 设置popWindow的显示和消失动画
-//        popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
-//        WindowManager.LayoutParams params = getWindow().getAttributes();
-//        params.alpha = 0.5f;
-//        getWindow().setAttributes(params);
-//        popupWindow.update();
-//
-//        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-//
-//            // 在dismiss中恢复透明度
-//            public void onDismiss() {
-//                WindowManager.LayoutParams params = getWindow().getAttributes();
-//                params.alpha = 1f;
-//                getWindow().setAttributes(params);
-//            }
-//        });
-//
-//        tvCancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                popupWindow.dismiss();
-//            }
-//        });
-//
-//        tvRelease.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                fabu();
-//            }
-//        });
-//        tvNext.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                next();
-//            }
-//        });
-//
-//    }
-
     private void fabu() {
         if(TextUtils.isEmpty(etTitle.getText().toString())){
             Toast.makeText(CreateFriendRememberActivity1.this, "请填写标题", Toast.LENGTH_SHORT).show();
@@ -1308,7 +1231,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                                         UserReleaseModel userReleaseModel = gson.fromJson(data, UserReleaseModel.class);
                                         Intent intent = new Intent();
                                         intent.putExtra("id", userReleaseModel.getObj().getId()+"");
-                                        intent.putExtra("type", "0");
+                                        intent.putExtra("type", "0");//传0为当前友记为未发布状态
                                         intent.setClass(CreateFriendRememberActivity1.this, CreateIntercalationActivity.class);
                                         WeiboDialogUtils.closeDialog(dialog);
                                         startActivity(intent);

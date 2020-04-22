@@ -77,7 +77,7 @@ public class AllRememberFragment extends BaseFragment {
         ViseHttp.POST(NetConfig.userRemember)
                 .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userRemember))
                 .addParam("uid", uid)
-                .addParam("type", "0")
+//                .addParam("type", "0")
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {

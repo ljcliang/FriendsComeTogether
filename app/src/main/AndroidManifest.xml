@@ -124,7 +124,9 @@
         <activity android:name=".pages.LookHistoryActivity" />
         <activity android:name=".pages.MyDraftActivity" />
         <activity android:name=".pages.CreateFriendRememberActivity" />
-        <activity android:name=".newpage.CreateFriendRememberActivity1" />
+        <activity android:name=".newpage.CreateFriendRememberActivity1"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".newpage.SuoShuHuoDongActivity" />
         <activity
             android:name="com.donkingliang.imageselector.ImageSelectorActivity"
@@ -159,7 +161,9 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".pages.CreateIntercalationActivity" />
+        <activity android:name=".pages.CreateIntercalationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".pages.EditorFriendRememberActivity" />
         <activity android:name=".pages.TeamIntercalationActivity" />
         <activity android:name=".pages.InsertIntercalationActivity" />

@@ -57,7 +57,7 @@
             android:textColor="@color/white_ffffff"
             android:gravity="center"
             android:textSize="20px"
-            android:background="#449CFA"
+            android:background="@drawable/bg_black_16px_transparent_point_30down"
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
