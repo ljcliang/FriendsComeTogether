@@ -136,6 +136,14 @@ public class EditorFriendRememberActivity extends BaseActivity {
                                                     }
                                                 }).show();
                                     }
+                                }, new EditorFriendRememberAdapter.OnEditListenner() {
+                                    @Override
+                                    public void edit(int pos) {
+                                        Intent intent = new Intent();
+                                        intent.putExtra("id", mList.get(pos).getFfID());
+                                        intent.setClass(EditorFriendRememberActivity.this, ModifyIntercalationActivity.class);
+                                        startActivityForResult(intent,1);
+                                    }
                                 });
                                 recyclerView.setAdapter(adapter);
                             }

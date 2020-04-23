@@ -29,10 +29,12 @@ public class EditorFriendRememberAdapter extends RecyclerView.Adapter<EditorFrie
     private Context context;
     private List<EditorFriendRememberModel.ObjBean.RenewListBean> data;
     private Activity activity;
-    private OndeleteListenner listenner;
-    public EditorFriendRememberAdapter(List<EditorFriendRememberModel.ObjBean.RenewListBean> data, Activity activity,OndeleteListenner listenner) {
+    private OndeleteListenner ondeleteListenner;
+    private OnEditListenner onEditListenner;
+    public EditorFriendRememberAdapter(List<EditorFriendRememberModel.ObjBean.RenewListBean> data, Activity activity,OndeleteListenner ondeleteListenner,OnEditListenner onEditListenner) {
         this.data = data;
-        this.listenner = listenner;
+        this.ondeleteListenner = ondeleteListenner;
+        this.onEditListenner = onEditListenner;
         this.activity = activity;
     }
 
@@ -53,17 +55,13 @@ public class EditorFriendRememberAdapter extends RecyclerView.Adapter<EditorFrie
         holder.btnShanChu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listenner.delete(position);
+                ondeleteListenner.delete(position);
             }
         });
         holder.rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.putExtra("id", data.get(position).getFfID());
-                intent.setClass(context, ModifyIntercalationActivity.class);
-                context.startActivity(intent);
-//                activity.finish();
+                onEditListenner.edit(position);
             }
         });
     }
@@ -95,5 +93,8 @@ public class EditorFriendRememberAdapter extends RecyclerView.Adapter<EditorFrie
     }
     public interface OndeleteListenner{
         void delete(int pos);
+    }
+    public interface OnEditListenner{
+        void edit(int pos);
     }
 }

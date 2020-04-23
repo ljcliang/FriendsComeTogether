@@ -1,6 +1,7 @@
 package com.yiwo.friendscometogether.newfragment;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,11 +20,13 @@ import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.WoDeChawenAdapter;
 import com.yiwo.friendscometogether.newmodel.WoDeChaWenModel;
+import com.yiwo.friendscometogether.pages.ModifyIntercalationActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,7 +43,7 @@ public class AllChawenFragment extends BaseFragment {
     RecyclerView rv1;
 
     private WoDeChawenAdapter adapter;
-    private List<WoDeChaWenModel.ObjBean> mList;
+    private List<WoDeChaWenModel.ObjBean> mList = new ArrayList<>();
 
     private SpImp spImp;
     private String uid = "";
@@ -53,7 +56,56 @@ public class AllChawenFragment extends BaseFragment {
         ScreenAdapterTools.getInstance().loadView(view);
         ButterKnife.bind(this, view);
         spImp = new SpImp(getContext());
+        adapter = new WoDeChawenAdapter(mList, new WoDeChawenAdapter.OnDeleteListener() {
+            @Override
+            public void onDelete(int position) {
+                toDialog(getContext(), "提示", "是否删除插文", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface dialogInterface, final int i) {
+                        ViseHttp.POST(NetConfig.userDeleteIntercalationFocusUrl)
+                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userDeleteIntercalationFocusUrl))
+                                .addParam("id", mList.get(position).getFfID())
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            JSONObject jsonObject1 = new JSONObject(data);
+                                            if(jsonObject1.getInt("code") == 200){
+                                                toToast(getContext(), "删除成功");
+                                                mList.remove(position);
+                                                adapter.notifyDataSetChanged();
+                                                dialogInterface.dismiss();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
 
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
+                    }
+                }, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+            }
+        }, new WoDeChawenAdapter.OnEditListenner() {
+            @Override
+            public void onEdit(int posion) {
+                Intent intent = new Intent();
+                intent.putExtra("id", mList.get(posion).getFfID());
+                intent.setClass(getContext(), ModifyIntercalationActivity.class);
+                startActivityForResult(intent,1);
+            }
+        });
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        rv1.setLayoutManager(manager);
+        rv1.setAdapter(adapter);
         initData();
 
         return view;
@@ -74,50 +126,9 @@ public class AllChawenFragment extends BaseFragment {
                             if(jsonObject.getInt("code") == 200){
                                 Gson gson = new Gson();
                                 WoDeChaWenModel model = gson.fromJson(data, WoDeChaWenModel.class);
-                                mList = model.getObj();
-                                adapter = new WoDeChawenAdapter(mList);
-                                LinearLayoutManager manager = new LinearLayoutManager(getContext());
-                                rv1.setLayoutManager(manager);
-                                rv1.setAdapter(adapter);
-                                adapter.setListener(new WoDeChawenAdapter.OnDeleteListener() {
-                                    @Override
-                                    public void onDelete(final int position) {
-                                        toDialog(getContext(), "提示", "是否删除插文", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(final DialogInterface dialogInterface, final int i) {
-                                                ViseHttp.POST(NetConfig.userDeleteIntercalationFocusUrl)
-                                                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userDeleteIntercalationFocusUrl))
-                                                        .addParam("id", mList.get(position).getFfID())
-                                                        .request(new ACallback<String>() {
-                                                            @Override
-                                                            public void onSuccess(String data) {
-                                                                try {
-                                                                    JSONObject jsonObject1 = new JSONObject(data);
-                                                                    if(jsonObject1.getInt("code") == 200){
-                                                                        toToast(getContext(), "删除成功");
-                                                                        mList.remove(position);
-                                                                        adapter.notifyDataSetChanged();
-                                                                        dialogInterface.dismiss();
-                                                                    }
-                                                                } catch (JSONException e) {
-                                                                    e.printStackTrace();
-                                                                }
-                                                            }
-
-                                                            @Override
-                                                            public void onFail(int errCode, String errMsg) {
-
-                                                            }
-                                                        });
-                                            }
-                                        }, new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                dialogInterface.dismiss();
-                                            }
-                                        });
-                                    }
-                                });
+                                mList.clear();
+                                mList.addAll(model.getObj());
+                                adapter.notifyDataSetChanged();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -130,6 +141,12 @@ public class AllChawenFragment extends BaseFragment {
                     }
                 });
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        initData();
     }
 
     @OnClick({})

@@ -233,7 +233,7 @@ public class InsertIntercalationActivity extends BaseActivity {
                 break;
             case R.id.activity_insert_intercalation_rl_intercalation_location:
                 if (itemName.length == 0) {
-                    toToast(InsertIntercalationActivity.this, "暂无子标题");
+                    toToast(InsertIntercalationActivity.this, "暂无续写");
                 } else {
                     AlertDialog.Builder singleChoiceDialog =
                             new AlertDialog.Builder(InsertIntercalationActivity.this);

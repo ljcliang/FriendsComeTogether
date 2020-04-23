@@ -1,76 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@color/white_ffffff"
+    android:elevation="1dp"
+    android:background="@drawable/bg_white_10dp"
     android:id="@+id/ll"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="7dp"
+    android:layout_marginBottom="7dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
-    <TextView
-        android:lines="1"
-        android:ellipsize="end"
-        android:id="@+id/tv_title"
-        android:layout_marginTop="30px"
-        android:layout_marginLeft="32px"
-        android:layout_marginRight="32px"
-        android:textStyle="bold"
-        android:textColor="@color/black_333333"
-        android:textSize="32px"
-        android:text="多年的期待等待，只为放飞那一个的浪漫（2018 年清迈水灯节）"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_alignParentTop="true"
-            android:id="@+id/tv_date"
-            android:layout_gravity="left"
-            android:layout_marginLeft="32px"
-            android:layout_marginTop="10px"
-            android:textColor="#505050"
-            android:textSize="24px"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
+            android:id="@+id/tv_fm_title"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/ll_staus"
             android:layout_centerVertical="true"
-            android:id="@+id/tv_staus"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="32px"
-            android:layout_marginTop="10px"
+            android:lines="1"
+            android:ellipsize="end"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="15dp"
             android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="30px"
-            android:layout_width="wrap_content"
+            android:textColor="@color/black_101010"
+            android:textSize="14sp"
+            android:text=""
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <LinearLayout
+            android:id="@+id/ll_staus"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="4dp"
+                android:id="@+id/iv_head"
+                android:src="@mipmap/my_head"
+                android:layout_width="35dp"
+                android:layout_height="35dp" />
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:text=""
+                android:id="@+id/tv_staus"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </RelativeLayout>
-
-
-
+    <View
+        android:background="#d8d8d8"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_gravity="bottom"
+            android:text=""
+            android:maxLength="7"
+            android:textSize="14sp"
+            android:textColor="@color/black_101010"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_marginLeft="4dp"
+            android:text=""
+            android:layout_gravity="bottom"
+            android:textSize="12sp"
+            android:textColor="#666666"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <TextView
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text=""
+        android:layout_gravity="bottom"
+        android:textSize="14sp"
+        android:textColor="#666666"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_pics"
-        android:layout_marginTop="10px"
-        android:layout_marginLeft="32px"
-        android:layout_marginRight="32px"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/tv_delete"
-        android:gravity="center"
-        android:background="@drawable/bg_red_border_26px"
-        android:textColor="#d84c37"
-        android:textSize="24px"
-        android:text="删除"
-        android:layout_marginBottom="20px"
-        android:layout_marginTop="30px"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="236px"
-        android:layout_height="52px" />
-
-    <View
-        android:background="@color/line"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_width="match_parent"
-        android:layout_height="2px"/>
-
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp"
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_delete"
+            android:gravity="center"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="11dp"
+            android:background="@drawable/bg_666666_border_15dp"
+            android:textColor="@color/black_101010"
+            android:textSize="14sp"
+            android:text="删除"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="60dp"
+            android:layout_height="25dp" />
+        <TextView
+            android:layout_marginRight="15dp"
+            android:id="@+id/tv_edit"
+            android:gravity="center"
+            android:background="@drawable/bg_666666_border_15dp"
+            android:textColor="@color/black_101010"
+            android:textSize="14sp"
+            android:text="编辑"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="60dp"
+            android:layout_height="25dp" />
+    </LinearLayout>
 </LinearLayout>

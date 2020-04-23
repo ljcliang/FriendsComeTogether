@@ -11,7 +11,7 @@ public class WoDeChaWenModel {
     /**
      * code : 200
      * message : 获取成功
-     * obj : [{"ffID":"269","fmID":"368","fftitle":"插文1","ffcontect":"插文插文插文","ffptime":"2019-03-08 15:40:15","position":"","radio":"2","reason":"","piclist":[{"ffpID":"887","pictitle":"","picurl":"http://47.92.136.19/uploads/header/2019/03/08/0ef07016821440e535ac4a00bbcb75711552007380487.jpg"}],"newstitle":"测试插文的友记1111","activity_name":"测试退款取消活动"},{"ffID":"270","fmID":"368","fftitle":"插文2插入了5张图片","ffcontect":"啊啊啊","ffptime":"2019-03-08 15:40:15","position":"269","radio":"1","reason":"","piclist":[{"ffpID":"889","pictitle":"","picurl":"http://47.92.136.19/uploads/header/2019/03/08/6eb1d811e793117509f47ae707f3548d1552007526885.jpg"},{"ffpID":"890","pictitle":"","picurl":"http://47.92.136.19/uploads/header/2019/03/08/6eb1d811e793117509f47ae707f3548d1552007526841.jpg"},{"ffpID":"891","pictitle":"","picurl":"http://47.92.136.19/uploads/header/2019/03/08/6eb1d811e793117509f47ae707f3548d1552007526245.jpg"},{"ffpID":"892","pictitle":"","picurl":"http://47.92.136.19/uploads/header/2019/03/08/6eb1d811e793117509f47ae707f3548d1552007526554.jpg"}],"newstitle":"测试插文的友记1111","activity_name":"测试退款取消活动"},{"ffID":"272","fmID":"368","fftitle":"12","ffcontect":"12","ffptime":"2019-03-08 15:40:15","position":"","radio":"1","reason":"把","piclist":[{"ffpID":"895","pictitle":"","picurl":"http://47.92.136.19/uploads/header/2019/03/08/7085c01964736b12518f5efa4dfd1f5c1552030815820.jpg"}],"newstitle":"测试插文的友记1111","activity_name":"测试退款取消活动"}]
+     * obj : [{"ffID":"405","fmID":"2424","fftitle":"查问插文插文","ffcontect":"babawwww","ffptime":"2020-04-23 14:10:24","position":"","radio":"1","reason":"","piclist":[{"ffpID":"2128","pictitle":"","picurl":"http://www.tongbanapp.com/uploads/article/20200423/CR-6s6s8iDbqZUB.jpg"}],"fromUserPic":"http://www.tongbanapp.com/uploads/header/2019/12/31/ab17a31d0c6d8acc7fa5d64847390bee157776891312.png","newstitle":"云朵～","activity_name":""}]
      */
 
     private int code;
@@ -44,17 +44,18 @@ public class WoDeChaWenModel {
 
     public static class ObjBean {
         /**
-         * ffID : 269
-         * fmID : 368
-         * fftitle : 插文1
-         * ffcontect : 插文插文插文
-         * ffptime : 2019-03-08 15:40:15
+         * ffID : 405
+         * fmID : 2424
+         * fftitle : 查问插文插文
+         * ffcontect : babawwww
+         * ffptime : 2020-04-23 14:10:24
          * position :
-         * radio : 2
+         * radio : 1
          * reason :
-         * piclist : [{"ffpID":"887","pictitle":"","picurl":"http://47.92.136.19/uploads/header/2019/03/08/0ef07016821440e535ac4a00bbcb75711552007380487.jpg"}]
-         * newstitle : 测试插文的友记1111
-         * activity_name : 测试退款取消活动
+         * piclist : [{"ffpID":"2128","pictitle":"","picurl":"http://www.tongbanapp.com/uploads/article/20200423/CR-6s6s8iDbqZUB.jpg"}]
+         * fromUserPic : http://www.tongbanapp.com/uploads/header/2019/12/31/ab17a31d0c6d8acc7fa5d64847390bee157776891312.png
+         * newstitle : 云朵～
+         * activity_name :
          */
 
         private String ffID;
@@ -65,6 +66,7 @@ public class WoDeChaWenModel {
         private String position;
         private String radio;
         private String reason;
+        private String fromUserPic;
         private String newstitle;
         private String activity_name;
         private List<PiclistBean> piclist;
@@ -133,6 +135,14 @@ public class WoDeChaWenModel {
             this.reason = reason;
         }
 
+        public String getFromUserPic() {
+            return fromUserPic;
+        }
+
+        public void setFromUserPic(String fromUserPic) {
+            this.fromUserPic = fromUserPic;
+        }
+
         public String getNewstitle() {
             return newstitle;
         }
@@ -159,9 +169,9 @@ public class WoDeChaWenModel {
 
         public static class PiclistBean {
             /**
-             * ffpID : 887
+             * ffpID : 2128
              * pictitle :
-             * picurl : http://47.92.136.19/uploads/header/2019/03/08/0ef07016821440e535ac4a00bbcb75711552007380487.jpg
+             * picurl : http://www.tongbanapp.com/uploads/article/20200423/CR-6s6s8iDbqZUB.jpg
              */
 
             private String ffpID;

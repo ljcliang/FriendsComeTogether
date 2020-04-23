@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/ll_top"
         android:id="@+id/rv1"
         android:layout_width="match_parent"

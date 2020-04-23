@@ -36,7 +36,6 @@ public class WoDeChaWenPicsAdapter extends RecyclerView.Adapter<WoDeChaWenPicsAd
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_chawenguanli_pics, parent, false);
-        ScreenAdapterTools.getInstance().loadView(view);
         WoDeChaWenPicsAdapter.ViewHolder holder = new WoDeChaWenPicsAdapter.ViewHolder(view);
         return holder;
     }
@@ -45,6 +44,7 @@ public class WoDeChaWenPicsAdapter extends RecyclerView.Adapter<WoDeChaWenPicsAd
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Glide.with(context).load(data.get(position).getPicurl()).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv);
         if (!data.get(position).getPictitle().equals("")){
+            holder.rl.setVisibility(View.VISIBLE);
             holder.tv.setText(data.get(position).getPictitle());
         }else{
             holder.rl.setVisibility(View.GONE);
