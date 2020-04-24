@@ -167,7 +167,24 @@ public class MyApplication extends Application {
             System.exit(0);
         }
     }
-
+    public void exitOneActivity(Class eClass){
+        for (Activity activity1:mList){
+            if (eClass.getClass().equals(activity1)){
+                if (activity1 != null)
+                activity1.finish();
+            }
+        }
+    }
+    public MainActivity getMainActivity(){
+        for (Activity activity1:mList){
+            if (MainActivity.class.equals(activity1)){
+                if (activity1 != null){
+                    return (MainActivity) activity1;
+                }
+            }
+        }
+        return null;
+    }
     public void onLowMemory() {
         super.onLowMemory();
         System.gc();

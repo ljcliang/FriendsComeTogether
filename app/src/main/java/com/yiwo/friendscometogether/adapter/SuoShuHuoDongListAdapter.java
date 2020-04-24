@@ -31,7 +31,6 @@ public class SuoShuHuoDongListAdapter extends RecyclerView.Adapter<SuoShuHuoDong
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_suo_shuo_huo_dong, parent, false);
-        ScreenAdapterTools.getInstance().loadView(view);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }

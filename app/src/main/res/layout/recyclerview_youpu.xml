@@ -45,12 +45,13 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:gravity="right"
                 android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="昵称昵称的铺..."
+                android:text=""
                 android:textColor="@color/black_101010"
                 android:textSize="13sp" />
             <LinearLayout
@@ -75,24 +76,25 @@
                     android:background="@drawable/bg_ffac27_10px"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <TextView
                         android:id="@+id/tv_level"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_centerInParent="true"
-                        android:textColor="@color/black_101010"
-                        android:text="Lv.1"
-                        android:lines="1"
-                        android:textSize="12sp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:lines="1"
+                        android:text="Lv.1"
+                        android:textColor="@color/black_101010"
+                        android:textSize="12sp" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
         <TextView
             android:id="@+id/tv_shangpin_name"
             android:layout_marginTop="10dp"
-            android:text="商品名称商品名称商品..."
+            android:text=""
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:maxLines="1"
@@ -119,7 +121,7 @@
                 android:id="@+id/tv_price"
                 android:layout_gravity="bottom"
                 android:textColor="@color/red_d84c37"
-                android:text="89.00"
+                android:text=""
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

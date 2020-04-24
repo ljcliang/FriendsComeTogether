@@ -82,7 +82,7 @@ public class ModifyIntercalationActivity extends BaseActivity {
     private SpImp spImp;
     private String uid = "";
     private String id = "";
-
+    private String deleteImgsId = "";
     private List<File> files = new ArrayList<>();
 
     private Dialog dialog;
@@ -179,44 +179,50 @@ public class ModifyIntercalationActivity extends BaseActivity {
                                     public void onModify(int type, final int position) {
                                         switch (type) {
                                             case 1:
-                                                toDialog(ModifyIntercalationActivity.this, "提示", "是否删除图片",
-                                                        new DialogInterface.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(DialogInterface dialog, int which) {
-                                                                ViseHttp.POST(NetConfig.savePicAndDescribeUrl)
-                                                                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.savePicAndDescribeUrl))
-                                                                        .addParam("type", "1")
-                                                                        .addParam("id", mList1.get(position).getFfpID())
-                                                                        .request(new ACallback<String>() {
-                                                                            @Override
-                                                                            public void onSuccess(String data) {
-                                                                                try {
-                                                                                    JSONObject jsonObject1 = new JSONObject(data);
-                                                                                    if (jsonObject1.getInt("code") == 200) {
-                                                                                        mList1.remove(position);
-                                                                                        picAdapter.notifyDataSetChanged();
-                                                                                        oldPicNum = oldPicNum - 1;
-                                                                                        adapter.setPicNum(oldPicNum);
-                                                                                        adapter.notifyDataSetChanged();
-                                                                                        toToast(ModifyIntercalationActivity.this, "删除成功");
-                                                                                    }
-                                                                                } catch (JSONException e) {
-                                                                                    e.printStackTrace();
-                                                                                }
-                                                                            }
-
-                                                                            @Override
-                                                                            public void onFail(int errCode, String errMsg) {
-
-                                                                            }
-                                                                        });
-                                                            }
-                                                        }, new DialogInterface.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(DialogInterface dialog, int which) {
-
-                                                            }
-                                                        });
+                                                if (!TextUtils.isEmpty(deleteImgsId)) {
+                                                    deleteImgsId = deleteImgsId +  "," + mList1.get(position).getFfpID();
+                                                }else {
+                                                    deleteImgsId = mList1.get(position).getFfpID();
+                                                }
+                                                mList1.remove(position);
+                                                picAdapter.notifyDataSetChanged();
+                                                oldPicNum = oldPicNum - 1;
+                                                adapter.setPicNum(oldPicNum);
+                                                adapter.notifyDataSetChanged();
+//                                                toDialog(ModifyIntercalationActivity.this, "提示", "是否删除图片",
+//                                                        new DialogInterface.OnClickListener() {
+//                                                            @Override
+//                                                            public void onClick(DialogInterface dialog, int which) {
+//                                                                ViseHttp.POST(NetConfig.savePicAndDescribeUrl)
+//                                                                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.savePicAndDescribeUrl))
+//                                                                        .addParam("type", "1")
+//                                                                        .addParam("id", mList1.get(position).getFfpID())
+//                                                                        .request(new ACallback<String>() {
+//                                                                            @Override
+//                                                                            public void onSuccess(String data) {
+//                                                                                try {
+//                                                                                    JSONObject jsonObject1 = new JSONObject(data);
+//                                                                                    if (jsonObject1.getInt("code") == 200) {
+//
+//                                                                                        toToast(ModifyIntercalationActivity.this, "删除成功");
+//                                                                                    }
+//                                                                                } catch (JSONException e) {
+//                                                                                    e.printStackTrace();
+//                                                                                }
+//                                                                            }
+//
+//                                                                            @Override
+//                                                                            public void onFail(int errCode, String errMsg) {
+//
+//                                                                            }
+//                                                                        });
+//                                                            }
+//                                                        }, new DialogInterface.OnClickListener() {
+//                                                            @Override
+//                                                            public void onClick(DialogInterface dialog, int which) {
+//
+//                                                            }
+//                                                        });
                                                 break;
                                             case 2:
                                                 PicDescribeDialog dialog = new PicDescribeDialog(ModifyIntercalationActivity.this);
@@ -315,13 +321,11 @@ public class ModifyIntercalationActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.activity_create_intercalation_rl_complete:
-//                if (mList.size() == 0) {
-//                    toToast(ModifyIntercalationActivity.this, "请至少上传一张图片");
-//                }else if(TextUtils.isEmpty(etTitle.getText().toString())){
-//                    toToast(ModifyIntercalationActivity.this, "请添加标题");
-//                } else {
+                if(TextUtils.isEmpty(etTitle.getText().toString())){
+                    toToast(ModifyIntercalationActivity.this, "请添加标题");
+                } else {
                     complete();
-//                }
+                }
                 break;
         }
     }
@@ -394,14 +398,15 @@ public class ModifyIntercalationActivity extends BaseActivity {
                     describe = describe + mList.get(i).getDescribe() + "|";
                 }
                 Log.e("222", describe);
-
-                ViseHttp.UPLOAD(NetConfig.saveModifyIntercalationUrl)
+                Log.e("222", deleteImgsId);
+                ViseHttp.UPLOAD(NetConfig.saveModifyIntercalationUrl_New)
                         .addHeader("Content-Type", "multipart/form-data")
-                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.saveModifyIntercalationUrl))
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.saveModifyIntercalationUrl_New))
                         .addParam("title", etTitle.getText().toString())
                         .addParam("content", etContent.getText().toString())
                         .addParam("id", id)
                         .addParam("uid", uid)
+                        .addParam("delImgID",deleteImgsId) // 删除图片的id
                         .addParam("describe", describe)
                         .addFiles(value)
                         .request(new ACallback<String>() {

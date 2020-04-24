@@ -143,11 +143,11 @@ public class HomeTuiJian_DuiZhangPuZi_Adapter extends RecyclerView.Adapter<HomeT
         }
         switch (data.get(position).getStar()){
             case "0" :
-                holder.iv_star1.setImageResource(R.mipmap.pingxing_gray);
-                holder.iv_star2.setImageResource(R.mipmap.pingxing_gray);
-                holder.iv_star3.setImageResource(R.mipmap.pingxing_gray);
-                holder.iv_star4.setImageResource(R.mipmap.pingxing_gray);
-                holder.iv_star5.setImageResource(R.mipmap.pingxing_gray);
+                holder.iv_star1.setImageResource(R.mipmap.pingxing);
+                holder.iv_star2.setImageResource(R.mipmap.pingxing);
+                holder.iv_star3.setImageResource(R.mipmap.pingxing);
+                holder.iv_star4.setImageResource(R.mipmap.pingxing);
+                holder.iv_star5.setImageResource(R.mipmap.pingxing);
                 break;
             case "1" :
                 holder.iv_star1.setImageResource(R.mipmap.pingxing);

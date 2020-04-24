@@ -191,8 +191,6 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
 
     private Dialog dialog;
 
-    private String[] activeId;
-    private String[] activeName;
     private String yourChoiceActiveId = "";
     private String yourChoiceActiveName = "";
     private List<GetFriendActiveListModel.ObjBean> activeList;
@@ -368,37 +366,6 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
 
                     }
                 });
-
-        ViseHttp.POST(NetConfig.getFriendActiveListUrl)
-                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.getFriendActiveListUrl))
-                .addParam("uid", uid)
-                .request(new ACallback<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.getInt("code") == 200){
-                                Gson gson = new Gson();
-                                GetFriendActiveListModel model = gson.fromJson(data, GetFriendActiveListModel.class);
-                                activeList = model.getObj();
-                                activeId = new String[model.getObj().size()];
-                                activeName = new String[model.getObj().size()];
-                                for (int i = 0; i < model.getObj().size(); i++) {
-                                    activeId[i] = model.getObj().get(i).getPfID();
-                                    activeName[i] = model.getObj().get(i).getPftitle();
-                                }
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFail(int errCode, String errMsg) {
-
-                    }
-                });
-
         etTitle.addTextChangedListener(textTitleWatcher);
         etContent.addTextChangedListener(textContentWatcher);
 
@@ -583,13 +550,8 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                 break;
             case R.id.activity_create_friend_remember_rl_active_title:
                 //活动标题
-                if(activeList.size()>0){
                     Intent it_suoshu = new Intent(CreateFriendRememberActivity1.this, SuoShuHuoDongActivity.class);
-                    it_suoshu.putExtra("list", (Serializable) activeList);
                     startActivityForResult(it_suoshu, REQUEST_CODE_SUO_SHU_HUO_DONG);
-                }else {
-                    Toast.makeText(CreateFriendRememberActivity1.this, "暂无活动", Toast.LENGTH_SHORT).show();
-                }
                 break;
             case R.id.activity_create_friend_remember_rl_is_intercalation:
                 final String[] items1 = { "是","否" };

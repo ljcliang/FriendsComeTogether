@@ -50,6 +50,7 @@ public class WoDeChawenAdapter extends RecyclerView.Adapter<WoDeChawenAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvTitle.setText(data.get(position).getFftitle());
+        holder.tv_content.setText(data.get(position).getFfcontect());
         holder.tvDate.setText(data.get(position).getFfptime());
         holder.tvFmTitle.setText(data.get(position).getNewstitle());
         Glide.with(context).load(data.get(position).getFromUserPic()).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.ivHead);
@@ -102,7 +103,7 @@ public class WoDeChawenAdapter extends RecyclerView.Adapter<WoDeChawenAdapter.Vi
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView tvTitle;
+        private TextView tvTitle,tv_content;
         private TextView tvStaus;
         private TextView tvDate;
         private TextView tvDelete,tvEdit;
@@ -113,6 +114,7 @@ public class WoDeChawenAdapter extends RecyclerView.Adapter<WoDeChawenAdapter.Vi
         public ViewHolder(View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tv_title);
+            tv_content = itemView.findViewById(R.id.tv_content);
             tvStaus = itemView.findViewById(R.id.tv_staus);
             tvDelete = itemView.findViewById(R.id.tv_delete);
             tvEdit = itemView.findViewById(R.id.tv_edit);
