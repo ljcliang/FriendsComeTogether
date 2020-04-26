@@ -23,6 +23,7 @@ import com.yiwo.friendscometogether.model.ArticleCommentListModel;
 import com.yiwo.friendscometogether.newpage.JuBaoActivity;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.tongban_emoticon.String2HtmlTextTools;
 
 import java.util.List;
 
@@ -68,7 +69,9 @@ public class ArticleCommentAdapter extends RecyclerView.Adapter<ArticleCommentAd
         });
         holder.tvNickname.setText(data.get(position).getUsername());
         holder.tvTitle.setText(data.get(position).getNewsTile());
-        holder.tvContent.setText(data.get(position).getFctitle());
+//        holder.tvContent.setText(data.get(position).getFctitle());
+//        holder.tvContent.setText(data.get(position).getFctitle());
+        String2HtmlTextTools.tvSetHtmlForImage(context,holder.tvContent,data.get(position).getFctitle());
         if (spImp.getIsAdmin().equals("1")){
             holder.btn_delete_pinglun.setVisibility(View.VISIBLE);
         }else {
