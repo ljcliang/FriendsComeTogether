@@ -5,19 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
+        android:background="@color/white_ffffff"
         android:id="@+id/comment_rl"
         android:layout_width="match_parent"
         android:layout_height="40dp">
 
-        <LinearLayout
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_toLeftOf="@+id/ll_xiaolian"
-            android:layout_width="match_parent"
-            android:layout_height="28dp">
-
             <EditText
+                android:layout_marginTop="7.5dp"
+                android:layout_toLeftOf="@+id/ll_xiaolian"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:id="@+id/comment_et_comment"
                 android:paddingLeft="15dp"
                 android:background="@drawable/bg_article_comment"
@@ -26,9 +23,6 @@
                 android:hint="输入评论..."
                 android:layout_width="match_parent"
                 android:layout_height="25dp" />
-
-        </LinearLayout>
-
         <LinearLayout
             android:orientation="vertical"
             android:id="@+id/ll_xiaolian"

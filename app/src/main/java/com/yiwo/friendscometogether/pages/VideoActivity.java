@@ -5,8 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -15,8 +13,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -47,12 +43,12 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.ArticleCommentVideoAdapter;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
-import com.yiwo.friendscometogether.emoji.EmotionMainFragment;
 import com.yiwo.friendscometogether.imagepreview.StatusBarUtils;
 import com.yiwo.friendscometogether.model.ActicleCommentVideoModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newmodel.YouJiListModel;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.tongban_emoticon.TbEmoticonFragment;
 import com.yiwo.friendscometogether.utils.ShareUtils;
 import com.yiwo.friendscometogether.utils.StringUtils;
 
@@ -90,12 +86,6 @@ public class VideoActivity extends FragmentActivity {
     @BindView(R.id.tv_pinglun_num)
     TextView tv_pinglun_num;
 
-    @BindView(R.id.et_comment)
-    EditText etComment;
-    @BindView(R.id.tv_comment)
-    TextView tvComment;
-    @BindView(R.id.iv_biaoqing)
-    ImageView ivBiaoqing;
     @BindView(R.id.ll_edt)
     LinearLayout ll_edt;
     @BindView(R.id.ll_pinglun)
@@ -118,7 +108,8 @@ public class VideoActivity extends FragmentActivity {
     private int vPostion;//当前欲回复评论的位置
     private String vPingLunPageVID;//分页ID
     public YouJiListModel.ObjBean mode;//视频mode
-    private EmotionMainFragment emotionMainFragment;
+//    private EmotionMainFragment emotionMainFragment;
+    private TbEmoticonFragment emotionMainFragment;
     private Dialog dialog;
     private StandardVideoController controller;
     private boolean isYouJuVideo = false;
@@ -140,7 +131,7 @@ public class VideoActivity extends FragmentActivity {
         if (!isYouJuVideo){
             initPingLun();
         }
-        initEmotionMainFragment(etComment,ivBiaoqing);
+        initEmotionMainFragment();
     }
 
     private void initPingLun() {
@@ -154,7 +145,7 @@ public class VideoActivity extends FragmentActivity {
             public void onReply(int position, String id) {
                 vcID = id;
                 vPostion = position;
-                showKeyboard(etComment);
+                emotionMainFragment.showKeyBoard();
             }
         });
         articleCommentVideoAdapter.setDeletePinLunLis(new ArticleCommentVideoAdapter.OnDeletePinLun() {
@@ -395,27 +386,30 @@ public class VideoActivity extends FragmentActivity {
         ijkVideoView.start(); //开始播放，不调用则不自动播放
 
     }
-    public void initEmotionMainFragment(EditText etComment,ImageView ivBiaoqing){
-        //构建传递参数
-        Bundle bundle = new Bundle();
-        //绑定主内容编辑框
-        bundle.putBoolean(EmotionMainFragment.BIND_TO_EDITTEXT,false);
-        //隐藏控件
-        bundle.putBoolean(EmotionMainFragment.HIDE_BAR_EDITTEXT_AND_BTN,true);
-        //替换fragment
-        //创建修改实例
-        emotionMainFragment =EmotionMainFragment.newInstance(EmotionMainFragment.class,bundle);
-        emotionMainFragment.bindToContentView(etComment, ivBiaoqing);
+    /**
+     * 初始化表情面板
+     */
+    public void initEmotionMainFragment(){
         FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
         // Replace whatever is in thefragment_container view with this fragment,
         // and add the transaction to the backstack
+        emotionMainFragment = TbEmoticonFragment.newInstance(TbEmoticonFragment.class,new Bundle());
+        emotionMainFragment.setCommitListenner(new TbEmoticonFragment.OnCommitListenner() {
+            @Override
+            public void onCommitListen(String string) {
+                if (TextUtils.isEmpty(string)) {
+                    toToast(VideoActivity.this, "请输入评论内容");
+                } else {
+                    toComment(string);
+                }
+            }
+        });
         transaction.replace(R.id.fl_emotionview_main,emotionMainFragment);
         transaction.addToBackStack(null);
         //提交修改
         transaction.commit();
     }
-
-    @OnClick({R.id.iv_back, R.id.rl_active,R.id.iv_zan,R.id.iv_pinglun,R.id.iv_fenxiang,R.id.iv_xiangguanhuodong,R.id.ll_delete,R.id.iv_close,R.id.tv_comment,R.id.rl_back})
+    @OnClick({R.id.iv_back, R.id.rl_active,R.id.iv_zan,R.id.iv_pinglun,R.id.iv_fenxiang,R.id.iv_xiangguanhuodong,R.id.ll_delete,R.id.iv_close,R.id.rl_back})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -470,14 +464,6 @@ public class VideoActivity extends FragmentActivity {
             case R.id.iv_close:
                 startPingLunHideAnim();
                 break;
-            case R.id.tv_comment:
-                Log.d("asssss",isComment+"");
-                if (isComment){
-                    toComment(etComment);
-                }else {
-                    toReplay(etComment,vcID,vPostion);
-                }
-                break;
         }
     }
     private void toZan() {
@@ -511,106 +497,6 @@ public class VideoActivity extends FragmentActivity {
                     }
                 });
     }
-    private void showActivePopupwindow() {
-
-        View view = LayoutInflater.from(VideoActivity.this).inflate(R.layout.popupwindow_video_active, null);
-
-        ImageView tvCancel = view.findViewById(R.id.iv_close);
-        ImageView iv_biaoqing = view.findViewById(R.id.iv_biaoqing);
-//        iv_biaoqing.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                popupWindow.update(0,emotionMainFragment.);
-//            }
-//        });
-        final EditText editText = view.findViewById(R.id.et_comment);
-        final RecyclerView recyclerView = view.findViewById(R.id.activity_video_rv);
-        recyclerView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                emotionMainFragment.hideEmotionKeyboard();
-                return false;
-            }
-        });
-        LinearLayoutManager manager = new LinearLayoutManager(VideoActivity.this);
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(manager);
-        ViseHttp.POST(NetConfig.articleCommentListUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleCommentListUrl))
-                .addParam("fmID", vid)
-                .request(new ACallback<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        try {
-                            Log.e("222", data);
-                            JSONObject jsonObject = new JSONObject(data);
-                            if (jsonObject.getInt("code") == 200) {
-//                                Gson gson = new Gson();
-//                                ArticleCommentListModel model = gson.fromJson(data, ArticleCommentListModel.class);
-//                                mList = model.getObj();
-//                                adapter = new ArticleCommentAdapter(mList);
-//                                recyclerView.setAdapter(adapter);
-//                                adapter.setOnReplyListener(new ArticleCommentAdapter.OnReplyListener() {
-//                                    @Override
-//                                    public void onReply(int position, String id) {
-////                                        showPopupCommnet(1, id, mList.get(position).getFcID());
-//                                        userid = id;
-//                                        fcid = mList.get(position).getFcID();
-//                                        showKeyboard(etComment);
-//                                    }
-//                                });
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFail(int errCode, String errMsg) {
-
-                    }
-                });
-
-        popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
-        //这句话，让pop覆盖在输入法上面
-        popupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
-
-        //这句话，让pop自适应输入状态
-        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-//        popupWindow.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
-//        popupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        popupWindow.setTouchable(true);
-        popupWindow.setFocusable(true);
-        // 设置点击窗口外边窗口消失
-        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        popupWindow.setOutsideTouchable(true);
-        popupWindow.showAtLocation(getWindow().getDecorView(), Gravity.BOTTOM, 0,0);
-        // 设置popWindow的显示和消失动画
-        popupWindow.setAnimationStyle(R.style.mypopwindow_anim_style);
-//        WindowManager.LayoutParams params = getWindow().getAttributes();
-//        params.alpha = 0.5f;
-//        getWindow().setAttributes(params);
-        popupWindow.update();
-
-        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
-            // 在dismiss中恢复透明度
-            public void onDismiss() {
-                WindowManager.LayoutParams params = getWindow().getAttributes();
-                params.alpha = 1f;
-                getWindow().setAttributes(params);
-                emotionMainFragment.hideEmotionKeyboard();
-            }
-        });
-
-        tvCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                popupWindow.dismiss();
-            }
-        });
-
-    }
 
     private void startPingLunShowAnim(){
         //设置动画，从自身位置的最下端向上滑动了自身的高度，持续时间为500ms
@@ -634,10 +520,9 @@ public class VideoActivity extends FragmentActivity {
         if (null != v) {
             imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
         }
-        emotionMainFragment.hideEmotionKeyboard();
-        etComment.setText(null);
+        emotionMainFragment.goneKeyboard();
+//        emotionMainFragment.clearEdt();
         isComment = true;
-        etComment.setHint("输入评论...");
 //        /设置动画，从自身位置的最下端向上滑动了自身的高度，持续时间为500ms
         final TranslateAnimation ctrlAnimation = new TranslateAnimation(
                 TranslateAnimation.RELATIVE_TO_SELF, 0, TranslateAnimation.RELATIVE_TO_SELF, 0,
@@ -651,28 +536,11 @@ public class VideoActivity extends FragmentActivity {
             }
         }, 200);
     }
-    //弹出软键盘（点击 评论列表时弹出 回复用途）
-    public void showKeyboard(EditText editText) {
-        //其中editText为dialog中的输入框的 EditText
-        if (editText != null) {
-            emotionMainFragment.hideEmotionKeyboard();
-            //设置可获得焦点
-            editText.setFocusable(true);
-            editText.setFocusableInTouchMode(true);
-            //请求获得焦点
-            editText.requestFocus();
-            //调用系统输入法
-            InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.showSoftInput(editText, 0);
-            isComment = false;
-            etComment.setHint("输入回复...");
-        }
-    }
     /**
      * 提交评论
      */
-    private void toComment(final EditText etComment) {
-        if (TextUtils.isEmpty(etComment.getText().toString())){
+    private void toComment(final String comment) {
+        if (TextUtils.isEmpty(comment)){
             toToast(VideoActivity.this,"请输入内容");
             return;
         }
@@ -680,7 +548,7 @@ public class VideoActivity extends FragmentActivity {
             ViseHttp.POST(NetConfig.videoReviews)
                     .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.videoReviews))
                     .addParam("id", vid)
-                    .addParam("fctitle", etComment.getText().toString())
+                    .addParam("fctitle", comment)
                     .addParam("uid", uid)
                     .request(new ACallback<String>() {
                         @Override
@@ -691,10 +559,9 @@ public class VideoActivity extends FragmentActivity {
                                 JSONObject jsonObject = new JSONObject(data);
                                 if (jsonObject.getInt("code") == 200) {
                                     toToast(VideoActivity.this, "评论成功");
-                                    emotionMainFragment.hideEmotionKeyboard();
-                                    etComment.setText(null);
+                                    emotionMainFragment.goneKeyboard();
+                                    emotionMainFragment.clearEdt();
                                     Gson gson = new Gson();
-
                                     ActicleCommentVideoModel.ObjBean model = gson.fromJson(jsonObject.getJSONObject("obj").toString(),ActicleCommentVideoModel.ObjBean.class);
                                     data_pinglun.add(0,model);
                                     articleCommentVideoAdapter.notifyDataSetChanged();
@@ -736,15 +603,15 @@ public class VideoActivity extends FragmentActivity {
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.getInt("code") == 200){
                                 toToast(VideoActivity.this, "回复成功");
-                                emotionMainFragment.hideEmotionKeyboard();
-                                etComment.setText(null);
+                                emotionMainFragment.goneKeyboard();
+                                emotionMainFragment.clearEdt();
                                 Gson gson = new Gson();
                                 ActicleCommentVideoModel.ObjBean.ReplyListBean bean = gson.fromJson(jsonObject.getJSONObject("obj").toString(),ActicleCommentVideoModel.ObjBean.ReplyListBean.class);
                                 data_pinglun.get(pingLunPostion).getReplyList().add(bean);
                                 articleCommentVideoAdapter.notifyDataSetChanged();
                                 rv_pinglun.scrollToPosition(pingLunPostion);
                                 isComment = true;
-                                etComment.setHint("输入评论...");
+                                emotionMainFragment.clearEdt();
                             }else {
                                 toToast(VideoActivity.this, "回复失败");
                             }
@@ -758,8 +625,7 @@ public class VideoActivity extends FragmentActivity {
                     public void onFail(int errCode, String errMsg) {
                         WeiboDialogUtils.closeDialog(dialog);
                         isComment = true;
-                        etComment.setText(null);
-                        etComment.setHint("输入评论....");
+                        emotionMainFragment.clearEdt();
                         toToast(VideoActivity.this, "回复失败"+errCode+":"+errMsg);
                     }
                 });
@@ -767,7 +633,7 @@ public class VideoActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         if (!ijkVideoView.onBackPressed()) {
-            super.onBackPressed();
+            finish();
         }
     }
 
@@ -797,7 +663,7 @@ public class VideoActivity extends FragmentActivity {
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN&&ll_pinglun.isShown()&&!isTouchView(new View[]{ll_pinglun},event)){
-            startPingLunHideAnim();
+//            startPingLunHideAnim();
         }
         if (event.getAction() == MotionEvent.ACTION_UP&&!isTouchView(new View[]{ll_btns,ivBack,rlActive,rl_back},event)){
             LinearLayout bottomContainer = controller.findViewById(com.dueeeke.videocontroller.R.id.bottom_container);

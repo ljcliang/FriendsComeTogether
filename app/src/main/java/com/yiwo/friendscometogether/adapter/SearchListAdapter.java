@@ -18,7 +18,7 @@ import com.yiwo.friendscometogether.model.SearchListModel;
 import com.yiwo.friendscometogether.pages.SearchListActivity;
 import com.yiwo.friendscometogether.pages.VideoActivity;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity2;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity;
 
 import java.util.List;
 
@@ -58,7 +58,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
                     it.putExtra("pfID",data.get(position).getId());
                     context.startActivity(it);
                 } else if (data.get(position).getType().equals("1")){
-                    it.setClass(context, DetailsOfFriendsWebActivity2.class);
+                    it.setClass(context, DetailsOfFriendsWebActivity.class);
                     it.putExtra("fmid",data.get(position).getId());
                     context.startActivity(it);
                 }else if (data.get(position).getType().equals("2")) {

@@ -460,6 +460,8 @@ public class NetConfig {
     public static String yj_video = "action/ac_newHome/yj_video";
     //action/ac_newHome/homePageGz action/ac_newHome/homePageGz   首页关注接口  传uid用户id
     public static String homePageGz = "action/ac_newHome/homePageGz";
+    //action/ac_newHome/gzCaptainList 首页关注队长 左拉更多页面 传uid用id  page分页
+    public static String gzCaptainList = "action/ac_newHome/gzCaptainList";
 //    action/ac_newHome/homeGoodsList   友铺接口   传page , uid
     public static String homeGoodsList = "action/ac_newHome/homeGoodsList";
 //action/ac_newHome/yjVideoList   游记视频列表
@@ -489,4 +491,7 @@ public class NetConfig {
     public static String addGoods = "action/ac_goods/addGoods";
 //action/ac_goods/delServe   删除服务   传uid 用户id   sID 服务id
     public static String delServe = "action/ac_goods/delServe";
+
+//    action/ac_goods/inShop    用户进入店铺接口 传page分页  uid登录用户的id未登录传0或不传   shopUserID店铺所属用户的id    keyWord搜索词
+    public static String inShop = "action/ac_goods/inShop";
 }

@@ -2,10 +2,8 @@ package com.yiwo.friendscometogether.newadapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +17,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
-import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newmodel.HomeTuiJianModel;
@@ -30,7 +27,7 @@ import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.utils.ViewUtil;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity2;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -133,7 +130,7 @@ public class HomeTuiJian_JianTuShiKe_Adapter extends RecyclerView.Adapter<HomeTu
         holder.ll_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.setClass(context, DetailsOfFriendsWebActivity2.class);
+                intent.setClass(context, DetailsOfFriendsWebActivity.class);
                 intent.putExtra("fmid", data.get(position).getFmID());
                 context.startActivity(intent);
             }

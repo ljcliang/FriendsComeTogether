@@ -18,10 +18,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
-import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.network.NetConfig;
-import com.yiwo.friendscometogether.newmodel.HomeTuiJianModel;
 import com.yiwo.friendscometogether.newmodel.HomeTuiJianYouJiShiPinModel;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.pages.ArticleCommentActivity;
@@ -31,7 +29,7 @@ import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.utils.ViewUtil;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity2;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -233,7 +231,7 @@ public class HomeTuiJian_YouJiShiPin_Adapter extends RecyclerView.Adapter<HomeTu
             @Override
             public void onClick(View v) {
                 if (data.get(position).getTp().equals("0")){
-                    intent.setClass(context, DetailsOfFriendsWebActivity2.class);
+                    intent.setClass(context, DetailsOfFriendsWebActivity.class);
                     intent.putExtra("fmid", data.get(position).getFmID());
                     context.startActivity(intent);
                 }else {

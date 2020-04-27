@@ -15,7 +15,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.dbmodel.LookHistoryDbModel;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity2;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity;
 
 import java.util.List;
 
@@ -56,7 +56,7 @@ public class LookHistoryAdapter extends RecyclerView.Adapter<LookHistoryAdapter.
                     context.startActivity(intent);
                 }else {
                     intent.putExtra("fmid", data.get(position).getLook_id());
-                    intent.setClass(context, DetailsOfFriendsWebActivity2.class);
+                    intent.setClass(context, DetailsOfFriendsWebActivity.class);
                     context.startActivity(intent);
                 }
             }

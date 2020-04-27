@@ -16,6 +16,7 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.ArticleCommentListModel;
 import com.yiwo.friendscometogether.newpage.JuBaoActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.tongban_emoticon.String2HtmlTextTools;
 
 import java.util.List;
 
@@ -51,7 +52,9 @@ public class ArticleCommentCommentAdapter extends RecyclerView.Adapter<ArticleCo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.tv.setText(data.get(position).getUsername()+"："+data.get(position).getFctitle());
+
+        String2HtmlTextTools.tvSetHtmlForImage(context,holder.tv,data.get(position).getUsername()+"："+data.get(position).getFctitle());
+//        holder.tv.setText(data.get(position).getUsername()+"："+data.get(position).getFctitle());
         holder.tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

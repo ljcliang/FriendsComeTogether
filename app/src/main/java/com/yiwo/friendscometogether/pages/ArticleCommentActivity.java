@@ -122,18 +122,6 @@ public class ArticleCommentActivity extends BaseActivity {
      * 初始化表情面板
      */
     public void initEmotionMainFragment(){
-//        //构建传递参数
-//        Bundle bundle = new Bundle();
-//        //绑定主内容编辑框
-//        bundle.putBoolean(EmotionMainFragment.BIND_TO_EDITTEXT,false);
-//        //隐藏控件
-//        bundle.putBoolean(EmotionMainFragment.HIDE_BAR_EDITTEXT_AND_BTN,true);
-//        //替换fragment
-//        //创建修改实例
-//        emotionMainFragment =EmotionMainFragment.newInstance(EmotionMainFragment.class,bundle);
-//        emotionMainFragment.bindToContentView(etComment, ivBiaoqing);
-
-
         FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
         // Replace whatever is in thefragment_container view with this fragment,
         // and add the transaction to the backstack
@@ -161,7 +149,7 @@ public class ArticleCommentActivity extends BaseActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 //                emotionMainFragment.hideEmotionKeyboard();
-                emotionMainFragment.hideKeyBoard();
+                emotionMainFragment.goneKeyboard();
                 return false;
             }
         });
@@ -193,6 +181,7 @@ public class ArticleCommentActivity extends BaseActivity {
                                         userid = id;
                                         fcid = mList.get(position).getFcID();
                                         isComment = false;
+                                        emotionMainFragment.showKeyBoard();
                                     }
                                 });
                                 adapter.setDeleteListener(new ArticleCommentAdapter.OnDeleteListener() {
@@ -285,7 +274,7 @@ public class ArticleCommentActivity extends BaseActivity {
                                 if (jsonObject.getInt("code") == 200) {
                                     toToast(ArticleCommentActivity.this, "评论成功");
 //                                    emotionMainFragment.hideEmotionKeyboard();
-                                    emotionMainFragment.hideKeyBoard();
+                                    emotionMainFragment.goneKeyboard();
                                     emotionMainFragment.clearEdt();
                                     reload();
 //                                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -322,7 +311,8 @@ public class ArticleCommentActivity extends BaseActivity {
                                     WeiboDialogUtils.closeDialog(dialog);
                                     toToast(ArticleCommentActivity.this, "回复成功");
 //                                    emotionMainFragment.hideEmotionKeyboard();
-                                    emotionMainFragment.hideKeyBoard();
+                                    emotionMainFragment.goneKeyboard();
+                                    emotionMainFragment.clearEdt();
                                     reload();
                                 }
                             } catch (JSONException e) {

@@ -19,7 +19,7 @@ import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.pages.VideoActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity2;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity;
 
 import java.util.List;
 
@@ -127,7 +127,7 @@ public class Home_YouJiShiPin_0407_Adapter extends RecyclerView.Adapter<Home_You
             @Override
             public void onClick(View v) {
                 if (data.get(position).getTp().equals("0")){
-                    intent.setClass(context, DetailsOfFriendsWebActivity2.class);
+                    intent.setClass(context, DetailsOfFriendsWebActivity.class);
                     intent.putExtra("fmid", data.get(position).getFmID());
                     context.startActivity(intent);
                 }else {

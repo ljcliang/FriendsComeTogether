@@ -31,7 +31,7 @@ import com.yiwo.friendscometogether.pages.VideoActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity2;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -182,7 +182,7 @@ public class HomeDataRecommendAdapter1 extends RecyclerView.Adapter<HomeDataReco
                     final Intent intent = new Intent();
                     if (data.get(position).getData_type().equals("2")){//友记
                         if (TextUtils.isEmpty(data.get(position).getPfpwd())) {
-                            intent.setClass(context, DetailsOfFriendsWebActivity2.class);
+                            intent.setClass(context, DetailsOfFriendsWebActivity.class);
                             intent.putExtra("fmid", data.get(position).getPfID());
                             context.startActivity(intent);
                         } else {
@@ -190,7 +190,7 @@ public class HomeDataRecommendAdapter1 extends RecyclerView.Adapter<HomeDataReco
                                 @Override
                                 public boolean setActivityText(String s) {
                                     if (s.equals(data.get(position).getPfpwd())) {
-                                        intent.setClass(context, DetailsOfFriendsWebActivity2.class);
+                                        intent.setClass(context, DetailsOfFriendsWebActivity.class);
                                         intent.putExtra("fmid", data.get(position).getPfID());
                                         context.startActivity(intent);
                                         return true;

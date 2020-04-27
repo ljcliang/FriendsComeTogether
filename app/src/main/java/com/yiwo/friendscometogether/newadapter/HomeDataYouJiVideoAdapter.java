@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +25,6 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.custom.LookPasswordDialog;
 import com.yiwo.friendscometogether.model.FocusOnToFriendTogetherModel;
 import com.yiwo.friendscometogether.network.NetConfig;
-import com.yiwo.friendscometogether.newmodel.HomeDataModel1;
 import com.yiwo.friendscometogether.newmodel.HomeDataYouJiVideoModel;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.pages.ArticleCommentActivity;
@@ -35,7 +33,7 @@ import com.yiwo.friendscometogether.pages.VideoActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity2;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -186,7 +184,7 @@ public class HomeDataYouJiVideoAdapter extends RecyclerView.Adapter<HomeDataYouJ
                     final Intent intent = new Intent();
                     if (data.get(position).getData_type().equals("2")){//友记
                         if (TextUtils.isEmpty(data.get(position).getPfpwd())) {
-                            intent.setClass(context, DetailsOfFriendsWebActivity2.class);
+                            intent.setClass(context, DetailsOfFriendsWebActivity.class);
                             intent.putExtra("fmid", data.get(position).getPfID());
                             context.startActivity(intent);
                         } else {
@@ -194,7 +192,7 @@ public class HomeDataYouJiVideoAdapter extends RecyclerView.Adapter<HomeDataYouJ
                                 @Override
                                 public boolean setActivityText(String s) {
                                     if (s.equals(data.get(position).getPfpwd())) {
-                                        intent.setClass(context, DetailsOfFriendsWebActivity2.class);
+                                        intent.setClass(context, DetailsOfFriendsWebActivity.class);
                                         intent.putExtra("fmid", data.get(position).getPfID());
                                         context.startActivity(intent);
                                         return true;

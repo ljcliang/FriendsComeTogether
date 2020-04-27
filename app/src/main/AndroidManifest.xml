@@ -1,68 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.yiwo.friendscometogether" >
-
-    <permission
-        android:name="com.yiwo.friendscometogether.permission.RECEIVE_MSG"
-        android:protectionLevel="signature" />
-    <permission
-        android:name="com.yiwo.friendscometogether.permission.PROCESS_PUSH_MSG"
-        android:protectionLevel="signatureOrSystem" /> <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
-    <permission
-        android:name="com.yiwo.friendscometogether.permission.MIPUSH_RECEIVE"
-        android:protectionLevel="signature" />
-
-    <uses-feature android:name="android.hardware.camera" /> <!-- 外置存储存取权限 -->
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-feature
-        android:glEsVersion="0x00020000"
-        android:required="true" /> <!-- 多媒体相关 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 自动安装权限！！ -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- SDK 权限申明, 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
-    <!-- 和下面的 uses-permission 一起加入到你的 AndroidManifest 文件中。 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 接收 SDK 消息广播权限， 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
-    <uses-permission android:name="android.permission.FLASHLIGHT" /> <!-- bugly -->
-    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 小米推送 权限 -->
-    <!-- 配置权限，已经配置过的条目则无须添加 -->
-    <!-- <uses-permission android:name="android.permission.INTERNET" /> -->
-    <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> -->
-    <!-- <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> -->
-    <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE" /> -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- <uses-permission android:name="android.permission.VIBRATE"/> -->
-    <!-- 华为推送权限 -->
-    <!-- HMS-SDK引导升级HMS功能，访问OTA服务器需要网络权限 -->
-    <!-- <uses-permission android:name="android.permission.INTERNET" /> -->
-    <!-- HMS-SDK引导升级HMS功能，保存下载的升级包需要SD卡写权限 -->
-    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
-    <!-- 检测网络状态 -->
-    <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> -->
-    <!-- 检测wifi状态 -->
-    <!-- <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/> -->
-    <!-- 为了获取用户手机的IMEI，用来唯一的标识用户。 -->
-    <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE"/> -->
-    <!-- 如果是安卓8.0，应用编译配置的targetSdkVersion>=26，请务必添加以下权限 -->
-    <!-- <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> -->
-    <!-- 接收PUSH TOKEN的广播以及PUSH消息需要定义该权限 ${PACKAGE_NAME} 要替换上您应用的包名 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 接收PUSH TOKEN的广播以及PUSH消息需要定义该权限 ${PACKAGE_NAME} 要替换上您应用的包名 -->
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- 以下两处 {你的包名} 改开发者App的包名 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 用于申请调用A-GPS模块 -->
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- 用于申请获取蓝牙信息进行室内定位 -->
-    <uses-permission android:name="com.yiwo.friendscometogether.permission.RECEIVE_MSG" />
-    <uses-permission android:name="android.permission.READ_LOGS" /> <!-- 网易云短视频 -->
-    <!-- 允许挂载和反挂载文件系统 -->
-    <uses-permission android:name="android.permission.GET_TASKS" /> <!-- 允许程序使用PowerManager WakeLocks以防止处理器休眠或者屏幕锁屏 -->
-    <uses-permission android:name="com.yiwo.friendscometogether.permission.PROCESS_PUSH_MSG" /> <!-- 声明程序使用camera和自动对焦功能 -->
-    <uses-permission android:name="com.yiwo.friendscometogether.permission.MIPUSH_RECEIVE" />
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <uses-permission android:name="android.permission.BLUETOOTH" /> <!-- 声明程序使用OpenGL ES 2.0 -->
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    package="com.yiwo.friendscometogether">
 
     <application
         android:name=".MyApplication"
@@ -71,9 +10,11 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity android:name=".newpage.ShangPinServiceEditActivity" >
-        </activity>
+        android:theme="@style/AppTheme">
+        <activity android:name=".newpage.ShopHomeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".newpage.GuanZhuDuiZhangListActivity" />
+        <activity android:name=".newpage.ShangPinServiceEditActivity" />
         <activity android:name=".newpage.FaBuShangPinActivity" />
         <activity android:name=".newpage.XuanZeTuanQiActivity" />
         <activity
@@ -82,7 +23,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".pages.WelcomeActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -124,9 +65,10 @@
         <activity android:name=".pages.LookHistoryActivity" />
         <activity android:name=".pages.MyDraftActivity" />
         <activity android:name=".pages.CreateFriendRememberActivity" />
-        <activity android:name=".newpage.CreateFriendRememberActivity1"
+        <activity
+            android:name=".newpage.CreateFriendRememberActivity1"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".newpage.SuoShuHuoDongActivity" />
         <activity
             android:name="com.donkingliang.imageselector.ImageSelectorActivity"
@@ -161,9 +103,10 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".pages.CreateIntercalationActivity"
+        <activity
+            android:name=".pages.CreateIntercalationActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".pages.EditorFriendRememberActivity" />
         <activity android:name=".pages.TeamIntercalationActivity" />
         <activity android:name=".pages.InsertIntercalationActivity" />
@@ -184,7 +127,7 @@
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop" >
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -193,9 +136,10 @@
                 <data android:scheme="wx77762a8eab365cf1" />
             </intent-filter>
         </activity>
-        <activity android:name=".pages.ArticleCommentActivity"
+        <activity
+            android:name=".pages.ArticleCommentActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".pages.SetActivity" />
         <activity android:name=".pages.MessageViewActivity" />
         <activity android:name=".pages.MessageCenterDetailsActivity" />
@@ -213,7 +157,7 @@
             android:name=".pages.VideoActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".pages.ModifyFriendRememberActivity" />
         <activity android:name=".pages.ModifyIntercalationActivity" /> <!-- 高德 定位service -->
         <activity android:name=".pages.OtherPicActivity" /> <!-- 高德定位 key -->
@@ -252,7 +196,7 @@
             android:excludeFromRecents="true"
             android:exported="false"
             android:hardwareAccelerated="true"
-            android:theme="@android:style/Theme.Translucent" >
+            android:theme="@android:style/Theme.Translucent">
             <meta-data
                 android:name="hwc-theme"
                 android:value="androidhwext:style/Theme.Emui.Translucent" />
@@ -261,7 +205,7 @@
             android:name="com.huawei.updatesdk.service.otaupdate.AppUpdateActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
-            android:theme="@style/upsdkDlDialog" >
+            android:theme="@style/upsdkDlDialog">
             <meta-data
                 android:name="hwc-theme"
                 android:value="androidhwext:style/Theme.Emui.Translucent.NoTitleBar" />
@@ -270,7 +214,7 @@
             android:name="com.huawei.updatesdk.support.pm.PackageInstallerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"
-            android:theme="@style/upsdkDlDialog" >
+            android:theme="@style/upsdkDlDialog">
             <meta-data
                 android:name="hwc-theme"
                 android:value="androidhwext:style/Theme.Emui.Translucent" />
@@ -280,9 +224,10 @@
         <activity android:name=".newpage.PersonLabelActivity" />
         <activity android:name=".base.BaseWebActivity" />
         <activity android:name=".base.BaseSonicWebActivity" />
-        <activity android:name=".webpages.DetailsOfFriendsWebActivity" />
-        <activity android:name=".webpages.DetailsOfFriendsWebActivity1" />
-        <activity android:name=".webpages.DetailsOfFriendsWebActivity2" />
+        <activity
+            android:name=".webpages.DetailsOfFriendsWebActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".webpages.DetailsOfFriendTogetherWebActivity" />
         <activity android:name=".newpage.MoreCommentHuodongActivity" />
         <activity android:name=".webpages.ShopInfoWebActivity" />
@@ -384,7 +329,7 @@
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.yiwo.friendscometogether.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true" >
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
@@ -403,14 +348,14 @@
         <receiver
             android:name="com.netease.nimlib.service.NimReceiver"
             android:exported="false"
-            android:process=":core" >
+            android:process=":core">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
         <receiver android:name="com.netease.nimlib.service.ResponseReceiver" /> <!-- 云视频上传服务 -->
-        <receiver android:name=".broadcastreceiver.HWPushMessageReceiver" >
+        <receiver android:name=".broadcastreceiver.HWPushMessageReceiver">
             <intent-filter>
                 <action android:name="com.huawei.android.push.intent.REGISTRATION" />
                 <action android:name="com.huawei.android.push.intent.RECEIVE" />
@@ -422,7 +367,7 @@
             android:name=".jpush.MyReceiver"
             android:enabled="true"
             android:exported="false"
-            tools:node="replace" >
+            tools:node="replace">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required  用户注册SDK的intent -->
                 <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required  用户接收SDK消息的intent -->
@@ -432,7 +377,7 @@
                 <category android:name="com.yiwo.friendscometogether" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".broadcastreceiver.NetBroadcastReceiver" >
+        <receiver android:name=".broadcastreceiver.NetBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
@@ -442,7 +387,7 @@
         <!-- android:value="GlideModule" /> -->
         <receiver
             android:name="com.xiaomi.push.service.receivers.NetworkStatusReceiver"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
 
@@ -452,22 +397,22 @@
         <receiver
             android:name="com.xiaomi.push.service.receivers.PingReceiver"
             android:exported="false"
-            android:process=":mixpush" >
+            android:process=":mixpush">
             <intent-filter>
                 <action android:name="com.xiaomi.push.PING_TIMER" />
             </intent-filter>
         </receiver>
         <receiver
             android:name="com.netease.nimlib.mixpush.mi.MiPushReceiver"
-            android:exported="true" >
-            <intent-filter android:priority="0x7fffffff" >
+            android:exported="true">
+            <intent-filter android:priority="0x7fffffff">
                 <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
                 <action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />
                 <action android:name="com.xiaomi.mipush.ERROR" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.netease.nimlib.mixpush.hw.HWPushReceiver" >
-            <intent-filter android:priority="0x7fffffff" >
+        <receiver android:name="com.netease.nimlib.mixpush.hw.HWPushReceiver">
+            <intent-filter android:priority="0x7fffffff">
                 <action android:name="com.huawei.android.push.intent.REGISTRATION" />
                 <action android:name="com.huawei.android.push.intent.RECEIVE" />
                 <action android:name="com.huawei.android.push.intent.CLICK" />
@@ -478,7 +423,7 @@
                 android:name="CS_cloud_ablitity"
                 android:value="successRateAnalytics" />
         </receiver>
-        <receiver android:name="com.huawei.hms.support.api.push.PushReceiver" >
+        <receiver android:name="com.huawei.hms.support.api.push.PushReceiver">
             <intent-filter>
 
                 <!-- 接收通道发来的通知栏消息，兼容老版本Push -->
@@ -522,6 +467,67 @@
             android:name="com.huawei.updatesdk.service.deamon.download.DownloadService"
             android:exported="false" />
         <service android:name=".wangyiyunshipin.upload.controller.UploadService" />
-    </application>
+    </application> <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
+    <permission
+        android:name="com.yiwo.friendscometogether.permission.RECEIVE_MSG"
+        android:protectionLevel="signature" />
+    <permission
+        android:name="com.yiwo.friendscometogether.permission.PROCESS_PUSH_MSG"
+        android:protectionLevel="signatureOrSystem" /> <!-- 外置存储存取权限 -->
+    <permission
+        android:name="com.yiwo.friendscometogether.permission.MIPUSH_RECEIVE"
+        android:protectionLevel="signature" />
+    <uses-feature android:name="android.hardware.camera" /> <!-- 多媒体相关 -->
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 自动安装权限！！ -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- SDK 权限申明, 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
+    <!-- 和下面的 uses-permission 一起加入到你的 AndroidManifest 文件中。 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 接收 SDK 消息广播权限， 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- bugly -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 小米推送 权限 -->
+    <!-- 配置权限，已经配置过的条目则无须添加 -->
+    <!-- <uses-permission android:name="android.permission.INTERNET" /> -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> -->
+    <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE" /> -->
+    <uses-permission android:name="android.permission.FLASHLIGHT" /> <!-- <uses-permission android:name="android.permission.VIBRATE"/> -->
+    <!-- 华为推送权限 -->
+    <!-- HMS-SDK引导升级HMS功能，访问OTA服务器需要网络权限 -->
+    <!-- <uses-permission android:name="android.permission.INTERNET" /> -->
+    <!-- HMS-SDK引导升级HMS功能，保存下载的升级包需要SD卡写权限 -->
+    <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
+    <!-- 检测网络状态 -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> -->
+    <!-- 检测wifi状态 -->
+    <!-- <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/> -->
+    <!-- 为了获取用户手机的IMEI，用来唯一的标识用户。 -->
+    <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE"/> -->
+    <!-- 如果是安卓8.0，应用编译配置的targetSdkVersion>=26，请务必添加以下权限 -->
+    <!-- <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> -->
+    <!-- 接收PUSH TOKEN的广播以及PUSH消息需要定义该权限 ${PACKAGE_NAME} 要替换上您应用的包名 -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 接收PUSH TOKEN的广播以及PUSH消息需要定义该权限 ${PACKAGE_NAME} 要替换上您应用的包名 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 以下两处 {你的包名} 改开发者App的包名 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 用于申请调用A-GPS模块 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 用于申请获取蓝牙信息进行室内定位 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- 网易云短视频 -->
+    <!-- 允许挂载和反挂载文件系统 -->
+    <uses-permission android:name="com.yiwo.friendscometogether.permission.RECEIVE_MSG" /> <!-- 允许程序使用PowerManager WakeLocks以防止处理器休眠或者屏幕锁屏 -->
+    <uses-permission android:name="android.permission.READ_LOGS" /> <!-- 声明程序使用camera和自动对焦功能 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="com.yiwo.friendscometogether.permission.PROCESS_PUSH_MSG" />
+    <uses-permission android:name="com.yiwo.friendscometogether.permission.MIPUSH_RECEIVE" /> <!-- 声明程序使用OpenGL ES 2.0 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
 
 </manifest>

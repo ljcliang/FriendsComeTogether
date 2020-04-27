@@ -34,20 +34,20 @@ import java.util.List;
  * Created by ljc on 2020/3/25.
  */
 
-public class HomeGuanZhu_DuiZhangDaiDui_Adapter extends RecyclerView.Adapter<HomeGuanZhu_DuiZhangDaiDui_Adapter.ViewHolder>{
+public class HomeGuanZhu_DuiZhangDaiDui_list_Adapter extends RecyclerView.Adapter<HomeGuanZhu_DuiZhangDaiDui_list_Adapter.ViewHolder>{
     private Context context;
     private List<HomeGuanZhuModel.ObjBean.CaptainPfBean> data;
     private SpImp spImp;
-    public HomeGuanZhu_DuiZhangDaiDui_Adapter(List<HomeGuanZhuModel.ObjBean.CaptainPfBean> data){
+    public HomeGuanZhu_DuiZhangDaiDui_list_Adapter(List<HomeGuanZhuModel.ObjBean.CaptainPfBean> data){
         this.data = data;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
         spImp = new SpImp(context);
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_guanzhu_duizhangdaidui, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_guanzhu_duizhangdaidui_list, parent, false);
 //        ScreenAdapterTools.getInstance().loadView(view);
-        HomeGuanZhu_DuiZhangDaiDui_Adapter.ViewHolder holder = new HomeGuanZhu_DuiZhangDaiDui_Adapter.ViewHolder(view);
+        HomeGuanZhu_DuiZhangDaiDui_list_Adapter.ViewHolder holder = new HomeGuanZhu_DuiZhangDaiDui_list_Adapter.ViewHolder(view);
         return holder;
     }
 

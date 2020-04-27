@@ -29,7 +29,7 @@ import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.utils.ViewUtil;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity2;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -230,7 +230,7 @@ public class HomeGuanZhu_YouJiShiPin_Adapter extends RecyclerView.Adapter<HomeGu
             @Override
             public void onClick(View v) {
                 if (data.get(position).getTp().equals("0")){
-                    intent.setClass(context, DetailsOfFriendsWebActivity2.class);
+                    intent.setClass(context, DetailsOfFriendsWebActivity.class);
                     intent.putExtra("fmid", data.get(position).getFmID());
                     context.startActivity(intent);
                 }else {

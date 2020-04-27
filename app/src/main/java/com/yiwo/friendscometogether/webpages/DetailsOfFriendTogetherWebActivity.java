@@ -33,19 +33,16 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseSonicWebActivity;
-import com.yiwo.friendscometogether.base.BaseWebActivity;
 import com.yiwo.friendscometogether.dbmodel.LookHistoryDbModel;
 import com.yiwo.friendscometogether.greendao.gen.DaoMaster;
 import com.yiwo.friendscometogether.greendao.gen.DaoSession;
 import com.yiwo.friendscometogether.greendao.gen.LookHistoryDbModelDao;
-import com.yiwo.friendscometogether.greendao.gen.UserGiveModelDao;
 import com.yiwo.friendscometogether.imagepreview.Consts;
 import com.yiwo.friendscometogether.imagepreview.ImagePreviewActivity;
 import com.yiwo.friendscometogether.model.ActiveShareModel;
 import com.yiwo.friendscometogether.model.FocusOnToFriendTogetherModel;
 import com.yiwo.friendscometogether.model.IsRealNameModel;
 import com.yiwo.friendscometogether.network.NetConfig;
-import com.yiwo.friendscometogether.newadapter.MuLuItemYouJiAdapter;
 import com.yiwo.friendscometogether.newadapter.MuLuItemYouJuAdapter;
 import com.yiwo.friendscometogether.newmodel.YouJuWebModel;
 import com.yiwo.friendscometogether.newpage.JuBaoActivity;
@@ -407,7 +404,7 @@ public class DetailsOfFriendTogetherWebActivity extends BaseSonicWebActivity {
         @JavascriptInterface
         public void jumpyouji(String fmID){
             Intent intent = new Intent();
-            intent.setClass(DetailsOfFriendTogetherWebActivity.this, DetailsOfFriendsWebActivity2.class);
+            intent.setClass(DetailsOfFriendTogetherWebActivity.this, DetailsOfFriendsWebActivity.class);
             intent.putExtra("fmid", fmID);
             startActivity(intent);
         }

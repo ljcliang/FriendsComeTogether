@@ -1,6 +1,5 @@
 package com.yiwo.friendscometogether.newadapter;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,14 +16,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.imagepreview.Consts;
 import com.yiwo.friendscometogether.imagepreview.ImagePreviewActivity;
 import com.yiwo.friendscometogether.newmodel.DuiZhangPicGameModel;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity2;
-import com.yiwo.friendscometogether.widget.choose_pics_view.BitmapUtils;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;

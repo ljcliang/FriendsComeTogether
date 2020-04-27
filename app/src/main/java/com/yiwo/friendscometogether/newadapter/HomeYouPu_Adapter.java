@@ -22,6 +22,7 @@ import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newmodel.HomeGuanZhuModel;
 import com.yiwo.friendscometogether.newmodel.HomeYouPuModel;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
+import com.yiwo.friendscometogether.newpage.ShopHomeActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.TokenUtils;
@@ -64,9 +65,7 @@ public class HomeYouPu_Adapter extends RecyclerView.Adapter<HomeYouPu_Adapter.Vi
         holder.iv_head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.putExtra("person_id", data.get(position).getUserID());
-                intent.setClass(context, PersonMainActivity1.class);
-                context.startActivity(intent);
+                ShopHomeActivity.start(context,data.get(position).getUserID());
             }
         });
         Glide.with(context).load(data.get(position).getGoodsImg()).apply(new RequestOptions().error(R.mipmap.zanwutupian).placeholder(R.mipmap.zanwutupian)).into(holder.iv_big);

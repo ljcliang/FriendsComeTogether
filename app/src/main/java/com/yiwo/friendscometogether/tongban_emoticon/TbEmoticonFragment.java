@@ -89,11 +89,21 @@ public class TbEmoticonFragment extends BaseFragment {
                             rl_emoticons_height = height;
                             firstShowKey = false;
                         }
-//                        if (rl_emoticons.getVisibility() == View.VISIBLE) rl_emoticons.setVisibility(View.GONE);
+                        ViewGroup.LayoutParams layoutParams = rl_emoticons.getLayoutParams();
+                        layoutParams.height = rl_emoticons_height;
+                        rl_emoticons.setLayoutParams(layoutParams);
+                        rl_emoticons.setVisibility(View.INVISIBLE);
+//                        if (rl_emoticons.getVisibility() == View.GONE){
+//                            ViewGroup.LayoutParams layoutParams = rl_emoticons.getLayoutParams();
+//                            layoutParams.height = rl_emoticons_height;
+//                            rl_emoticons.setLayoutParams(layoutParams);
+//                            rl_emoticons.setVisibility(View.VISIBLE);
+//                        }
                     }
 
                     @Override
                     public void keyBoardHide(int height) {
+
 //                        showEmoticonKeyboard();
 //                        Toast.makeText(TieziXqActivity.this,
 //                                "键盘隐藏 高度" + height, Toast.LENGTH_SHORT).show();
@@ -150,19 +160,23 @@ public class TbEmoticonFragment extends BaseFragment {
                 break;
         }
     }
-    public void hideKeyBoard(){//隐藏输入框以下的表情面板
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm != null) {
-            imm.hideSoftInputFromWindow(getActivity().getWindow().getDecorView().getWindowToken(), 0);
+    private void hideKeyBoard(){//隐藏输入框以下的表情面板
+        if (this.isVisible()){
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(getActivity().getWindow().getDecorView().getWindowToken(), 0);
+            }
+            rl_emoticons.setVisibility(View.INVISIBLE);
         }
-        rl_emoticons.setVisibility(View.GONE);
     }
-    public void hideAlld(){//隐藏整个fragment
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm != null) {
-            imm.hideSoftInputFromWindow(getActivity().getWindow().getDecorView().getWindowToken(), 0);
+    public void goneKeyboard(){
+        if (this.isVisible()){
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(getActivity().getWindow().getDecorView().getWindowToken(), 0);
+            }
+            rl_emoticons.setVisibility(View.GONE);
         }
-        ll_all.setVisibility(View.GONE);
     }
     public OnCommitListenner getCommitListenner() {
         return commitListenner;
@@ -177,8 +191,11 @@ public class TbEmoticonFragment extends BaseFragment {
     public interface OnCommitListenner{
         void onCommitListen(String string);
     }
+    public void  showKeyBoard(){
+        showKeyboard(comment_et_comment);
+    }
     //弹出软键盘
-    public void showKeyboard(EditText editText) {
+    private void showKeyboard(EditText editText) {
         //其中editText为dialog中的输入框的 EditText
         if (editText != null) {
 //            emotionMainFragment.hideEmotionKeyboard();
@@ -196,5 +213,9 @@ public class TbEmoticonFragment extends BaseFragment {
     public void showEmoticonKeyboard(){
         rl_emoticons.getLayoutParams().height = rl_emoticons_height;
         rl_emoticons.setVisibility(View.VISIBLE);
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(getActivity().getWindow().getDecorView().getWindowToken(), 0);
+        }
     }
 }
