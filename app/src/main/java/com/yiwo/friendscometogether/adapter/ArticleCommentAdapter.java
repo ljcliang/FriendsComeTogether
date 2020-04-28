@@ -29,6 +29,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2018/8/2.
+ * 评论adapter
  */
 
 public class ArticleCommentAdapter extends RecyclerView.Adapter<ArticleCommentAdapter.ViewHolder> {

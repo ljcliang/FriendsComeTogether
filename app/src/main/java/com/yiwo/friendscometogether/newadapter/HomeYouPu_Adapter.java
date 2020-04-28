@@ -21,12 +21,15 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newmodel.HomeGuanZhuModel;
 import com.yiwo.friendscometogether.newmodel.HomeYouPuModel;
+import com.yiwo.friendscometogether.newpage.DuiZhangZhuanShuActivity;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.newpage.ShopHomeActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
+import com.yiwo.friendscometogether.webpages.DuiZhangShangPuWebActivity;
+import com.yiwo.friendscometogether.webpages.ShopGoodsDetailsWebActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,9 +75,9 @@ public class HomeYouPu_Adapter extends RecyclerView.Adapter<HomeYouPu_Adapter.Vi
         holder.ll_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                intent.setClass(context, DetailsOfFriendTogetherWebActivity.class);
-//                intent.putExtra("pfID", data.get(position).getPfID());
-//                context.startActivity(intent);
+                intent.setClass(context, ShopGoodsDetailsWebActivity.class);
+                intent.putExtra("url",data.get(position).getGoodsUrl());
+                context.startActivity(intent);
             }
         });
         switch (data.get(position).getLevelName()){

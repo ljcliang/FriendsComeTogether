@@ -64,13 +64,14 @@ public class ShangPinUpLoadModel {
          * nowPrice : 10
          * spec : 横撑黄绿蓝靛紫
          * allNum : 100
+         * "specID": "29",
          */
 
         private String oldPrice = "";
         private String nowPrice = "";
         private String spec = "";
         private String allNum = "";
-
+        private String specID =  "0";
         public String getOldPrice() {
             return oldPrice;
         }
@@ -101,6 +102,14 @@ public class ShangPinUpLoadModel {
 
         public void setAllNum(String allNum) {
             this.allNum = allNum;
+        }
+
+        public String getSpecID() {
+            return specID;
+        }
+
+        public void setSpecID(String specID) {
+            this.specID = specID;
         }
     }
 }

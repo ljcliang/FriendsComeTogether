@@ -1,11 +1,8 @@
 package com.yiwo.friendscometogether.newpage;
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
@@ -17,24 +14,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
-import com.netease.nim.uikit.api.NimUIKit;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
-import com.yiwo.friendscometogether.custom.DuiZhangShowDialog;
-import com.yiwo.friendscometogether.custom.FriendDescribeDialog;
-import com.yiwo.friendscometogether.custom.HuoZanDialog;
-import com.yiwo.friendscometogether.imagepreview.StatusBarUtils;
 import com.yiwo.friendscometogether.model.KVMode;
 import com.yiwo.friendscometogether.model.PersonMain_YouJu_model;
 import com.yiwo.friendscometogether.model.PersonMain_Youji_model;
@@ -45,11 +34,6 @@ import com.yiwo.friendscometogether.newadapter.PersonMainActivity_YouJu_Adapter;
 import com.yiwo.friendscometogether.newadapter.PersonSameLabelAdapter;
 import com.yiwo.friendscometogether.newmodel.NewPersonMainMode_part1;
 import com.yiwo.friendscometogether.newmodel.PersonMain_Videos_Model;
-import com.yiwo.friendscometogether.pages.LoginActivity;
-import com.yiwo.friendscometogether.pages.MyFriendActivity;
-import com.yiwo.friendscometogether.pages.MyPicturesActivity;
-import com.yiwo.friendscometogether.pages.OtherPicActivity;
-import com.yiwo.friendscometogether.pages.WelcomeActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 

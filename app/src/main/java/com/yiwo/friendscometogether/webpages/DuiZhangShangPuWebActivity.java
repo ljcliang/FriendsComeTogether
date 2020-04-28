@@ -3,35 +3,26 @@ package com.yiwo.friendscometogether.webpages;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
-import com.google.gson.Gson;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.ShareBoardlistener;
-import com.vise.xsnow.http.ViseHttp;
-import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
-import com.yiwo.friendscometogether.MainActivity;
 import com.yiwo.friendscometogether.MyApplication;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.base.BaseSonicWebActivity;
 import com.yiwo.friendscometogether.base.BaseWebActivity;
-import com.yiwo.friendscometogether.model.ActiveShareModel;
-import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newpage.DuiZhangZhuanShuActivity;
-import com.yiwo.friendscometogether.newpage.FaBuShangPinActivity;
+import com.yiwo.friendscometogether.newpage.FaBu_XiuGaiShangPinActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.ShareUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,7 +31,7 @@ import butterknife.Unbinder;
 
 import static android.view.KeyEvent.KEYCODE_BACK;
 
-public class DuiZhangShangPuWebActivity extends BaseWebActivity {
+public class DuiZhangShangPuWebActivity extends BaseSonicWebActivity {
 
     @BindView(R.id.webView)
     WebView webView;
@@ -56,6 +47,7 @@ public class DuiZhangShangPuWebActivity extends BaseWebActivity {
         unbinder = ButterKnife.bind(this);
         url = getIntent().getStringExtra("url");
         initWebView(webView,url);
+        initIntentSonic(url,webView);
         webView.addJavascriptInterface(new DuiZhangShangPuWebActivity.AndroidInterface(),"android");//交互
     }
     @OnClick({R.id.rl_back,R.id.btn_fabushangpin})
@@ -70,7 +62,7 @@ public class DuiZhangShangPuWebActivity extends BaseWebActivity {
                 break;
             case R.id.btn_fabushangpin:
                 Intent intent = new Intent();
-                intent.setClass(DuiZhangShangPuWebActivity.this, FaBuShangPinActivity.class);
+                intent.setClass(DuiZhangShangPuWebActivity.this, FaBu_XiuGaiShangPinActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -85,6 +77,16 @@ public class DuiZhangShangPuWebActivity extends BaseWebActivity {
     }
     public class AndroidInterface extends Object{
 
+        /**
+         * editgood() 修改商品交互方法 返回商品的id  走action/ac_goods/getEditGoodsInfo  获取编辑商品信息的接口  参数名传gid
+         */
+        @JavascriptInterface
+        public void editgood(String gid){
+            Intent intent = new Intent();
+            intent.setClass(DuiZhangShangPuWebActivity.this, FaBu_XiuGaiShangPinActivity.class);
+            intent.putExtra(FaBu_XiuGaiShangPinActivity.GID,gid);
+            startActivity(intent);
+        }
         /**
          * shareshop()  分享店铺交互方法  传了： 用户id  、用户头像 、 用户店铺昵称、  店铺介绍 、 分享链接
          */

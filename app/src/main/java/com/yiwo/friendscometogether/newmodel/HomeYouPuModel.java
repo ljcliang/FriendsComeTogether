@@ -48,7 +48,7 @@ public class HomeYouPuModel {
          * goodsName : 大西瓜
          * goodsImg : http://www.tongbanapp.com/uploads/goods/20200204/1.jpg
          * goodsID : 1
-         * shopUrl : http://www.tongbanapp.com/index.php/action/ac_goods/goodsList?uid=1&myID=4
+         * shopUrl : http://www.tongbanapp.com/index.php/action/ac_goods/goodsList?uid=1&myID=4  http://www.tongbanapp.com/action/ac_goods/goodsInfo?goodsID
          * price : 0.01
          * starNum : 5
          * goodsUrl : http://www.tongbanapp.com/index.php/action/ac_goods/goodsInfo?goodsID=1&uid=4

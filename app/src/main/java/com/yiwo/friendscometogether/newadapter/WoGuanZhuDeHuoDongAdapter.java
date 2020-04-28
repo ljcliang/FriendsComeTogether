@@ -16,7 +16,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.model.MyFocusActiveModel;
 import com.yiwo.friendscometogether.newmodel.GuanZhuHuoDongModel;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;

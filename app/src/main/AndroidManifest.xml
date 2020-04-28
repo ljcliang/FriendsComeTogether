@@ -11,11 +11,14 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".newpage.ShopHomeActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".webpages.ShopGoodsBuyWebActivity"></activity>
+        <activity android:name=".webpages.ShopGoodsDetailsWebActivity" />
+        <activity
+            android:name=".newpage.ShopHomeActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".newpage.GuanZhuDuiZhangListActivity" />
         <activity android:name=".newpage.ShangPinServiceEditActivity" />
-        <activity android:name=".newpage.FaBuShangPinActivity" />
+        <activity android:name=".newpage.FaBu_XiuGaiShangPinActivity" />
         <activity android:name=".newpage.XuanZeTuanQiActivity" />
         <activity
             android:name=".MainActivity"
@@ -46,24 +49,16 @@
             android:name=".pages.CityActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".pages.DetailsOfFriendsActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".pages.SearchActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".pages.MyOrderActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".pages.MyFocusActivity"
-            android:screenOrientation="portrait" /> <!-- //设计图的宽,单位是像素,推荐用markman测量,量出来如果是750px那么请尽量去找ui设计师要一份android的设计图. -->
-        <activity
-            android:name=".pages.DetailsOfFriendTogetherActivity"
-            android:screenOrientation="portrait" /> <!-- //设计图对应的标准dpi,根据下面的那张图找到对应的dpi,比如1080就对应480dpi,如果拿到的是其他宽度的设计图,那么选择一个相近的dpi就好了 -->
-        <activity android:name=".pages.MyCollectionActivity" /> <!-- //全局字体的大小倍数,有时候老板会觉得你的所有的字小了或者大了,你总不能一个一个去改吧 -->
+        <!-- //设计图的宽,单位是像素,推荐用markman测量,量出来如果是750px那么请尽量去找ui设计师要一份android的设计图. -->
+        <!-- //设计图对应的标准dpi,根据下面的那张图找到对应的dpi,比如1080就对应480dpi,如果拿到的是其他宽度的设计图,那么选择一个相近的dpi就好了 -->
+        <!-- //全局字体的大小倍数,有时候老板会觉得你的所有的字小了或者大了,你总不能一个一个去改吧 -->
         <activity android:name=".pages.MyCommentActivity" /> <!-- //你的布局里面用的是px这就写px,你的布局里面用的是dp这就写dp,要统一,不要一会儿px一会儿dp,字体也用px或者dp,不要用sp,微信qq用的肯定不是sp. -->
         <activity android:name=".pages.LookHistoryActivity" />
-        <activity android:name=".pages.MyDraftActivity" />
         <activity android:name=".pages.CreateFriendRememberActivity" />
         <activity
             android:name=".newpage.CreateFriendRememberActivity1"
@@ -87,17 +82,12 @@
         <activity android:name=".pages.DetailsToCommentActivity" />
         <activity android:name=".pages.DetailsToTripActivity" />
         <activity android:name=".pages.DetailsToReturnPriceActivity" />
-        <activity android:name=".pages.MyFriendRememberActivity" />
-        <activity android:name=".pages.MyIntercalationActivity" />
         <activity android:name=".pages.MyPicturesActivity" />
-        <activity android:name=".pages.MessageCenterActivity" />
         <activity android:name=".pages.MyInformationActivity" />
         <activity
             android:name=".pages.ApplyActivity"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity android:name=".pages.RealNameActivity" />
-        <activity android:name=".pages.StartActiveActivity" />
-        <activity android:name=".pages.JoinActiveActivity" />
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -110,7 +100,6 @@
         <activity android:name=".pages.EditorFriendRememberActivity" />
         <activity android:name=".pages.TeamIntercalationActivity" />
         <activity android:name=".pages.InsertIntercalationActivity" />
-        <activity android:name=".pages.OtherInformationActivity" />
         <activity android:name=".pages.FriendTogetherAddContentActivity" />
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
@@ -146,10 +135,7 @@
         <activity android:name=".pages.UserAgreementActivity" />
         <activity android:name=".pages.UpdateActivity" />
         <activity android:name=".pages.FeedbackActivity" />
-        <activity android:name=".pages.EditorFriendTogetherActivity" />
-        <activity android:name=".pages.ActiveEvaluationActivity" />
         <activity android:name=".pages.OrderCommentActivity" />
-        <activity android:name=".pages.EditorFriendTogetherSubTitleContentActivity" />
         <activity android:name=".pages.MyFriendActivity" />
         <activity android:name=".pages.EditorMainFriendTogetherActivity" />
         <activity android:name=".pages.SearchListActivity" />
@@ -168,9 +154,9 @@
         -->
         <activity android:name=".pages.MessageInvitationActivity" /> <!-- 云信后台服务，请使用独立进程。 -->
         <activity android:name=".pages.MessageFriendsActivity" /> <!-- 云信后台辅助服务 -->
-        <activity android:name=".pages.MessageCommentActivity" /> <!-- 云信后台辅助服务 -->
+        <!-- 云信后台辅助服务 -->
         <activity android:name=".pages.GuideActivity" /> <!-- 云信监视系统启动和网络变化的广播接收器，保持和 NimService 同一进程 -->
-        <activity android:name=".pages.MyFocusActiveActivity" /> <!-- 云信进程间通信 Receiver -->
+        <!-- 云信进程间通信 Receiver -->
         <activity android:name=".pages.BlackUserActivity" /> <!-- 云信进程间通信service -->
         <activity android:name=".imagepreview.ImagePreviewActivity" /> <!-- 云信进程间通信provider -->
         <!-- android:authorities="{包名}.ipc.provider", 请将com.netease.nim.demo替换为自己的包名 -->
@@ -179,10 +165,7 @@
         <activity android:name=".newpage.GuanZhuActivity" />
         <activity android:name=".newpage.MessageActivity" />
         <activity android:name=".newpage.YoujuShaixuanActivity" />
-        <activity android:name=".newpage.PersonMainActivity" />
         <activity android:name=".newpage.PersonMainActivity1" />
-        <activity android:name=".newpage.PersonRememberActivity" />
-        <activity android:name=".newpage.PersonTogetherActivity" />
         <activity android:name=".newpage.SuperLikeActivity" />
         <activity android:name=".newpage.SuperLikeSxActivity" />
         <activity android:name=".newpage.EditorLabelActivity" />
@@ -467,34 +450,31 @@
             android:name="com.huawei.updatesdk.service.deamon.download.DownloadService"
             android:exported="false" />
         <service android:name=".wangyiyunshipin.upload.controller.UploadService" />
-    </application> <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
+    </application> <!-- 外置存储存取权限 -->
     <permission
         android:name="com.yiwo.friendscometogether.permission.RECEIVE_MSG"
         android:protectionLevel="signature" />
     <permission
         android:name="com.yiwo.friendscometogether.permission.PROCESS_PUSH_MSG"
-        android:protectionLevel="signatureOrSystem" /> <!-- 外置存储存取权限 -->
+        android:protectionLevel="signatureOrSystem" /> <!-- 多媒体相关 -->
     <permission
         android:name="com.yiwo.friendscometogether.permission.MIPUSH_RECEIVE"
         android:protectionLevel="signature" />
-    <uses-feature android:name="android.hardware.camera" /> <!-- 多媒体相关 -->
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" /> <!-- 自动安装权限！！ -->
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 自动安装权限！！ -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- SDK 权限申明, 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
+        android:required="true" /> <!-- SDK 权限申明, 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
     <!-- 和下面的 uses-permission 一起加入到你的 AndroidManifest 文件中。 -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 接收 SDK 消息广播权限， 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- bugly -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 小米推送 权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 接收 SDK 消息广播权限， 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- bugly -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 小米推送 权限 -->
     <!-- 配置权限，已经配置过的条目则无须添加 -->
     <!-- <uses-permission android:name="android.permission.INTERNET" /> -->
     <!-- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> -->
     <!-- <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> -->
     <!-- <uses-permission android:name="android.permission.READ_PHONE_STATE" /> -->
-    <uses-permission android:name="android.permission.FLASHLIGHT" /> <!-- <uses-permission android:name="android.permission.VIBRATE"/> -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- <uses-permission android:name="android.permission.VIBRATE"/> -->
     <!-- 华为推送权限 -->
     <!-- HMS-SDK引导升级HMS功能，访问OTA服务器需要网络权限 -->
     <!-- <uses-permission android:name="android.permission.INTERNET" /> -->
@@ -509,19 +489,21 @@
     <!-- 如果是安卓8.0，应用编译配置的targetSdkVersion>=26，请务必添加以下权限 -->
     <!-- <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> -->
     <!-- 接收PUSH TOKEN的广播以及PUSH消息需要定义该权限 ${PACKAGE_NAME} 要替换上您应用的包名 -->
-    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 接收PUSH TOKEN的广播以及PUSH消息需要定义该权限 ${PACKAGE_NAME} 要替换上您应用的包名 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 以下两处 {你的包名} 改开发者App的包名 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- 用于申请调用A-GPS模块 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 用于申请获取蓝牙信息进行室内定位 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- 网易云短视频 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 接收PUSH TOKEN的广播以及PUSH消息需要定义该权限 ${PACKAGE_NAME} 要替换上您应用的包名 -->
+    <uses-permission android:name="android.permission.FLASHLIGHT" /> <!-- 以下两处 {你的包名} 改开发者App的包名 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 用于申请调用A-GPS模块 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 用于申请获取蓝牙信息进行室内定位 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 网易云短视频 -->
     <!-- 允许挂载和反挂载文件系统 -->
-    <uses-permission android:name="com.yiwo.friendscometogether.permission.RECEIVE_MSG" /> <!-- 允许程序使用PowerManager WakeLocks以防止处理器休眠或者屏幕锁屏 -->
-    <uses-permission android:name="android.permission.READ_LOGS" /> <!-- 声明程序使用camera和自动对焦功能 -->
-    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 允许程序使用PowerManager WakeLocks以防止处理器休眠或者屏幕锁屏 -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- 声明程序使用camera和自动对焦功能 -->
+    <uses-permission android:name="com.yiwo.friendscometogether.permission.RECEIVE_MSG" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.GET_TASKS" /> <!-- 声明程序使用OpenGL ES 2.0 -->
     <uses-permission android:name="com.yiwo.friendscometogether.permission.PROCESS_PUSH_MSG" />
-    <uses-permission android:name="com.yiwo.friendscometogether.permission.MIPUSH_RECEIVE" /> <!-- 声明程序使用OpenGL ES 2.0 -->
+    <uses-permission android:name="com.yiwo.friendscometogether.permission.MIPUSH_RECEIVE" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />

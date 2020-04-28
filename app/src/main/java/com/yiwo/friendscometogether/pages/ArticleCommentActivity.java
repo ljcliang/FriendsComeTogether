@@ -53,7 +53,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
+//评论列表页面
 public class ArticleCommentActivity extends BaseActivity {
 
     @BindView(R.id.activity_article_comment_rl_back)

@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2018/7/26.
+ * 续写adapter图片
  */
 
 public class IntercalationAdapter extends RecyclerView.Adapter<IntercalationAdapter.ViewHolder> {

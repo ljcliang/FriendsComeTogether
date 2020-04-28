@@ -16,8 +16,6 @@ import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.newadapter.AllRememberViewpagerAdapter;
 import com.yiwo.friendscometogether.newfragment.HuoDongApplyFragment;
 import com.yiwo.friendscometogether.newfragment.HuoDongHistoryFragment;
-import com.yiwo.friendscometogether.newfragment.YouJiFragment;
-import com.yiwo.friendscometogether.pages.MyDraftActivity;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;

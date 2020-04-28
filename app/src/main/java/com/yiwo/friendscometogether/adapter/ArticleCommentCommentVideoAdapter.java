@@ -27,6 +27,7 @@ import javax.microedition.khronos.opengles.GL;
 
 /**
  * Created by Administrator on 2018/8/2.
+ * 视频回复adapter
  */
 
 public class ArticleCommentCommentVideoAdapter extends RecyclerView.Adapter<ArticleCommentCommentVideoAdapter.ViewHolder> {

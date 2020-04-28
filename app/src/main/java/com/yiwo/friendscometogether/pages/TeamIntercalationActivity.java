@@ -14,11 +14,7 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.adapter.TeamIntercalationAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
-import com.yiwo.friendscometogether.custom.EditTitleDialog;
-import com.yiwo.friendscometogether.custom.ShieldReasonDialog;
-import com.yiwo.friendscometogether.model.TeamIntercalationModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.ChaWenGuanLiAdapter;
 import com.yiwo.friendscometogether.newmodel.ChaWenGuanLiModel;
@@ -27,7 +23,6 @@ import com.yiwo.friendscometogether.sp.SpImp;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;

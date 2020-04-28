@@ -5,10 +5,11 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".newpage.FaBuShangPinActivity">
+    tools:context=".newpage.FaBu_XiuGaiShangPinActivity">
     <RelativeLayout
         style="@style/rl_top_bar_dp">
         <TextView
+            android:id="@+id/tv_title"
             style="@style/tv_top_title_dp"
             android:text="发布商品" />
 
@@ -170,6 +171,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                         <ImageView
+                            android:id="@+id/iv_service_tishi"
                             android:layout_marginRight="2dp"
                             android:src="@mipmap/tishi"
                             android:layout_gravity="center_vertical"
@@ -213,7 +215,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <ImageView
-                        android:id="@+id/iv_message_xuanzehuodong"
+                        android:id="@+id/iv_label_tishi"
                         android:layout_marginRight="2dp"
                         android:src="@mipmap/tishi"
                         android:layout_gravity="center_vertical"

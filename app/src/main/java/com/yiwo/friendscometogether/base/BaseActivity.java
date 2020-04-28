@@ -14,22 +14,14 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.vise.xsnow.http.ViseHttp;
-import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.MyApplication;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.custom.GlideImageLoader;
-import com.yiwo.friendscometogether.network.NetConfig;
-import com.yiwo.friendscometogether.pages.MyFriendRememberActivity;
 import com.yiwo.friendscometogether.utils.StringUtils;
-import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.wangyiyunshipin.DemoCache;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 

@@ -487,11 +487,20 @@ public class NetConfig {
     public static String addServe = "action/ac_goods/addServe";
 //    action/ac_goods/serveList服务列表  传uid用户id
     public static String serveList = "action/ac_goods/serveList";
+//    action/ac_goods/getEditGoodsInfo  获取编辑商品信息的接口   参数名传gid
+    public static String getEditGoodsInfo = "action/ac_goods/getEditGoodsInfo";
 //    action/ac_goods/addGoods  添加商品接口   传uid用户id   goodsInfo 商品信息 json字符串     goods_files 图片名称
     public static String addGoods = "action/ac_goods/addGoods";
+//    action/ac_goods/updateGoods  修改商品保存接口 传的和添加的一样  增加 删除图片的参数  delImgID  图片的ID 用逗号拼成字符串，商品ID gid
+    public static String updateGoods = "action/ac_goods/updateGoods";
 //action/ac_goods/delServe   删除服务   传uid 用户id   sID 服务id
     public static String delServe = "action/ac_goods/delServe";
 
 //    action/ac_goods/inShop    用户进入店铺接口 传page分页  uid登录用户的id未登录传0或不传   shopUserID店铺所属用户的id    keyWord搜索词
     public static String inShop = "action/ac_goods/inShop";
+    //    action/ac_goods/insertGoodsOrder 下单接口
+    //传参：getAddress收货地址、getPerson收货人、getTel收货电话、goodsID商品id、specID规格id、uid用户id、num购买数量、beizhu备注、payType支付类型
+    public static String insertGoodsOrder = "action/ac_goods/insertGoodsOrder";
+    //fabushangpinmessage
+    public static String addGoodsMes = "action/ac_goods/addGoodsMes";
 }

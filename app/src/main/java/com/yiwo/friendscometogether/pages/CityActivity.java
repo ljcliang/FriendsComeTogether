@@ -205,7 +205,7 @@ public class CityActivity extends BaseActivity {
                     String ac = getIntent().getStringExtra(ActivityConfig.ACTIVITY);
                     Intent it = new Intent();
                     if (ac.equals("youju")) {
-                        it.setClass(CityActivity.this, CreateFriendTogetherActivity.class);
+//                        it.setClass(CityActivity.this, CreateFriendTogetherActivity.class);
                     } else if (ac.equals("createYouJi")){
                         it.setClass(CityActivity.this, CreateFriendRememberActivity.class);
                     } else if (ac.equals("youJuShaiXuan")){

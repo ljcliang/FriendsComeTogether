@@ -64,16 +64,13 @@ import com.yiwo.friendscometogether.network.ActivityConfig;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.HomeGuanZhu_DuiZhangDaiDui_Adapter;
 import com.yiwo.friendscometogether.newadapter.HomeGuanZhu_YouJiShiPin_Adapter;
-import com.yiwo.friendscometogether.newadapter.HomeListVideoAdapter;
-import com.yiwo.friendscometogether.newadapter.HomeListYouJiAdapter;
 import com.yiwo.friendscometogether.newadapter.HomeTuiJian_DuiZhangPuZi_Adapter;
 import com.yiwo.friendscometogether.newadapter.HomeTuiJian_JianTuShiKe_Adapter;
 import com.yiwo.friendscometogether.newadapter.HomeTuiJian_ReMenDuiZhang_Adapter;
 import com.yiwo.friendscometogether.newadapter.HomeTuiJian_YouJiShiPin_Adapter;
-import com.yiwo.friendscometogether.newadapter.HomeTui_JianJingCaiLuXian_Adapter;
+import com.yiwo.friendscometogether.newadapter.HomeTuiJian_JingCaiLuXian_Adapter;
 import com.yiwo.friendscometogether.newadapter.HomeYouPu_Adapter;
 import com.yiwo.friendscometogether.newadapter.Home_YouJiShiPin_0407_Adapter;
-import com.yiwo.friendscometogether.newmodel.HomeDataModel;
 import com.yiwo.friendscometogether.newmodel.HomeGuanZhuModel;
 import com.yiwo.friendscometogether.newmodel.HomeTuiJianModel;
 import com.yiwo.friendscometogether.newmodel.HomeTuiJianYouJiShiPinModel;
@@ -202,7 +199,7 @@ public class HomeFragment3 extends BaseFragment {
 
     private RelativeLayout rlJingCaiLuXian;
     RecyclerView rvJingCaiLuXian;
-    private HomeTui_JianJingCaiLuXian_Adapter jingCaiLuXianAdapter;
+    private HomeTuiJian_JingCaiLuXian_Adapter jingCaiLuXianAdapter;
     private List<HomeTuiJianModel.ObjBean.ActivityBean> listJingCaiLuXian = new ArrayList<>();
 
     private RelativeLayout rlRenMenDuiZHang;
@@ -329,8 +326,8 @@ public class HomeFragment3 extends BaseFragment {
         };
         mLayoutManagerJingCaiLuXian.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvJingCaiLuXian.setLayoutManager(mLayoutManagerJingCaiLuXian);
-        jingCaiLuXianAdapter = new HomeTui_JianJingCaiLuXian_Adapter(listJingCaiLuXian);
-        jingCaiLuXianAdapter.setListener(new HomeTui_JianJingCaiLuXian_Adapter.LiveListAdapterListener() {
+        jingCaiLuXianAdapter = new HomeTuiJian_JingCaiLuXian_Adapter(listJingCaiLuXian);
+        jingCaiLuXianAdapter.setListener(new HomeTuiJian_JingCaiLuXian_Adapter.LiveListAdapterListener() {
             @Override
             public void onCLickListen(int pos) {
                 if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {

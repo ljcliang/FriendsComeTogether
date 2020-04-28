@@ -1,7 +1,6 @@
 package com.yiwo.friendscometogether;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -18,7 +17,6 @@ import android.support.v4.app.FragmentTabHost;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -46,11 +44,7 @@ import com.yiwo.friendscometogether.broadcastreceiver.MyShenQingJinQunBroadcastR
 import com.yiwo.friendscometogether.broadcastreceiver.MyYaoQingJinQunBroadcastReceiver;
 import com.yiwo.friendscometogether.custom.OnDoubleClickListener;
 import com.yiwo.friendscometogether.fragment.ChatFragment;
-import com.yiwo.friendscometogether.fragment.FriendsTogetherFragment;
-import com.yiwo.friendscometogether.fragment.FriendsTogetherFragment2;
 import com.yiwo.friendscometogether.fragment.FriendsTogetherFragment3;
-import com.yiwo.friendscometogether.fragment.HomeFragment;
-import com.yiwo.friendscometogether.fragment.HomeFragment1;
 import com.yiwo.friendscometogether.fragment.HomeFragment3;
 import com.yiwo.friendscometogether.fragment.MyFragment;
 import com.yiwo.friendscometogether.newfragment.YouJiFragment;
@@ -59,7 +53,6 @@ import com.yiwo.friendscometogether.newpage.MessageActivity;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
-import com.yiwo.friendscometogether.wangyiyunshipin.VideoUpLoadListActivity;
 import com.yiwo.friendscometogether.wangyiyunshipin.upload.constant.UploadType;
 import com.yiwo.friendscometogether.wangyiyunshipin.upload.controller.UploadController;
 

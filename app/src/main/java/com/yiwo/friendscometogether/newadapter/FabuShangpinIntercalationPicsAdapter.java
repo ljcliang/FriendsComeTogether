@@ -10,10 +10,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.custom.PicDescribeDialog;
 import com.yiwo.friendscometogether.model.NewUserIntercalationPicModel;
+import com.yiwo.friendscometogether.model.UpLoadShangPinImgIntercalationPicModel;
 
 import java.util.List;
 
@@ -24,7 +26,7 @@ import java.util.List;
 public class FabuShangpinIntercalationPicsAdapter extends RecyclerView.Adapter<FabuShangpinIntercalationPicsAdapter.ViewHolder> {
 
     private Context context;
-    private List<NewUserIntercalationPicModel> data;
+    private List<UpLoadShangPinImgIntercalationPicModel> data;
 
     private static final int TYPE_ADD = 1;
     private static final int TYPE_PIC = 2;
@@ -50,7 +52,7 @@ public class FabuShangpinIntercalationPicsAdapter extends RecyclerView.Adapter<F
         this.setFirdtPicListienner = setFirdtPicListienner;
     }
 
-    public FabuShangpinIntercalationPicsAdapter(List<NewUserIntercalationPicModel> data) {
+    public FabuShangpinIntercalationPicsAdapter(List<UpLoadShangPinImgIntercalationPicModel> data) {
         this.data = data;
     }
 
@@ -89,7 +91,12 @@ public class FabuShangpinIntercalationPicsAdapter extends RecyclerView.Adapter<F
             holder.rlAdd.setVisibility(View.GONE);
             holder.rlImg.setVisibility(View.VISIBLE);
             holder.ivDelete.setVisibility(View.VISIBLE);
-            Glide.with(context).load("file://" + data.get(position).getPic()).into(holder.iv);
+            if (data.get(position).getPicId().equals("-1")){//本地图片
+                Glide.with(context).load("file://" + data.get(position).getPic()).into(holder.iv);
+            }else {//网络图片
+                Glide.with(context).load(data.get(position).getPic()).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian))
+                            .into(holder.iv);
+            }
             if (!data.get(position).getDescribe().equals("")) {
                 holder.tvContent.setText(data.get(position).getDescribe());
             } else {

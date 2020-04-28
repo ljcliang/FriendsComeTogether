@@ -2,15 +2,11 @@ package com.yiwo.friendscometogether.newpage;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.netease.nim.uikit.api.NimUIKit;
@@ -18,14 +14,10 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.adapter.MessageInvitationAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
-import com.yiwo.friendscometogether.model.MessageInvitationListModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.PrivateMessageAdapter;
 import com.yiwo.friendscometogether.newmodel.PrivateMessageModel;
-import com.yiwo.friendscometogether.pages.ApplyActivity;
-import com.yiwo.friendscometogether.pages.MessageInvitationActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 
 import org.json.JSONException;

@@ -22,6 +22,8 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2018/7/27.
+ * /
+ * 编辑友记 续写适配器
  */
 
 public class EditorFriendRememberAdapter extends RecyclerView.Adapter<EditorFriendRememberAdapter.ViewHolder> {
