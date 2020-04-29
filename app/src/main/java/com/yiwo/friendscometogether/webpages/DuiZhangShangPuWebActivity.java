@@ -133,12 +133,12 @@ public class DuiZhangShangPuWebActivity extends BaseSonicWebActivity {
         /**
          * gotoapp()  跳到app首页的交互方法
          */
-        @JavascriptInterface
-        public void gotoapp(){
-            onBackPressed();
-            MyApplication.getInstance().exitOneActivity(DuiZhangZhuanShuActivity.class);
-            MyApplication.getInstance().getMainActivity().switchFragment(0);
-        }
+//        @JavascriptInterface
+//        public void gotoapp(){
+//            onBackPressed();
+//            MyApplication.getInstance().exitOneActivity(DuiZhangZhuanShuActivity.class);
+//            MyApplication.getInstance().getMainActivity().switchFragment(0);
+//        }
         /**
          * totalk()   咨询交互方法    传了 用户id   用户网易id  用户头像  用户昵称
          */

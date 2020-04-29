@@ -71,9 +71,9 @@ public class ShopGoodsDetailsWebActivity extends BaseSonicWebActivity {
         @JavascriptInterface
         public void gotoapp(){
             toToast(ShopGoodsDetailsWebActivity.this,"sadasd");
-            onBackPressed();
-            MyApplication.getInstance().exitOneActivity(DuiZhangZhuanShuActivity.class);
-            MyApplication.getInstance().getMainActivity().switchFragment(0);
+//            onBackPressed();
+//            MyApplication.getInstance().exitOneActivity(DuiZhangZhuanShuActivity.class);
+//            MyApplication.getInstance().getMainActivity().switchFragment(0);
         }
         /**
          * totalk()   咨询交互方法    传了 用户id   用户网易id  用户头像  用户昵称
