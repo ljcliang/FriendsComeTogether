@@ -6,12 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -35,29 +32,22 @@ import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.ShareBoardlistener;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
-import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.TitleMessageOkDialog;
-import com.yiwo.friendscometogether.dbmodel.DuiZhangFenZuDbModel;
 import com.yiwo.friendscometogether.model.ActiveShareModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.JiangLiRenWuAdapter;
 import com.yiwo.friendscometogether.newadapter.LiShuGongSiChooseAdapter;
-import com.yiwo.friendscometogether.newadapter.TongBiPriceAdapter;
 import com.yiwo.friendscometogether.newmodel.DuiZhangXuanZeHuoDongModel;
 import com.yiwo.friendscometogether.newmodel.DuiZhangZhuanShuModel;
 import com.yiwo.friendscometogether.newmodel.LiShuGongSiSearchModel;
-import com.yiwo.friendscometogether.newmodel.TongBiPriceModel;
-import com.yiwo.friendscometogether.pages.ApplyActivity;
-import com.yiwo.friendscometogether.pages.UserAgreementActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.ShareUtils;
 import com.yiwo.friendscometogether.wangyiyunshipin.wangyiyunlive.EnterLiveActivity;
 import com.yiwo.friendscometogether.webpages.DuiZhangShangPuWebActivity;
 import com.yiwo.friendscometogether.webpages.RenWuWebActivity;
 import com.yiwo.friendscometogether.webpages.ShouRuMingXiWebActivity;
-import com.yiwo.friendscometogether.webpages.YouHuiQuanWebActivity;
 import com.yiwo.friendscometogether.widget.CustomDatePicker;
 
 import org.json.JSONException;
@@ -73,8 +63,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.yiwo.friendscometogether.utils.TokenUtils.getToken;
 
 public class DuiZhangZhuanShuActivity extends BaseActivity {
 

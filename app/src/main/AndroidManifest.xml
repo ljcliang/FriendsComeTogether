@@ -258,7 +258,8 @@
             android:windowSoftInputMode="stateHidden|adjustResize" /> <!-- 用于HMS SDK引导升级HMS APK，提供给系统安装器读取升级文件 -->
         <!-- “xxx.xxx.xxx”用实际的应用包名替换 -->
         <activity android:name=".newpage.UpLoadVideoActivity" />
-        <activity android:name=".newpage.AddVideoTitleActivity" /> <!-- ****************************************华为推送配置结束************************************************************** -->
+        <activity android:name=".newpage.AddVideoTitleActivity" />
+        <!-- ****************************************华为推送配置结束************************************************************** -->
         <!-- 云信华为推送消息广播 -->
         <activity android:name=".newpage.MyVideosActivity" /> <!-- 兼容性广播 -->
         <activity android:name=".newpage.RenWuActivity" />

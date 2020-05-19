@@ -9,7 +9,7 @@
         android:id="@+id/rl"
         android:background="@color/white_ffffff"
         android:elevation="10px"
-        android:layout_marginTop="50px"
+        android:layout_marginTop="30px"
         android:layout_marginLeft="70px"
         android:layout_marginRight="70px"
         android:layout_marginBottom="50px"

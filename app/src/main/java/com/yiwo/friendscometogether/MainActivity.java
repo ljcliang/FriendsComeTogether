@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -47,6 +48,7 @@ import com.yiwo.friendscometogether.fragment.ChatFragment;
 import com.yiwo.friendscometogether.fragment.FriendsTogetherFragment3;
 import com.yiwo.friendscometogether.fragment.HomeFragment3;
 import com.yiwo.friendscometogether.fragment.MyFragment;
+import com.yiwo.friendscometogether.imagepreview.StatusBarUtils;
 import com.yiwo.friendscometogether.newfragment.YouJiFragment;
 import com.yiwo.friendscometogether.newpage.CreateFriendRememberActivityChoosePicOrVideos;
 import com.yiwo.friendscometogether.newpage.MessageActivity;
@@ -143,6 +145,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         ButterKnife.bind(MainActivity.this);
         MyApplication.getInstance().addActivity(this);
         spImp = new SpImp(context);
@@ -393,6 +396,11 @@ public class MainActivity extends FragmentActivity {
             }
         }
         fragmentTransaction.commit();
+//        if (index == 1){
+//            StatusBarUtils.setStatusBar(MainActivity.this, Color.TRANSPARENT);
+//        }else {
+//            StatusBarUtils.setStatusBar(MainActivity.this, Color.parseColor("#d84c37"));
+//        }
     }
 
     public void startYouji(){

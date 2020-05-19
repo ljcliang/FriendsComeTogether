@@ -26,7 +26,6 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newpage.CreateFriendRememberActivityChoosePicOrVideos;
-import com.yiwo.friendscometogether.newpage.UpLoadVideoActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.StringUtils;
 import com.yiwo.friendscometogether.wangyiyunshipin.DemoCache;

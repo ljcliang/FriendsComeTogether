@@ -33,6 +33,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         MyApplication.getInstance().addActivity(this);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
 
 
@@ -108,7 +109,7 @@ public class BaseActivity extends AppCompatActivity {
         banner.setDelayTime(5000);
         //设置指示器位置（当banner模式中有指示器时）
         banner.setIndicatorGravity(BannerConfig.CENTER);
-        
+
         //banner设置方法全部调用完毕时最后调用
         banner.start();
 

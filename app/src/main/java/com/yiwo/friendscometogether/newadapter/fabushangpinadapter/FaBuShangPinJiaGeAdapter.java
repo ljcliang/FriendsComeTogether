@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.custom.TitleMessageOkDialog;
 import com.yiwo.friendscometogether.newmodel.ShangPinUpLoadModel;
-import com.yiwo.friendscometogether.newpage.FaBu_XiuGaiShangPinActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 
 import java.util.List;
