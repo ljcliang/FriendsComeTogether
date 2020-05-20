@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
@@ -86,9 +87,8 @@ public class AllHuoDongActivity extends BaseActivity {
                 simplePagerTitleView.setText(mTitleDataList.get(index));
                 //设置字体
                 simplePagerTitleView.setTextSize(18);
-                simplePagerTitleView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-                simplePagerTitleView.setNormalColor(Color.WHITE);
-                simplePagerTitleView.setSelectedColor(Color.WHITE);
+                simplePagerTitleView.setNormalColor(Color.parseColor("#101010"));
+                simplePagerTitleView.setSelectedColor(Color.parseColor("#101010"));
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -101,7 +101,10 @@ public class AllHuoDongActivity extends BaseActivity {
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setColors(Color.WHITE);
+                indicator.setColors(Color.parseColor("#d84c37"));
+                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
+                indicator.setLineWidth(100);
+                indicator.setRoundRadius(5);
                 return indicator;
             }
         });

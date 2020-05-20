@@ -87,10 +87,9 @@ public class AllRememberActivity extends BaseActivity {
                 SimplePagerTitleView simplePagerTitleView = new ColorTransitionPagerTitleView(context);
                 //设置字体
                 simplePagerTitleView.setTextSize(18);
-                simplePagerTitleView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 simplePagerTitleView.setText(mTitleDataList.get(index));
-                simplePagerTitleView.setNormalColor(Color.WHITE);
-                simplePagerTitleView.setSelectedColor(Color.WHITE);
+                simplePagerTitleView.setNormalColor(Color.parseColor("#101010"));
+                simplePagerTitleView.setSelectedColor(Color.parseColor("#101010"));
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -103,7 +102,10 @@ public class AllRememberActivity extends BaseActivity {
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setColors(Color.WHITE);
+                indicator.setColors(Color.parseColor("#d84c37"));
+                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
+                indicator.setLineWidth(100);
+                indicator.setRoundRadius(5);
                 return indicator;
             }
         });

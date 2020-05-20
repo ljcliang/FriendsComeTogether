@@ -13,12 +13,7 @@
         <TextView
             android:id="@+id/activity_my_order_top_title"
             android:text="我的订单"
-            android:textSize="36px"
-            android:textStyle="bold"
-            android:textColor="@color/white_ffffff"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            style="@style/tv_top_title"/>
 
         <RelativeLayout
             android:id="@+id/activity_my_order_rl_back"
@@ -27,10 +22,7 @@
 
             <ImageView
                 android:id="@+id/btn_back"
-                android:layout_centerInParent="true"
-                android:src="@mipmap/back_w"
-                android:layout_width="21px"
-                android:layout_height="36px" />
+                style="@style/iv_return"/>
 
         </RelativeLayout>
 

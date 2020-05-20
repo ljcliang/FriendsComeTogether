@@ -87,9 +87,8 @@ public class MyCommentActivity extends BaseActivity {
                 simplePagerTitleView.setText(mTitleDataList.get(index));
                 //设置字体
                 simplePagerTitleView.setTextSize(18);
-                simplePagerTitleView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-                simplePagerTitleView.setNormalColor(Color.WHITE);
-                simplePagerTitleView.setSelectedColor(Color.WHITE);
+                simplePagerTitleView.setNormalColor(Color.parseColor("#101010"));
+                simplePagerTitleView.setSelectedColor(Color.parseColor("#101010"));
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -102,7 +101,7 @@ public class MyCommentActivity extends BaseActivity {
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setColors(Color.parseColor("#d84c37"));
+                indicator.setColors(Color.parseColor("#f6f6f6"));
                 return indicator;
             }
         });

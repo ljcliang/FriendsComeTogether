@@ -33,11 +33,11 @@
 
                     <ImageView
                         android:id="@+id/imageView2"
-                        android:layout_width="50px"
-                        android:layout_height="50px"
+                        android:layout_width="45px"
+                        android:layout_height="45px"
                         android:layout_centerInParent="true"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/huodong_sousuo" />
+                        android:src="@mipmap/sousuo_red" />
                 </RelativeLayout>
             </RelativeLayout>
             <RelativeLayout
@@ -50,7 +50,7 @@
                     android:layout_width="50px"
                     android:layout_height="50px"
                     android:layout_centerInParent="true"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/date_red" />
                 <TextView
                     android:background="@drawable/bg_oval_red_1"
                     android:layout_alignParentRight="true"
@@ -58,10 +58,10 @@
                     android:id="@+id/tv_daikaishi"
                     android:gravity="center"
                     android:text="1"
-                    android:textSize="13px"
+                    android:textSize="14px"
                     android:textColor="@color/white"
-                    android:layout_width="20px"
-                    android:layout_height="20px" />
+                    android:layout_width="22px"
+                    android:layout_height="22px" />
 
             </RelativeLayout>
             <TextView

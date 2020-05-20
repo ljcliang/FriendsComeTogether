@@ -309,7 +309,14 @@ public class FriendsTogetherFragment3 extends BaseFragment {
                             JSONObject jsonObject = new JSONObject(data);
                             if (jsonObject.getInt("code") == 200){
                                 String s = jsonObject.getJSONObject("obj").getString("willBeginNum");
-                                tvDaiKaiShi.setText("您有"+s+"个待开始活动");
+//                                tvDaiKaiShi.setText("您有"+s+"个待开始活动");
+
+                                if (s.equals("0")){
+                                    tvDaiKaiShi.setVisibility(View.GONE);
+                                }else {
+                                    tvDaiKaiShi.setVisibility(View.VISIBLE);
+                                    tvDaiKaiShi.setText(s);
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
