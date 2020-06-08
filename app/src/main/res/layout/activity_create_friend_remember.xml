@@ -20,7 +20,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:textColor="@color/white_ffffff"
+                android:textColor="@color/red_d84c37"
                 android:layout_centerInParent="true"
                 android:textStyle="bold"
                 android:textSize="30px"

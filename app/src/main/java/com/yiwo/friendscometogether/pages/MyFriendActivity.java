@@ -33,6 +33,7 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.MyFriendAdapter;
+import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.MyFriendDialog;
 import com.yiwo.friendscometogether.model.MyFriendModel;
 import com.yiwo.friendscometogether.model.UserActiveListModel;
@@ -55,7 +56,7 @@ import butterknife.OnClick;
 import me.zhouzhuo.zzletterssidebar.ZzLetterSideBar;
 import me.zhouzhuo.zzletterssidebar.interf.OnLetterTouchListener;
 
-public class MyFriendActivity extends AppCompatActivity {
+public class MyFriendActivity extends BaseActivity {
 
     @BindView(R.id.activity_my_friend_rl_back)
     RelativeLayout rlBack;

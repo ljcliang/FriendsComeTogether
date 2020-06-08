@@ -91,6 +91,8 @@ public class GuanZhuActivity extends BaseActivity {
 
     @BindView(R.id.ll_search)
     LinearLayout ll_search;
+    @BindView(R.id.tv_search)
+    TextView tv_search;
     @BindView(R.id.edt_search)
     EditText edt_search;
     @BindView(R.id.tv_title)
@@ -562,9 +564,9 @@ public class GuanZhuActivity extends BaseActivity {
                             if (jsonObject.getInt("code") == 200){
                                 Gson gson = new Gson();
                                 AttentionNumModel attentionNumModel = gson.fromJson(data, AttentionNumModel.class);
-                                tv_woguanzhude.setText("我关注的\n("+attentionNumModel.getObj().getAttentionNum()+")");
-                                tv_guanzhuwode.setText("关注我的\n("+attentionNumModel.getObj().getAttentionMe()+")");
-                                tv_guanzhuhuodong.setText("关注活动\n("+attentionNumModel.getObj().getAttentionActivity()+")");
+                                tv_woguanzhude.setText("我关注["+attentionNumModel.getObj().getAttentionNum()+"]");
+                                tv_guanzhuwode.setText("关注我["+attentionNumModel.getObj().getAttentionMe()+"]");
+                                tv_guanzhuhuodong.setText("活动["+attentionNumModel.getObj().getAttentionActivity()+"]");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -590,6 +592,7 @@ public class GuanZhuActivity extends BaseActivity {
                 rv_guanzhuwode.setVisibility(View.GONE);
                 rv_guanzhuhuodong.setVisibility(View.GONE);
                 ll_search.setVisibility(View.VISIBLE);
+                tv_search.setVisibility(View.VISIBLE);
                 tv_title.setVisibility(View.GONE);
                 edt_search.setText("");
                 edt_search.clearFocus();
@@ -604,6 +607,7 @@ public class GuanZhuActivity extends BaseActivity {
                 rv_guanzhuhuodong.setVisibility(View.GONE);
                 rv_woguanzhude.setVisibility(View.GONE);
                 ll_search.setVisibility(View.VISIBLE);
+                tv_search.setVisibility(View.VISIBLE);
                 tv_title.setVisibility(View.GONE);
                 edt_search.setText("");
                 edt_search.clearFocus();
@@ -618,6 +622,7 @@ public class GuanZhuActivity extends BaseActivity {
                 rv_woguanzhude.setVisibility(View.GONE);
                 rv_guanzhuwode.setVisibility(View.GONE);
                 ll_search.setVisibility(View.GONE);
+                tv_search.setVisibility(View.GONE);
                 tv_title.setVisibility(View.VISIBLE);
                 initData();
                 break;

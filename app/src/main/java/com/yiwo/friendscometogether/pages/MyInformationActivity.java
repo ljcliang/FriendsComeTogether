@@ -147,7 +147,7 @@ public class MyInformationActivity extends TakePhotoActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_information);
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
-
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         ButterKnife.bind(this);
 
         Calendar ca = Calendar.getInstance();

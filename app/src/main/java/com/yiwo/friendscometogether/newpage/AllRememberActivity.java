@@ -16,6 +16,8 @@ import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.newadapter.AllRememberViewpagerAdapter;
 import com.yiwo.friendscometogether.newfragment.AllChawenFragment;
 import com.yiwo.friendscometogether.newfragment.AllRememberFragment;
+import com.yiwo.friendscometogether.newfragment.MyCollectionFragment;
+import com.yiwo.friendscometogether.newfragment.MyRememberFragment;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -66,14 +68,16 @@ public class AllRememberActivity extends BaseActivity {
     private void initData() {
 
         fragmentList = new ArrayList<>();
-        fragmentList.add(new AllRememberFragment());
+        fragmentList.add(new MyRememberFragment());
         fragmentList.add(new AllChawenFragment());
+        fragmentList.add(new MyCollectionFragment());
         mViewPagerFragmentAdapter = new AllRememberViewpagerAdapter(mFragmentManager, fragmentList);
         mViewPager.setAdapter(mViewPagerFragmentAdapter);
 
         mTitleDataList = new ArrayList<>();
         mTitleDataList.add(" 我的友记 ");
         mTitleDataList.add(" 参写友记 ");
+        mTitleDataList.add(" 我的收藏 ");
 
         CommonNavigator commonNavigator = new CommonNavigator(this);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
@@ -86,7 +90,7 @@ public class AllRememberActivity extends BaseActivity {
             public IPagerTitleView getTitleView(Context context, final int index) {
                 SimplePagerTitleView simplePagerTitleView = new ColorTransitionPagerTitleView(context);
                 //设置字体
-                simplePagerTitleView.setTextSize(18);
+                simplePagerTitleView.setTextSize(16);
                 simplePagerTitleView.setText(mTitleDataList.get(index));
                 simplePagerTitleView.setNormalColor(Color.parseColor("#101010"));
                 simplePagerTitleView.setSelectedColor(Color.parseColor("#101010"));

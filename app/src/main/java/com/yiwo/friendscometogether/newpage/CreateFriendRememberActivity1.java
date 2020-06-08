@@ -207,7 +207,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_friend_remember);
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
-
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         ButterKnife.bind(this);
 
         Calendar ca = Calendar.getInstance();

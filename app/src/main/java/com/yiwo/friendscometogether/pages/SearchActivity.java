@@ -16,6 +16,7 @@ import com.yiwo.friendscometogether.model.AllSearchModel;
 import com.yiwo.friendscometogether.model.SearchListModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.widget.MySearchLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,7 +33,7 @@ import butterknife.Unbinder;
 public class SearchActivity extends BaseActivity {
     private Unbinder unbinder;
     @BindView(R.id.mSearch)
-    mSearchLayout mSearch;
+    MySearchLayout mSearch;
     @BindView(R.id.rg)
     RadioGroup radioGroup;
     //热门搜索数据
@@ -98,7 +99,10 @@ public class SearchActivity extends BaseActivity {
                                 for (int i = 0; i < model.getObj().size(); i++) {
                                     list.add(model.getObj().get(i).getTitle());
                                 }
-                                mSearch.initData(skills, list, new mSearchLayout.setSearchCallBackListener() {
+                                list.add("热门热门搜索");
+                                list.add("热门热门搜索");
+                                list.add("热门热门搜索");
+                                mSearch.initData(skills, list, new MySearchLayout.setSearchCallBackListener() {
                                     @Override
                                     public void Search(String s) {
                                         Log.i("11111111", s);

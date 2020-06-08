@@ -133,6 +133,7 @@ public class FaBu_XiuGaiShangPinActivity extends TakePhotoActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fa_bu_shang_pin);
         ButterKnife.bind(this);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         spImp = new SpImp(this);
         callTishi();
         initRv();

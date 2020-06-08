@@ -211,7 +211,7 @@ public class ModifyFriendRememberActivity extends TakePhotoActivity {
         setContentView(R.layout.activity_modify_friend_remember);
 
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
-
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         ButterKnife.bind(ModifyFriendRememberActivity.this);
 
         Calendar ca = Calendar.getInstance();
