@@ -77,6 +77,7 @@ import com.yiwo.friendscometogether.newmodel.HomeTuiJianYouJiShiPinModel;
 import com.yiwo.friendscometogether.newmodel.HomeYouPuModel;
 import com.yiwo.friendscometogether.newmodel.Home_youjiShiPin_0407_model;
 import com.yiwo.friendscometogether.newpage.GuanZhuDuiZhangListActivity;
+import com.yiwo.friendscometogether.newpage.HomeSearchActivity;
 import com.yiwo.friendscometogether.newpage.MessageActivity;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.pages.CityActivity;
@@ -1263,7 +1264,10 @@ public class HomeFragment3 extends BaseFragment {
                 startActivityForResult(it, 1);
                 break;
             case R.id.ll_search:
-                intent.setClass(getContext(), SearchActivity.class);
+//                intent.setClass(getContext(), SearchActivity.class);
+//                intent.putExtra("type", "1");
+//                startActivity(intent);
+                intent.setClass(getContext(), HomeSearchActivity.class);
                 intent.putExtra("type", "1");
                 startActivity(intent);
                 break;

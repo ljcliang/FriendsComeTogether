@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@color/white_ffffff"
+    android:background="@color/color_f6f6f6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yiwo.friendscometogether.newpage.PersonMainActivity">
+    tools:context="com.yiwo.friendscometogether.newpage.PersonMainActivity1">
     <RelativeLayout
         android:id="@+id/rl_top"
         style="@style/rl_top_bar">
@@ -57,7 +57,15 @@
                         android:scaleType="centerCrop"
                         android:src="@mipmap/my_head" />
 
-
+                    <ImageView
+                        android:src="@mipmap/nan"
+                        android:layout_alignBottom="@+id/iv_person_icon"
+                        android:id="@+id/iv_person_sex"
+                        android:layout_width="38px"
+                        android:layout_height="38px"
+                        android:layout_marginBottom="10px"
+                        android:layout_marginLeft="195px"
+                         />
                     <LinearLayout
                         android:id="@+id/ll_nums"
                         android:layout_width="wrap_content"
@@ -80,16 +88,16 @@
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginBottom="4px"
                                 android:text="0"
-                                android:textColor="@color/black_333333"
+                                android:textColor="@color/black_101010"
                                 android:textSize="30px"
-                                android:textStyle="bold" />
+                                />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:text="关注"
-                                android:textColor="@color/black_333333"
+                                android:textColor="@color/black_101010"
                                 android:textSize="28px" />
                         </LinearLayout>
 
@@ -113,16 +121,16 @@
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginBottom="4px"
                                 android:text="0"
-                                android:textColor="@color/black_333333"
+                                android:textColor="@color/black_101010"
                                 android:textSize="30px"
-                                android:textStyle="bold" />
+                                />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:text="获赞"
-                                android:textColor="@color/black_333333"
+                                android:textColor="@color/black_101010"
                                 android:textSize="28px" />
                         </LinearLayout>
 
@@ -146,16 +154,16 @@
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginBottom="4px"
                                 android:text="0"
-                                android:textColor="@color/black_333333"
+                                android:textColor="@color/black_101010"
                                 android:textSize="30px"
-                                android:textStyle="bold" />
+                                />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:text="粉丝"
-                                android:textColor="@color/black_333333"
+                                android:textColor="@color/black_101010"
                                 android:textSize="28px" />
                         </LinearLayout>
                     </LinearLayout>
@@ -261,9 +269,9 @@
                             android:ellipsize="end"
                             android:maxLength="12"
                             android:text=""
-                            android:textColor="@color/black_333333"
-                            android:textSize="48px"
-                            android:textStyle="bold" />
+                            android:textColor="@color/black_101010"
+                            android:textSize="35px"
+                            />
 
                         <RelativeLayout
                             android:id="@+id/rl_level"
@@ -305,12 +313,12 @@
                         android:id="@+id/tv_person_sign_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="32px"
+                        android:layout_marginLeft="35px"
                         android:ellipsize="end"
                         android:lines="1"
                         android:maxLength="20"
-                        android:textColor="@color/black_333333"
-                        android:textSize="30px" />
+                        android:textColor="@color/black_666666"
+                        android:textSize="35px" />
 
                     <ImageView
                         android:id="@+id/iv_heart"
@@ -321,21 +329,63 @@
                         android:layout_marginRight="20px"
                         android:visibility="gone" />
                 </RelativeLayout>
-
                 <LinearLayout
+                    android:layout_marginTop="20px"
+                    android:layout_marginBottom="10px"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="39px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_gravity="center_vertical"
+                            android:textSize="30px"
+                            android:textColor="@color/black_101010"
+                            android:text="个性标签"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <ImageView
+                            android:layout_marginLeft="5px"
+                            android:src="@mipmap/palette3"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="40px"
+                            android:layout_height="40px"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="40px"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_person_address"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="28px"
+                            android:textColor="@color/black_101010"
+                            android:text=""
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <ImageView
+                            android:layout_marginLeft="5px"
+                            android:src="@mipmap/person_dinwei"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="30px"
+                            android:layout_height="30px"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_marginLeft="39px"
                     android:layout_marginBottom="15px"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="72px"
                     android:layout_marginTop="25px">
 
-                    <ImageView
-                        android:id="@+id/iv_person_sex"
-                        android:layout_width="38px"
-                        android:layout_height="38px"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="39px"
-                        android:layout_marginRight="20px" />
                     <HorizontalScrollView
                         android:layout_gravity="center_vertical"
                         android:scrollbars="none"
@@ -378,95 +428,84 @@
                                 android:text=""
                                 android:textSize="26px"
                                 android:visibility="gone" />
-                            <TextView
-                                android:layout_marginRight="20px"
-                                android:id="@+id/tv_person_address"
-                                android:layout_width="wrap_content"
-                                android:layout_height="56px"
-                                android:layout_gravity="center_vertical"
-                                android:background="@drawable/bg_gray_d8d8d8_8px"
-                                android:ellipsize="end"
-                                android:gravity="center"
-                                android:maxLength="10"
-                                android:maxLines="1"
-                                android:paddingLeft="15px"
-                                android:paddingRight="15px"
-                                android:text=""
-                                android:textSize="26px" />
                         </LinearLayout>
                     </HorizontalScrollView>
                 </LinearLayout>
                 <RelativeLayout
-                    android:id="@+id/rl_label_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10px"
-                    android:layout_marginTop="20px">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="30px"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="58px"
-                            android:layout_height="58px"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginRight="5px"
-                            android:src="@mipmap/lab_gongtong" />
-
-                        <TextView
-                            android:id="@+id/tv_label_wode_or_tade"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="共同标签"
-                            android:textColor="@color/black_333333"
-                            android:textSize="36px"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_person_all_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="30px"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:id="@+id/tv_more_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="7px"
-                            android:text="查看全部标签"
-                            android:textColor="@color/black_333333"
-                            android:textSize="26px" />
-
-                        <ImageView
-                            android:layout_width="13px"
-                            android:layout_height="19px"
-                            android:src="@mipmap/tarenzhuye_right" />
-                    </LinearLayout>
-
-                </RelativeLayout>
-                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <!--<com.yiwo.friendscometogether.widget.NestedRecyclerView-->
-                    <!--android:id="@+id/recycler_view_labels"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_marginRight="28px"-->
-                    <!--android:layout_marginLeft="28px"-->
-                    <!--&gt;-->
-                    <!--</com.yiwo.friendscometogether.widget.NestedRecyclerView>-->
+                    <RelativeLayout
+                        android:layout_centerVertical="true"
+                        android:id="@+id/rl_label_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10px"
+                        android:layout_marginTop="10px">
+                        <RelativeLayout
+                            android:layout_marginLeft="20px"
+                            android:layout_width="50px"
+                            android:layout_height="50px">
+                            <ImageView
+                                android:layout_centerInParent="true"
+                                android:src="@mipmap/more"
+                                android:layout_width="50px"
+                                android:layout_height="50px"/>
+                        </RelativeLayout>
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="30px"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="58px"
+                                android:layout_height="58px"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginRight="5px"
+                                android:src="@mipmap/lab_gongtong" />
+
+                            <TextView
+                                android:id="@+id/tv_label_wode_or_tade"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:text="共同标签"
+                                android:textColor="@color/black_333333"
+                                android:textSize="36px"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/ll_person_all_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="30px"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:id="@+id/tv_more_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="7px"
+                                android:text="查看全部标签"
+                                android:textColor="@color/black_333333"
+                                android:textSize="26px" />
+
+                            <ImageView
+                                android:layout_width="13px"
+                                android:layout_height="19px"
+                                android:src="@mipmap/tarenzhuye_right" />
+                        </LinearLayout>
+
+                    </RelativeLayout>
                     <android.support.v7.widget.RecyclerView
+                        android:layout_centerVertical="true"
                         android:layout_marginTop="10px"
-                        android:layout_marginBottom="30px"
+                        android:layout_marginBottom="10px"
                         android:id="@+id/recycler_view_labels"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -594,7 +633,7 @@
                     </LinearLayout>
                 </RelativeLayout>
                 <RelativeLayout
-                    android:background="#f5f5f5"
+                    android:background="#f6f6f6"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <!--<RelativeLayout-->

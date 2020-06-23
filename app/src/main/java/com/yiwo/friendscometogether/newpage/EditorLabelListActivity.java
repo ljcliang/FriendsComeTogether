@@ -50,7 +50,7 @@ public class EditorLabelListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor_label_list);
 
-        StatusBarUtils.setStatusBar(EditorLabelListActivity.this, Color.parseColor("#D84C37"));
+//        StatusBarUtils.setStatusBar(EditorLabelListActivity.this, Color.parseColor("#D84C37"));
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
         ButterKnife.bind(EditorLabelListActivity.this);
         spImp = new SpImp(context);

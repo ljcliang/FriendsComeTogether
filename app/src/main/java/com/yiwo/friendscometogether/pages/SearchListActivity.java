@@ -41,7 +41,7 @@ public class SearchListActivity extends BaseActivity {
         LinearLayoutManager manager = new LinearLayoutManager(SearchListActivity.this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setLayoutManager(manager);
-        adapter = new SearchListAdapter(data, this);
+        adapter = new SearchListAdapter(data);
         rv.setAdapter(adapter);
     }
 

@@ -12,7 +12,7 @@
         style="@style/rl_top_bar">
 
         <TextView
-            android:text="友聚"
+            android:text="搜索"
             style="@style/tv_top_title" />
 
         <RelativeLayout
@@ -20,14 +20,8 @@
             android:layout_width="100px"
             android:layout_height="match_parent">
 
-            <TextView
-                android:layout_centerInParent="true"
-                android:text="取消"
-                android:textColor="@color/red_d84c37"
-                android:textSize="32px"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
+            <ImageView
+                style="@style/iv_return"/>
         </RelativeLayout>
 
     </RelativeLayout>

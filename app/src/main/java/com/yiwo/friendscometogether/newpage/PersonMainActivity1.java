@@ -40,8 +40,11 @@ import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.PersonMainActivity_Video_Adapter;
 import com.yiwo.friendscometogether.newadapter.PersonMainActivity_YouJi_Adapter;
 import com.yiwo.friendscometogether.newadapter.PersonMainActivity_YouJu_Adapter;
+import com.yiwo.friendscometogether.newadapter.PersonMainLabelAdapter;
+import com.yiwo.friendscometogether.newadapter.PersonMainLabelModel;
 import com.yiwo.friendscometogether.newadapter.PersonSameLabelAdapter;
 import com.yiwo.friendscometogether.newmodel.NewPersonMainMode_part1;
+import com.yiwo.friendscometogether.newmodel.PersonMainModel;
 import com.yiwo.friendscometogether.newmodel.PersonMain_Videos_Model;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.MyFriendActivity;
@@ -163,7 +166,7 @@ public class PersonMainActivity1 extends BaseActivity {
     private String  status; //status   =0 时传 用户ID    =1 时传网易ID
     private NewPersonMainMode_part1 model;
 
-    private List<KVMode> list_label = new ArrayList<>();
+    private List<PersonMainLabelModel> list_label = new ArrayList<>();
     private int isFollow = -1;//是否关注 0为未关注 1为已关注
 
     //recyclerView
@@ -185,7 +188,7 @@ public class PersonMainActivity1 extends BaseActivity {
     private PersonMainActivity_Video_Adapter videoAdapter;
     private List<PersonMain_Videos_Model.ObjBean> videosList = new ArrayList<>();
 
-    private PersonSameLabelAdapter personSameLabelAdapter;
+    private PersonMainLabelAdapter personLabelAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,12 +206,12 @@ public class PersonMainActivity1 extends BaseActivity {
         spImp = new SpImp(PersonMainActivity1.this);
         if (spImp.getUID().equals(person_id)||spImp.getYXID().equals(person_id)) {
             type_tade_or_wode = 1;
-            recycler_view_labels.setVisibility(View.GONE);
-            rl_label_text.setVisibility(View.GONE);
+//            recycler_view_labels.setVisibility(View.GONE);
+//            rl_label_text.setVisibility(View.GONE);
         } else {
             type_tade_or_wode = 0;
-            recycler_view_labels.setVisibility(View.VISIBLE);
-            rl_label_text.setVisibility(View.VISIBLE);
+//            recycler_view_labels.setVisibility(View.VISIBLE);
+//            rl_label_text.setVisibility(View.VISIBLE);
         }
         if (getIntent().getBooleanExtra("is_by_live",false)){
             showDialogNotOnLive(getIntent().getStringExtra("next_on_live_time"));
@@ -476,7 +479,7 @@ public class PersonMainActivity1 extends BaseActivity {
                                             tv_person_code_ok.setText("已实名");
                                         }
                                         tv_person_age.setText(model.getObj().getInfo().getAge());
-                                        tv_person_address.setText(model.getObj().getInfo().getAddress());
+                                        tv_person_address.setText("所在城市:"+model.getObj().getInfo().getAddress());
                                         tv_person_sign_text.setText(model.getObj().getInfo().getAutograph());
                                         tv_guanzhu_num.setText(model.getObj().getInfo().getUserlike());
                                         tv_huozan_num.setText(model.getObj().getInfo().getGiveCount() + "");
@@ -502,30 +505,43 @@ public class PersonMainActivity1 extends BaseActivity {
                                         }else if(model.getObj().getInfo().getIf_kefu().equals("1")){
                                             iv_kefu.setVisibility(View.VISIBLE);
                                         }
-                                        //--------共同标签----------------------
-                                        NewPersonMainMode_part1.ObjBean.UsertagBean.SameBean sameBean = model.getObj().getUsertag().getSame();
-                                        list_label.clear();
-                                        String[] strings1 = sameBean.getPersonality().split(",");
-                                        String[] strings2 = sameBean.getMotion().split(",");
-                                        String[] strings3 = sameBean.getMusic().split(",");
-                                        String[] strings4 = sameBean.getDelicious().split(",");
-                                        String[] strings5 = sameBean.getFilm().split(",");
-                                        String[] strings6 = sameBean.getBook().split(",");
-                                        String[] strings7 = sameBean.getTravel().split(",");
-                                        list_label.addAll(addLabelToList(1,strings1));
-                                        list_label.addAll(addLabelToList(2,strings2));
-                                        list_label.addAll(addLabelToList(3,strings3));
-                                        list_label.addAll(addLabelToList(4,strings4));
-                                        list_label.addAll(addLabelToList(5,strings5));
-                                        list_label.addAll(addLabelToList(6,strings6));
-                                        list_label.addAll(addLabelToList(7,strings7));
+                                        //------------他的所有标签----------------
+                                        NewPersonMainMode_part1.ObjBean.UsertagBean usertagBean = model.getObj().getUsertag();
+
+                                        String[] strings11 = usertagBean.getPersonality().split(",");
+                                        String[] strings22 = usertagBean.getMotion().split(",");
+                                        String[] strings33 = usertagBean.getMusic().split(",");
+                                        String[] strings44 = usertagBean.getDelicious().split(",");
+                                        String[] strings55 = usertagBean.getFilm().split(",");
+                                        String[] strings66 = usertagBean.getBook().split(",");
+                                        String[] strings77 = usertagBean.getTravel().split(",");
+                                        List<PersonMainLabelModel> listUserlabel = new ArrayList<>();
+                                        listUserlabel.addAll(addLabelToListNew(false,strings11));
+                                        listUserlabel.addAll(addLabelToListNew(false,strings22));
+                                        listUserlabel.addAll(addLabelToListNew(false,strings33));
+                                        listUserlabel.addAll(addLabelToListNew(false,strings44));
+                                        listUserlabel.addAll(addLabelToListNew(false,strings55));
+                                        listUserlabel.addAll(addLabelToListNew(false,strings66));
+                                        listUserlabel.addAll(addLabelToListNew(false,strings77));
+
+                                        List<PersonMainLabelModel> listLab = list_label;
+                                        for (PersonMainLabelModel personMainLabelModel : listUserlabel){
+                                            boolean hasIt = false;
+                                            for (int i = 0 ; i<listLab.size();i++){
+                                                if (listLab.get(i).getName().equals(personMainLabelModel.getName())){
+                                                    hasIt = true;
+                                                    break;
+                                                }
+                                            }
+                                            if (!hasIt) list_label.add(personMainLabelModel);
+                                        }
                                         if (list_label.size() == 0){
-                                            KVMode kvMode = new KVMode();
-                                            kvMode.setI(2);
-                                            kvMode.setString("暂无共同标签");
+                                            PersonMainLabelModel kvMode = new PersonMainLabelModel();
+                                            kvMode.setSameMine(false);
+                                            kvMode.setName("未设置 - 这家伙有点懒");
                                             list_label.add(kvMode);
                                         }
-                                        personSameLabelAdapter.notifyDataSetChanged();
+                                        personLabelAdapter.notifyDataSetChanged();
                                     }
                                     refreshLayout.finishRefresh(1000);
                                 } catch (JSONException e) {
@@ -719,16 +735,9 @@ public class PersonMainActivity1 extends BaseActivity {
                                 }
                                 tv_person_name.setText(model.getObj().getInfo().getUsername());
                                 tv_person_age.setText(model.getObj().getInfo().getAge());
-                                tv_person_address.setText(model.getObj().getInfo().getAddress());
+                                tv_person_address.setText("所在城市:"+model.getObj().getInfo().getAddress());
                                 tv_person_sign_text.setText(model.getObj().getInfo().getAutograph());
-                                if (model.getObj().getInfo().getCaptain().equals("1")){
-                                    rl_level.setBackgroundResource(R.mipmap.lv_duizhang_daidui);
-                                }else if (model.getObj().getInfo().getCaptain().equals("2")){
-                                    rl_level.setBackgroundResource(R.mipmap.lv_duizhang_daili);
-                                }else {
-                                    rl_level.setBackgroundResource(R.mipmap.lv_putong);
-                                }
-                                tv_level.setText("LV"+model.getObj().getInfo().getUsergrade());
+
                                 if (model.getObj().getInfo().getUsermarry().equals("1")){
                                     tv_person_marry.setText("单身");
                                 }else if (model.getObj().getInfo().getUsermarry().equals("2")){
@@ -764,6 +773,14 @@ public class PersonMainActivity1 extends BaseActivity {
                                 }else if(model.getObj().getInfo().getIf_kefu().equals("1")){
                                     iv_kefu.setVisibility(View.VISIBLE);
                                 }
+                                if (model.getObj().getInfo().getCaptain().equals("1")){
+                                    rl_level.setBackgroundResource(R.mipmap.lv_duizhang_daidui);
+                                }else if (model.getObj().getInfo().getCaptain().equals("2")){
+                                    rl_level.setBackgroundResource(R.mipmap.lv_duizhang_daili);
+                                }else {
+                                    rl_level.setBackgroundResource(R.mipmap.lv_putong);
+                                }
+                                tv_level.setText("LV"+model.getObj().getInfo().getUsergrade());
                                 //---------共同标签-----------------------------
                                 NewPersonMainMode_part1.ObjBean.UsertagBean.SameBean sameBean = model.getObj().getUsertag().getSame();
 
@@ -774,21 +791,51 @@ public class PersonMainActivity1 extends BaseActivity {
                                 String[] strings5 = sameBean.getFilm().split(",");
                                 String[] strings6 = sameBean.getBook().split(",");
                                 String[] strings7 = sameBean.getTravel().split(",");
-                                list_label.addAll(addLabelToList(1,strings1));
-                                list_label.addAll(addLabelToList(2,strings2));
-                                list_label.addAll(addLabelToList(3,strings3));
-                                list_label.addAll(addLabelToList(4,strings4));
-                                list_label.addAll(addLabelToList(5,strings5));
-                                list_label.addAll(addLabelToList(6,strings6));
-                                list_label.addAll(addLabelToList(7,strings7));
+                                list_label.addAll(addLabelToListNew(true,strings1));
+                                list_label.addAll(addLabelToListNew(true,strings2));
+                                list_label.addAll(addLabelToListNew(true,strings3));
+                                list_label.addAll(addLabelToListNew(true,strings4));
+                                list_label.addAll(addLabelToListNew(true,strings5));
+                                list_label.addAll(addLabelToListNew(true,strings6));
+                                list_label.addAll(addLabelToListNew(true,strings7));
+                                //------------他的所有标签----------------
+                                NewPersonMainMode_part1.ObjBean.UsertagBean usertagBean = model.getObj().getUsertag();
+
+                                String[] strings11 = usertagBean.getPersonality().split(",");
+                                String[] strings22 = usertagBean.getMotion().split(",");
+                                String[] strings33 = usertagBean.getMusic().split(",");
+                                String[] strings44 = usertagBean.getDelicious().split(",");
+                                String[] strings55 = usertagBean.getFilm().split(",");
+                                String[] strings66 = usertagBean.getBook().split(",");
+                                String[] strings77 = usertagBean.getTravel().split(",");
+                                List<PersonMainLabelModel> listUserlabel = new ArrayList<>();
+                                listUserlabel.addAll(addLabelToListNew(false,strings11));
+                                listUserlabel.addAll(addLabelToListNew(false,strings22));
+                                listUserlabel.addAll(addLabelToListNew(false,strings33));
+                                listUserlabel.addAll(addLabelToListNew(false,strings44));
+                                listUserlabel.addAll(addLabelToListNew(false,strings55));
+                                listUserlabel.addAll(addLabelToListNew(false,strings66));
+                                listUserlabel.addAll(addLabelToListNew(false,strings77));
+
+                                List<PersonMainLabelModel> listLab = list_label;
+                                for (PersonMainLabelModel personMainLabelModel : listUserlabel){
+                                    boolean hasIt = false;
+                                    for (int i = 0 ; i<listLab.size();i++){
+                                        if (listLab.get(i).getName().equals(personMainLabelModel.getName())){
+                                            hasIt = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!hasIt) list_label.add(personMainLabelModel);
+                                }
                                 if (list_label.size() == 0){
-                                    KVMode kvMode = new KVMode();
-                                    kvMode.setI(2);
-                                    kvMode.setString("暂无共同标签");
+                                    PersonMainLabelModel kvMode = new PersonMainLabelModel();
+                                    kvMode.setSameMine(false);
+                                    kvMode.setName("未设置 - 这家伙有点懒");
                                     list_label.add(kvMode);
                                 }
-                                personSameLabelAdapter =new PersonSameLabelAdapter(list_label);
-                                recycler_view_labels.setAdapter(personSameLabelAdapter);
+                                personLabelAdapter =new PersonMainLabelAdapter(list_label);
+                                recycler_view_labels.setAdapter(personLabelAdapter);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -814,7 +861,17 @@ public class PersonMainActivity1 extends BaseActivity {
         }
         return list;
     }
-
+    private List<PersonMainLabelModel> addLabelToListNew(boolean sameMine , String[] strings) {
+        List<PersonMainLabelModel> list  =new ArrayList<>();
+        for (int j = 0 ;j<strings.length;j++){
+            if (TextUtils.isEmpty(strings[j])) continue;
+            PersonMainLabelModel kvMode = new PersonMainLabelModel();
+            kvMode.setSameMine(sameMine);
+            kvMode.setName(strings[j]);
+            list.add(kvMode);
+        }
+        return list;
+    }
     @OnClick({R.id.rl_back,R.id.rl_label_text,R.id.iv_images,
             R.id.rl_algin_right_wode, R.id.rl_add_friend, R.id.rl_guanzhu,R.id.iv_heart,R.id.ll_huozan,R.id.ll_guanzhu,R.id.ll_fans,R.id.iv_person_icon,
             R.id.rl_tab_2,R.id.rl_tab_3,R.id.rl_tab_4,R.id.rl_level})

@@ -78,6 +78,10 @@ public class MyFragment extends BaseFragment {
     ImageView iv_find_super_like;
     @BindView(R.id.iv_renwu)
     ImageView iv_renwu;
+    @BindView(R.id.tv_level)
+    TextView tvLevel;
+    @BindView(R.id.iv_level)
+    ImageView iv_duizhang_level;
     private SpImp spImp;
     private String uid = "";
 
@@ -139,15 +143,37 @@ public class MyFragment extends BaseFragment {
 //                                    }
                                     if (userModel.getObj().getSign().equals("1")){
                                         iv_renwu.setVisibility(View.VISIBLE);
+                                        iv_duizhang_level.setVisibility(View.VISIBLE);
+                                        switch (userModel.getObj().getSign()){
+                                            case "0":
+                                                iv_duizhang_level.setImageResource(R.mipmap.level_qingtong);
+                                                break;
+                                            case "1":
+                                                iv_duizhang_level.setImageResource(R.mipmap.level_baiyin);
+                                                break;
+                                            case "2":
+                                                iv_duizhang_level.setImageResource(R.mipmap.level_huangjin);
+                                                break;
+                                            case "3":
+                                                iv_duizhang_level.setImageResource(R.mipmap.level_bojin);
+                                                break;
+                                            case "4":
+                                                iv_duizhang_level.setImageResource(R.mipmap.level_zuanshi);
+                                                break;
+                                            case "5":
+                                                iv_duizhang_level.setImageResource(R.mipmap.level_huangguan);
+                                                break;
+                                        }
                                     }else {
                                         iv_renwu.setVisibility(View.GONE);
+                                        iv_duizhang_level.setVisibility(View.GONE);
                                     }
                                     if(userModel.getObj().getType().equals("0")){
                                         iv_find_super_like.setVisibility(View.GONE);
                                     }else {
                                         iv_find_super_like.setVisibility(View.VISIBLE);
                                     }
-                                    tvNickname.setText("昵称: " + userModel.getObj().getUsername());
+                                    tvNickname.setText("" + userModel.getObj().getUsername());
                                     if(TextUtils.isEmpty(userModel.getObj().getUserautograph())){
 
                                     }else {
@@ -163,8 +189,7 @@ public class MyFragment extends BaseFragment {
 //                                        Picasso.with(getContext()).load(R.mipmap.nv).into(ivSex);
 //                                    }
                                     //等级部分
-//                                    rlSignTeam.setVisibility(View.VISIBLE);
-//                                    tvLevel.setText("LV" + userModel.getObj().getUsergrade());
+                                    tvLevel.setText("Lv." + userModel.getObj().getUsergrade());
 //                                    if (userModel.getObj().getSign().equals("0")) {
 //                                        Glide.with(getContext()).load(R.mipmap.sign_gray).into(ivIsSign);
 //                                    } else {
@@ -193,12 +218,13 @@ public class MyFragment extends BaseFragment {
         }
     }
 
-    @OnClick({R.id.ll_order_all, R.id.ll_to_pay, R.id.ll_to_trip, R.id.ll_to_comment, R.id.ll_return_money, R.id.rl_my_picture,R.id.rl_my_video, R.id.rl_my_friend,
+    @OnClick({R.id.ll_order_all,R.id.ll_order_title, R.id.ll_to_pay, R.id.ll_to_trip, R.id.ll_to_comment, R.id.ll_return_money, R.id.rl_my_picture,R.id.rl_my_video, R.id.rl_my_friend,
     R.id.rl_my_comment, R.id.rl_history, R.id.rl_person_set, R.id.ll_remember,R.id.ll_guanzhu, R.id.ll_huodong, R.id.ll_message,R.id.ll_person_page,
-            R.id.iv_avatar,R.id.iv_find_super_like,R.id.iv_renwu,R.id.rl_game_group,R.id.rl_pay_rank,R.id.rl_video_upload_list})
+            R.id.iv_avatar,R.id.rl_set_info,R.id.iv_find_super_like,R.id.iv_renwu,R.id.rl_duizhang_set,R.id.rl_game_group,R.id.rl_pay_rank,R.id.rl_video_upload_list})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.ll_order_title:
             case R.id.ll_order_all:
                 if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
                     intent.setClass(getContext(), MyOrderActivity.class);
@@ -359,6 +385,7 @@ public class MyFragment extends BaseFragment {
                     startActivity(intent);
                 }
                 break;
+            case R.id.rl_set_info:
             case R.id.iv_avatar:
                 if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
                     intent.setClass(getContext(), MyInformationActivity.class);
@@ -378,6 +405,7 @@ public class MyFragment extends BaseFragment {
                 }
                 break;
             case R.id.iv_renwu:
+            case R.id.rl_duizhang_set:
 //                intent.setClass(getContext(),RenWuWebActivity.class);
 //                intent.putExtra("url",NetConfig.BaseUrl+NetConfig.gameList);
 //                startActivity(intent);

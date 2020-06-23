@@ -48,14 +48,14 @@ public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         if(isReset){
-            holder.tv.setBackgroundResource(R.drawable.bg_gray_4px);
+            holder.tv.setBackgroundResource(R.drawable.bg_d8d8d8_border_30px);
         }
         holder.tv.setText(data.get(position).getLname());
         holder.tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isReset = false;
-                holder.tv.setBackgroundResource(R.drawable.bg_redd84c37_border_5dp);
+                holder.tv.setBackgroundResource(R.drawable.bg_d8d8d8_30px);
                 listener.onSelete(position);
             }
         });

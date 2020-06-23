@@ -31,8 +31,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
     private Context context;
     private List<SearchListModel.ObjBean> data;
     private SearchListActivity ac;
-    public SearchListAdapter(List<SearchListModel.ObjBean> data,SearchListActivity ac) {
-        this.ac = ac;
+    public SearchListAdapter(List<SearchListModel.ObjBean> data) {
         this.data = data;
     }
 

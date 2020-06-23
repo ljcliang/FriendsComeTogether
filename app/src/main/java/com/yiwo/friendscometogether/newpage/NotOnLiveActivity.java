@@ -122,9 +122,6 @@ public class NotOnLiveActivity extends BaseActivity {
     //视频
     private PersonMainActivity_Video_Adapter videoAdapter;
     private List<PersonMain_Videos_Model.ObjBean> videosList = new ArrayList<>();
-
-    private PersonSameLabelAdapter personSameLabelAdapter;
-
     private String start_time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

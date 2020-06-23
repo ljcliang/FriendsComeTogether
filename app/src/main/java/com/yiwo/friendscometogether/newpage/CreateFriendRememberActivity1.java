@@ -54,7 +54,6 @@ import com.yiwo.friendscometogether.model.UserLabelModel;
 import com.yiwo.friendscometogether.model.UserReleaseModel;
 import com.yiwo.friendscometogether.network.ActivityConfig;
 import com.yiwo.friendscometogether.network.NetConfig;
-import com.yiwo.friendscometogether.newadapter.LabelAdapter;
 import com.yiwo.friendscometogether.newadapter.LabelChooseOneAdapter;
 import com.yiwo.friendscometogether.newadapter.NewCreateFriendRemberIntercalationAdapter;
 import com.yiwo.friendscometogether.pages.CityActivity;
@@ -70,7 +69,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;

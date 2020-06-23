@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="取消"
-                android:textColor="@color/white_ffffff"
+                android:textColor="@color/red_d84c37"
                 android:textSize="32px" />
 
         </RelativeLayout>
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="保存"
-                android:textColor="@color/white_ffffff"
+                android:textColor="@color/red_d84c37"
                 android:textSize="32px" />
 
         </RelativeLayout>

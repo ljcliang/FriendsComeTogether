@@ -234,10 +234,10 @@ public class MyInformationActivity extends TakePhotoActivity {
                                 } else {
                                     Glide.with(MyInformationActivity.this).load(R.mipmap.sign_yellow).into(ivIsSign);
                                 }
-                                etUsername.setHint(userModel.getObj().getUsername());
+                                etUsername.setText(userModel.getObj().getUsername());
                                 tvSex.setText(userModel.getObj().getSex().equals("0") ? "男" : "女");
                                 tvLocation.setText(userModel.getObj().getUseraddress());
-                                etSign.setHint(userModel.getObj().getUserautograph());
+                                etSign.setText(userModel.getObj().getUserautograph());
                                 tvBirthday.setText(userModel.getObj().getUserbirthday());
                                 tvRegister.setText(userModel.getObj().getUsertime());
                                 tvRealName.setText(userModel.getObj().getUsercodeok());

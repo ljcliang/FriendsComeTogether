@@ -151,6 +151,7 @@ public class MySearchLayout extends LinearLayout {
         for(int i = 0; i < hotdata.size(); ++i) {
             TextView tv = (TextView)mInflater.inflate(layout.suosou_item, this.hotflowLayout, false);
             tv.setText((CharSequence)hotdata.get(i));
+            tv.setTextSize(10);
             tv.setOnClickListener(this.TextViewItemListener);
             tv.setBackgroundResource(R.drawable.bg_d8d8d8_30px);
             tv.getBackground().setLevel(this.MyRandom(1, 5));
