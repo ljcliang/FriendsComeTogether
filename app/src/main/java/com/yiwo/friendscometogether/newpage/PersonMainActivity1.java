@@ -42,6 +42,7 @@ import com.yiwo.friendscometogether.newadapter.PersonMainActivity_YouJi_Adapter;
 import com.yiwo.friendscometogether.newadapter.PersonMainActivity_YouJu_Adapter;
 import com.yiwo.friendscometogether.newadapter.PersonMainLabelAdapter;
 import com.yiwo.friendscometogether.newadapter.PersonMainLabelModel;
+import com.yiwo.friendscometogether.newadapter.PersonMainZuiXinShangPinAdapter;
 import com.yiwo.friendscometogether.newadapter.PersonSameLabelAdapter;
 import com.yiwo.friendscometogether.newmodel.NewPersonMainMode_part1;
 import com.yiwo.friendscometogether.newmodel.PersonMainModel;
@@ -158,6 +159,9 @@ public class PersonMainActivity1 extends BaseActivity {
 
     @BindView(R.id.person_main_refreshLayout)
     RefreshLayout refreshLayout;
+
+    @BindView(R.id.rv_zuixin_goods)
+    RecyclerView rv_zuixin_goods;
     private String ta = "他";
     private SpImp spImp;
     private int type_tade_or_wode = 0;//0 为他的 1 为我的
@@ -417,6 +421,22 @@ public class PersonMainActivity1 extends BaseActivity {
                     public void onFail(int errCode, String errMsg) {
                     }
                 });
+
+        LinearLayoutManager manager = new LinearLayoutManager(PersonMainActivity1.this);
+        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        List<String> datas = new ArrayList<>();
+        datas.add("");
+        datas.add("");
+        datas.add("");
+        datas.add("");
+        datas.add("");
+        PersonMainZuiXinShangPinAdapter shangPinAdapter = new PersonMainZuiXinShangPinAdapter(datas, new PersonMainZuiXinShangPinAdapter.AddClickListenner() {
+            @Override
+            public void addListen(int i, ImageView ivGoods) {
+            }
+        });
+        rv_zuixin_goods.setLayoutManager(manager);
+        rv_zuixin_goods.setAdapter(shangPinAdapter);
     }
 
     private void initRefresh() {

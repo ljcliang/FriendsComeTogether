@@ -136,7 +136,6 @@ public class FaBu_XiuGaiShangPinActivity extends TakePhotoActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         spImp = new SpImp(this);
         callTishi();
-        initRv();
         initPopServiceList();
         initUpData();
         if (getIntent().getStringExtra(GID) == null ||getIntent().getStringExtra(GID).equals("")){
@@ -166,6 +165,7 @@ public class FaBu_XiuGaiShangPinActivity extends TakePhotoActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        initRv();
                     }
 
                     @Override

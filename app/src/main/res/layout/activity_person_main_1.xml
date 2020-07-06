@@ -512,12 +512,31 @@
                         android:layout_marginLeft="95px"
                         android:layout_marginRight="28px"/>
                 </RelativeLayout>
-                <View
+<!--                <View-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="3px"-->
+<!--                    android:layout_marginLeft="30px"-->
+<!--                    android:layout_marginRight="30px"-->
+<!--                    android:background="#cccccc" />-->
+                <TextView
+                    android:layout_marginTop="20px"
+                    android:layout_marginBottom="10px"
+                    android:layout_marginLeft="39px"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="34px"
+                    android:textColor="@color/black_101010"
+                    android:text="最新上架"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <RelativeLayout
+                    android:layout_marginLeft="39px"
                     android:layout_width="match_parent"
-                    android:layout_height="3px"
-                    android:layout_marginLeft="30px"
-                    android:layout_marginRight="30px"
-                    android:background="#cccccc" />
+                    android:layout_height="wrap_content">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_zuixin_goods"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/rl_label"
                     android:layout_width="match_parent"
@@ -633,7 +652,7 @@
                     </LinearLayout>
                 </RelativeLayout>
                 <RelativeLayout
-                    android:background="#f6f6f6"
+                    android:background="@color/white_ffffff"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <!--<RelativeLayout-->
