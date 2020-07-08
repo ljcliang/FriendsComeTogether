@@ -128,16 +128,12 @@ public class HomeFragment4 extends BaseFragment {
     TextView tvRl2;
     @BindView(R.id.tv_rl3)
     TextView tvRl3;
-    @BindView(R.id.tv_rl4)
-    TextView tvRl4;
     @BindView(R.id.v1)
     ImageView v1;
     @BindView(R.id.v2)
     ImageView v2;
     @BindView(R.id.v3)
     ImageView v3;
-    @BindView(R.id.v4)
-    ImageView v4;
 
     @BindView(R.id.tv_weiduxiaoxi)
     TextView tvWeiduxiaoxi;
@@ -146,8 +142,8 @@ public class HomeFragment4 extends BaseFragment {
     RelativeLayout rl_ball;
     @BindView(R.id.rl_xiaoxi_num)
     RelativeLayout rl_xiaoxi_num;
-    @BindView(R.id.rl_top)
-    RelativeLayout rl_top;
+//    @BindView(R.id.rl_top)
+//    RelativeLayout rl_top;
     //轮播图
     private List<HomeTuiJianModel.ObjBean.BannerBean> listBanner = new ArrayList<>();//轮播图list
     private List<String> listBannerImages = new ArrayList<>();
@@ -289,7 +285,7 @@ public class HomeFragment4 extends BaseFragment {
         view4 = getLayoutInflater().inflate(R.layout.home_lay_youpu, null);
         viewList.add(view1);
         viewList.add(view2);
-        viewList.add(view3);
+//        viewList.add(view3);
         viewList.add(view4);
 
         ScreenAdapterTools.getInstance().loadView(view2);
@@ -466,12 +462,10 @@ public class HomeFragment4 extends BaseFragment {
         tvRl1.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),58));
         tvRl2.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
         tvRl3.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
-        tvRl4.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
         tvRl1.setTextColor(Color.parseColor("#333333"));
         tvRl2.setTextColor(Color.parseColor("#999999"));
         tvRl3.setTextColor(Color.parseColor("#999999"));
-        tvRl4.setTextColor(Color.parseColor("#999999"));
-        rl_top.setBackgroundColor(Color.parseColor("#ffffff"));
+//        rl_top.setBackgroundColor(Color.parseColor("#ffffff"));
 //                        tvRl1.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 //                        tvRl2.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 //                        tvRl3.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
@@ -479,7 +473,6 @@ public class HomeFragment4 extends BaseFragment {
         v1.setVisibility(View.VISIBLE);
         v2.setVisibility(View.GONE);
         v3.setVisibility(View.GONE);
-        v4.setVisibility(View.GONE);
         type = "1";
 
         viewPager.setAdapter(pagerAdapter);
@@ -503,12 +496,10 @@ public class HomeFragment4 extends BaseFragment {
                             tvRl1.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),58));
                             tvRl2.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
                             tvRl3.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
-                            tvRl4.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
                             tvRl1.setTextColor(Color.parseColor("#333333"));
                             tvRl2.setTextColor(Color.parseColor("#999999"));
                             tvRl3.setTextColor(Color.parseColor("#999999"));
-                            tvRl4.setTextColor(Color.parseColor("#999999"));
-                            rl_top.setBackgroundColor(Color.parseColor("#ffffff"));
+//                            rl_top.setBackgroundColor(Color.parseColor("#ffffff"));
     //                        tvRl1.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
     //                        tvRl2.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
     //                        tvRl3.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
@@ -516,7 +507,6 @@ public class HomeFragment4 extends BaseFragment {
                             v1.setVisibility(View.VISIBLE);
                             v2.setVisibility(View.GONE);
                             v3.setVisibility(View.GONE);
-                            v4.setVisibility(View.GONE);
 
                             type = "1";
                             scrollView.scrollTo(0,scollYTuiJian);
@@ -532,12 +522,10 @@ public class HomeFragment4 extends BaseFragment {
                             tvRl1.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
                             tvRl2.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),58));
                             tvRl3.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
-                            tvRl4.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
                             tvRl1.setTextColor(Color.parseColor("#999999"));
                             tvRl2.setTextColor(Color.parseColor("#333333"));
                             tvRl3.setTextColor(Color.parseColor("#999999"));
-                            tvRl4.setTextColor(Color.parseColor("#999999"));
-                            rl_top.setBackgroundColor(Color.parseColor("#ffffff"));
+//                            rl_top.setBackgroundColor(Color.parseColor("#ffffff"));
 //                            tvRl1.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 //                            tvRl2.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
 //                            tvRl3.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
@@ -545,7 +533,6 @@ public class HomeFragment4 extends BaseFragment {
                             v1.setVisibility(View.GONE);
                             v2.setVisibility(View.VISIBLE);
                             v3.setVisibility(View.GONE);
-                            v4.setVisibility(View.GONE);
                             type = "2";
                             scrollView.scrollTo(0,scollGuanZhu);
                             Log.d("scollYYY_guanzhu_to::",scollGuanZhu+"");
@@ -555,12 +542,10 @@ public class HomeFragment4 extends BaseFragment {
                         tvRl1.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
                         tvRl2.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
                         tvRl3.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),58));
-                        tvRl4.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
                         tvRl1.setTextColor(Color.parseColor("#999999"));
                         tvRl2.setTextColor(Color.parseColor("#999999"));
                         tvRl3.setTextColor(Color.parseColor("#333333"));
-                        tvRl4.setTextColor(Color.parseColor("#999999"));
-                        rl_top.setBackgroundResource(R.drawable.bg_white_down_40px);
+//                        rl_top.setBackgroundResource(R.drawable.bg_white_down_40px);
 //                        tvRl1.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 //                        tvRl2.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
 //                        tvRl3.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
@@ -568,33 +553,29 @@ public class HomeFragment4 extends BaseFragment {
                         v1.setVisibility(View.GONE);
                         v2.setVisibility(View.GONE);
                         v3.setVisibility(View.VISIBLE);
-                        v4.setVisibility(View.GONE);
                         type = "3";
                         scrollView.scrollTo(0,scollYouJi);
                         Log.d("scollYYY_youji_to::",scollYouJi+"");
                         break;
-                    case 3:
-                        tvRl1.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
-                        tvRl2.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
-                        tvRl3.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
-                        tvRl4.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),58));
-                        tvRl1.setTextColor(Color.parseColor("#999999"));
-                        tvRl2.setTextColor(Color.parseColor("#999999"));
-                        tvRl3.setTextColor(Color.parseColor("#999999"));
-                        tvRl4.setTextColor(Color.parseColor("#333333"));
-                        rl_top.setBackgroundResource(R.drawable.bg_white_down_40px);
-//                        tvRl1.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-//                        tvRl2.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-//                        tvRl3.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-//                        tvRl4.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-                        v1.setVisibility(View.GONE);
-                        v2.setVisibility(View.GONE);
-                        v3.setVisibility(View.GONE);
-                        v4.setVisibility(View.VISIBLE);
-                        type = "4";
-                        scrollView.scrollTo(0,scollShiPin);
-                        Log.d("scollYYY_shipin_to::",scollShiPin+"");
-                        break;
+//                    case 3:
+//                        tvRl1.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
+//                        tvRl2.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
+//                        tvRl3.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
+//                        tvRl1.setTextColor(Color.parseColor("#999999"));
+//                        tvRl2.setTextColor(Color.parseColor("#999999"));
+//                        tvRl3.setTextColor(Color.parseColor("#999999"));
+//                        rl_top.setBackgroundResource(R.drawable.bg_white_down_40px);
+////                        tvRl1.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+////                        tvRl2.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+////                        tvRl3.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+////                        tvRl4.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+//                        v1.setVisibility(View.GONE);
+//                        v2.setVisibility(View.GONE);
+//                        v3.setVisibility(View.GONE);
+//                        type = "4";
+//                        scrollView.scrollTo(0,scollShiPin);
+//                        Log.d("scollYYY_shipin_to::",scollShiPin+"");
+//                        break;
                 }
             }
 
@@ -1228,7 +1209,7 @@ public class HomeFragment4 extends BaseFragment {
                                     Gson gson = new Gson();
                                     BaiduCityModel model = gson.fromJson(data, BaiduCityModel.class);
                                     latLongString = model.getResult().getAddressComponent().getCity();
-                                    cityTv.setText("所在位置："+latLongString);
+                                    cityTv.setText(""+latLongString);
                                     cityName = latLongString;
                                 }
                             } catch (JSONException e) {
@@ -1247,7 +1228,7 @@ public class HomeFragment4 extends BaseFragment {
         }
     }
     @OnClick({R.id.locationRl, R.id.ll_search, R.id.iv_msg,
-    R.id.rl1, R.id.rl2, R.id.rl3, R.id.rl4,R.id.rl_xiaoxi,R.id.rl_ball})
+    R.id.rl1, R.id.rl2, R.id.rl3,R.id.rl_xiaoxi,R.id.rl_ball})
     public void onClick(View view) {
         MainActivity mainActivity = (MainActivity) getActivity();
         Intent intent = new Intent();
@@ -1304,10 +1285,6 @@ public class HomeFragment4 extends BaseFragment {
             case R.id.rl3:
                 viewPager.setCurrentItem(2);
                 type = "3";
-                break;
-            case R.id.rl4:
-                viewPager.setCurrentItem(3);
-                type = "4";
                 break;
             case R.id.rl_ball:
                 if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
@@ -1558,19 +1535,19 @@ public class HomeFragment4 extends BaseFragment {
         if (requestCode == 1){
             if (data != null && resultCode == 1) {
                 CityModel model = (CityModel) data.getSerializableExtra(ActivityConfig.CITY);
-                cityTv.setText("所在位置："+model.getName());
+                cityTv.setText(""+model.getName());
                 cityName = model.getName();
                 cityId = model.getId();
             } else if (resultCode == 2) {
                 cityId = "";
                 cityName = "";
 //            cityTv.setText(latLongString);
-                cityTv.setText("所在位置：选择城市");
+                cityTv.setText("选择城市");
             } else if (resultCode == 3) {
                 String city = data.getStringExtra("city");
                 cityId = data.getStringExtra("cityid");
                 cityName = city;
-                cityTv.setText("所在位置："+city);
+                cityTv.setText(""+city);
             }
             refresh();
         }
@@ -1587,8 +1564,10 @@ public class HomeFragment4 extends BaseFragment {
                     mainActivity.startHuoDong();
                     break;
                 case 3://跳转视频
-                    viewPager.setCurrentItem(3);
-                    type = "4";
+//                    viewPager.setCurrentItem(3);
+//                    type = "4";
+                    viewPager.setCurrentItem(2);
+                    type = "3";
                     break;
             }
         }
