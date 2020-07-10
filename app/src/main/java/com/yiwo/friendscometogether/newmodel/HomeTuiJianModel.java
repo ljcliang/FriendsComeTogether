@@ -2,6 +2,7 @@ package com.yiwo.friendscometogether.newmodel;
 
 import com.stx.xhb.xbanner.entity.SimpleBannerInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -109,11 +110,11 @@ public class HomeTuiJianModel {
              * title : 4
              */
 
-            private String sid;
-            private String pic;
-            private String jumpUrl;
-            private String jumpType;
-            private String title;
+            private String sid ="" ;
+            private String pic ="" ;
+            private String jumpUrl ="" ;
+            private String jumpType ="" ;
+            private String title ="" ;
 
             public String getSid() {
                 return sid;
@@ -183,24 +184,24 @@ public class HomeTuiJianModel {
              * nowStatus : 团友招募中
              */
 
-            private String fmpic;
-            private String fmID;
-            private String fmlook;
-            private String fmpartyID;
-            private String fmtitle;
-            private String fmaddress;
-            private String fmcontent;
-            private String username;
-            private String userpic;
-            private String usergrade;
-            private String levelName;
-            private String userID;
-            private String pftitle;
-            private String gz;
-            private String cNum;
-            private String nowStatus;
-            private List<PlListBean> plList;
-            private List<String> picList;
+            private String fmpic = "";
+            private String fmID = "";
+            private String fmlook = "";
+            private String fmpartyID = "";
+            private String fmtitle = "";
+            private String fmaddress = "";
+            private String fmcontent = "";
+            private String username = "";
+            private String userpic = "";
+            private String usergrade = "";
+            private String levelName = "";
+            private String userID = "";
+            private String pftitle = "";
+            private String gz = "";
+            private String cNum = "";
+            private String nowStatus = "";
+            private List<PlListBean> plList = new ArrayList<>();
+            private List<String> picList = new ArrayList<>();
 
             public String getFmpic() {
                 return fmpic;
@@ -352,8 +353,8 @@ public class HomeTuiJianModel {
                  * username : 小五
                  */
 
-                private String fctitle;
-                private String username;
+                private String fctitle = "";
+                private String username = "";
 
                 public String getFctitle() {
                     return fctitle;

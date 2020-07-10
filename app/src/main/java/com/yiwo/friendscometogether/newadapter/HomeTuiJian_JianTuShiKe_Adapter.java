@@ -24,6 +24,7 @@ import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.pages.ArticleCommentActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.tongban_emoticon.String2HtmlTextTools;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.utils.ViewUtil;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
@@ -68,7 +69,8 @@ public class HomeTuiJian_JianTuShiKe_Adapter extends RecyclerView.Adapter<HomeTu
         holder.tv_pf_name.setText(data.get(position).getPftitle());
         if (data.get(position).getPlList().size()>0){
             holder.tv_ping_lun_name1.setText(data.get(position).getPlList().get(0).getUsername()+"：");
-            holder.tv_pinglun_content1.setText(data.get(position).getPlList().get(0).getFctitle());
+//            holder.tv_pinglun_content1.setText(data.get(position).getPlList().get(0).getFctitle());
+            String2HtmlTextTools.tvSetHtmlForImage(context,holder.tv_pinglun_content1,data.get(position).getPlList().get(0).getFctitle());
             holder.ll_comment1.setVisibility(View.VISIBLE);
         }else {
             holder.ll_comment1.setVisibility(View.GONE);
@@ -76,6 +78,7 @@ public class HomeTuiJian_JianTuShiKe_Adapter extends RecyclerView.Adapter<HomeTu
         if (data.get(position).getPlList().size()>1){
             holder.tv_ping_lun_name2.setText(data.get(position).getPlList().get(1).getUsername()+"：");
             holder.tv_pinglun_content2.setText(data.get(position).getPlList().get(1).getFctitle());
+            String2HtmlTextTools.tvSetHtmlForImage(context,holder.tv_pinglun_content2,data.get(position).getPlList().get(1).getFctitle());
             holder.ll_comment2.setVisibility(View.VISIBLE);
         }else {
             holder.ll_comment2.setVisibility(View.GONE);

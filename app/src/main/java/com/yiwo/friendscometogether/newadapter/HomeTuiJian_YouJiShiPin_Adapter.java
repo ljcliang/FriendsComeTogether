@@ -26,6 +26,7 @@ import com.yiwo.friendscometogether.pages.ArticleCommentActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.VideoActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.tongban_emoticon.String2HtmlTextTools;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.utils.ViewUtil;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
@@ -66,7 +67,8 @@ public class HomeTuiJian_YouJiShiPin_Adapter extends RecyclerView.Adapter<HomeTu
         holder.tv_content.setText(data.get(position).getFmtitle());
         if (data.get(position).getPlList().size()>0){
             holder.tv_pinglun_name1.setText(data.get(position).getPlList().get(0).getUsername()+"：");
-            holder.tv_pinglun_comment1.setText(data.get(position).getPlList().get(0).getFctitle());
+//            holder.tv_pinglun_comment1.setText(data.get(position).getPlList().get(0).getFctitle());
+            String2HtmlTextTools.tvSetHtmlForImage(context,holder.tv_pinglun_comment1,data.get(position).getPlList().get(0).getFctitle());
             holder.ll_pinglun_comment1.setVisibility(View.VISIBLE);
             holder.tv_pinglun_num.setVisibility(View.VISIBLE);
         }else {
@@ -75,7 +77,8 @@ public class HomeTuiJian_YouJiShiPin_Adapter extends RecyclerView.Adapter<HomeTu
         }
         if (data.get(position).getPlList().size()>1){
             holder.tv_pinglun_name2.setText(data.get(position).getPlList().get(1).getUsername()+"：");
-            holder.tv_pinglun_comment2.setText(data.get(position).getPlList().get(1).getFctitle());
+//            holder.tv_pinglun_comment2.setText(data.get(position).getPlList().get(1).getFctitle());
+            String2HtmlTextTools.tvSetHtmlForImage(context,holder.tv_pinglun_comment2,data.get(position).getPlList().get(1).getFctitle());
             holder.ll_pinglun_comment2.setVisibility(View.VISIBLE);
         }else {
             holder.ll_pinglun_comment2.setVisibility(View.GONE);

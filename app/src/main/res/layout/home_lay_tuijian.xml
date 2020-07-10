@@ -5,337 +5,349 @@
     android:layout_height="match_parent"
     android:background="#f6f6f6"
     android:orientation="vertical">
-    <LinearLayout
-        android:orientation="vertical"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.stx.xhb.xbanner.XBanner
-            android:layout_marginTop="20px"
-            app:clipChildrenTopBottomMargin="20px"
-            app:pointSelect="@drawable/shape_banner_select"
-            app:pointNormal="@drawable/shape_banner_normal"
-            app:isAutoPlay="true"
-            app:isClipChildrenModeLessThree="true"
-            app:isClipChildrenMode="true"
-            app:isHandLoop="true"
-            app:AutoPlayTime="5000"
-            android:id="@+id/fragment_home_banner"
-            android:clipChildren="true"
-            app:pointsVisibility="true"
+        <ScrollView
             android:layout_width="match_parent"
-            app:pointsPosition="CENTER"
-            android:layout_height="420px" />
-        <RelativeLayout
-            android:visibility="gone"
-            android:id="@+id/rl_jiantushike"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white_ffffff">
-
+            android:layout_height="match_parent">
             <LinearLayout
-                android:id="@+id/ll_1_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="20px"
-                android:layout_marginTop="5px"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="30px"
-                    android:layout_height="30px"
-                    android:layout_gravity="top"
-                    android:src="@mipmap/ic_left_line" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="途荐时刻"
-                    android:textColor="@color/black_101010"
-                    android:textSize="38px" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/iv_1_right"
-                android:layout_toRightOf="@+id/ll_1_left"
-                android:lines="1"
-                android:text="·················································································································································································································································································"
-                android:textColor="#666666"
-                android:textSize="38px" />
-
-            <ImageView
-                android:id="@+id/iv_1_right"
-                android:layout_width="55px"
-                android:layout_height="55px"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="10px"
-                android:layout_marginLeft="25px"
-                android:layout_marginRight="40px"
-                android:layout_marginTop="10px"
-                android:src="@mipmap/icon_fengxiangbiao" />
-        </RelativeLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_tuijianshike"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white_ffffff" />
-
-        <RelativeLayout
-            android:visibility="gone"
-            android:id="@+id/rl_jingcailuxian"
-            android:layout_width="match_parent"
-            android:layout_height="75px"
-            android:background="#f6f6f6"
-            android:orientation="vertical">
-
-            <View
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="4px"
-                android:layout_centerInParent="true"
-                android:background="@color/red_d84c37" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:background="#f6f6f6"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="16px"
-                    android:layout_height="16px"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/point_red" />
-
-                <ImageView
-                    android:layout_width="45px"
-                    android:layout_height="45px"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10px"
-                    android:src="@mipmap/foot" />
-
-                <TextView
-                    android:id="@+id/tv_text_youju"
-                    android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <com.stx.xhb.xbanner.XBanner
+                    android:layout_marginTop="20px"
+                    app:clipChildrenTopBottomMargin="20px"
+                    app:pointSelect="@drawable/shape_banner_select"
+                    app:pointNormal="@drawable/shape_banner_normal"
+                    app:isAutoPlay="true"
+                    app:isClipChildrenModeLessThree="true"
+                    app:isClipChildrenMode="true"
+                    app:isHandLoop="true"
+                    app:AutoPlayTime="5000"
+                    android:id="@+id/fragment_home_banner"
+                    android:clipChildren="true"
+                    app:pointsVisibility="true"
+                    android:layout_width="match_parent"
+                    app:pointsPosition="CENTER"
+                    android:layout_height="420px" />
+                <RelativeLayout
+                    android:visibility="visible"
+                    android:id="@+id/rl_jiantushike"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10px"
-                    android:layout_marginRight="10px"
-                    android:text="精彩路线·随队长一起吧"
-                    android:textColor="@color/black_101010"
-                    android:textSize="35px" />
+                    android:background="@color/white_ffffff">
 
-                <ImageView
-                    android:layout_width="45px"
-                    android:layout_height="45px"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="10px"
-                    android:src="@mipmap/foot" />
+                    <LinearLayout
+                        android:id="@+id/ll_1_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="30px"
+                        android:layout_marginRight="20px"
+                        android:layout_marginTop="5px"
+                        android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="16px"
-                    android:layout_height="16px"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/point_red" />
-            </LinearLayout>
-        </RelativeLayout>
+                        <ImageView
+                            android:layout_width="30px"
+                            android:layout_height="30px"
+                            android:layout_gravity="top"
+                            android:src="@mipmap/ic_left_line" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_jingcailuxian"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white_ffffff"
-            android:paddingBottom="30px"
-            android:paddingLeft="20px"
-            android:paddingRight="20px"
-            android:paddingTop="30px" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="途荐时刻"
+                            android:textColor="@color/black_101010"
+                            android:textSize="38px" />
+                    </LinearLayout>
 
-        <RelativeLayout
-            android:visibility="gone"
-            android:id="@+id/rl_renmenduizhang"
-            android:layout_width="match_parent"
-            android:layout_height="75px"
-            android:background="#f6f6f6"
-            android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/iv_1_right"
+                        android:layout_toRightOf="@+id/ll_1_left"
+                        android:lines="1"
+                        android:text="·················································································································································································································································································"
+                        android:textColor="#666666"
+                        android:textSize="38px" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:background="#f6f6f6"
-                android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/iv_1_right"
+                        android:layout_width="55px"
+                        android:layout_height="55px"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="10px"
+                        android:layout_marginLeft="25px"
+                        android:layout_marginRight="40px"
+                        android:layout_marginTop="10px"
+                        android:src="@mipmap/icon_fengxiangbiao" />
+                </RelativeLayout>
 
-                <ImageView
-                    android:layout_width="45px"
-                    android:layout_height="45px"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10px"
-                    android:src="@mipmap/fire" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_tuijianshike"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10px"
-                    android:layout_marginRight="10px"
-                    android:text="热门队长"
-                    android:textColor="@color/black_101010"
-                    android:textSize="35px" />
+                    android:background="@color/white_ffffff" />
 
-                <ImageView
-                    android:layout_width="45px"
-                    android:layout_height="45px"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="10px"
-                    android:src="@mipmap/fire" />
-            </LinearLayout>
-        </RelativeLayout>
+                <RelativeLayout
+                    android:visibility="visible"
+                    android:id="@+id/rl_jingcailuxian"
+                    android:layout_width="match_parent"
+                    android:layout_height="75px"
+                    android:background="#f6f6f6"
+                    android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_remenduizhang"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white_ffffff"
-            android:paddingBottom="25px"
-            android:paddingLeft="10px"
-            android:paddingRight="10px"
-            android:paddingTop="25px" />
-        <RelativeLayout
-            android:visibility="gone"
-            android:id="@+id/rl_duizhangpuzi"
-            android:layout_width="match_parent"
-            android:layout_height="75px"
-            android:background="#f6f6f6"
-            android:orientation="vertical">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="4px"
+                        android:layout_centerInParent="true"
+                        android:background="@color/red_d84c37" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="4px"
-                android:layout_centerInParent="true"
-                android:background="@color/red_d84c37" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="#f6f6f6"
+                        android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:background="#f6f6f6"
-                android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="16px"
+                            android:layout_height="16px"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/point_red" />
 
-                <ImageView
-                    android:layout_width="16px"
-                    android:layout_height="16px"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/point_red" />
+                        <ImageView
+                            android:layout_width="45px"
+                            android:layout_height="45px"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10px"
+                            android:src="@mipmap/foot" />
 
-                <ImageView
-                    android:layout_width="45px"
-                    android:layout_height="45px"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10px"
-                    android:src="@mipmap/gouwu" />
+                        <TextView
+                            android:id="@+id/tv_text_youju"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10px"
+                            android:layout_marginRight="10px"
+                            android:text="精彩路线·随队长一起吧"
+                            android:textColor="@color/black_101010"
+                            android:textSize="35px" />
 
-                <TextView
-                    android:id="@+id/tv_text_duizhangpuzi"
-                    android:layout_width="wrap_content"
+                        <ImageView
+                            android:layout_width="45px"
+                            android:layout_height="45px"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="10px"
+                            android:src="@mipmap/foot" />
+
+                        <ImageView
+                            android:layout_width="16px"
+                            android:layout_height="16px"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/point_red" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_jingcailuxian"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10px"
-                    android:layout_marginRight="10px"
-                    android:text="队长铺子·淘好货"
-                    android:textColor="@color/black_101010"
-                    android:textSize="35px" />
+                    android:background="@color/white_ffffff"
+                    android:paddingBottom="30px"
+                    android:paddingLeft="20px"
+                    android:paddingRight="20px"
+                    android:paddingTop="30px" />
 
-                <ImageView
-                    android:layout_width="45px"
-                    android:layout_height="45px"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="10px"
-                    android:src="@mipmap/gouwu" />
+                <RelativeLayout
+                    android:visibility="visible"
+                    android:id="@+id/rl_renmenduizhang"
+                    android:layout_width="match_parent"
+                    android:layout_height="75px"
+                    android:background="#f6f6f6"
+                    android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="16px"
-                    android:layout_height="16px"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/point_red" />
-            </LinearLayout>
-        </RelativeLayout>
-        <android.support.v7.widget.RecyclerView
-            android:paddingTop="20px"
-            android:paddingBottom="20px"
-            android:id="@+id/rv_duizhangpuzi"
-            android:background="@color/white_ffffff"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <RelativeLayout
-            android:visibility="gone"
-            android:id="@+id/rl_youji_shipin"
-            android:layout_width="match_parent"
-            android:layout_height="75px"
-            android:background="#f6f6f6"
-            android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="#f6f6f6"
+                        android:orientation="horizontal">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="4px"
-                android:layout_centerInParent="true"
-                android:background="@color/red_d84c37" />
+                        <ImageView
+                            android:layout_width="45px"
+                            android:layout_height="45px"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10px"
+                            android:src="@mipmap/fire" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:background="#f6f6f6"
-                android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10px"
+                            android:layout_marginRight="10px"
+                            android:text="热门队长"
+                            android:textColor="@color/black_101010"
+                            android:textSize="35px" />
 
-                <ImageView
-                    android:layout_width="16px"
-                    android:layout_height="16px"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/point_red" />
+                        <ImageView
+                            android:layout_width="45px"
+                            android:layout_height="45px"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="10px"
+                            android:src="@mipmap/fire" />
+                    </LinearLayout>
+                </RelativeLayout>
 
-                <ImageView
-                    android:layout_width="45px"
-                    android:layout_height="45px"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10px"
-                    android:src="@mipmap/xiezuo" />
-
-                <TextView
-                    android:id="@+id/tv_text_youji"
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_remenduizhang"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10px"
-                    android:layout_marginRight="10px"
-                    android:text="友记文章视频"
-                    android:textColor="@color/black_101010"
-                    android:textSize="35px" />
+                    android:background="@color/white_ffffff"
+                    android:paddingBottom="25px"
+                    android:paddingLeft="10px"
+                    android:paddingRight="10px"
+                    android:paddingTop="25px" />
+                <RelativeLayout
+                    android:visibility="visible"
+                    android:id="@+id/rl_duizhangpuzi"
+                    android:layout_width="match_parent"
+                    android:layout_height="75px"
+                    android:background="#f6f6f6"
+                    android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="45px"
-                    android:layout_height="45px"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="10px"
-                    android:src="@mipmap/paizhao" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="4px"
+                        android:layout_centerInParent="true"
+                        android:background="@color/red_d84c37" />
 
-                <ImageView
-                    android:layout_width="16px"
-                    android:layout_height="16px"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/point_red" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="#f6f6f6"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="16px"
+                            android:layout_height="16px"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/point_red" />
+
+                        <ImageView
+                            android:layout_width="45px"
+                            android:layout_height="45px"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10px"
+                            android:src="@mipmap/gouwu" />
+
+                        <TextView
+                            android:id="@+id/tv_text_duizhangpuzi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10px"
+                            android:layout_marginRight="10px"
+                            android:text="队长铺子·淘好货"
+                            android:textColor="@color/black_101010"
+                            android:textSize="35px" />
+
+                        <ImageView
+                            android:layout_width="45px"
+                            android:layout_height="45px"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="10px"
+                            android:src="@mipmap/gouwu" />
+
+                        <ImageView
+                            android:layout_width="16px"
+                            android:layout_height="16px"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/point_red" />
+                    </LinearLayout>
+                </RelativeLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:paddingTop="20px"
+                    android:paddingBottom="20px"
+                    android:id="@+id/rv_duizhangpuzi"
+                    android:background="@color/white_ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <RelativeLayout
+                    android:visibility="visible"
+                    android:id="@+id/rl_youji_shipin"
+                    android:layout_width="match_parent"
+                    android:layout_height="75px"
+                    android:background="#f6f6f6"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="4px"
+                        android:layout_centerInParent="true"
+                        android:background="@color/red_d84c37" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:background="#f6f6f6"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="16px"
+                            android:layout_height="16px"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/point_red" />
+
+                        <ImageView
+                            android:layout_width="45px"
+                            android:layout_height="45px"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10px"
+                            android:src="@mipmap/xiezuo" />
+
+                        <TextView
+                            android:id="@+id/tv_text_youji"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="10px"
+                            android:layout_marginRight="10px"
+                            android:text="友记文章视频"
+                            android:textColor="@color/black_101010"
+                            android:textSize="35px" />
+
+                        <ImageView
+                            android:layout_width="45px"
+                            android:layout_height="45px"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="10px"
+                            android:src="@mipmap/paizhao" />
+
+                        <ImageView
+                            android:layout_width="16px"
+                            android:layout_height="16px"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/point_red" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_youjishipin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white_ffffff" />
             </LinearLayout>
-        </RelativeLayout>
+        </ScrollView>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_youjishipin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white_ffffff" />
-    </LinearLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>
