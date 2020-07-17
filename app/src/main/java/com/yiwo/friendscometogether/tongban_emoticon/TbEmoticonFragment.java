@@ -35,19 +35,19 @@ public class TbEmoticonFragment extends BaseFragment {
     @BindView(R.id.ll_all)
     LinearLayout ll_all;
     @BindView(R.id.comment_rl)//整个评论视图
-    RelativeLayout comment_rl;
+    public RelativeLayout comment_rl;
     @BindView(R.id.comment_et_comment)//评论视图输入框
-    EditText comment_et_comment;
+            EditText comment_et_comment;
     @BindView(R.id.ll_xiaolian)//评论视图表情按钮
-    LinearLayout comment_ll_xiaolian;
+            LinearLayout comment_ll_xiaolian;
     @BindView(R.id.comment_rl_comment)//评论视图提交按钮
-    RelativeLayout comment_rl_comment;
+            RelativeLayout comment_rl_comment;
     @BindView(R.id.rl_emoticons)
     RelativeLayout rl_emoticons;
     @BindView(R.id.rv_emotion)//表情列表
-    RecyclerView rv_emotion;
+            RecyclerView rv_emotion;
     @BindView(R.id.tv_btn_delete)//删除按钮
-    TextView tv_btn_delete;
+            TextView tv_btn_delete;
     private boolean firstShowKey = true;
     private List<EmoticonModel> emoticonModelList = new ArrayList<>();
     private EmoticonAdapter emoticonAdapter;
@@ -65,7 +65,9 @@ public class TbEmoticonFragment extends BaseFragment {
         initRv();//初始化表情列表
         return rootView;
     }
-
+    public EditText getEdt(){
+        return comment_et_comment;
+    }
     private void initdata() {
         for (int i = 0;i<emoticonName.length;i++){
             EmoticonModel model = new EmoticonModel();
@@ -193,6 +195,10 @@ public class TbEmoticonFragment extends BaseFragment {
     }
     public void  showKeyBoard(){
         showKeyboard(comment_et_comment);
+    }
+    public void setHint(String s){
+        comment_et_comment.setText("");
+        comment_et_comment.setHint(s);
     }
     //弹出软键盘
     private void showKeyboard(EditText editText) {

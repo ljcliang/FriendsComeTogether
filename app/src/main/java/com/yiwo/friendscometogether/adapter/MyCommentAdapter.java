@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.ArticleCommentListModel;
+import com.yiwo.friendscometogether.tongban_emoticon.String2HtmlTextTools;
 
 import java.util.List;
 
@@ -51,7 +52,8 @@ public class MyCommentAdapter extends RecyclerView.Adapter<MyCommentAdapter.View
         Glide.with(context).load(data.get(position).getUserpic()).apply(new RequestOptions().placeholder(R.mipmap.my_head).error(R.mipmap.my_head)).into(holder.ivAvatar);
         holder.tvNickname.setText(data.get(position).getUsername());
         holder.tvTitle.setText(data.get(position).getNewsTile());
-        holder.tvContent.setText(data.get(position).getFctitle());
+//        holder.tvContent.setText(data.get(position).getFctitle());
+        String2HtmlTextTools.tvSetHtmlForImage(context,holder.tvContent,data.get(position).getFctitle());
         holder.tvTime.setText(data.get(position).getFctime());
         if (data.get(position).getPic().size() > 0) {
             holder.recyclerView.setVisibility(View.VISIBLE);

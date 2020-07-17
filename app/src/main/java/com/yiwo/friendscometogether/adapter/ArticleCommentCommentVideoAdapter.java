@@ -20,6 +20,7 @@ import com.yiwo.friendscometogether.model.ActicleCommentVideoModel;
 import com.yiwo.friendscometogether.model.ArticleCommentListModel;
 import com.yiwo.friendscometogether.newpage.JuBaoActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.tongban_emoticon.String2HtmlTextTools;
 
 import java.util.List;
 
@@ -59,7 +60,8 @@ public class ArticleCommentCommentVideoAdapter extends RecyclerView.Adapter<Arti
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Glide.with(context).load(data.get(position).getUserpic()).apply(new RequestOptions().placeholder(R.mipmap.my_head).error(R.mipmap.my_head)).into(holder.imageView);
         holder.tv_name.setText(data.get(position).getUsername());
-        holder.tv.setText(data.get(position).getVcontent()+"  "+data.get(position).getVctime());
+//        holder.tv.setText(data.get(position).getVcontent()+"  "+data.get(position).getVctime());
+        String2HtmlTextTools.tvSetHtmlForImage(context,holder.tv,data.get(position).getVcontent()+"  "+data.get(position).getVctime());
         holder.tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -171,8 +171,8 @@ public class HomeFragment4 extends BaseFragment {
         homeTuiJianFragment = HomeTuiJianFragment.newInstance(cityName);
         homeShopGoodsFragment = HomeShopGoodsFragment.newInstance();
         homeGuanZhuFragment = HomeGuanZhuFragment.newInstance();
-        fragmentList.add(homeGuanZhuFragment);
         fragmentList.add(homeTuiJianFragment);
+        fragmentList.add(homeGuanZhuFragment);
         fragmentList.add(homeShopGoodsFragment);
         pagerAdapter = new PagerAdapter(getChildFragmentManager(),fragmentList);
         viewPager.setAdapter(pagerAdapter);
@@ -248,7 +248,7 @@ public class HomeFragment4 extends BaseFragment {
 
             }
         });
-        viewPager.setCurrentItem(1);
+        viewPager.setCurrentItem(0);
     }
     @Override
     public void onNetChange(int netMobile) {

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -80,8 +81,12 @@ public class MyFragment extends BaseFragment {
     ImageView iv_renwu;
     @BindView(R.id.tv_level)
     TextView tvLevel;
+    @BindView(R.id.rl_level)
+    RelativeLayout rl_level;
     @BindView(R.id.iv_level)
     ImageView iv_duizhang_level;
+    @BindView(R.id.rl_duizhang_set)
+    RelativeLayout rl_duizhang_set;
     private SpImp spImp;
     private String uid = "";
 
@@ -143,6 +148,7 @@ public class MyFragment extends BaseFragment {
 //                                    }
                                     if (userModel.getObj().getSign().equals("1")){
                                         iv_renwu.setVisibility(View.VISIBLE);
+                                        rl_duizhang_set.setVisibility(View.VISIBLE);
                                         iv_duizhang_level.setVisibility(View.VISIBLE);
                                         switch (userModel.getObj().getSign()){
                                             case "0":
@@ -166,12 +172,13 @@ public class MyFragment extends BaseFragment {
                                         }
                                     }else {
                                         iv_renwu.setVisibility(View.GONE);
+                                        rl_duizhang_set.setVisibility(View.GONE);
                                         iv_duizhang_level.setVisibility(View.GONE);
                                     }
                                     if(userModel.getObj().getType().equals("0")){
                                         iv_find_super_like.setVisibility(View.GONE);
                                     }else {
-                                        iv_find_super_like.setVisibility(View.VISIBLE);
+                                        iv_find_super_like.setVisibility(View.GONE);
                                     }
                                     tvNickname.setText("" + userModel.getObj().getUsername());
                                     if(TextUtils.isEmpty(userModel.getObj().getUserautograph())){
@@ -189,6 +196,7 @@ public class MyFragment extends BaseFragment {
 //                                        Picasso.with(getContext()).load(R.mipmap.nv).into(ivSex);
 //                                    }
                                     //等级部分
+                                    rl_level.setVisibility(View.VISIBLE);
                                     tvLevel.setText("Lv." + userModel.getObj().getUsergrade());
 //                                    if (userModel.getObj().getSign().equals("0")) {
 //                                        Glide.with(getContext()).load(R.mipmap.sign_gray).into(ivIsSign);
@@ -214,7 +222,12 @@ public class MyFragment extends BaseFragment {
         } else {
 //            tvNotLogin.setVisibility(View.VISIBLE);
 //            rlContent.setVisibility(View.GONE);
-            Picasso.with(getContext()).load("null").into(ivAvatar);
+            ivAvatar.setImageResource(R.mipmap.my_head);
+//            Picasso.with(getContext()).load("null").into(ivAvatar);
+            iv_duizhang_level.setVisibility(View.GONE);
+            tvNickname.setText("未登录");
+            rl_level.setVisibility(View.GONE);
+            tvLevel.setText("Lv.0");
         }
     }
 

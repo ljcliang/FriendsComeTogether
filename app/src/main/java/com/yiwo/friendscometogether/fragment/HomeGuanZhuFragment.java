@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -43,6 +44,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
@@ -51,6 +53,8 @@ public class HomeGuanZhuFragment extends BaseFragment {
     View rootView;
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
+    @BindView(R.id.rl_duizhangdaiduizhong)
+    RelativeLayout rl_duizhangdaiduizhong;
     private View view;
     private Unbinder unbinder;
     private SpImp spImp;
@@ -82,7 +86,16 @@ public class HomeGuanZhuFragment extends BaseFragment {
         initData();
         return rootView;
     }
-
+    @OnClick({R.id.rl_duizhangdaiduizhong})
+    public  void onClick(View view){
+        switch (view.getId()){
+            case R.id.rl_duizhangdaiduizhong:
+                Intent intent = new Intent();
+                intent.setClass(getContext(), GuanZhuDuiZhangListActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
     private void initData() {
         //关注
         ViseHttp.POST(NetConfig.homePageGz)

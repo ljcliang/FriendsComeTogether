@@ -1,6 +1,8 @@
 package com.yiwo.friendscometogether.newadapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.UserLabelModel;
+import com.yiwo.friendscometogether.newmodel.ReMenZhaoMuTabModel;
 
 import java.util.List;
 
@@ -17,44 +20,42 @@ import java.util.List;
  * Created by Administrator on 2018/12/24.
  */
 
-public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.ViewHolder> {
+public class ReMenZhaoMuTabAdapter extends RecyclerView.Adapter<ReMenZhaoMuTabAdapter.ViewHolder> {
 
     private Context context;
-    private List<UserLabelModel.ObjBean> data;
+    private List<ReMenZhaoMuTabModel> data;
     private OnSelectLabelListener listener;
-    private boolean isReset = false;
 
     public void setListener(OnSelectLabelListener listener) {
         this.listener = listener;
     }
 
-    public LabelAdapter(List<UserLabelModel.ObjBean> data) {
+    public ReMenZhaoMuTabAdapter(List<ReMenZhaoMuTabModel> data) {
         this.data = data;
     }
-
-    public void reset(){
-        isReset = true;
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_label, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_remenzhaomu_label, parent, false);
+        ScreenAdapterTools.getInstance().loadView(view);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        if(isReset){
+        if (data.get(position).isSelect()){
+            holder.tv.setBackgroundResource(R.drawable.bg_d84c37_30px);
+            holder.tv.setTextColor(Color.WHITE);
+        }else {
             holder.tv.setBackgroundResource(R.drawable.bg_d8d8d8_border_30px);
+            holder.tv.setTextColor(R.color.black_101010);
         }
-        holder.tv.setText(data.get(position).getLname());
+        holder.tv.setText(data.get(position).getName());
         holder.tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isReset = false;
-                holder.tv.setBackgroundResource(R.drawable.bg_d8d8d8_30px);
                 listener.onSelete(position);
             }
         });

@@ -22,6 +22,7 @@ import com.yiwo.friendscometogether.model.ArticleCommentListModel;
 import com.yiwo.friendscometogether.newpage.JuBaoActivity;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.tongban_emoticon.String2HtmlTextTools;
 
 import java.util.List;
 
@@ -68,7 +69,8 @@ public class ArticleCommentVideoAdapter extends RecyclerView.Adapter<ArticleComm
         });
         holder.tvNickname.setText(data.get(position).getUsername());
         holder.tvTitle.setText(data.get(position).getVname());
-        holder.tvContent.setText(data.get(position).getVcontent());
+//        holder.tvContent.setText(data.get(position).getVcontent());
+        String2HtmlTextTools.tvSetHtmlForImage(context,holder.tvContent,data.get(position).getVcontent());
         holder.ll.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

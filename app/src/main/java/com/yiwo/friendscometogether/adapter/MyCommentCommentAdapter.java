@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.ArticleCommentListModel;
+import com.yiwo.friendscometogether.tongban_emoticon.String2HtmlTextTools;
 
 import java.util.List;
 
@@ -37,7 +38,8 @@ public class MyCommentCommentAdapter extends RecyclerView.Adapter<MyCommentComme
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.tv.setText(data.get(position).getFctitle());
+//        holder.tv.setText(data.get(position).getFctitle());
+        String2HtmlTextTools.tvSetHtmlForImage(context,holder.tv,data.get(position).getUsername()+"："+data.get(position).getFctitle());
     }
 
     @Override

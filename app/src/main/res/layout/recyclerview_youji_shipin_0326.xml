@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:test="http://schemas.android.com/apk/res-auto"
-    android:background="#f6f6f6"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
@@ -325,7 +324,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:maxWidth="50dp"
-                    android:text="35"
+                    android:text="0"
                     android:textColor="#272A2C"
                     android:textSize="12sp" />
 
@@ -350,7 +349,7 @@
                         android:ellipsize="end"
                         android:lines="1"
                         android:maxWidth="50dp"
-                        android:text="26"
+                        android:text="0"
                         android:textColor="#272A2C"
                         android:textSize="12sp" />
 
@@ -412,6 +411,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:layout_gravity="center_vertical"
                     android:id="@+id/tv_pinglun_name2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -424,6 +424,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:layout_gravity="center_vertical"
                     android:id="@+id/tv_pinglun_comment2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

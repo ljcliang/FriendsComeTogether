@@ -16,19 +16,18 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.netease.nim.uikit.common.util.string.StringUtil;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.network.NetConfig;
-import com.yiwo.friendscometogether.newmodel.HomeGuanZhuModel;
+import com.yiwo.friendscometogether.newmodel.HomeTuiJianModel;
+import com.yiwo.friendscometogether.newmodel.HomeTuiJianYouJiShiPinModel;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.pages.ArticleCommentActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.VideoActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.tongban_emoticon.String2HtmlTextTools;
-import com.yiwo.friendscometogether.utils.StringUtils;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.utils.ViewUtil;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
@@ -43,11 +42,11 @@ import java.util.List;
  * Created by ljc on 2020/3/25.
  */
 
-public class HomeGuanZhu_YouJiShiPin_Adapter extends RecyclerView.Adapter<HomeGuanZhu_YouJiShiPin_Adapter.ViewHolder>{
+public class HomeTuiJian_ReMenZhaoMu_Adapter extends RecyclerView.Adapter<HomeTuiJian_ReMenZhaoMu_Adapter.ViewHolder>{
     private Context context;
-    private List<HomeGuanZhuModel.ObjBean.YjVideoBean> data;
+    private List<HomeTuiJianModel.ObjBean.YouJiBean> data;
     private SpImp spImp;
-    public HomeGuanZhu_YouJiShiPin_Adapter(List<HomeGuanZhuModel.ObjBean.YjVideoBean> data){
+    public HomeTuiJian_ReMenZhaoMu_Adapter(List<HomeTuiJianModel.ObjBean.YouJiBean> data){
         this.data = data;
     }
     @Override
@@ -56,7 +55,7 @@ public class HomeGuanZhu_YouJiShiPin_Adapter extends RecyclerView.Adapter<HomeGu
         spImp = new SpImp(context);
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_youji_shipin_0326, parent, false);
 //        ScreenAdapterTools.getInstance().loadView(view);
-        HomeGuanZhu_YouJiShiPin_Adapter.ViewHolder holder = new HomeGuanZhu_YouJiShiPin_Adapter.ViewHolder(view);
+        HomeTuiJian_ReMenZhaoMu_Adapter.ViewHolder holder = new HomeTuiJian_ReMenZhaoMu_Adapter.ViewHolder(view);
         return holder;
     }
 
@@ -87,7 +86,7 @@ public class HomeGuanZhu_YouJiShiPin_Adapter extends RecyclerView.Adapter<HomeGu
         }
 
         holder.tv_look_num.setText(data.get(position).getFmlook());
-        holder.tv_pinglun_num.setText(data.get(position).getCNum());
+        holder.tv_comment_num.setText(data.get(position).getCNum());
         holder.tv_pinglun_num.setText("全部"+data.get(position).getCNum()+"条评论");
         Glide.with(context).load(data.get(position).getUserpic()).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_head);
         holder.iv_head.setOnClickListener(new View.OnClickListener() {
@@ -129,39 +128,44 @@ public class HomeGuanZhu_YouJiShiPin_Adapter extends RecyclerView.Adapter<HomeGu
         holder.iv_canyu3.setVisibility(View.GONE);
         holder.iv_canyu4.setVisibility(View.GONE);
         holder.iv_canyu5.setVisibility(View.GONE);
-        if (data.get(position).getInPerson().size()>0){
-            holder.ll_canyuxiezuo.setVisibility(View.VISIBLE);
-            holder.iv_canyu1.setVisibility(View.VISIBLE);
-            Glide.with(context).load(data.get(position).getInPerson().get(0)).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_canyu1);
-            if (data.get(position).getInPerson().size()>=5){
-                holder.tv_canyu.setText("···"+ data.get(position).getInPersonNum()+"人参与写作");
-            }else {
-                holder.tv_canyu.setText(""+ data.get(position).getInPersonNum()+"人参与写作");
-            }
-        }else {
-            holder.ll_canyuxiezuo.setVisibility(View.GONE);
-        }
-        if (data.get(position).getInPerson().size()>1){
-            holder.iv_canyu2.setVisibility(View.VISIBLE);
-            Glide.with(context).load(data.get(position).getInPerson().get(1)).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_canyu2);
-        }
-        if (data.get(position).getInPerson().size()>2){
-            holder.iv_canyu3.setVisibility(View.VISIBLE);
-            Glide.with(context).load(data.get(position).getInPerson().get(2)).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_canyu3);
-        }
-        if (data.get(position).getInPerson().size()>3){
-            holder.iv_canyu4.setVisibility(View.VISIBLE);
-            Glide.with(context).load(data.get(position).getInPerson().get(3)).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_canyu4);
-        }
-        if (data.get(position).getInPerson().size()>4){
-            holder.iv_canyu4.setVisibility(View.VISIBLE);
-            Glide.with(context).load(data.get(position).getInPerson().get(4)).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_canyu5);
-        }
-        if (data.get(position).getIfCaptain().equals("1")){
-            holder.iv_level.setVisibility(View.VISIBLE);
-        }else {
-            holder.iv_level.setVisibility(View.GONE);
-        }
+
+
+        holder.ll_canyuxiezuo.setVisibility(View.GONE);
+
+//        if (data.get(position).getInPerson().size()>0){
+//            holder.ll_canyuxiezuo.setVisibility(View.VISIBLE);
+//            holder.iv_canyu1.setVisibility(View.VISIBLE);
+//            Glide.with(context).load(data.get(position).getInPerson().get(0)).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_canyu1);
+//            if (data.get(position).getInPerson().size()>=5){
+//                holder.tv_canyu.setText("···"+ data.get(position).getInPersonNum()+"人参与写作");
+//            }else {
+//                holder.tv_canyu.setText(""+ data.get(position).getInPersonNum()+"人参与写作");
+//            }
+//        }else {
+//            holder.ll_canyuxiezuo.setVisibility(View.GONE);
+//        }
+//        if (data.get(position).getInPerson().size()>1){
+//            holder.iv_canyu2.setVisibility(View.VISIBLE);
+//            Glide.with(context).load(data.get(position).getInPerson().get(1)).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_canyu2);
+//        }
+//        if (data.get(position).getInPerson().size()>2){
+//            holder.iv_canyu3.setVisibility(View.VISIBLE);
+//            Glide.with(context).load(data.get(position).getInPerson().get(2)).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_canyu3);
+//        }
+//        if (data.get(position).getInPerson().size()>3){
+//            holder.iv_canyu4.setVisibility(View.VISIBLE);
+//            Glide.with(context).load(data.get(position).getInPerson().get(3)).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_canyu4);
+//        }
+//        if (data.get(position).getInPerson().size()>4){
+//            holder.iv_canyu5.setVisibility(View.VISIBLE);
+//            Glide.with(context).load(data.get(position).getInPerson().get(4)).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_canyu5);
+//        }
+//
+//        if (data.get(position).getIfCaptain().equals("1")){
+//            holder.iv_level.setVisibility(View.VISIBLE);
+//        }else {
+//            holder.iv_level.setVisibility(View.GONE);
+//        }
         switch (data.get(position).getLevelName()){
             case "0":
                 holder.iv_level.setImageResource(R.mipmap.level_qingtong);
@@ -226,26 +230,30 @@ public class HomeGuanZhu_YouJiShiPin_Adapter extends RecyclerView.Adapter<HomeGu
                 }
             }
         });
-        if (data.get(position).getTp().equals("0")){
-            holder.iv_play.setVisibility(View.GONE);
-        }else {
-            holder.iv_play.setVisibility(View.VISIBLE);
-        }
+        holder.iv_play.setVisibility(View.GONE);
+//        if (data.get(position).getTp().equals("0")){
+//            holder.iv_play.setVisibility(View.GONE);
+//        }else {
+//            holder.iv_play.setVisibility(View.VISIBLE);
+//        }
         holder.ll_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (data.get(position).getTp().equals("0")){
                     intent.setClass(context, DetailsOfFriendsWebActivity.class);
                     intent.putExtra("fmid", data.get(position).getFmID());
                     context.startActivity(intent);
-                }else {
-                    intent.setClass(context, VideoActivity.class);
-                    intent.putExtra("videoUrl", data.get(position).getPalyUrl());
-                    intent.putExtra("title", data.get(position).getFmtitle());
-                    intent.putExtra("picUrl", data.get(position).getPicList().get(0));
-                    intent.putExtra("vid", data.get(position).getFmID());
-                    context.startActivity(intent);
-                }
+//                if (data.get(position).getTp().equals("0")){
+//                    intent.setClass(context, DetailsOfFriendsWebActivity.class);
+//                    intent.putExtra("fmid", data.get(position).getFmID());
+//                    context.startActivity(intent);
+//                }else {
+//                    intent.setClass(context, VideoActivity.class);
+//                    intent.putExtra("videoUrl", data.get(position).getPalyUrl());
+//                    intent.putExtra("title", data.get(position).getFmtitle());
+//                    intent.putExtra("picUrl", data.get(position).getPicList().get(0));
+//                    intent.putExtra("vid", data.get(position).getFmID());
+//                    context.startActivity(intent);
+//                }
             }
         });
         if (TextUtils.isEmpty(data.get(position).getFmpartyID())){
@@ -253,7 +261,7 @@ public class HomeGuanZhu_YouJiShiPin_Adapter extends RecyclerView.Adapter<HomeGu
         }else {
             holder.ll_xiangguan_huodong.setVisibility(View.VISIBLE);
         }
-        holder.tv_huodong.setText(data.get(position).getPfInfo());
+        holder.tv_huodong.setText(data.get(position).getPftitle());
         holder.ll_xiangguan_huodong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

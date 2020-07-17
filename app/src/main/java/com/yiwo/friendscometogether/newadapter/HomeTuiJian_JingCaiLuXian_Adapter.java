@@ -134,6 +134,7 @@ public class HomeTuiJian_JingCaiLuXian_Adapter extends RecyclerView.Adapter<Home
         TextView tv_live_person;
         TextView btn_gaunzhu;
         TextView tv_go_time;
+        TextView tv_price;
         public ViewHolder(View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_name);
@@ -148,6 +149,7 @@ public class HomeTuiJian_JingCaiLuXian_Adapter extends RecyclerView.Adapter<Home
             tv_live_person = itemView.findViewById(R.id.tv_live_person);
             tv_go_time = itemView.findViewById(R.id.tv_go_time);
             btn_gaunzhu = itemView.findViewById(R.id.btn_gaunzhu);
+            tv_price = itemView.findViewById(R.id.tv_price);
         }
     }
     public interface LiveListAdapterListener{

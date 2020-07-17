@@ -10,7 +10,7 @@
         style="@style/rl_top_bar_dp">
         <TextView
             style="@style/tv_top_title_dp"
-            android:text="队长带队" />
+            android:text="带队信息" />
 
         <RelativeLayout
             android:id="@+id/rl_back"

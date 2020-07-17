@@ -5,6 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <RelativeLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout
@@ -121,4 +122,38 @@
         android:textColor="@color/black_333333"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_marginTop="10px"
+        android:layout_marginLeft="8px"
+        android:layout_marginRight="30px"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginRight="5px"
+            android:text="¥"
+            android:layout_gravity="bottom"
+            android:textColor="#ff6c06"
+            android:textStyle="bold"
+            android:textSize="26px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_marginRight="5px"
+            android:text="99999"
+            android:layout_gravity="bottom"
+            android:textColor="#ff6c06"
+            android:textStyle="bold"
+            android:textSize="34px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:text="起"
+            android:layout_gravity="bottom"
+            android:textColor="@color/black_666666"
+            android:textSize="26px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 </LinearLayout>

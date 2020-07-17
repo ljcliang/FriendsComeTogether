@@ -2,19 +2,36 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="140dp">
+    android:layout_height="250dp">
     <RelativeLayout
-        android:layout_margin="6dp"
-        android:elevation="6dp"
-        android:translationZ="3dp"
         android:background="@drawable/bg_f8f8f8_0px"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="250dp">
         <ImageView
             android:scaleType="centerCrop"
             android:src="@mipmap/zanwutupian"
             android:id="@+id/iv"
             android:layout_width="match_parent"
-            android:layout_height="140dp" />
+            android:layout_height="240dp" />
+        <RelativeLayout
+            android:background="@drawable/bg_black_10dp_transparent_20"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_banner_text"
+                android:textColor="@color/white_ffffff"
+                android:textSize="14sp"
+                android:text="玩得愉快"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

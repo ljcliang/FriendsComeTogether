@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
-        android:background="@color/red_d84c37"
         android:layout_width="match_parent"
         android:layout_height="128px"
         android:layout_alignParentTop="true"
@@ -20,7 +19,7 @@
             android:layout_height="80px">
             <TextView
                 android:textSize="35px"
-                android:textColor="@color/white_ffffff"
+                android:textColor="@color/red_d84c37"
                 android:text="返回"
                 android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
@@ -40,7 +39,7 @@
                 style="@style/tv_top_title" />
             <ImageView
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/xiala"
+                android:src="@mipmap/sanjiao_down"
                 android:layout_width="35px"
                 android:layout_height="35px" />
         </LinearLayout>
@@ -66,7 +65,7 @@
                 android:text="下一步"
                 android:textSize="30px"
                 android:layout_centerInParent="true"
-                android:textColor="@color/white_ffffff"
+                android:textColor="@color/red_d84c37"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </RelativeLayout>

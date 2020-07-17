@@ -96,7 +96,7 @@ public class CreateFriendRememberActivityChoosePicOrVideos extends BaseActivity 
                 if (position == 1){
                     StatusBarUtils.setStatusBar(CreateFriendRememberActivityChoosePicOrVideos.this,Color.TRANSPARENT);
                 }else {
-                    StatusBarUtils.setStatusBar(CreateFriendRememberActivityChoosePicOrVideos.this,Color.parseColor("#d84c37"));
+                    StatusBarUtils.setStatusBar(CreateFriendRememberActivityChoosePicOrVideos.this,Color.parseColor("#f6f6f6"));
                 }
             }
 

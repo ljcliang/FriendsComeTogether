@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
-        android:background="@drawable/bg_f6f6f6_down_40px"
+        android:background="@drawable/bg_f6f6f6_down_8dp"
         android:translationZ="1px"
         android:id="@+id/ll_top"
         android:orientation="vertical"
@@ -104,7 +104,7 @@
                                         android:textColor="@color/black_333333"
                                         android:textSize="58px"
                                         android:textStyle="bold"
-                                        android:text="关注"
+                                        android:text="推荐"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content" />
 
@@ -123,7 +123,7 @@
                                         android:textStyle="bold"
                                         android:textColor="#999999"
                                         android:textSize="50px"
-                                        android:text="推荐"
+                                        android:text="关注"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content" />
                                 </RelativeLayout>
@@ -174,9 +174,9 @@
                             <ImageView
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginRight="10px"
-                                android:src="@mipmap/home_loc"
-                                android:layout_width="40px"
-                                android:layout_height="40px" />
+                                android:src="@mipmap/sanjiao_down"
+                                android:layout_width="30px"
+                                android:layout_height="30px" />
                             <TextView
                                 android:layout_gravity="center_vertical"
                                 android:lines="1"
@@ -254,6 +254,7 @@
         </RelativeLayout>
     </LinearLayout>
     <LinearLayout
+        android:layout_marginTop="-20px"
         android:layout_below="@+id/ll_top"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

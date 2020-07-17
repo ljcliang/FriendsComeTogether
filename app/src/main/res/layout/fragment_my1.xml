@@ -19,6 +19,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/color_f6f6f6">
                 <RelativeLayout
+                    android:visibility="gone"
                     android:id="@+id/rl_duizhang_set"
                     android:layout_marginRight="30px"
                     android:layout_alignTop="@+id/ll_person_page"
@@ -87,6 +88,7 @@
                         android:textColor="@color/black_101010"
                         android:textSize="32px" />
                     <RelativeLayout
+                        android:id="@+id/rl_level"
                         android:layout_marginBottom="2px"
                         android:layout_marginRight="15px"
                         android:layout_marginLeft="15px"

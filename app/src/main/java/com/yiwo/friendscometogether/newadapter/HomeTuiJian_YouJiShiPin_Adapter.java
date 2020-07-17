@@ -85,7 +85,7 @@ public class HomeTuiJian_YouJiShiPin_Adapter extends RecyclerView.Adapter<HomeTu
         }
 
         holder.tv_look_num.setText(data.get(position).getFmlook());
-        holder.tv_pinglun_num.setText(data.get(position).getCNum());
+        holder.tv_comment_num.setText(data.get(position).getCNum());
         holder.tv_pinglun_num.setText("全部"+data.get(position).getCNum()+"条评论");
         Glide.with(context).load(data.get(position).getUserpic()).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_head);
         holder.iv_head.setOnClickListener(new View.OnClickListener() {

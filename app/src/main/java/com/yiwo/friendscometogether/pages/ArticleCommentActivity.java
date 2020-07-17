@@ -130,7 +130,7 @@ public class ArticleCommentActivity extends BaseActivity {
             @Override
             public void onCommitListen(String string) {
                 if (TextUtils.isEmpty(string)) {
-                    toToast(ArticleCommentActivity.this, "请输入评论内容");
+                    toToast(ArticleCommentActivity.this, "请输入内容");
                 } else {
                     toComment(string);
                 }
@@ -181,6 +181,7 @@ public class ArticleCommentActivity extends BaseActivity {
                                         userid = id;
                                         fcid = mList.get(position).getFcID();
                                         isComment = false;
+                                        emotionMainFragment.setHint("回复："+mList.get(position).getUsername());
                                         emotionMainFragment.showKeyBoard();
                                     }
                                 });
@@ -319,13 +320,15 @@ public class ArticleCommentActivity extends BaseActivity {
                                 e.printStackTrace();
                             }
                             isComment = true;
+                            emotionMainFragment.setHint("请输入评论...");
                         }
 
                         @Override
                         public void onFail(int errCode, String errMsg) {
                             WeiboDialogUtils.closeDialog(dialog);
-                            toToast(ArticleCommentActivity.this, "评论失败："+errCode+"//"+errMsg);
-                            isComment = true;
+                            toToast(ArticleCommentActivity.this, "回复失败："+errCode+"//"+errMsg);
+//                            isComment = true;
+//                            emotionMainFragment.setHint("请输入评论...");
                         }
                     });
         }

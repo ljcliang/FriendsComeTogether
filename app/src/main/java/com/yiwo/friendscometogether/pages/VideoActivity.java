@@ -145,7 +145,9 @@ public class VideoActivity extends FragmentActivity {
             public void onReply(int position, String id) {
                 vcID = id;
                 vPostion = position;
+                isComment = false;
                 emotionMainFragment.showKeyBoard();
+                emotionMainFragment.setHint("回复:"+data_pinglun.get(position).getUsername());
             }
         });
         articleCommentVideoAdapter.setDeletePinLunLis(new ArticleCommentVideoAdapter.OnDeletePinLun() {
@@ -398,9 +400,13 @@ public class VideoActivity extends FragmentActivity {
             @Override
             public void onCommitListen(String string) {
                 if (TextUtils.isEmpty(string)) {
-                    toToast(VideoActivity.this, "请输入评论内容");
+                    toToast(VideoActivity.this, "请输入内容");
                 } else {
-                    toComment(string);
+                    if (isComment){
+                        toComment(string);
+                    }else {
+                        toReplay(emotionMainFragment.getEdt(),vcID,vPostion);
+                    }
                 }
             }
         });
@@ -523,6 +529,7 @@ public class VideoActivity extends FragmentActivity {
         emotionMainFragment.goneKeyboard();
 //        emotionMainFragment.clearEdt();
         isComment = true;
+        emotionMainFragment.setHint("请输入评论...");
 //        /设置动画，从自身位置的最下端向上滑动了自身的高度，持续时间为500ms
         final TranslateAnimation ctrlAnimation = new TranslateAnimation(
                 TranslateAnimation.RELATIVE_TO_SELF, 0, TranslateAnimation.RELATIVE_TO_SELF, 0,
@@ -611,6 +618,7 @@ public class VideoActivity extends FragmentActivity {
                                 articleCommentVideoAdapter.notifyDataSetChanged();
                                 rv_pinglun.scrollToPosition(pingLunPostion);
                                 isComment = true;
+                                emotionMainFragment.setHint("请输入评论...");
                                 emotionMainFragment.clearEdt();
                             }else {
                                 toToast(VideoActivity.this, "回复失败");

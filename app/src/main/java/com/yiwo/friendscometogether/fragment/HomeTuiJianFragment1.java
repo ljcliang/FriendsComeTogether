@@ -22,7 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -44,16 +43,13 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.network.NetConfig;
-import com.yiwo.friendscometogether.newadapter.HomeTuiJianXinPinShangJiaAdapter;
+import com.yiwo.friendscometogether.newadapter.HomeTuiJian_DuiZhangPuZi_Adapter;
+import com.yiwo.friendscometogether.newadapter.HomeTuiJian_JianTuShiKe_Adapter;
 import com.yiwo.friendscometogether.newadapter.HomeTuiJian_JingCaiLuXian_Adapter;
-import com.yiwo.friendscometogether.newadapter.HomeTuiJian_ReMenDuiZhang_new_Adapter;
-import com.yiwo.friendscometogether.newadapter.HomeTuiJian_ReMenZhaoMu_Adapter;
-import com.yiwo.friendscometogether.newadapter.Home_TuiJian_YouJiShiPin_Adapter;
-import com.yiwo.friendscometogether.newadapter.ReMenZhaoMuTabAdapter;
-import com.yiwo.friendscometogether.newadapter.ZiXunTouTiaoAdapter;
+import com.yiwo.friendscometogether.newadapter.HomeTuiJian_ReMenDuiZhang_Adapter;
+import com.yiwo.friendscometogether.newadapter.HomeTuiJian_YouJiShiPin_Adapter;
 import com.yiwo.friendscometogether.newmodel.HomeTuiJianModel;
 import com.yiwo.friendscometogether.newmodel.HomeTuiJianYouJiShiPinModel;
-import com.yiwo.friendscometogether.newmodel.ReMenZhaoMuTabModel;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
@@ -75,7 +71,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public class HomeTuiJianFragment extends BaseFragment {
+public class HomeTuiJianFragment1 extends BaseFragment {
 
     View rootView;
     @BindView(R.id.refresh_layout)
@@ -91,20 +87,11 @@ public class HomeTuiJianFragment extends BaseFragment {
     private List<String> listBannerImages = new ArrayList<>();
     private XBanner banner;
 
-    //资讯头条
-    RecyclerView rvZiXunTouTiao;
-    private List<String> listZiXunTouTiao = new ArrayList<>();
-    private ZiXunTouTiaoAdapter ziXunTouTiaoAdapter;
-
-    //热门招募 tab
-    RecyclerView rvRemenzhaomuTab;
-    private List<ReMenZhaoMuTabModel> listRemenTab = new ArrayList<>();
-    private ReMenZhaoMuTabAdapter reMenZhaoMuTabAdapter;
 
     //推荐
     private RelativeLayout rlJianTuShiKe;
     RecyclerView rvTuJianShiKe;
-    private HomeTuiJian_ReMenZhaoMu_Adapter jianTuShiKeAdapter;
+    private HomeTuiJian_JianTuShiKe_Adapter jianTuShiKeAdapter;
     private List<HomeTuiJianModel.ObjBean.YouJiBean> listJianTuShiKe = new ArrayList<>();
 
     private RelativeLayout rlJingCaiLuXian;
@@ -114,26 +101,26 @@ public class HomeTuiJianFragment extends BaseFragment {
 
     private RelativeLayout rlRenMenDuiZHang;
     RecyclerView rvReMenDuiZhang;
-    private HomeTuiJian_ReMenDuiZhang_new_Adapter reMenDuiZhangAdapter;
+    private HomeTuiJian_ReMenDuiZhang_Adapter reMenDuiZhangAdapter;
     private List<HomeTuiJianModel.ObjBean.CaptainBeanX> listReMenDuiZhang = new ArrayList<>();
 
     private RelativeLayout rlDuiZhangPuZi;
     RecyclerView rvDuizhangPuZi;
-    private HomeTuiJianXinPinShangJiaAdapter duiZhangPuZiAdapter;
+    private HomeTuiJian_DuiZhangPuZi_Adapter duiZhangPuZiAdapter;
     private List<HomeTuiJianModel.ObjBean.GoodsBean> listDuiZhangPuZi = new ArrayList<>();
 
     private RelativeLayout rlYouJiShiPin;
     RecyclerView rvYouJiShiPin;
-    private Home_TuiJian_YouJiShiPin_Adapter youJiShiPinAdapter;
+    private HomeTuiJian_YouJiShiPin_Adapter youJiShiPinAdapter;
     private List<HomeTuiJianYouJiShiPinModel.ObjBean> listYouJiShiPin = new ArrayList<>();
     private int page1 = 1;
-    private HomeTuiJianFragment.PreLoadWebYouJiBroadcastReceiver preLoadWebYouJiBroadcastReceiver = new HomeTuiJianFragment.PreLoadWebYouJiBroadcastReceiver();
+    private HomeTuiJianFragment1.PreLoadWebYouJiBroadcastReceiver preLoadWebYouJiBroadcastReceiver = new HomeTuiJianFragment1.PreLoadWebYouJiBroadcastReceiver();
 
 
-    public static HomeTuiJianFragment newInstance(String cityName){//status  不传或传100 全部     传1待处理  2已处理   3已完成   4退款
+    public static HomeTuiJianFragment1 newInstance(String cityName){//status  不传或传100 全部     传1待处理  2已处理   3已完成   4退款
         Bundle args = new Bundle();
         args.putString(CITY_NAME_KEY, cityName);
-        HomeTuiJianFragment fragment = new HomeTuiJianFragment();
+        HomeTuiJianFragment1 fragment = new HomeTuiJianFragment1();
         fragment.setArguments(args);
         return fragment;
     }
@@ -289,48 +276,6 @@ public class HomeTuiJianFragment extends BaseFragment {
         listBanner.add(bannerBean);
         listBanner.add(bannerBean);
         initBanner(banner,listBannerImages);
-
-        //资讯头条
-        rvZiXunTouTiao = view2.findViewById(R.id.rv_zixuntoutiao);
-        LinearLayoutManager managerZiXunTouTiao = new LinearLayoutManager(getContext()){
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        rvZiXunTouTiao.setLayoutManager(managerZiXunTouTiao);
-        listZiXunTouTiao.add("防止疫情“复燃”，要提升基层治理能力，当前新冠病毒肺炎疫情全国范围已经基本可控，但个别地..");
-        ziXunTouTiaoAdapter = new ZiXunTouTiaoAdapter(listZiXunTouTiao);
-        rvZiXunTouTiao.setAdapter(ziXunTouTiaoAdapter);
-
-        //热门招募
-        rvRemenzhaomuTab = view2.findViewById(R.id.rv_remenzhaomu_tab);
-        LinearLayoutManager managerRemenzhaomuTab = new LinearLayoutManager(getContext());
-        managerRemenzhaomuTab.setOrientation(LinearLayoutManager.HORIZONTAL);
-        rvRemenzhaomuTab.setLayoutManager(managerRemenzhaomuTab);
-        for (int i = 0 ;i<3;i++){
-            ReMenZhaoMuTabModel model = new ReMenZhaoMuTabModel();
-            model.setName("巴厘岛--"+i);
-            if (i == 0){
-                model.setSelect(true);
-            }else {
-                model.setSelect(false);
-            }
-            listRemenTab.add(model);
-        }
-        reMenZhaoMuTabAdapter = new ReMenZhaoMuTabAdapter(listRemenTab);
-        reMenZhaoMuTabAdapter.setListener(new ReMenZhaoMuTabAdapter.OnSelectLabelListener() {
-            @Override
-            public void onSelete(int i) {
-                for (ReMenZhaoMuTabModel reMenZhaoMuTabModel: listRemenTab){
-                    reMenZhaoMuTabModel.setSelect(false);
-                }
-                listRemenTab.get(i).setSelect(true);
-                reMenZhaoMuTabAdapter.notifyDataSetChanged();
-            }
-        });
-        rvRemenzhaomuTab.setAdapter(reMenZhaoMuTabAdapter);
-
         //途荐时刻
         rlJianTuShiKe = view2.findViewById(R.id.rl_jiantushike);
         rvTuJianShiKe = view2.findViewById(R.id.rv_tuijianshike);
@@ -340,12 +285,11 @@ public class HomeTuiJianFragment extends BaseFragment {
                 return false;
             }
         };
-        managerTuiJianShiKe.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvTuJianShiKe.setLayoutManager(managerTuiJianShiKe);
         HomeTuiJianModel.ObjBean.YouJiBean bean = new HomeTuiJianModel.ObjBean.YouJiBean();
         listJianTuShiKe.add(bean);
         listJianTuShiKe.add(bean);
-        jianTuShiKeAdapter =  new HomeTuiJian_ReMenZhaoMu_Adapter(listJianTuShiKe);
+        jianTuShiKeAdapter =  new HomeTuiJian_JianTuShiKe_Adapter(listJianTuShiKe);
         rvTuJianShiKe.setAdapter(jianTuShiKeAdapter);
 
 
@@ -389,26 +333,14 @@ public class HomeTuiJianFragment extends BaseFragment {
         //热门队长
         rlRenMenDuiZHang = view2.findViewById(R.id.rl_renmenduizhang);
         rvReMenDuiZhang = view2.findViewById(R.id.rv_remenduizhang);
-//        StaggeredGridLayoutManager mLayoutManagerReMenDuiZhang = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL){
-//            @Override
-//            public boolean canScrollVertically() {
-//                return false;
-//            }
-//        };
-        LinearLayoutManager mLayoutManagerReMenDuiZhang = new LinearLayoutManager(getContext()){
+        StaggeredGridLayoutManager mLayoutManagerReMenDuiZhang = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL){
             @Override
             public boolean canScrollVertically() {
                 return false;
             }
-
-            @Override
-            public boolean canScrollHorizontally() {
-                return true;
-            }
         };
-        mLayoutManagerReMenDuiZhang.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvReMenDuiZhang.setLayoutManager(mLayoutManagerReMenDuiZhang);
-        reMenDuiZhangAdapter = new HomeTuiJian_ReMenDuiZhang_new_Adapter(listReMenDuiZhang);
+        reMenDuiZhangAdapter = new HomeTuiJian_ReMenDuiZhang_Adapter(listReMenDuiZhang);
         rvReMenDuiZhang.setAdapter(reMenDuiZhangAdapter);
 
         //队长铺子
@@ -420,21 +352,21 @@ public class HomeTuiJianFragment extends BaseFragment {
                 return false;
             }
         };
-        managerDuiZhangPuZi.setOrientation(LinearLayoutManager.HORIZONTAL);
+        managerDuiZhangPuZi.setOrientation(LinearLayoutManager.VERTICAL);
         rvDuizhangPuZi.setLayoutManager(managerDuiZhangPuZi);
-        duiZhangPuZiAdapter =  new HomeTuiJianXinPinShangJiaAdapter(listDuiZhangPuZi);
+        duiZhangPuZiAdapter =  new HomeTuiJian_DuiZhangPuZi_Adapter(listDuiZhangPuZi);
         rvDuizhangPuZi.setAdapter(duiZhangPuZiAdapter);
 
         //友记文章视频
         rlYouJiShiPin = view2.findViewById(R.id.rl_youji_shipin);
         rvYouJiShiPin = view2.findViewById(R.id.rv_youjishipin);
-        StaggeredGridLayoutManager managerYouJiShiPin = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL){
+        LinearLayoutManager managerYouJiShiPin = new LinearLayoutManager(getContext()){
             @Override
             public boolean canScrollVertically() {
                 return false;
             }
         };
-        youJiShiPinAdapter = new Home_TuiJian_YouJiShiPin_Adapter(listYouJiShiPin);
+        youJiShiPinAdapter = new HomeTuiJian_YouJiShiPin_Adapter(listYouJiShiPin);
         rvYouJiShiPin.setLayoutManager(managerYouJiShiPin);
         rvYouJiShiPin.setAdapter(youJiShiPinAdapter);
         refreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
@@ -584,8 +516,8 @@ public class HomeTuiJianFragment extends BaseFragment {
 //                                        if (listYouJiShiPin.size()>50){
 //                                            listYouJiShiPin.removeAll(listYouJiShiPin.subList(0,model.getObj().size()-1));
 //                                        }
-//                                        listYouJiShiPin.addAll(model.getObj());
-//                                        youJiShiPinAdapter.notifyDataSetChanged();
+                                        listYouJiShiPin.addAll(model.getObj());
+                                        youJiShiPinAdapter.notifyDataSetChanged();
                                         if (model.getObj().size()>0){
                                             listYouJiShiPin.addAll(model.getObj());
                                             preLoadYouJi_tuijain_list(model.getObj());
@@ -645,10 +577,7 @@ public class HomeTuiJianFragment extends BaseFragment {
             @Override
             public void loadBanner(XBanner banner, Object model, View view, int position) {
                 ImageView imageView = (ImageView) view.findViewById(R.id.iv);
-                TextView textView = (TextView) view.findViewById(R.id.tv_banner_text);
                 imageView.setTag(null);
-                textView.setTag(null);
-                textView.setText(listBanner.get(position).getTitle()+"//"+position);
                 Glide.with(getContext()).load(listBanner.get(position).getPic()).apply(new RequestOptions().error(R.mipmap.zanwutupian).placeholder(R.mipmap.zanwutupian)).into(imageView);
             }
         });
