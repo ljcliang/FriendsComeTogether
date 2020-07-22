@@ -8,14 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.newmodel.NewHomeTuiJian;
 
 import java.util.List;
 
 public class ZiXunTouTiaoAdapter extends RecyclerView.Adapter<ZiXunTouTiaoAdapter.ViewHolder> {
     private Context context;
-    private List<String> data ;
-    public ZiXunTouTiaoAdapter(List<String> list){
+    private List<NewHomeTuiJian.ObjBean.ZxBean> data ;
+    public ZiXunTouTiaoAdapter(List<NewHomeTuiJian.ObjBean.ZxBean> list){
         this.data = list;
     }
     @Override
@@ -28,7 +31,18 @@ public class ZiXunTouTiaoAdapter extends RecyclerView.Adapter<ZiXunTouTiaoAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.tv_title.setText(data.get(position));
+        holder.tv_title.setText(data.get(position).getFmtitle());
+        if (data.get(position).getPic().size()>0){
+            Glide.with(context).load(data.get(position).getPic().get(0)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv0);
+        }
+        if (data.get(position).getPic().size()>1){
+            Glide.with(context).load(data.get(position).getPic().get(1)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv1);
+        }
+        if (data.get(position).getPic().size()>2){
+            Glide.with(context).load(data.get(position).getPic().get(2)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv2);
+        }
+        holder.tv_look_num.setText(data.get(position).getFmlook());
+        holder.tv_pinglun_num.setText(data.get(position).getFmcomment());
     }
 
     @Override

@@ -22,6 +22,7 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newmodel.HomeTuiJianModel;
 import com.yiwo.friendscometogether.newmodel.HomeTuiJianYouJiShiPinModel;
+import com.yiwo.friendscometogether.newmodel.NewHomeTuiJian;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.pages.ArticleCommentActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
@@ -44,9 +45,9 @@ import java.util.List;
 
 public class HomeTuiJian_ReMenZhaoMu_Adapter extends RecyclerView.Adapter<HomeTuiJian_ReMenZhaoMu_Adapter.ViewHolder>{
     private Context context;
-    private List<HomeTuiJianModel.ObjBean.YouJiBean> data;
+    private List<NewHomeTuiJian.ObjBean.ZmListBean.YjListBean> data;
     private SpImp spImp;
-    public HomeTuiJian_ReMenZhaoMu_Adapter(List<HomeTuiJianModel.ObjBean.YouJiBean> data){
+    public HomeTuiJian_ReMenZhaoMu_Adapter(List<NewHomeTuiJian.ObjBean.ZmListBean.YjListBean> data){
         this.data = data;
     }
     @Override
@@ -62,6 +63,8 @@ public class HomeTuiJian_ReMenZhaoMu_Adapter extends RecyclerView.Adapter<HomeTu
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Intent intent = new Intent();
+        holder.ll_zhaomuzhong.setVisibility(!TextUtils.isEmpty(data.get(position).getSign()) ? View.VISIBLE:View.GONE);
+        holder.tv_zhaomuzhong.setText(data.get(position).getSign());
         holder.tv_name.setText(data.get(position).getUsername());
         holder.tv_level.setText("Lv."+data.get(position).getUsergrade());
         holder.tv_address.setText(data.get(position).getFmaddress());
@@ -291,6 +294,8 @@ public class HomeTuiJian_ReMenZhaoMu_Adapter extends RecyclerView.Adapter<HomeTu
         LinearLayout ll_pinglun_comment1,ll_pinglun_comment2,ll_pinlun,ll_xiangguan_huodong,ll_canyuxiezuo,ll_all;
         RelativeLayout rl_guanzhu;
         int smallIvWidth;
+        LinearLayout ll_zhaomuzhong;
+        TextView tv_zhaomuzhong;
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -357,6 +362,8 @@ public class HomeTuiJian_ReMenZhaoMu_Adapter extends RecyclerView.Adapter<HomeTu
                     iv_small_3.setLayoutParams(layoutParams);
                 }
             });
+            ll_zhaomuzhong = itemView.findViewById(R.id.ll_zhaomuzhong);
+            tv_zhaomuzhong = itemView.findViewById(R.id.tv_zhaomuzhong);
         }
     }
 }

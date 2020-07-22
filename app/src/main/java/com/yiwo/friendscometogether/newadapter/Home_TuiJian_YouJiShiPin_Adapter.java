@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class Home_TuiJian_YouJiShiPin_Adapter extends RecyclerView.Adapter<Home_
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_home_youji_0407_item, parent, false);
 //        ScreenAdapterTools.getInstance().loadView(view);
         Home_TuiJian_YouJiShiPin_Adapter.ViewHolder holder = new Home_TuiJian_YouJiShiPin_Adapter.ViewHolder(view);
+        Log.d("jaizai,","00000");
         return holder;
     }
 

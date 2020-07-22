@@ -456,6 +456,8 @@ public class NetConfig {
     ///新首页
     //action/ac_newHome/tuijian   传uid用户id home推荐接口 city 城市
     public static String homeTuiJian = "action/ac_newHome/tuijian";
+    //action/ac_newHome/recommend   返回  新增   zmList 热门招募     ad 广告     zx资讯
+    public static String recommend = "action/ac_newHome/recommend";
     //action/ac_newHome/yj_video  游记视频接口  传uid  page分页
     public static String yj_video = "action/ac_newHome/yj_video";
     //action/ac_newHome/homePageGz action/ac_newHome/homePageGz   首页关注接口  传uid用户id
