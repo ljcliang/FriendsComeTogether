@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/activity_details_of_friends_rl_top"
         style="@style/rl_top_bar">
 

@@ -1,8 +1,10 @@
 package com.yiwo.friendscometogether.webpages;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
@@ -32,15 +34,24 @@ public class ShopGoodsDetailsWebActivity extends BaseSonicWebActivity {
     private String url;
     private Unbinder unbinder;
     private SpImp spImp;
+    public static final String GOOD_ID_KEY = "goodId";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_goods_details);
         spImp = new SpImp(this);
         unbinder = ButterKnife.bind(this);
-        url = getIntent().getStringExtra("url");
+        url = "http://www.tongbanapp.com/index.php/action/ac_goods/goodsInfo?goodsID="+getIntent().getStringExtra(GOOD_ID_KEY)+"&uid="+spImp.getUID();
+        Log.d("asdasd",url);
+//        url = getIntent().getStringExtra("url");
         initIntentSonic(url,webView);
         webView.addJavascriptInterface(new ShopGoodsDetailsWebActivity.AndroidInterface(),"android");//交互
+    }
+    public static void open(Context context,String goodId){
+        Intent intent = new Intent();
+        intent.putExtra(GOOD_ID_KEY,goodId);
+        intent.setClass(context,ShopGoodsDetailsWebActivity.class);
+        context.startActivity(intent);
     }
     public class AndroidInterface extends Object{
 

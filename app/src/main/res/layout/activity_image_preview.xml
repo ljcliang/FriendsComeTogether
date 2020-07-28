@@ -42,7 +42,7 @@
 
     </RelativeLayout>
     <RelativeLayout
-        android:paddingBottom="30dp"
+        android:paddingBottom="40dp"
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
@@ -50,7 +50,7 @@
         android:id="@+id/rl_content"
         android:background="#80000000"
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="200dp">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -58,7 +58,7 @@
                 android:id="@+id/tv_content"
                 android:textColor="@color/white_ffffff"
                 android:textSize="15sp"
-                android:text="上且该Apk的版本是高于本App的版本，此时我们就去执行安装操作。如果上面条件不成立，此时再去执行下载操作。"
+                android:text=""
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </ScrollView>

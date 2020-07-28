@@ -124,7 +124,7 @@ public class HomeShopGoodsFragment extends BaseFragment {
                                 StaggeredGridLayoutManager mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL){
                                     @Override
                                     public boolean canScrollVertically() {
-                                        return false;
+                                        return true;
                                     }
                                 };
                                 rv_youpu.setLayoutManager(mLayoutManager);

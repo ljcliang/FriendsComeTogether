@@ -186,29 +186,23 @@ public class HomeFragment4 extends BaseFragment {
             public void onPageSelected(int position) {
                 switch (position){
                     case 0:
-                        if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
-                            tvRl1.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),58));
-                            tvRl2.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
-                            tvRl3.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
-                            tvRl1.setTextColor(Color.parseColor("#333333"));
-                            tvRl2.setTextColor(Color.parseColor("#999999"));
-                            tvRl3.setTextColor(Color.parseColor("#999999"));
+                        tvRl1.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),58));
+                        tvRl2.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
+                        tvRl3.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
+                        tvRl1.setTextColor(Color.parseColor("#333333"));
+                        tvRl2.setTextColor(Color.parseColor("#999999"));
+                        tvRl3.setTextColor(Color.parseColor("#999999"));
 //                            rl_top.setBackgroundColor(Color.parseColor("#ffffff"));
-    //                        tvRl1.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-    //                        tvRl2.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-    //                        tvRl3.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-    //                        tvRl4.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
-                            v1.setVisibility(View.VISIBLE);
-                            v2.setVisibility(View.GONE);
-                            v3.setVisibility(View.GONE);
-                        } else {
-                            Intent intent = new Intent();
-                            intent.setClass(getContext(), LoginActivity.class);
-                            startActivity(intent);
-                            viewPager.setCurrentItem(1);
-                        }
+                        //                        tvRl1.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                        //                        tvRl2.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                        //                        tvRl3.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                        //                        tvRl4.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
+                        v1.setVisibility(View.VISIBLE);
+                        v2.setVisibility(View.GONE);
+                        v3.setVisibility(View.GONE);
                         break;
                     case 1:
+                        if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
                             tvRl1.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
                             tvRl2.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),58));
                             tvRl3.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
@@ -223,6 +217,12 @@ public class HomeFragment4 extends BaseFragment {
                             v1.setVisibility(View.GONE);
                             v2.setVisibility(View.VISIBLE);
                             v3.setVisibility(View.GONE);
+                        } else {
+                            Intent intent = new Intent();
+                            intent.setClass(getContext(), LoginActivity.class);
+                            startActivity(intent);
+                            viewPager.setCurrentItem(0);
+                        }
                         break;
                     case 2:
                         tvRl1.setTextSize(TypedValue.COMPLEX_UNIT_SP, AndTools.px2sp(getContext(),50));
@@ -412,17 +412,17 @@ public class HomeFragment4 extends BaseFragment {
                 }
                 break;
             case R.id.rl1:
+                type = "1";
+                viewPager.setCurrentItem(0);
+                break;
+            case R.id.rl2:
                 if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
-                    type = "1";
-                    viewPager.setCurrentItem(0);
+                    viewPager.setCurrentItem(1);
+                    type = "2";
                 } else {
                     intent.setClass(getContext(), LoginActivity.class);
                     startActivity(intent);
                 }
-                break;
-            case R.id.rl2:
-                viewPager.setCurrentItem(1);
-                type = "2";
                 break;
             case R.id.rl3:
                 viewPager.setCurrentItem(2);

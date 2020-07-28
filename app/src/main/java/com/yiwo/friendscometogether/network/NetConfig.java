@@ -505,4 +505,10 @@ public class NetConfig {
     public static String insertGoodsOrder = "action/ac_goods/insertGoodsOrder";
     //fabushangpinmessage
     public static String addGoodsMes = "action/ac_goods/addGoodsMes";
+//    action/ac_newHome/homePageSkipList    传type  0最新招募  1文旅资讯  2经典打卡     page分页   uid用户id
+    public static String homePageSkipList = "action/ac_newHome/homePageSkipList";
+//    action/ac_article/articleInfo 传type  0最新招募  1文旅资讯  2经典打卡     page分页   uid用户id
+    public static String articleInfo = "action/ac_article/articleInfo";
+//    action/ac_newHome/homePageSkipGoods   商品列表   传uid 用户id    type  0免税商品  1特价商品
+public static String homePageSkipGoods = "action/ac_newHome/homePageSkipGoods";
 }

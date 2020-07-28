@@ -31,6 +31,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -45,15 +46,18 @@ import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.dbmodel.LookHistoryDbModel;
 import com.yiwo.friendscometogether.dbmodel.UserGiveModel;
 import com.yiwo.friendscometogether.emoji.EmotionMainFragment;
+import com.yiwo.friendscometogether.emoji.ScreenUtils;
 import com.yiwo.friendscometogether.greendao.gen.DaoMaster;
 import com.yiwo.friendscometogether.greendao.gen.DaoSession;
 import com.yiwo.friendscometogether.greendao.gen.LookHistoryDbModelDao;
 import com.yiwo.friendscometogether.greendao.gen.UserGiveModelDao;
 import com.yiwo.friendscometogether.imagepreview.Consts;
 import com.yiwo.friendscometogether.imagepreview.ImagePreviewActivity;
+import com.yiwo.friendscometogether.imagepreview.StatusBarUtils;
 import com.yiwo.friendscometogether.model.ActiveShareModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.MuLuItemYouJiAdapter;
+import com.yiwo.friendscometogether.newmodel.LocalWebInfoModel;
 import com.yiwo.friendscometogether.newmodel.YouJiWebModel;
 import com.yiwo.friendscometogether.newpage.JuBaoActivity;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
@@ -61,6 +65,7 @@ import com.yiwo.friendscometogether.pages.ArticleCommentActivity;
 import com.yiwo.friendscometogether.pages.InsertIntercalationActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.VideoActivity;
+import com.yiwo.friendscometogether.pages.WelcomeActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.tongban_emoticon.TbEmoticonFragment;
 import com.yiwo.friendscometogether.utils.ShareUtils;
@@ -125,7 +130,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
 
     private TbEmoticonFragment emotionMainFragment;
 
-
+    private boolean isFirst = true;
     private Dialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,26 +138,66 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
         setContentView(R.layout.activity_details_of_friends_web);
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
         ButterKnife.bind(this);
+        StatusBarUtils.setStatusBarTransparent(DetailsOfFriendsWebActivity.this);
         fmID= getIntent().getStringExtra("fmid");
         spImp = new SpImp(DetailsOfFriendsWebActivity.this);
         uid = spImp.getUID();
-        url = NetConfig.BaseUrl+"action/ac_article/youJiWeb?id="+fmID+"&uid="+uid;
+//        url = NetConfig.BaseUrl+"action/ac_article/youJiWeb?id="+fmID+"&uid="+uid;
+        url = "file:///android_asset/htmlfile/demoJ.html";
         initWebView(webView,url);
         initIntentSonic(url,webView);
         setDatabase();
         userGiveModelDao =  mDaoSession.getUserGiveModelDao();
         lookHistoryDbModelDao = mDaoSession.getLookHistoryDbModelDao();
         Log.d("aaaa",url);
+
         webView.setWebChromeClient(new WebChromeClient(){
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
                 if(newProgress==100){
                     progresss_bar.setVisibility(View.GONE);//加载完网页进度条消失
-                    }else{
+                    if (isFirst){
+                        isFirst = false;
+                        String strr1 = getIntent().getStringExtra("str");
+                        String strr2 = "";
+                        String strr3 = "0";
+                        Log.d("adsadasd",strr1+""+strr2+""+strr3);
+                        webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+//                        ViseHttp.POST(NetConfig.articleInfo)
+//                                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
+//                                .addParam("uid", spImp.getUID())
+//                                .addParam("fmID",fmID)
+//                                .addParam("type","0")
+//                                .request(new ACallback<String>() {
+//                                    @Override
+//                                    public void onSuccess(String data) {
+//                                        try {
+//                                            JSONObject jsonObject = new JSONObject(data);
+//                                            if (jsonObject.getInt("code") == 200){
+//                                                Gson gson = new Gson();
+//                                                LocalWebInfoModel mode =  gson.fromJson(data,LocalWebInfoModel.class);
+//                                                String strr1 = mode.getObj().getStr();
+//                                                String strr2 = "";
+//                                                String strr3 = "0";
+//                                                Log.d("adsadasd",strr1+""+strr2+""+strr3);
+//                                                webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+//                                            }
+//                                        } catch (JSONException e) {
+//                                            e.printStackTrace();
+//                                        }
+//                                    }
+//
+//                                    @Override
+//                                    public void onFail(int errCode, String errMsg) {
+//
+//                                    }
+//                                });
+                    }
+                }else{
                     progresss_bar.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
                     progresss_bar.setProgress(newProgress);//设置进度值				}
-                    }
+                }
             }
         });
         webView.addJavascriptInterface(new AndroidInterface(),"android");//交互

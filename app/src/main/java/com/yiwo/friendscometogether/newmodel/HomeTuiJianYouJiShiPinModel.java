@@ -67,6 +67,7 @@ public class HomeTuiJianYouJiShiPinModel {
          * inPersonNum : 1
          * inPerson : [{"userID":"133","userpic":"http://www.tongbanapp.com/uploads/header/2020/01/10/2d97242b826a618467a34c643b1a2e9c15786299672.png"}]
          */
+        private String strInfo = "";
 
         private String fmpartyID;
         private String fmpic;
@@ -265,6 +266,14 @@ public class HomeTuiJianYouJiShiPinModel {
 
         public void setIfCaptain(String ifCaptain) {
             this.ifCaptain = ifCaptain;
+        }
+
+        public String getStrInfo() {
+            return strInfo;
+        }
+
+        public void setStrInfo(String strInfo) {
+            this.strInfo = strInfo;
         }
 
         public static class PlListBean {

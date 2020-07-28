@@ -177,7 +177,10 @@ public class BaseSonicWebActivity extends BaseActivity {
         webSettings.setSaveFormData(false);
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            webView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
 
+        }
 
         // webview is ready now, just tell session client to bind
         if (sonicSessionClient != null) {

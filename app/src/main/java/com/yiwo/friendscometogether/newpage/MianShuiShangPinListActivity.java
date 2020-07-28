@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,11 +22,10 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.network.NetConfig;
-import com.yiwo.friendscometogether.newadapter.hometuijian_five_list.WenLvZiXunAdapter;
-import com.yiwo.friendscometogether.newadapter.hometuijian_five_list.ZuiXinZhaoMu_Adapter;
-import com.yiwo.friendscometogether.newmodel.HomePageSkipListModel;
+import com.yiwo.friendscometogether.newadapter.hometuijian_five_list.MianShuiShangPin_Adapter;
+import com.yiwo.friendscometogether.newmodel.HomePageSkipGoodsModel;
 import com.yiwo.friendscometogether.sp.SpImp;
-import com.yiwo.friendscometogether.utils.ExStaggeredGridLayoutManager;
+import com.yiwo.friendscometogether.widget.FullyLinearLayoutManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,46 +37,34 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ZiXunListActivity extends BaseActivity {
-
+public class MianShuiShangPinListActivity extends BaseActivity {
 
     @BindView(R.id.rl_back)
     RelativeLayout rlBack;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
     private SpImp spImp;
-    private List<HomePageSkipListModel.ObjBean.InfoListBean> list = new ArrayList<>();
-    RecyclerView.Adapter adapter;
+    private List<HomePageSkipGoodsModel.ObjBean> list = new ArrayList<>();
+    MianShuiShangPin_Adapter adapter;
     public static final String LIST_TYPE = "list_type";
     private int page = 1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_zi_xun_list);
+        setContentView(R.layout.activity_mian_shui_shang_pin);
         ButterKnife.bind(this);
         spImp = new SpImp(this);
         initView();
         initData();
     }
 
-    /**
-     * @param type 传type  0最新招募  1文旅资讯  2经典打卡
-     */
-    public static void open(Context context, String type) {
-        Intent intent = new Intent();
-        intent.putExtra(LIST_TYPE, type);
-        intent.setClass(context, ZiXunListActivity.class);
-        context.startActivity(intent);
-    }
-
     private void initData() {
-        ViseHttp.POST(NetConfig.homePageSkipList)
-                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.homePageSkipList))
+        ViseHttp.POST(NetConfig.homePageSkipGoods)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.homePageSkipGoods))
                 .addParam("uid", spImp.getUID())
                 .addParam("type", getIntent().getStringExtra(LIST_TYPE))
                 .request(new ACallback<String>() {
@@ -88,9 +74,9 @@ public class ZiXunListActivity extends BaseActivity {
                             JSONObject jsonObject = new JSONObject(data);
                             if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
-                                HomePageSkipListModel model = gson.fromJson(data, HomePageSkipListModel.class);
+                                HomePageSkipGoodsModel model = gson.fromJson(data, HomePageSkipGoodsModel.class);
                                 list.clear();
-                                list.addAll(model.getObj().getInfoList());
+                                list.addAll(model.getObj());
                                 adapter.notifyDataSetChanged();
                                 page = 2;
                             }
@@ -108,39 +94,35 @@ public class ZiXunListActivity extends BaseActivity {
 
     }
 
+    /**
+     *
+     * @param context
+     * @param type  type  0免税商品  1特价商品
+     */
+    public static void open(Context context, String type) {
+        Intent intent = new Intent();
+        intent.putExtra(LIST_TYPE, type);
+        intent.setClass(context, MianShuiShangPinListActivity.class);
+        context.startActivity(intent);
+    }
     private void initView() {
-
-        switch (getIntent().getStringExtra(LIST_TYPE)) {
-            case "0"://0最新招募
-                ExStaggeredGridLayoutManager manager0 = new ExStaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL) {
-                    @Override
-                    public boolean canScrollVertically() {
-                        return true;
-                    }
-                };
-                adapter = new ZuiXinZhaoMu_Adapter(list);
-                tvTitle.setText("最新招募");
-                rv.setLayoutManager(manager0);
+        switch (getIntent().getStringExtra(LIST_TYPE)){
+            case "0":
+                tvTitle.setText("免税商品");
                 break;
-            case "1"://1文旅资讯
-                LinearLayoutManager manager1 = new LinearLayoutManager(this);
-                manager1.setOrientation(LinearLayoutManager.VERTICAL);
-                adapter = new WenLvZiXunAdapter(list);
-                tvTitle.setText("文旅资讯");
-                rv.setLayoutManager(manager1);
-                break;
-            case "2"://2经典打卡
-                ExStaggeredGridLayoutManager manager2 = new ExStaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL) {
-                    @Override
-                    public boolean canScrollVertically() {
-                        return true;
-                    }
-                };
-                adapter = new ZuiXinZhaoMu_Adapter(list);
-                tvTitle.setText("经典打卡");
-                rv.setLayoutManager(manager2);
+            case "1":
+                tvTitle.setText("特价补位");
                 break;
         }
+        // /设置布局管理器为2列，纵向
+        StaggeredGridLayoutManager managerDuiZhangPuZi = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL){
+            @Override
+            public boolean canScrollVertically() {
+                return true;
+            }
+        };
+        rv.setLayoutManager(managerDuiZhangPuZi);
+        adapter = new MianShuiShangPin_Adapter(list);
         rv.setAdapter(adapter);
         refreshLayout.setRefreshHeader(new ClassicsHeader(this));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -154,8 +136,8 @@ public class ZiXunListActivity extends BaseActivity {
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                ViseHttp.POST(NetConfig.homePageSkipList)
-                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.homePageSkipList))
+                ViseHttp.POST(NetConfig.homePageSkipGoods)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.homePageSkipGoods))
                         .addParam("uid", spImp.getUID())
                         .addParam("type", getIntent().getStringExtra(LIST_TYPE))
                         .addParam("page", page + "")
@@ -166,8 +148,8 @@ public class ZiXunListActivity extends BaseActivity {
                                     JSONObject jsonObject = new JSONObject(data);
                                     if (jsonObject.getInt("code") == 200) {
                                         Gson gson = new Gson();
-                                        HomePageSkipListModel model = gson.fromJson(data, HomePageSkipListModel.class);
-                                        list.addAll(model.getObj().getInfoList());
+                                        HomePageSkipGoodsModel model = gson.fromJson(data, HomePageSkipGoodsModel.class);
+                                        list.addAll(model.getObj());
                                         adapter.notifyDataSetChanged();
                                         page++;
                                     }
@@ -189,11 +171,7 @@ public class ZiXunListActivity extends BaseActivity {
     }
 
     @OnClick(R.id.rl_back)
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.rl_back:
-                onBackPressed();
-                break;
-        }
+    public void onViewClicked() {
+        onBackPressed();
     }
 }

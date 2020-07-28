@@ -55,9 +55,12 @@ import com.yiwo.friendscometogether.newadapter.ReMenZhaoMuTabAdapter;
 import com.yiwo.friendscometogether.newadapter.ZiXunTouTiaoAdapter;
 import com.yiwo.friendscometogether.newmodel.HomeTuiJianModel;
 import com.yiwo.friendscometogether.newmodel.HomeTuiJianYouJiShiPinModel;
+import com.yiwo.friendscometogether.newmodel.LocalWebInfoModel;
 import com.yiwo.friendscometogether.newmodel.NewHomeTuiJian;
 import com.yiwo.friendscometogether.newmodel.ReMenZhaoMuTabModel;
+import com.yiwo.friendscometogether.newpage.MianShuiShangPinListActivity;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
+import com.yiwo.friendscometogether.newpage.ZiXunListActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.ExStaggeredGridLayoutManager;
@@ -65,6 +68,9 @@ import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.wangyiyunshipin.DemoCache;
 import com.yiwo.friendscometogether.wangyiyunshipin.server.entity.RoomInfoEntity;
 import com.yiwo.friendscometogether.wangyiyunshipin.wangyiyunlive.LiveRoomActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity;
+import com.yiwo.friendscometogether.webpages.ShopInfoWebActivity;
 import com.yiwo.friendscometogether.widget.FullyLinearLayoutManager;
 
 import org.json.JSONException;
@@ -76,6 +82,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
@@ -102,6 +109,19 @@ public class HomeTuiJianFragment extends BaseFragment {
     ImageView ivG3;
     @BindView(R.id.rl_iv_gg3)
     RelativeLayout rl_iv_gg3;
+    @BindView(R.id.ll_wenlvzixun)
+    LinearLayout llWenlvzixun;
+    @BindView(R.id.ll_zuixinzhaomu)
+    LinearLayout llZuixinzhaomu;
+    @BindView(R.id.ll_mianshuishangpin)
+    LinearLayout llMianshuishangpin;
+    @BindView(R.id.ll_tejiabuwei)
+    LinearLayout llTejiabuwei;
+    @BindView(R.id.ll_jingdiandaka)
+    LinearLayout llJingdiandaka;
+
+    @BindView(R.id.rl_zixun_more)
+    RelativeLayout rl_zixun_more;
     private View view;
     private Unbinder unbinder;
     private SpImp spImp;
@@ -117,7 +137,8 @@ public class HomeTuiJianFragment extends BaseFragment {
     RecyclerView rvZiXunTouTiao;
     private List<NewHomeTuiJian.ObjBean.ZxBean> listZiXunTouTiao = new ArrayList<>();
     private ZiXunTouTiaoAdapter ziXunTouTiaoAdapter;
-
+    //广告LIST
+    private List<NewHomeTuiJian.ObjBean.AdBean> listAD = new ArrayList<>();
     //热门招募 tab
     RecyclerView rvRemenzhaomuTab;
     private List<ReMenZhaoMuTabModel> listRemenTab = new ArrayList<>();
@@ -151,19 +172,21 @@ public class HomeTuiJianFragment extends BaseFragment {
     private Home_TuiJian_YouJiShiPin_Adapter youJiShiPinAdapter;
     private List<HomeTuiJianYouJiShiPinModel.ObjBean> listYouJiShiPin = new ArrayList<>();
     private int page1 = 1;
-    private HomeTuiJianFragment.PreLoadWebYouJiBroadcastReceiver preLoadWebYouJiBroadcastReceiver = new HomeTuiJianFragment.PreLoadWebYouJiBroadcastReceiver();
+    private PreLoadWebYouJiBroadcastReceiver preLoadWebYouJiBroadcastReceiver = new PreLoadWebYouJiBroadcastReceiver();
 
 
-    public static HomeTuiJianFragment newInstance(String cityName){//status  不传或传100 全部     传1待处理  2已处理   3已完成   4退款
+    public static HomeTuiJianFragment newInstance(String cityName) {//status  不传或传100 全部     传1待处理  2已处理   3已完成   4退款
         Bundle args = new Bundle();
         args.putString(CITY_NAME_KEY, cityName);
         HomeTuiJianFragment fragment = new HomeTuiJianFragment();
         fragment.setArguments(args);
         return fragment;
     }
-    public void setCity(String cityName){
+
+    public void setCity(String cityName) {
         this.cityName = cityName;
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -174,9 +197,10 @@ public class HomeTuiJianFragment extends BaseFragment {
         cityName = getArguments().getString(CITY_NAME_KEY);
         IntentFilter filter1 = new IntentFilter();
         filter1.addAction("android.friendscometogether.HomeFragment.PreLoadWebYouJiBroadcastReceiver");
-        getContext().registerReceiver(preLoadWebYouJiBroadcastReceiver,filter1);
+        getContext().registerReceiver(preLoadWebYouJiBroadcastReceiver, filter1);
         initView(rootView);
         initData();
+
         ll_tuijian.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -190,12 +214,13 @@ public class HomeTuiJianFragment extends BaseFragment {
         });
         return rootView;
     }
+
     /**
      * 推荐友记视频
      */
     private void initTuiJianYouJiShiPin() {
         ViseHttp.POST(NetConfig.yj_video)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.yj_video))
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.yj_video))
                 .addParam("uid", spImp.getUID())
                 .addParam("city", cityName)
                 .request(new ACallback<String>() {
@@ -204,15 +229,47 @@ public class HomeTuiJianFragment extends BaseFragment {
                         JSONObject jsonObject = null;
                         try {
                             jsonObject = new JSONObject(data);
-                            if(jsonObject.getInt("code") == 200) {
+                            if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
                                 HomeTuiJianYouJiShiPinModel model = gson.fromJson(data, HomeTuiJianYouJiShiPinModel.class);
                                 listYouJiShiPin.clear();
                                 listYouJiShiPin.addAll(model.getObj());
-                                if (listYouJiShiPin.size()>0){
+                                if (listYouJiShiPin.size() > 0) {
                                     rlYouJiShiPin.setVisibility(View.VISIBLE);
-                                }else {
+                                } else {
                                     rlYouJiShiPin.setVisibility(View.GONE);
+                                }
+                                for (HomeTuiJianYouJiShiPinModel.ObjBean objBean : listYouJiShiPin) {
+                                    ViseHttp.POST(NetConfig.articleInfo)
+                                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
+                                            .addParam("uid", spImp.getUID())
+                                            .addParam("fmID", objBean.getFmID())
+                                            .addParam("type", "0")
+                                            .request(new ACallback<String>() {
+                                                @Override
+                                                public void onSuccess(String data) {
+                                                    try {
+                                                        JSONObject jsonObject = new JSONObject(data);
+                                                        if (jsonObject.getInt("code") == 200) {
+                                                            Gson gson = new Gson();
+                                                            LocalWebInfoModel mode = gson.fromJson(data, LocalWebInfoModel.class);
+                                                            objBean.setStrInfo(mode.getObj().getStr());
+//                                                            String strr1 = mode.getObj().getStr();
+//                                                            String strr2 = "";
+//                                                            String strr3 = "0";
+//                                                            Log.d("adsadasd",strr1+""+strr2+""+strr3);
+//                                                            webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+                                                        }
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onFail(int errCode, String errMsg) {
+
+                                                }
+                                            });
                                 }
                                 youJiShiPinAdapter.notifyDataSetChanged();
                                 page1 = 2;
@@ -230,10 +287,11 @@ public class HomeTuiJianFragment extends BaseFragment {
                     }
                 });
     }
+
     private void initData() {
         //推荐
         ViseHttp.POST(NetConfig.recommend)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.recommend))
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.recommend))
                 .addParam("uid", spImp.getUID())
                 .addParam("city", cityName)
                 .request(new ACallback<String>() {
@@ -241,50 +299,52 @@ public class HomeTuiJianFragment extends BaseFragment {
                     public void onSuccess(final String data) {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
-                            if(jsonObject.getInt("code") == 200){
+                            if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
                                 NewHomeTuiJian model = gson.fromJson(data, NewHomeTuiJian.class);
                                 //轮播图
                                 listBanner.clear();
                                 listBanner.addAll(model.getObj().getBanner());
                                 listBannerImages.clear();
-                                for (int i = 0 ;i<listBanner.size();i++){
+                                for (int i = 0; i < listBanner.size(); i++) {
                                     listBannerImages.add(listBanner.get(i).getPic());
                                 }
-                                initBanner(banner,listBannerImages);
+                                initBanner(banner, listBannerImages);
 
                                 //资讯头条
                                 listZiXunTouTiao.clear();
                                 listZiXunTouTiao.addAll(model.getObj().getZx());
                                 ziXunTouTiaoAdapter.notifyDataSetChanged();
                                 //广告
+                                listAD.clear();
+                                listAD.addAll(model.getObj().getAd());
                                 rl_iv_gg0.setVisibility(View.GONE);
                                 rl_iv_gg1.setVisibility(View.GONE);
                                 rl_iv_gg2.setVisibility(View.GONE);
                                 rl_iv_gg3.setVisibility(View.GONE);
-                                if (model.getObj().getAd().size()>0){
+                                if (model.getObj().getAd().size() > 0) {
                                     rl_iv_gg0.setVisibility(View.VISIBLE);
                                     Glide.with(getContext()).load(model.getObj().getAd().get(0).getPic()).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(ivG0);
                                 }
-                                if (model.getObj().getAd().size()>1){
+                                if (model.getObj().getAd().size() > 1) {
                                     rl_iv_gg1.setVisibility(View.VISIBLE);
                                     Glide.with(getContext()).load(model.getObj().getAd().get(1).getPic()).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(ivG1);
                                 }
-                                if (model.getObj().getAd().size()>2){
+                                if (model.getObj().getAd().size() > 2) {
                                     rl_iv_gg2.setVisibility(View.VISIBLE);
                                     Glide.with(getContext()).load(model.getObj().getAd().get(2).getPic()).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(ivG2);
                                 }
-                                if (model.getObj().getAd().size()>3){
+                                if (model.getObj().getAd().size() > 3) {
                                     rl_iv_gg3.setVisibility(View.VISIBLE);
                                     Glide.with(getContext()).load(model.getObj().getAd().get(3).getPic()).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(ivG3);
                                 }
                                 //热门招募 tab
-                                for (int i = 0 ;i<model.getObj().getZmList().size();i++){
+                                for (int i = 0; i < model.getObj().getZmList().size(); i++) {
                                     ReMenZhaoMuTabModel reMenZhaoMuTabModel = new ReMenZhaoMuTabModel();
                                     reMenZhaoMuTabModel.setName(model.getObj().getZmList().get(i).getAddress());
-                                    if (i == 0){
+                                    if (i == 0) {
                                         reMenZhaoMuTabModel.setSelect(true);
-                                    }else {
+                                    } else {
                                         reMenZhaoMuTabModel.setSelect(false);
                                     }
                                     listRemenTab.add(reMenZhaoMuTabModel);
@@ -299,41 +359,41 @@ public class HomeTuiJianFragment extends BaseFragment {
                                 listJianTuShiKe.clear();
                                 listJianTuShiKe.addAll(model.getObj().getZmList().get(0).getYjList());
                                 jianTuShiKeAdapter.notifyDataSetChanged();
-                                if (listJianTuShiKe.size()>0){
-                                    if (hasPermission()){
+                                if (listJianTuShiKe.size() > 0) {
+                                    if (hasPermission()) {
                                         preLoadYouJi_tuijain(listJianTuShiKe);
-                                    }else {
+                                    } else {
                                         requestPermission();
                                     }
                                     rlJianTuShiKe.setVisibility(View.VISIBLE);
-                                }else {
+                                } else {
                                     rlJianTuShiKe.setVisibility(View.GONE);
                                 }
                                 //精彩路线
                                 listJingCaiLuXian.clear();
                                 listJingCaiLuXian.addAll(model.getObj().getActivity());
                                 jingCaiLuXianAdapter.notifyDataSetChanged();
-                                if (listJingCaiLuXian.size()>0){
+                                if (listJingCaiLuXian.size() > 0) {
                                     rlJingCaiLuXian.setVisibility(View.VISIBLE);
-                                }else {
+                                } else {
                                     rlJingCaiLuXian.setVisibility(View.GONE);
                                 }
                                 //热门队长
                                 listReMenDuiZhang.clear();
                                 listReMenDuiZhang.addAll(model.getObj().getCaptain());
                                 reMenDuiZhangAdapter.notifyDataSetChanged();
-                                if (listReMenDuiZhang.size()>0){
+                                if (listReMenDuiZhang.size() > 0) {
                                     rlRenMenDuiZHang.setVisibility(View.VISIBLE);
-                                }else {
+                                } else {
                                     rlRenMenDuiZHang.setVisibility(View.GONE);
                                 }
                                 //队长铺子
                                 listDuiZhangPuZi.clear();
                                 listDuiZhangPuZi.addAll(model.getObj().getGoods());
                                 duiZhangPuZiAdapter.notifyDataSetChanged();
-                                if (listDuiZhangPuZi.size()>0){
+                                if (listDuiZhangPuZi.size() > 0) {
                                     rlDuiZhangPuZi.setVisibility(View.VISIBLE);
-                                }else {
+                                } else {
                                     rlDuiZhangPuZi.setVisibility(View.GONE);
                                 }
 //                                //悬浮球
@@ -358,7 +418,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                 });
     }
 
-    private void  initView(View view2){
+    private void initView(View view2) {
 
 
         //轮播图
@@ -367,11 +427,11 @@ public class HomeTuiJianFragment extends BaseFragment {
         listBanner.add(bannerBean);
         listBanner.add(bannerBean);
         listBanner.add(bannerBean);
-        initBanner(banner,listBannerImages);
+        initBanner(banner, listBannerImages);
 
         //资讯头条
         rvZiXunTouTiao = view2.findViewById(R.id.rv_zixuntoutiao);
-        LinearLayoutManager managerZiXunTouTiao = new LinearLayoutManager(getContext()){
+        LinearLayoutManager managerZiXunTouTiao = new LinearLayoutManager(getContext()) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -390,7 +450,7 @@ public class HomeTuiJianFragment extends BaseFragment {
         reMenZhaoMuTabAdapter.setListener(new ReMenZhaoMuTabAdapter.OnSelectLabelListener() {
             @Override
             public void onSelete(int i) {
-                for (ReMenZhaoMuTabModel reMenZhaoMuTabModel: listRemenTab){
+                for (ReMenZhaoMuTabModel reMenZhaoMuTabModel : listRemenTab) {
                     reMenZhaoMuTabModel.setSelect(false);
                 }
                 listRemenTab.get(i).setSelect(true);
@@ -406,7 +466,7 @@ public class HomeTuiJianFragment extends BaseFragment {
         //途荐时刻
         rlJianTuShiKe = view2.findViewById(R.id.rl_jiantushike);
         rvTuJianShiKe = view2.findViewById(R.id.rv_tuijianshike);
-        LinearLayoutManager managerTuiJianShiKe = new LinearLayoutManager(getContext()){
+        LinearLayoutManager managerTuiJianShiKe = new LinearLayoutManager(getContext()) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -416,14 +476,14 @@ public class HomeTuiJianFragment extends BaseFragment {
         rvTuJianShiKe.setLayoutManager(managerTuiJianShiKe);
         NewHomeTuiJian.ObjBean.ZmListBean.YjListBean bean = new NewHomeTuiJian.ObjBean.ZmListBean.YjListBean();
         listJianTuShiKe.add(bean);
-        jianTuShiKeAdapter =  new HomeTuiJian_ReMenZhaoMu_Adapter(listJianTuShiKe);
+        jianTuShiKeAdapter = new HomeTuiJian_ReMenZhaoMu_Adapter(listJianTuShiKe);
         rvTuJianShiKe.setAdapter(jianTuShiKeAdapter);
 
 
         //精彩路线
         rlJingCaiLuXian = view2.findViewById(R.id.rl_jingcailuxian);
         rvJingCaiLuXian = view2.findViewById(R.id.rv_jingcailuxian);
-        LinearLayoutManager mLayoutManagerJingCaiLuXian = new LinearLayoutManager(getContext()){
+        LinearLayoutManager mLayoutManagerJingCaiLuXian = new LinearLayoutManager(getContext()) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -466,7 +526,7 @@ public class HomeTuiJianFragment extends BaseFragment {
 //                return false;
 //            }
 //        };
-        LinearLayoutManager mLayoutManagerReMenDuiZhang = new LinearLayoutManager(getContext()){
+        LinearLayoutManager mLayoutManagerReMenDuiZhang = new LinearLayoutManager(getContext()) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -485,7 +545,7 @@ public class HomeTuiJianFragment extends BaseFragment {
         //队长铺子
         rlDuiZhangPuZi = view2.findViewById(R.id.rl_duizhangpuzi);
         rvDuizhangPuZi = view2.findViewById(R.id.rv_duizhangpuzi);
-        FullyLinearLayoutManager managerDuiZhangPuZi = new FullyLinearLayoutManager(getContext()){
+        FullyLinearLayoutManager managerDuiZhangPuZi = new FullyLinearLayoutManager(getContext()) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -493,13 +553,14 @@ public class HomeTuiJianFragment extends BaseFragment {
         };
         managerDuiZhangPuZi.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvDuizhangPuZi.setLayoutManager(managerDuiZhangPuZi);
-        duiZhangPuZiAdapter =  new HomeTuiJianXinPinShangJiaAdapter(listDuiZhangPuZi);
+        duiZhangPuZiAdapter = new HomeTuiJianXinPinShangJiaAdapter(listDuiZhangPuZi);
         rvDuizhangPuZi.setAdapter(duiZhangPuZiAdapter);
 
         //友记文章视频
         rlYouJiShiPin = view2.findViewById(R.id.rl_youji_shipin);
         rvYouJiShiPin = view2.findViewById(R.id.rv_youjishipin);
-        ExStaggeredGridLayoutManager managerYouJiShiPin = new ExStaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL){
+
+        ExStaggeredGridLayoutManager managerYouJiShiPin = new ExStaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL) {
             @Override
             public boolean canScrollVertically() {
                 return true;
@@ -516,7 +577,7 @@ public class HomeTuiJianFragment extends BaseFragment {
             public void onRefresh(final RefreshLayout refreshlayout) {
 
                 ViseHttp.POST(NetConfig.recommend)
-                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.recommend))
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.recommend))
                         .addParam("uid", spImp.getUID())
                         .addParam("city", cityName)
                         .request(new ACallback<String>() {
@@ -524,7 +585,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                             public void onSuccess(String data) {
                                 try {
                                     JSONObject jsonObject = new JSONObject(data);
-                                    if(jsonObject.getInt("code") == 200){
+                                    if (jsonObject.getInt("code") == 200) {
                                         Gson gson = new Gson();
                                         NewHomeTuiJian model = gson.fromJson(data, NewHomeTuiJian.class);
 
@@ -532,42 +593,44 @@ public class HomeTuiJianFragment extends BaseFragment {
                                         listBanner.clear();
                                         listBanner.addAll(model.getObj().getBanner());
                                         listBannerImages.clear();
-                                        for (int i = 0 ;i<listBanner.size();i++){
+                                        for (int i = 0; i < listBanner.size(); i++) {
                                             listBannerImages.add(listBanner.get(i).getPic());
                                         }
-                                        initBanner(banner,listBannerImages);
+                                        initBanner(banner, listBannerImages);
                                         //资讯头条
                                         listZiXunTouTiao.clear();
                                         listZiXunTouTiao.addAll(model.getObj().getZx());
                                         ziXunTouTiaoAdapter.notifyDataSetChanged();
                                         //广告
+                                        listAD.clear();
+                                        listAD.addAll(model.getObj().getAd());
                                         rl_iv_gg0.setVisibility(View.GONE);
                                         rl_iv_gg1.setVisibility(View.GONE);
                                         rl_iv_gg2.setVisibility(View.GONE);
                                         rl_iv_gg3.setVisibility(View.GONE);
-                                        if (model.getObj().getAd().size()>0){
+                                        if (model.getObj().getAd().size() > 0) {
                                             rl_iv_gg0.setVisibility(View.VISIBLE);
                                             Glide.with(getContext()).load(model.getObj().getAd().get(0).getPic()).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(ivG0);
                                         }
-                                        if (model.getObj().getAd().size()>1){
+                                        if (model.getObj().getAd().size() > 1) {
                                             rl_iv_gg1.setVisibility(View.VISIBLE);
                                             Glide.with(getContext()).load(model.getObj().getAd().get(1).getPic()).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(ivG1);
                                         }
-                                        if (model.getObj().getAd().size()>2){
+                                        if (model.getObj().getAd().size() > 2) {
                                             rl_iv_gg2.setVisibility(View.VISIBLE);
                                             Glide.with(getContext()).load(model.getObj().getAd().get(2).getPic()).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(ivG2);
                                         }
-                                        if (model.getObj().getAd().size()>3){
+                                        if (model.getObj().getAd().size() > 3) {
                                             rl_iv_gg3.setVisibility(View.VISIBLE);
                                             Glide.with(getContext()).load(model.getObj().getAd().get(3).getPic()).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(ivG3);
                                         }
                                         //热门招募 tab
-                                        for (int i = 0 ;i<model.getObj().getZmList().size();i++){
+                                        for (int i = 0; i < model.getObj().getZmList().size(); i++) {
                                             ReMenZhaoMuTabModel reMenZhaoMuTabModel = new ReMenZhaoMuTabModel();
                                             reMenZhaoMuTabModel.setName(model.getObj().getZmList().get(i).getAddress());
-                                            if (i == 0){
+                                            if (i == 0) {
                                                 reMenZhaoMuTabModel.setSelect(true);
-                                            }else {
+                                            } else {
                                                 reMenZhaoMuTabModel.setSelect(false);
                                             }
                                             listRemenTab.add(reMenZhaoMuTabModel);
@@ -582,41 +645,41 @@ public class HomeTuiJianFragment extends BaseFragment {
                                         listJianTuShiKe.clear();
                                         listJianTuShiKe.addAll(model.getObj().getZmList().get(0).getYjList());
                                         jianTuShiKeAdapter.notifyDataSetChanged();
-                                        if (listJianTuShiKe.size()>0){
-                                            if (hasPermission()){
+                                        if (listJianTuShiKe.size() > 0) {
+                                            if (hasPermission()) {
                                                 preLoadYouJi_tuijain(listJianTuShiKe);
-                                            }else {
+                                            } else {
                                                 requestPermission();
                                             }
                                             rlJianTuShiKe.setVisibility(View.VISIBLE);
-                                        }else {
+                                        } else {
                                             rlJianTuShiKe.setVisibility(View.GONE);
                                         }
                                         //精彩路线
                                         listJingCaiLuXian.clear();
                                         listJingCaiLuXian.addAll(model.getObj().getActivity());
                                         jingCaiLuXianAdapter.notifyDataSetChanged();
-                                        if (listJingCaiLuXian.size()>0){
+                                        if (listJingCaiLuXian.size() > 0) {
                                             rlJingCaiLuXian.setVisibility(View.VISIBLE);
-                                        }else {
+                                        } else {
                                             rlJingCaiLuXian.setVisibility(View.GONE);
                                         }
                                         //热门队长
                                         listReMenDuiZhang.clear();
                                         listReMenDuiZhang.addAll(model.getObj().getCaptain());
                                         reMenDuiZhangAdapter.notifyDataSetChanged();
-                                        if (listReMenDuiZhang.size()>0){
+                                        if (listReMenDuiZhang.size() > 0) {
                                             rlRenMenDuiZHang.setVisibility(View.VISIBLE);
-                                        }else {
+                                        } else {
                                             rlRenMenDuiZHang.setVisibility(View.GONE);
                                         }
                                         //队长铺子
                                         listDuiZhangPuZi.clear();
                                         listDuiZhangPuZi.addAll(model.getObj().getGoods());
                                         duiZhangPuZiAdapter.notifyDataSetChanged();
-                                        if (listDuiZhangPuZi.size()>0){
+                                        if (listDuiZhangPuZi.size() > 0) {
                                             rlDuiZhangPuZi.setVisibility(View.VISIBLE);
-                                        }else {
+                                        } else {
                                             rlDuiZhangPuZi.setVisibility(View.GONE);
                                         }
 //                                        //轮播图
@@ -636,12 +699,12 @@ public class HomeTuiJianFragment extends BaseFragment {
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-                                toToast(getContext(),"加载失败:"+"errCode:"+errCode+"///"+errMsg);
+                                toToast(getContext(), "加载失败:" + "errCode:" + errCode + "///" + errMsg);
 //                                WeiboDialogUtils.closeDialog(dialog_loading);
                             }
                         });
                 ViseHttp.POST(NetConfig.yj_video)
-                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.yj_video))
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.yj_video))
                         .addParam("uid", spImp.getUID())
                         .addParam("city", cityName)
                         .request(new ACallback<String>() {
@@ -650,14 +713,14 @@ public class HomeTuiJianFragment extends BaseFragment {
                                 JSONObject jsonObject = null;
                                 try {
                                     jsonObject = new JSONObject(data);
-                                    if(jsonObject.getInt("code") == 200) {
+                                    if (jsonObject.getInt("code") == 200) {
                                         Gson gson = new Gson();
                                         HomeTuiJianYouJiShiPinModel model = gson.fromJson(data, HomeTuiJianYouJiShiPinModel.class);
                                         listYouJiShiPin.clear();
                                         listYouJiShiPin.addAll(model.getObj());
-                                        if (listYouJiShiPin.size()>0){
+                                        if (listYouJiShiPin.size() > 0) {
                                             rlYouJiShiPin.setVisibility(View.VISIBLE);
-                                        }else {
+                                        } else {
                                             rlYouJiShiPin.setVisibility(View.GONE);
                                         }
                                         youJiShiPinAdapter.notifyDataSetChanged();
@@ -682,16 +745,16 @@ public class HomeTuiJianFragment extends BaseFragment {
             @Override
             public void onLoadMore(final RefreshLayout refreshlayout) {
                 ViseHttp.POST(NetConfig.yj_video)
-                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.yj_video))
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.yj_video))
                         .addParam("uid", spImp.getUID())
                         .addParam("city", cityName)
-                        .addParam("page",page1+"")
+                        .addParam("page", page1 + "")
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
                                 try {
                                     JSONObject jsonObject = new JSONObject(data);
-                                    if(jsonObject.getInt("code") == 200){
+                                    if (jsonObject.getInt("code") == 200) {
                                         Gson gson = new Gson();
                                         HomeTuiJianYouJiShiPinModel model = gson.fromJson(data, HomeTuiJianYouJiShiPinModel.class);
 //                                        if (listYouJiShiPin.size()>50){
@@ -699,15 +762,15 @@ public class HomeTuiJianFragment extends BaseFragment {
 //                                        }
 //                                        listYouJiShiPin.addAll(model.getObj());
 //                                        youJiShiPinAdapter.notifyDataSetChanged();
-                                        if (model.getObj().size()>0){
+                                        if (model.getObj().size() > 0) {
 //                                            int i = listDuiZhangPuZi.size() - 1;
 //                                            int j = model.getObj().size();
                                             listYouJiShiPin.addAll(model.getObj());
                                             preLoadYouJi_tuijain_list(model.getObj());
 
-                                            if (listYouJiShiPin!=null && youJiShiPinAdapter!=null){
+                                            if (listYouJiShiPin != null && youJiShiPinAdapter != null) {
 //                                                youJiShiPinAdapter.notifyDataSetChanged();
-                                                youJiShiPinAdapter.notifyItemRangeInserted(youJiShiPinAdapter.getItemCount(),model.getObj().size());
+                                                youJiShiPinAdapter.notifyItemRangeInserted(youJiShiPinAdapter.getItemCount(), model.getObj().size());
                                             }
 //                                                    if (listYouJiShiPin.size()>50){
 //                                                        listYouJiShiPin.removeAll(listYouJiShiPin.subList(0,model.getObj().size()-1));
@@ -726,12 +789,13 @@ public class HomeTuiJianFragment extends BaseFragment {
                             @Override
                             public void onFail(int errCode, String errMsg) {
                                 refreshLayout.finishLoadMore(1000);
-                                toToast(getContext(),"加载失败");
+                                toToast(getContext(), "加载失败");
                             }
                         });
             }
         });
     }
+
     public void initBanner(XBanner banner, final List<String> images) {
         banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -752,10 +816,13 @@ public class HomeTuiJianFragment extends BaseFragment {
         banner.setOnItemClickListener(new XBanner.OnItemClickListener() {
             @Override
             public void onItemClick(XBanner banner, Object model, View view, int position) {
-                toToast(getContext(),""+position);
+                Intent intent = new Intent();
+                intent.setClass(getContext(), DetailsOfFriendTogetherWebActivity.class);
+                intent.putExtra("pfID", listBanner.get(position).getSid());
+                startActivity(intent);
             }
         });
-        banner.setBannerData(R.layout.lay_banner_img,listBanner);
+        banner.setBannerData(R.layout.lay_banner_img, listBanner);
         //加载广告图片
         banner.loadImage(new XBanner.XBannerAdapter() {
             @Override
@@ -764,32 +831,34 @@ public class HomeTuiJianFragment extends BaseFragment {
                 TextView textView = (TextView) view.findViewById(R.id.tv_banner_text);
                 imageView.setTag(null);
                 textView.setTag(null);
-                textView.setText(listBanner.get(position).getTitle()+"//"+position);
+                textView.setText(listBanner.get(position).getTitle());
                 Glide.with(getContext()).load(listBanner.get(position).getPic()).apply(new RequestOptions().error(R.mipmap.zanwutupian).placeholder(R.mipmap.zanwutupian)).into(imageView);
             }
         });
     }
+
     private void preLoadYouJi_tuijain_list(List<HomeTuiJianYouJiShiPinModel.ObjBean> list) {
-        Log.d("读写内存权限","youquanxian");
-        for (int i = 0 ;i<list.size();i++){
-            String url = NetConfig.BaseUrl+"action/ac_article/youJiWeb?id="+list.get(i).getFmID()+"&uid="+spImp.getUID();
+        Log.d("读写内存权限", "youquanxian");
+        for (int i = 0; i < list.size(); i++) {
+            String url = NetConfig.BaseUrl + "action/ac_article/youJiWeb?id=" + list.get(i).getFmID() + "&uid=" + spImp.getUID();
             SonicSessionConfig.Builder sessionConfigBuilder = new SonicSessionConfig.Builder();
             sessionConfigBuilder.setSupportLocalServer(true);
             HashMap mapRp = new HashMap();
             String str_vlue = "http://www.91yiwo.com/ylyy/include/activity_web/js/jquery-3.3.1.min.js;"
-                    +"http://www.91yiwo.com/ylyy/include/activity_web/css/web_main.css;"
-                    +"http://www.91yiwo.com/ylyy/include/activity_web/js/builder.js;";
-            mapRp.put("sonic-link",str_vlue);
+                    + "http://www.91yiwo.com/ylyy/include/activity_web/css/web_main.css;"
+                    + "http://www.91yiwo.com/ylyy/include/activity_web/js/builder.js;";
+            mapRp.put("sonic-link", str_vlue);
             sessionConfigBuilder.setCustomResponseHeaders(mapRp);
             boolean preloadSuccess = SonicEngine.getInstance().preCreateSession(url, sessionConfigBuilder.build());
-            Log.d("preloadpreloadp",preloadSuccess+""+url);
+            Log.d("preloadpreloadp", preloadSuccess + "" + url);
         }
     }
+
     //     直播列表关注
-    private void guanZhuLivePerson(final int position){
-        Log.d("adasds",position+"");
+    private void guanZhuLivePerson(final int position) {
+        Log.d("adasds", position + "");
         if (!TextUtils.isEmpty(spImp.getUID()) && !spImp.getUID().equals("0")) {
-            if (listJingCaiLuXian.get(position).getCaptain().getFollow().equals("0")){//未关注
+            if (listJingCaiLuXian.get(position).getCaptain().getFollow().equals("0")) {//未关注
                 ViseHttp.POST(NetConfig.userFocusUrl)
                         .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.userFocusUrl))
                         .addParam("uid", spImp.getUID())
@@ -797,14 +866,14 @@ public class HomeTuiJianFragment extends BaseFragment {
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String result) {
-                                Log.d("adasds",result);
+                                Log.d("adasds", result);
                                 try {
                                     JSONObject jsonObject = new JSONObject(result);
                                     if (jsonObject.getInt("code") == 200) {
                                         listJingCaiLuXian.get(position).getCaptain().setFollow("1");
                                         jingCaiLuXianAdapter.notifyDataSetChanged();
                                         Toast.makeText(getContext(), "关注成功", Toast.LENGTH_SHORT).show();
-                                    }else if(jsonObject.getInt("code") == 400){
+                                    } else if (jsonObject.getInt("code") == 400) {
 
                                     }
                                 } catch (JSONException e) {
@@ -814,7 +883,7 @@ public class HomeTuiJianFragment extends BaseFragment {
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-                                Log.d("adasds",errMsg);
+                                Log.d("adasds", errMsg);
                             }
                         });
             }
@@ -824,6 +893,7 @@ public class HomeTuiJianFragment extends BaseFragment {
             startActivity(intent);
         }
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -840,9 +910,9 @@ public class HomeTuiJianFragment extends BaseFragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        Log.d("读写内存权限,","permissionsSize:"+permissions.length+"///"+"grantResultsSize:"+grantResults.length);
-        for (int i = 0;i<permissions.length;i++){
-            if (permissions[i].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+        Log.d("读写内存权限,", "permissionsSize:" + permissions.length + "///" + "grantResultsSize:" + grantResults.length);
+        for (int i = 0; i < permissions.length; i++) {
+            if (permissions[i].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                     requestPermission();
                 } else {
@@ -852,69 +922,182 @@ public class HomeTuiJianFragment extends BaseFragment {
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
     private static final int PERMISSION_REQUEST_CODE_STORAGE = 1001;
+
     private void requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE_STORAGE);
         }
     }
+
     private void preLoadYouJi_tuijain(List<NewHomeTuiJian.ObjBean.ZmListBean.YjListBean> list) {
-        Log.d("读写内存权限","youquanxian");
-        for (int i = 0 ;i<list.size();i++){
-            String url = NetConfig.BaseUrl+"action/ac_article/youJiWeb?id="+list.get(i).getFmID()+"&uid="+spImp.getUID();
+        Log.d("读写内存权限", "youquanxian");
+        for (int i = 0; i < list.size(); i++) {
+            String url = NetConfig.BaseUrl + "action/ac_article/youJiWeb?id=" + list.get(i).getFmID() + "&uid=" + spImp.getUID();
             SonicSessionConfig.Builder sessionConfigBuilder = new SonicSessionConfig.Builder();
             sessionConfigBuilder.setSupportLocalServer(true);
             HashMap mapRp = new HashMap();
             String str_vlue = "http://www.91yiwo.com/ylyy/include/activity_web/js/jquery-3.3.1.min.js;"
-                    +"http://www.91yiwo.com/ylyy/include/activity_web/css/web_main.css;"
-                    +"http://www.91yiwo.com/ylyy/include/activity_web/js/builder.js;";
-            mapRp.put("sonic-link",str_vlue);
+                    + "http://www.91yiwo.com/ylyy/include/activity_web/css/web_main.css;"
+                    + "http://www.91yiwo.com/ylyy/include/activity_web/js/builder.js;";
+            mapRp.put("sonic-link", str_vlue);
             sessionConfigBuilder.setCustomResponseHeaders(mapRp);
             boolean preloadSuccess = SonicEngine.getInstance().preCreateSession(url, sessionConfigBuilder.build());
-            Log.d("preloadpreloadp",preloadSuccess+""+url);
+            Log.d("preloadpreloadp", preloadSuccess + "" + url);
         }
     }
+
     private boolean hasPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return getContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
         }
         return true;
     }
+
+    @OnClick({R.id.ll_wenlvzixun, R.id.ll_zuixinzhaomu, R.id.ll_mianshuishangpin, R.id.ll_tejiabuwei, R.id.ll_jingdiandaka,
+                R.id.rl_iv_gg0,R.id.rl_iv_gg1,R.id.rl_iv_gg2,R.id.rl_iv_gg3,
+                R.id.rl_zixun_more})
+    public void onViewClicked(View view) {
+        Intent intent = new Intent();
+        switch (view.getId()) {
+            case R.id.rl_zixun_more:
+            case R.id.ll_wenlvzixun:
+                ZiXunListActivity.open(getContext(),"1");
+                break;
+            case R.id.ll_zuixinzhaomu:
+                ZiXunListActivity.open(getContext(),"0");
+                break;
+            case R.id.ll_mianshuishangpin:
+//                ZiXunListActivity.open(getContext(),"1");
+                MianShuiShangPinListActivity.open(getContext(),"0");
+                break;
+            case R.id.ll_tejiabuwei:
+                MianShuiShangPinListActivity.open(getContext(),"1");
+//                ZiXunListActivity.open(getContext(),"1");
+                break;
+            case R.id.ll_jingdiandaka:
+                ZiXunListActivity.open(getContext(),"2");
+                break;
+            case R.id.rl_iv_gg0:
+                if (listAD.size()>0){
+                    if (listAD.get(0).getJumpType().equals("0")){
+
+                        intent.setClass(getContext(), DetailsOfFriendTogetherWebActivity.class);
+                        intent.putExtra("pfID", listAD.get(0).getSid());
+                        startActivity(intent);
+                    }else if (listAD.get(0).getJumpType().equals("1")){
+                        intent.setClass(getContext(), DetailsOfFriendsWebActivity.class);
+                        intent.putExtra("fmid", listAD.get(0).getSid());
+                        startActivity(intent);
+                    }else if(listAD.get(0).getJumpType().equals("-1")){
+
+                    }else {
+                        intent.setClass(getContext(), ShopInfoWebActivity.class);
+                        intent.putExtra("url",listAD.get(0).getJumpUrl());
+                        startActivity(intent);
+                    }
+                }
+                break;
+            case R.id.rl_iv_gg1:
+                if (listAD.size()>1){
+                    if (listAD.get(1).getJumpType().equals("0")){
+
+                        intent.setClass(getContext(), DetailsOfFriendTogetherWebActivity.class);
+                        intent.putExtra("pfID", listAD.get(1).getSid());
+                        startActivity(intent);
+                    }else if (listAD.get(1).getJumpType().equals("1")){
+                        intent.setClass(getContext(), DetailsOfFriendsWebActivity.class);
+                        intent.putExtra("fmid", listAD.get(1).getSid());
+                        startActivity(intent);
+                    }else if(listAD.get(0).getJumpType().equals("-1")){
+
+                    }else {
+                        intent.setClass(getContext(), ShopInfoWebActivity.class);
+                        intent.putExtra("url",listAD.get(1).getJumpUrl());
+                        startActivity(intent);
+                    }
+                }
+                break;
+            case R.id.rl_iv_gg2:
+                if (listAD.size()>2){
+                    if (listAD.get(2).getJumpType().equals("0")){
+
+                        intent.setClass(getContext(), DetailsOfFriendTogetherWebActivity.class);
+                        intent.putExtra("pfID", listAD.get(2).getSid());
+                        startActivity(intent);
+                    }else if (listAD.get(2).getJumpType().equals("1")){
+                        intent.setClass(getContext(), DetailsOfFriendsWebActivity.class);
+                        intent.putExtra("fmid", listAD.get(2).getSid());
+                        startActivity(intent);
+                    }else if(listAD.get(0).getJumpType().equals("-1")){
+
+                    }else {
+                        intent.setClass(getContext(), ShopInfoWebActivity.class);
+                        intent.putExtra("url",listAD.get(2).getJumpUrl());
+                        startActivity(intent);
+                    }
+                }
+                break;
+            case R.id.rl_iv_gg3:
+                if (listAD.size()>3){
+                    if (listAD.get(3).getJumpType().equals("0")){
+
+                        intent.setClass(getContext(), DetailsOfFriendTogetherWebActivity.class);
+                        intent.putExtra("pfID", listAD.get(3).getSid());
+                        startActivity(intent);
+                    }else if (listAD.get(3).getJumpType().equals("1")){
+                        intent.setClass(getContext(), DetailsOfFriendsWebActivity.class);
+                        intent.putExtra("fmid", listAD.get(3).getSid());
+                        startActivity(intent);
+                    }else if(listAD.get(0).getJumpType().equals("-1")){
+
+                    }else {
+                        intent.setClass(getContext(), ShopInfoWebActivity.class);
+                        intent.putExtra("url",listAD.get(3).getJumpUrl());
+                        startActivity(intent);
+                    }
+                }
+                break;
+        }
+    }
+
     private class PreLoadWebYouJiBroadcastReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (hasPermission()){
+            if (hasPermission()) {
                 preLoadYouJi_tuijain(listJianTuShiKe);
-            }else {
+            } else {
                 requestPermission();
             }
         }
     }
+
     private void enterLiveRoom(final HomeTuiJianModel.ObjBean.ActivityBean.CaptainBean zhiboBean) {
-        dialog_loading = WeiboDialogUtils.createLoadingDialog(getContext(),"进入房间中");
-        Log.d("asdasdas","UID:"+zhiboBean.getUid()+"///"+zhiboBean.getChannel_id());
-        if (zhiboBean.getChannel_id() == null || TextUtils.isEmpty(zhiboBean.getChannel_id())){
+        dialog_loading = WeiboDialogUtils.createLoadingDialog(getContext(), "进入房间中");
+        Log.d("asdasdas", "UID:" + zhiboBean.getUid() + "///" + zhiboBean.getChannel_id());
+        if (zhiboBean.getChannel_id() == null || TextUtils.isEmpty(zhiboBean.getChannel_id())) {
             Intent intent = new Intent();
             intent.setClass(getContext(), PersonMainActivity1.class);
             intent.putExtra("person_id", zhiboBean.getUid());
             startActivity(intent);
             WeiboDialogUtils.closeDialog(dialog_loading);
-        }else {
+        } else {
             ViseHttp.POST(NetConfig.zhiBoInfo)
-                    .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.zhiBoInfo))
+                    .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.zhiBoInfo))
                     .addParam("uid", zhiboBean.getUid())
-                    .addParam("cid",zhiboBean.getChannel_id())
+                    .addParam("cid", zhiboBean.getChannel_id())
                     .request(new ACallback<String>() {
                         @Override
                         public void onSuccess(String data) {
                             try {
                                 JSONObject jsonObject = new JSONObject(data);
-                                if (jsonObject.getInt("code") == 200){
+                                if (jsonObject.getInt("code") == 200) {
                                     String liveStatus = jsonObject.getJSONObject("obj").getString("zhibostatus");
                                     String start_time = jsonObject.getJSONObject("obj").getString("start_time");
 //                                if (true){
-                                    if (liveStatus.equals("1")){
+                                    if (liveStatus.equals("1")) {
                                         RoomInfoEntity roomInfoEntity = new RoomInfoEntity();
                                         roomInfoEntity.setCid(zhiboBean.getChannel_id());
                                         roomInfoEntity.setOwner(zhiboBean.getUsername());
@@ -926,11 +1109,11 @@ public class HomeTuiJianFragment extends BaseFragment {
                                         DemoCache.setRoomInfoEntity(roomInfoEntity);
                                         LiveRoomActivity.startAudience(getContext(), zhiboBean.getRoom_id() + "", zhiboBean.getRtmpPullUrl(), true);
                                         WeiboDialogUtils.closeDialog(dialog_loading);
-                                    }else {
+                                    } else {
                                         Intent intent = new Intent();
                                         intent.setClass(getContext(), PersonMainActivity1.class);
-                                        intent.putExtra("is_by_live",true);
-                                        intent.putExtra("next_on_live_time",start_time);
+                                        intent.putExtra("is_by_live", true);
+                                        intent.putExtra("next_on_live_time", start_time);
                                         intent.putExtra("person_id", zhiboBean.getUid());
                                         startActivity(intent);
                                         WeiboDialogUtils.closeDialog(dialog_loading);
@@ -947,7 +1130,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                         @Override
                         public void onFail(int errCode, String errMsg) {
                             WeiboDialogUtils.closeDialog(dialog_loading);
-                            toToast(getContext(),"进入房间失败！");
+                            toToast(getContext(), "进入房间失败！");
                         }
                     });
         }

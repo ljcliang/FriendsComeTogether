@@ -60,6 +60,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
                                 <LinearLayout
+                                    android:id="@+id/ll_wenlvzixun"
                                     android:layout_weight="1"
                                     android:orientation="vertical"
                                     android:layout_width="match_parent"
@@ -80,6 +81,7 @@
                                         android:layout_height="wrap_content"/>
                                 </LinearLayout>
                                 <LinearLayout
+                                    android:id="@+id/ll_zuixinzhaomu"
                                     android:layout_weight="1"
                                     android:orientation="vertical"
                                     android:layout_width="match_parent"
@@ -100,6 +102,7 @@
                                         android:layout_height="wrap_content"/>
                                 </LinearLayout>
                                 <LinearLayout
+                                    android:id="@+id/ll_mianshuishangpin"
                                     android:layout_weight="1"
                                     android:orientation="vertical"
                                     android:layout_width="match_parent"
@@ -120,6 +123,7 @@
                                         android:layout_height="wrap_content"/>
                                 </LinearLayout>
                                 <LinearLayout
+                                    android:id="@+id/ll_tejiabuwei"
                                     android:layout_weight="1"
                                     android:orientation="vertical"
                                     android:layout_width="match_parent"
@@ -140,6 +144,7 @@
                                         android:layout_height="wrap_content"/>
                                 </LinearLayout>
                                 <LinearLayout
+                                    android:id="@+id/ll_jingdiandaka"
                                     android:layout_weight="1"
                                     android:orientation="vertical"
                                     android:layout_width="match_parent"
@@ -167,6 +172,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <RelativeLayout
+                                android:id="@+id/rl_zixun_more"
                                 android:layout_marginTop="32px"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
@@ -199,6 +205,8 @@
                                     android:layout_height="wrap_content"/>
                             </RelativeLayout>
                             <android.support.v7.widget.RecyclerView
+                                android:layout_marginRight="5dp"
+                                android:layout_marginLeft="5dp"
                                 android:id="@+id/rv_zixuntoutiao"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"/>
@@ -398,6 +406,7 @@
                                     android:layout_height="wrap_content"/>
                             </LinearLayout>
                             <TextView
+                                android:visibility="gone"
                                 android:layout_centerVertical="true"
                                 android:layout_marginRight="30px"
                                 android:text="更多.."

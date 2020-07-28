@@ -75,9 +75,7 @@ public class HomeYouPu_Adapter extends RecyclerView.Adapter<HomeYouPu_Adapter.Vi
         holder.ll_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.setClass(context, ShopGoodsDetailsWebActivity.class);
-                intent.putExtra("url",data.get(position).getGoodsUrl());
-                context.startActivity(intent);
+                ShopGoodsDetailsWebActivity.open(context,data.get(position).getGoodsID());
             }
         });
         switch (data.get(position).getLevelName()){

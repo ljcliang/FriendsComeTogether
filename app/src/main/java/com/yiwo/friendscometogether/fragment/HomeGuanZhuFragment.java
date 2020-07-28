@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,9 +32,11 @@ import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.HomeGuanZhu_DuiZhangDaiDui_Adapter;
 import com.yiwo.friendscometogether.newadapter.HomeGuanZhu_YouJiShiPin_Adapter;
+import com.yiwo.friendscometogether.newadapter.Home_GuanZhu_YouJiShiPin_Adapter;
 import com.yiwo.friendscometogether.newmodel.HomeGuanZhuModel;
 import com.yiwo.friendscometogether.newpage.GuanZhuDuiZhangListActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.utils.ExStaggeredGridLayoutManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,7 +65,7 @@ public class HomeGuanZhuFragment extends BaseFragment {
 
     //关注页面
     RecyclerView rvGuanZhuYoujishipin;//关注
-    private HomeGuanZhu_YouJiShiPin_Adapter adapterGuanzhuYouJi;//
+    private Home_GuanZhu_YouJiShiPin_Adapter adapterGuanzhuYouJi;//
     private List<HomeGuanZhuModel.ObjBean.YjVideoBean> mListGuanzhu = new ArrayList<>();//
 
     RecyclerView rvGuanZhuDuiZhangDaiDui;
@@ -143,11 +146,17 @@ public class HomeGuanZhuFragment extends BaseFragment {
 
         //关注 友记视频
         rvGuanZhuYoujishipin = view2.findViewById(R.id.rv_guanzhu_youjishipin);
-        adapterGuanzhuYouJi= new HomeGuanZhu_YouJiShiPin_Adapter(mListGuanzhu);
-        LinearLayoutManager managerGuanZhuYouJi = new LinearLayoutManager(getContext()){
+        adapterGuanzhuYouJi= new Home_GuanZhu_YouJiShiPin_Adapter(mListGuanzhu);
+//        LinearLayoutManager managerGuanZhuYouJi = new LinearLayoutManager(getContext()){
+//            @Override
+//            public boolean canScrollVertically() {
+//                return true;
+//            }
+//        };
+        ExStaggeredGridLayoutManager managerGuanZhuYouJi = new ExStaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL){
             @Override
             public boolean canScrollVertically() {
-                return false;
+                return true;
             }
         };
         rvGuanZhuYoujishipin.setLayoutManager(managerGuanZhuYouJi);

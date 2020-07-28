@@ -15,8 +15,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.newmodel.HomeGuanZhuModel;
 import com.yiwo.friendscometogether.newmodel.HomeTuiJianYouJiShiPinModel;
-import com.yiwo.friendscometogether.newmodel.Home_youjiShiPin_0407_model;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.pages.VideoActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
@@ -29,11 +29,11 @@ import java.util.List;
  * Created by ljc on 2020/3/25.
  */
 
-public class Home_TuiJian_YouJiShiPin_Adapter extends RecyclerView.Adapter<Home_TuiJian_YouJiShiPin_Adapter.ViewHolder>{
+public class Home_GuanZhu_YouJiShiPin_Adapter extends RecyclerView.Adapter<Home_GuanZhu_YouJiShiPin_Adapter.ViewHolder>{
     private Context context;
-    private List<HomeTuiJianYouJiShiPinModel.ObjBean> data;
+    private List<HomeGuanZhuModel.ObjBean.YjVideoBean> data;
     private SpImp spImp;
-    public Home_TuiJian_YouJiShiPin_Adapter(List<HomeTuiJianYouJiShiPinModel.ObjBean> data){
+    public Home_GuanZhu_YouJiShiPin_Adapter(List<HomeGuanZhuModel.ObjBean.YjVideoBean> data){
         this.data = data;
     }
     @Override
@@ -42,7 +42,7 @@ public class Home_TuiJian_YouJiShiPin_Adapter extends RecyclerView.Adapter<Home_
         spImp = new SpImp(context);
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_home_youji_0407_item, parent, false);
 //        ScreenAdapterTools.getInstance().loadView(view);
-        Home_TuiJian_YouJiShiPin_Adapter.ViewHolder holder = new Home_TuiJian_YouJiShiPin_Adapter.ViewHolder(view);
+        Home_GuanZhu_YouJiShiPin_Adapter.ViewHolder holder = new Home_GuanZhu_YouJiShiPin_Adapter.ViewHolder(view);
         Log.d("jaizai,","00000");
         return holder;
     }

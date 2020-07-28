@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".newpage.ZiXunListActivity">
+    android:orientation="vertical"
+    tools:context=".newpage.MianShuiShangPinListActivity">
     <RelativeLayout
         style="@style/rl_top_bar_dp">
         <RelativeLayout
@@ -16,7 +16,7 @@
         </RelativeLayout>
         <TextView
             android:id="@+id/tv_title"
-            android:text="文旅资讯"
+            android:text="免税商品"
             style="@style/tv_top_title_dp"/>
     </RelativeLayout>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout

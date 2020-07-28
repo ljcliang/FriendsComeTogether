@@ -1,6 +1,7 @@
-package com.yiwo.friendscometogether.newadapter;
+package com.yiwo.friendscometogether.newadapter.hometuijian_five_list;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.newmodel.HomeTuiJianModel;
+import com.yiwo.friendscometogether.newmodel.HomePageSkipGoodsModel;
+import com.yiwo.friendscometogether.newpage.ShopHomeActivity;
+import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.webpages.ShopGoodsDetailsWebActivity;
-import com.yiwo.friendscometogether.webpages.ShopGoodsDetailsWebLocalActivity;
 
 import java.util.List;
 
@@ -22,36 +24,65 @@ import java.util.List;
  * Created by ljc on 2020/3/25.
  */
 
-public class HomeTuiJianXinPinShangJiaAdapter extends RecyclerView.Adapter<HomeTuiJianXinPinShangJiaAdapter.ViewHolder>{
+public class MianShuiShangPin_Adapter extends RecyclerView.Adapter<MianShuiShangPin_Adapter.ViewHolder>{
     private Context context;
-    private List<HomeTuiJianModel.ObjBean.GoodsBean> data;
-    private AddClickListenner listenner;
-//    private SpImp spImp;
-    public HomeTuiJianXinPinShangJiaAdapter(List<HomeTuiJianModel.ObjBean.GoodsBean> data){
+    private List<HomePageSkipGoodsModel.ObjBean> data;
+    private SpImp spImp;
+    public MianShuiShangPin_Adapter(List<HomePageSkipGoodsModel.ObjBean> data){
         this.data = data;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
-//        spImp = new SpImp(context);
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_tuijian_xinpinshangjia_item, parent, false);
-        HomeTuiJianXinPinShangJiaAdapter.ViewHolder holder = new HomeTuiJianXinPinShangJiaAdapter.ViewHolder(view);
+        spImp = new SpImp(context);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_youpu, parent, false);
+//        ScreenAdapterTools.getInstance().loadView(view);
+        MianShuiShangPin_Adapter.ViewHolder holder = new MianShuiShangPin_Adapter.ViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+        final Intent intent = new Intent();
+        holder.tv_name.setText(data.get(position).getUsername());
+        holder.tv_level.setText("Lv."+data.get(position).getUsergrade());
+        holder.tv_price.setText(data.get(position).getPrice());
+        holder.tv_shangpin_name.setText(data.get(position).getGoodsName());
+        Glide.with(context).load(data.get(position).getUserpic()).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_head);
+        holder.iv_head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShopHomeActivity.start(context,data.get(position).getUserID());
+            }
+        });
+        Glide.with(context).load(data.get(position).getGoodsImg()).apply(new RequestOptions().error(R.mipmap.zanwutupian).placeholder(R.mipmap.zanwutupian)).into(holder.iv_big);
         holder.ll_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShopGoodsDetailsWebLocalActivity.open(context,data.get(position).getGid());
+                ShopGoodsDetailsWebActivity.open(context,data.get(position).getGid());
             }
         });
-        Glide.with(context).load(data.get(position).getGoodsImg()).apply(new RequestOptions().error(R.mipmap.zanwutupian).placeholder(R.mipmap.zanwutupian)).into(holder.iv);
-        holder.tv_name.setText(data.get(position).getGoodsName());
-        holder.tv_now_price.setText(data.get(position).getPrice());
-        holder.tv_old_price.setText(data.get(position).getPrice());
-        switch (data.get(position).getStar()){
+        switch (data.get(position).getLevelName()){
+            case "0":
+                holder.iv_level.setImageResource(R.mipmap.level_qingtong);
+                break;
+            case "1":
+                holder.iv_level.setImageResource(R.mipmap.level_baiyin);
+                break;
+            case "2":
+                holder.iv_level.setImageResource(R.mipmap.level_huangjin);
+                break;
+            case "3":
+                holder.iv_level.setImageResource(R.mipmap.level_bojin);
+                break;
+            case "4":
+                holder.iv_level.setImageResource(R.mipmap.level_zuanshi);
+                break;
+            case "5":
+                holder.iv_level.setImageResource(R.mipmap.level_huangguan);
+                break;
+        }
+        switch (data.get(position).getStarNum()){
             case "0" :
                 holder.iv_star1.setImageResource(R.mipmap.pingxing);
                 holder.iv_star2.setImageResource(R.mipmap.pingxing);
@@ -104,25 +135,27 @@ public class HomeTuiJianXinPinShangJiaAdapter extends RecyclerView.Adapter<HomeT
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView iv;
+        ImageView iv_head,iv_big;
+        TextView tv_name,tv_level,tv_shangpin_name,tv_price;
+        ImageView iv_level;
         ImageView iv_star1,iv_star2,iv_star3,iv_star4,iv_star5;
-        TextView tv_name,tv_now_price,tv_old_price;
         LinearLayout ll_all;
         public ViewHolder(View itemView) {
             super(itemView);
-            iv = itemView.findViewById(R.id.iv);
+            ll_all = itemView.findViewById(R.id.ll_all);
             tv_name = itemView.findViewById(R.id.tv_name);
-            tv_now_price = itemView.findViewById(R.id.tv_now_price);
-            tv_old_price = itemView.findViewById(R.id.tv_old_price);
+            tv_level = itemView.findViewById(R.id.tv_level);
+            iv_head = itemView.findViewById(R.id.iv_head);
+            iv_big = itemView.findViewById(R.id.iv_big);
+            tv_shangpin_name = itemView.findViewById(R.id.tv_shangpin_name);
+            tv_price = itemView.findViewById(R.id.tv_price);
+            iv_level = itemView.findViewById(R.id.iv_level);
+
             iv_star1 = itemView.findViewById(R.id.iv_star1);
             iv_star2 = itemView.findViewById(R.id.iv_star2);
             iv_star3 = itemView.findViewById(R.id.iv_star3);
             iv_star4 = itemView.findViewById(R.id.iv_star4);
             iv_star5 = itemView.findViewById(R.id.iv_star5);
-            ll_all = itemView.findViewById(R.id.ll_all);
         }
-    }
-    public interface AddClickListenner{
-        void addListen(int i, ImageView ivGoods);
     }
 }
