@@ -10,7 +10,7 @@
 <body style="background:#F3F3F3;font-family:'Microsoft YaHei',微软雅黑,'SimHei',黑体;font-size:0.1rem;">
 	<div class="yj_mainimg">
 		<div id="data0Content"><img class="yj_mainimg_img"></div>
-	</div><img id="backgo" class="yj_backimg" onclick="backgo()" style="top:0.7rem;">
+	</div><img id="backgo" class="yj_backimg" onclick="backgo();" style="top:0.8rem;"><img class="yj_btnmoreimg" style="top:0.8rem;" onclick="btnmore()">
 	<div class="tbshop_goods_box">
 		<div style="height:0.1rem;width:100%"></div><img class="tbshop_goods_share" onclick="sharego();tbgoodspreload('uploads/xingcheng/20191223/18aa8a62c5bf43ee78302fad6aa25c21.jpg$$$@@@康师傅老坛酸菜牛肉面|&|&|3.5|&|&|5.5|&|&|袋、350克|@|@|6.6|@|@|100|#|#|桶、400克|@|@|8.5|@|@|120|#|#|箱、1500克|@|@|38|@|@|99$$$@@@uploads/xingcheng/20191111/1-d4553c8dd6e22734ed371c641ff521239172.jpg|@|@|111|@|@|评论用户昵称|@|@|3天前|@|@|主要内容|@|@|5|@#|@#| |&|&|uploads/xingcheng/20191111/1-d4553c8dd6e22734ed371c641ff521239172.jpg|@|@|111|@|@|评论用户昵称1|@|@|3.1天前|@|@|主要内容1|@|@|4|@#|@#|uploads/xingcheng/20191111/1-d4553c8dd6e22734ed371c641ff521239172.jpg|@|@|111|@|@|回复用户昵称|@|@|4天前|@|@|回复主要内容|#|#|uploads/xingcheng/20191111/1-d4553c8dd6e22734ed371c641ff521239172.jpg|@|@|111|@|@|回复用户昵称1|@|@|4.1天前|@|@|回复主要内容1|#|#|uploads/xingcheng/20191111/1-d4553c8dd6e22734ed371c641ff521239172.jpg|@|@|111|@|@|回复用户昵称2|@|@|4.2天前|@|@|回复主要内容2$$$@@@配送服务|@|@|黑龙江省内免运费士大夫撒旦发阿斯顿发撒打发啊多发点是否阿迪斯发第三方阿迪斯发第三方（*&（……*%……*（|&|&|配送服务1|@|@|黑龙江省内免运费1|&|&|配送服务2|@|@|黑龙江省内免运费2|&|&|配送服务3|@|@|黑龙江省内免运费3$$$@@@详细内容详细内容详细内容详细内容|&|&|uploads/xingcheng/20191111/0-0d822c33a29656244255ddc22dcae64d5802.jpg|@|@|图片描述|#|#|uploads/xingcheng/20191219/0-bf1457120a2484ad0184336b435ae52d8409.png|@|@| |#|#|uploads/xingcheng/20191111/2-0d822c33a29656244255ddc22dcae64d6742.jpeg|@|@| ')">
 		<div id="data1Content" class="tbshop_goodstit" >努力加载中...<img class="emoji_14"></div>
@@ -144,6 +144,14 @@
 //规格选择相关处理
 goodsshowval = "";
 var showimglist = new Array();
+function showtopmenu(){
+	if (document.getElementById('topmenu').style.display=="none")
+	{
+		document.getElementById('topmenu').style.display="block";
+	}else{
+		document.getElementById('topmenu').style.display="none";
+	}
+}
 function selspecsall(spstr,obj){
 	var domobj = document.getElementsByClassName('divimg');
 	var i;

@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -162,6 +163,12 @@ public class PersonMainActivity1 extends BaseActivity {
 
     @BindView(R.id.rv_zuixin_goods)
     RecyclerView rv_zuixin_goods;
+    @BindView(R.id.ll_goods)
+    LinearLayout ll_goods;
+
+    //商品
+    private List<NewPersonMainMode_part1.ObjBean.GoodsBean> list_goods = new ArrayList<>();
+    private PersonMainZuiXinShangPinAdapter shangPinAdapter;
     private String ta = "他";
     private SpImp spImp;
     private int type_tade_or_wode = 0;//0 为他的 1 为我的
@@ -424,13 +431,7 @@ public class PersonMainActivity1 extends BaseActivity {
 
         LinearLayoutManager manager = new LinearLayoutManager(PersonMainActivity1.this);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        List<String> datas = new ArrayList<>();
-        datas.add("");
-        datas.add("");
-        datas.add("");
-        datas.add("");
-        datas.add("");
-        PersonMainZuiXinShangPinAdapter shangPinAdapter = new PersonMainZuiXinShangPinAdapter(datas, new PersonMainZuiXinShangPinAdapter.AddClickListenner() {
+        shangPinAdapter = new PersonMainZuiXinShangPinAdapter(list_goods, new PersonMainZuiXinShangPinAdapter.AddClickListenner() {
             @Override
             public void addListen(int i, ImageView ivGoods) {
             }
@@ -562,6 +563,16 @@ public class PersonMainActivity1 extends BaseActivity {
                                             list_label.add(kvMode);
                                         }
                                         personLabelAdapter.notifyDataSetChanged();
+                                        //商品
+                                        list_goods.clear();
+                                        list_goods.addAll(model.getObj().getGoods());
+                                        if (list_goods.size()>0){
+                                            ll_goods.setVisibility(View.VISIBLE);
+                                        }else {
+                                            ll_goods.setVisibility(View.GONE);
+                                        }
+                                        shangPinAdapter.notifyDataSetChanged();
+
                                     }
                                     refreshLayout.finishRefresh(1000);
                                 } catch (JSONException e) {
@@ -856,6 +867,16 @@ public class PersonMainActivity1 extends BaseActivity {
                                 }
                                 personLabelAdapter =new PersonMainLabelAdapter(list_label);
                                 recycler_view_labels.setAdapter(personLabelAdapter);
+
+                                //商品
+                                list_goods.clear();
+                                list_goods.addAll(model.getObj().getGoods());
+                                if (list_goods.size()>0){
+                                    ll_goods.setVisibility(View.VISIBLE);
+                                }else {
+                                    ll_goods.setVisibility(View.GONE);
+                                }
+                                shangPinAdapter.notifyDataSetChanged();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

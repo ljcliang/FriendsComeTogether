@@ -47,6 +47,12 @@
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
+    <View
+        android:id="@+id/view_showmore"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
     <!--<ScrollView-->
         <!--android:layout_above="@+id/activity_details_of_friends_ll_bottom"-->
         <!--android:layout_below="@+id/activity_details_of_friends_rl_top"-->

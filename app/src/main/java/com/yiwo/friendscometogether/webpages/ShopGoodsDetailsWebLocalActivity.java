@@ -26,6 +26,7 @@ import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.ShareBoardlistener;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseSonicWebActivity;
+import com.yiwo.friendscometogether.imagepreview.StatusBarUtils;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.FileUtils;
@@ -53,6 +54,7 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
         setContentView(R.layout.activity_shop_goods_details);
         spImp = new SpImp(this);
         unbinder = ButterKnife.bind(this);
+        StatusBarUtils.setStatusBarTransparent(ShopGoodsDetailsWebLocalActivity.this);
 //        url = "http://www.tongbanapp.com/index.php/action/ac_goods/goodsInfo?goodsID="+getIntent().getStringExtra(GOOD_ID_KEY)+"&uid="+spImp.getUID();
         url = "file:///android_asset/htmlfile/demoN.html";
         Log.d("asdasd",url);
@@ -158,6 +160,9 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
                     dialog.dismiss();
                 }
             }).show();
+        }
+        @JavascriptInterface
+        public void btnmore(){
         }
     }
     private void liaotian(String liaotianAccount) {

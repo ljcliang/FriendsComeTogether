@@ -24,6 +24,7 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.hometuijian_five_list.WenLvZiXunAdapter;
+import com.yiwo.friendscometogether.newadapter.hometuijian_five_list.JingDianDaKa_Adapter;
 import com.yiwo.friendscometogether.newadapter.hometuijian_five_list.ZuiXinZhaoMu_Adapter;
 import com.yiwo.friendscometogether.newmodel.HomePageSkipListModel;
 import com.yiwo.friendscometogether.sp.SpImp;
@@ -112,12 +113,8 @@ public class ZiXunListActivity extends BaseActivity {
 
         switch (getIntent().getStringExtra(LIST_TYPE)) {
             case "0"://0最新招募
-                ExStaggeredGridLayoutManager manager0 = new ExStaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL) {
-                    @Override
-                    public boolean canScrollVertically() {
-                        return true;
-                    }
-                };
+                LinearLayoutManager manager0 = new LinearLayoutManager(this);
+                manager0.setOrientation(LinearLayoutManager.VERTICAL);
                 adapter = new ZuiXinZhaoMu_Adapter(list);
                 tvTitle.setText("最新招募");
                 rv.setLayoutManager(manager0);
@@ -136,7 +133,7 @@ public class ZiXunListActivity extends BaseActivity {
                         return true;
                     }
                 };
-                adapter = new ZuiXinZhaoMu_Adapter(list);
+                adapter = new JingDianDaKa_Adapter(list);
                 tvTitle.setText("经典打卡");
                 rv.setLayoutManager(manager2);
                 break;

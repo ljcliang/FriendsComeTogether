@@ -2,7 +2,6 @@ package com.yiwo.friendscometogether.webpages;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,19 +18,15 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -45,8 +40,6 @@ import com.yiwo.friendscometogether.base.BaseSonicWebActivity;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.dbmodel.LookHistoryDbModel;
 import com.yiwo.friendscometogether.dbmodel.UserGiveModel;
-import com.yiwo.friendscometogether.emoji.EmotionMainFragment;
-import com.yiwo.friendscometogether.emoji.ScreenUtils;
 import com.yiwo.friendscometogether.greendao.gen.DaoMaster;
 import com.yiwo.friendscometogether.greendao.gen.DaoSession;
 import com.yiwo.friendscometogether.greendao.gen.LookHistoryDbModelDao;
@@ -65,7 +58,6 @@ import com.yiwo.friendscometogether.pages.ArticleCommentActivity;
 import com.yiwo.friendscometogether.pages.InsertIntercalationActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.VideoActivity;
-import com.yiwo.friendscometogether.pages.WelcomeActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.tongban_emoticon.TbEmoticonFragment;
 import com.yiwo.friendscometogether.utils.ShareUtils;
@@ -82,7 +74,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
+public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
 
     @BindView(R.id.activity_details_of_friends_iv_praise)
     ImageView ivPraise;
@@ -104,6 +96,8 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
     LinearLayout ll_comment;
     @BindView(R.id.progresss_bar)
     ProgressBar progresss_bar;
+    @BindView(R.id.view_showmore)
+    View view_showmore;
     private String fmID;
     private String uid;
     private SpImp spImp;
@@ -138,12 +132,12 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
         setContentView(R.layout.activity_details_of_friends_web);
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
         ButterKnife.bind(this);
-//        StatusBarUtils.setStatusBarTransparent(DetailsOfFriendsWebActivity.this);
+        StatusBarUtils.setStatusBarTransparent(DetailsOfFriendsWebLocalActivity.this);
         fmID= getIntent().getStringExtra("fmid");
-        spImp = new SpImp(DetailsOfFriendsWebActivity.this);
+        spImp = new SpImp(DetailsOfFriendsWebLocalActivity.this);
         uid = spImp.getUID();
-        url = NetConfig.BaseUrl+"action/ac_article/youJiWeb?id="+fmID+"&uid="+uid;
-//        url = "file:///android_asset/htmlfile/demoJ.html";
+//        url = NetConfig.BaseUrl+"action/ac_article/youJiWeb?id="+fmID+"&uid="+uid;
+        url = "file:///android_asset/htmlfile/demoJ.html";
         initWebView(webView,url);
         initIntentSonic(url,webView);
         setDatabase();
@@ -157,6 +151,43 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
                 super.onProgressChanged(view, newProgress);
                 if(newProgress==100){
                     progresss_bar.setVisibility(View.GONE);//加载完网页进度条消失
+                    if (isFirst){
+                        isFirst = false;
+//                        String strr1 = getIntent().getStringExtra("str");
+//                        String strr2 = "";
+//                        String strr3 = "0";
+//                        Log.d("adsadasd",strr1+""+strr2+""+strr3);
+//                        webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+                        ViseHttp.POST(NetConfig.articleInfo)
+                                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
+                                .addParam("uid", spImp.getUID())
+                                .addParam("fmID",fmID)
+                                .addParam("type","0")
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(data);
+                                            if (jsonObject.getInt("code") == 200){
+                                                Gson gson = new Gson();
+                                                LocalWebInfoModel mode =  gson.fromJson(data,LocalWebInfoModel.class);
+                                                String strr1 = mode.getObj().getStr();
+                                                String strr2 = "";
+                                                String strr3 = "0";
+                                                Log.d("adsadasd",strr1+""+strr2+""+strr3);
+                                                webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+
+                                    }
+                                });
+                    }
                 }else{
                     progresss_bar.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
                     progresss_bar.setProgress(newProgress);//设置进度值				}
@@ -195,7 +226,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
             @Override
             public void onCommitListen(String string) {
                 if (TextUtils.isEmpty(string)) {
-                    toToast(DetailsOfFriendsWebActivity.this, "请输入评论内容");
+                    toToast(DetailsOfFriendsWebLocalActivity.this, "请输入评论内容");
                 } else {
                     toComment(string);
                 }
@@ -207,7 +238,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
         transaction.commit();
     }
     private void toComment(String string) {
-        dialog = WeiboDialogUtils.createLoadingDialog(DetailsOfFriendsWebActivity.this,"");
+        dialog = WeiboDialogUtils.createLoadingDialog(DetailsOfFriendsWebLocalActivity.this,"");
         ViseHttp.POST(NetConfig.articleCommentUrl)
                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleCommentUrl))
                 .addParam("id", fmID)
@@ -221,7 +252,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
                             JSONObject jsonObject = new JSONObject(data);
                             WeiboDialogUtils.closeDialog(dialog);
                             if (jsonObject.getInt("code") == 200) {
-                                toToast(DetailsOfFriendsWebActivity.this, "评论成功");
+                                toToast(DetailsOfFriendsWebLocalActivity.this, "评论成功");
                                 JSONObject jsonObject1 = jsonObject.getJSONObject("obj");
                                 String userpic = jsonObject1.getString("userpic");
                                 String username = jsonObject1.getString("username");
@@ -243,7 +274,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
                     @Override
                     public void onFail(int errCode, String errMsg) {
                         WeiboDialogUtils.closeDialog(dialog);
-                        toToast(DetailsOfFriendsWebActivity.this, "评论失败："+errCode+"//"+errMsg);
+                        toToast(DetailsOfFriendsWebLocalActivity.this, "评论失败："+errCode+"//"+errMsg);
                     }
                 });
     }
@@ -377,23 +408,23 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
                 }
                 break;
             case R.id.activity_details_of_friends_ll_intercalation://插文
-                intent.setClass(DetailsOfFriendsWebActivity.this, InsertIntercalationActivity.class);
+                intent.setClass(DetailsOfFriendsWebLocalActivity.this, InsertIntercalationActivity.class);
                 intent.putExtra("id", fmID);
                 startActivity(intent);
                 break;
             case R.id.activity_details_of_friends_ll_comment://评论
                 if (TextUtils.isEmpty(uid) || uid.equals("0")) {
-                    intent.setClass(DetailsOfFriendsWebActivity.this, LoginActivity.class);
+                    intent.setClass(DetailsOfFriendsWebLocalActivity.this, LoginActivity.class);
                     startActivity(intent);
                 } else {
-                    intent.setClass(DetailsOfFriendsWebActivity.this, ArticleCommentActivity.class);
+                    intent.setClass(DetailsOfFriendsWebLocalActivity.this, ArticleCommentActivity.class);
                     intent.putExtra("id", fmID);
                     startActivity(intent);
                 }
                 break;
             case R.id.activity_details_of_friends_ll_share://分享
                 if (TextUtils.isEmpty(uid) || uid.equals("0")) {
-                    intent.setClass(DetailsOfFriendsWebActivity.this, LoginActivity.class);
+                    intent.setClass(DetailsOfFriendsWebLocalActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
@@ -410,11 +441,11 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
                                         if (jsonObject.getInt("code") == 200) {
                                             Gson gson = new Gson();
                                             final ActiveShareModel shareModel = gson.fromJson(data, ActiveShareModel.class);
-                                            new ShareAction(DetailsOfFriendsWebActivity.this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+                                            new ShareAction(DetailsOfFriendsWebLocalActivity.this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
                                                     .setShareboardclickCallback(new ShareBoardlistener() {
                                                         @Override
                                                         public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
-                                                            ShareUtils.shareWeb(DetailsOfFriendsWebActivity.this, shareModel.getObj().getUrl()+"&uid="+spImp.getUID(), model.getObj().getWho()+"的友记",
+                                                            ShareUtils.shareWeb(DetailsOfFriendsWebLocalActivity.this, shareModel.getObj().getUrl()+"&uid="+spImp.getUID(), model.getObj().getWho()+"的友记",
                                                                     shareModel.getObj().getTitle(), shareModel.getObj().getImages(), share_media);
                                                         }
                                                     }).open();
@@ -433,12 +464,12 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
                 break;
             case R.id.activity_details_of_friends_ll_praise://点赞
                 if (TextUtils.isEmpty(uid) || uid.equals("0")) {
-                    intent.setClass(DetailsOfFriendsWebActivity.this, LoginActivity.class);
+                    intent.setClass(DetailsOfFriendsWebLocalActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
                     if (!isPraise) {
-                        dialog = WeiboDialogUtils.createLoadingDialog(DetailsOfFriendsWebActivity.this,"");
+                        dialog = WeiboDialogUtils.createLoadingDialog(DetailsOfFriendsWebLocalActivity.this,"");
                         ViseHttp.POST(NetConfig.articlePraiseUrl)
                                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articlePraiseUrl))
                                 .addParam("id", fmID)
@@ -457,24 +488,24 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
                                                 model.setRemarkState("1");
                                                 userGiveModelDao.insert(model);
                                                 isPraise = true;
-                                                toToast(DetailsOfFriendsWebActivity.this, "点赞成功");
+                                                toToast(DetailsOfFriendsWebLocalActivity.this, "点赞成功");
                                                 WeiboDialogUtils.closeDialog(dialog);
                                             }
                                         } catch (JSONException e) {
                                             e.printStackTrace();
-                                            toToast(DetailsOfFriendsWebActivity.this, "点赞失败");
+                                            toToast(DetailsOfFriendsWebLocalActivity.this, "点赞失败");
                                             WeiboDialogUtils.closeDialog(dialog);
                                         }
                                     }
 
                                     @Override
                                     public void onFail(int errCode, String errMsg) {
-                                        toToast(DetailsOfFriendsWebActivity.this, "点赞失败");
+                                        toToast(DetailsOfFriendsWebLocalActivity.this, "点赞失败");
                                         WeiboDialogUtils.closeDialog(dialog);
                                     }
                                 });
                     }else {
-                        dialog = WeiboDialogUtils.createLoadingDialog(DetailsOfFriendsWebActivity.this,"");
+                        dialog = WeiboDialogUtils.createLoadingDialog(DetailsOfFriendsWebLocalActivity.this,"");
                         ViseHttp.POST(NetConfig.articlePraiseUrl)
                                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articlePraiseUrl))
                                 .addParam("id", fmID)
@@ -496,7 +527,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
                                                     Log.d("asdsadas","进来了");
                                                 }
                                                 isPraise = false;
-                                                toToast(DetailsOfFriendsWebActivity.this, "已取消");
+                                                toToast(DetailsOfFriendsWebLocalActivity.this, "已取消");
                                                 WeiboDialogUtils.closeDialog(dialog);
                                             }
                                         } catch (JSONException e) {
@@ -515,7 +546,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
                 break;
             case R.id.activity_details_of_friends_ll_star://收藏
                 if (TextUtils.isEmpty(uid) || uid.equals("0")) {
-                    intent.setClass(DetailsOfFriendsWebActivity.this, LoginActivity.class);
+                    intent.setClass(DetailsOfFriendsWebLocalActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
@@ -534,7 +565,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
                                         try {
                                             JSONObject jsonObject = new JSONObject(data);
                                             if (jsonObject.getInt("code") == 200) {
-                                                toToast(DetailsOfFriendsWebActivity.this, "收藏成功");
+                                                toToast(DetailsOfFriendsWebLocalActivity.this, "收藏成功");
                                             }
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -561,7 +592,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
                                         try {
                                             JSONObject jsonObject = new JSONObject(data);
                                             if (jsonObject.getInt("code") == 200) {
-                                                toToast(DetailsOfFriendsWebActivity.this, "取消收藏成功");
+                                                toToast(DetailsOfFriendsWebLocalActivity.this, "取消收藏成功");
                                             }
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -598,7 +629,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
                     listContent.add(jsonObject.getString("desc"));
                 }
                 Intent intent1 = new Intent();
-                intent1.setClass(DetailsOfFriendsWebActivity.this, ImagePreviewActivity.class);
+                intent1.setClass(DetailsOfFriendsWebLocalActivity.this, ImagePreviewActivity.class);
                 intent1.putStringArrayListExtra("imageList", (ArrayList<String>) listPics);
 //                isHasImageContent = getIntent().getBooleanExtra("hasImageContent",false);
 //                if (isHasImageContent){
@@ -616,7 +647,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
         @JavascriptInterface
         public void userinfo(String uid){
             Intent intent = new Intent();
-            intent.setClass(DetailsOfFriendsWebActivity.this, PersonMainActivity1.class);
+            intent.setClass(DetailsOfFriendsWebLocalActivity.this, PersonMainActivity1.class);
             intent.putExtra("person_id", uid);
             startActivity(intent);
         }
@@ -625,7 +656,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
             //相关活动跳转
             Intent intent = new Intent();
             intent.putExtra("pfID", pfID);
-            intent.setClass(DetailsOfFriendsWebActivity.this, DetailsOfFriendTogetherWebActivity.class);
+            intent.setClass(DetailsOfFriendsWebLocalActivity.this, DetailsOfFriendTogetherWebActivity.class);
             startActivity(intent);
         }
         @JavascriptInterface
@@ -633,17 +664,17 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
             //相关活动跳转
             Intent intent = new Intent();
             intent.putExtra("pfID", pfID);
-            intent.setClass(DetailsOfFriendsWebActivity.this, DetailsOfFriendTogetherWebActivity.class);
+            intent.setClass(DetailsOfFriendsWebLocalActivity.this, DetailsOfFriendTogetherWebActivity.class);
             startActivity(intent);
         }
         @JavascriptInterface
         public void pinglun(){//评论跳转
             Intent intent = new Intent();
             if (TextUtils.isEmpty(uid) || uid.equals("0")) {
-                intent.setClass(DetailsOfFriendsWebActivity.this, LoginActivity.class);
+                intent.setClass(DetailsOfFriendsWebLocalActivity.this, LoginActivity.class);
                 startActivity(intent);
             } else {
-                intent.setClass(DetailsOfFriendsWebActivity.this, ArticleCommentActivity.class);
+                intent.setClass(DetailsOfFriendsWebLocalActivity.this, ArticleCommentActivity.class);
                 intent.putExtra("id", fmID);
                 startActivity(intent);
             }
@@ -651,7 +682,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
         @JavascriptInterface
         public void reportuser(String uId,String pId){//举报  评论人 的ID，评论ID
             Intent intent = new Intent();
-            intent.setClass(DetailsOfFriendsWebActivity.this, JuBaoActivity.class);
+            intent.setClass(DetailsOfFriendsWebLocalActivity.this, JuBaoActivity.class);
             intent.putExtra("pfID",pId);
             intent.putExtra("reportUserID",uId);
             intent.putExtra("type","3");
@@ -660,21 +691,30 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
         @JavascriptInterface
         public void jumpyouji(String fmID){
             Intent intent = new Intent();
-            intent.setClass(DetailsOfFriendsWebActivity.this, DetailsOfFriendsWebActivity.class);
+            intent.setClass(DetailsOfFriendsWebLocalActivity.this, DetailsOfFriendsWebLocalActivity.class);
             intent.putExtra("fmid", fmID);
             startActivity(intent);
         }
         @JavascriptInterface
         public void playVideo(String vid,String vname,String img,String vurl){
+            Log.d("VURL::::",vurl);
             startVideoACtivity(vid,vname,img,vurl);
+        }
+        @JavascriptInterface
+        public void btnmore(){
+            showMore(view_showmore);
+        }
+        @JavascriptInterface
+        public void backgo(){
+            onBackPressed();
         }
     }
     private void showMuLuPopupwindow(View p_view) {
 
-        View view = LayoutInflater.from(DetailsOfFriendsWebActivity.this).inflate(R.layout.popupwindow_web_mulu, null);
+        View view = LayoutInflater.from(DetailsOfFriendsWebLocalActivity.this).inflate(R.layout.popupwindow_web_mulu, null);
         ScreenAdapterTools.getInstance().loadView(view);
         RecyclerView recyclerView = view.findViewById(R.id.rv_mulu);
-        LinearLayoutManager manager = new LinearLayoutManager(DetailsOfFriendsWebActivity.this);
+        LinearLayoutManager manager = new LinearLayoutManager(DetailsOfFriendsWebLocalActivity.this);
         recyclerView.setLayoutManager(manager);
         muLuItemAdapter= new MuLuItemYouJiAdapter(listMuLu);
         muLuItemAdapter.setListener(new MuLuItemYouJiAdapter.ChooseListen() {
@@ -710,7 +750,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
     }
     private void showMore(final View view_p) {
 
-        View view = LayoutInflater.from(DetailsOfFriendsWebActivity.this).inflate(R.layout.popupwindow_detail_of_friend_web_activity_show_more, null);
+        View view = LayoutInflater.from(DetailsOfFriendsWebLocalActivity.this).inflate(R.layout.popupwindow_detail_of_friend_web_activity_show_more, null);
         final PopupWindow popupWindow;
         popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
 
@@ -753,7 +793,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
             public void onClick(View v) {
                 if (TextUtils.isEmpty(uid) || uid.equals("0")) {
                     Intent intent = new Intent();
-                    intent.setClass(DetailsOfFriendsWebActivity.this, LoginActivity.class);
+                    intent.setClass(DetailsOfFriendsWebLocalActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
@@ -770,11 +810,11 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
                                         if (jsonObject.getInt("code") == 200) {
                                             Gson gson = new Gson();
                                             final ActiveShareModel shareModel = gson.fromJson(data, ActiveShareModel.class);
-                                            new ShareAction(DetailsOfFriendsWebActivity.this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+                                            new ShareAction(DetailsOfFriendsWebLocalActivity.this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
                                                     .setShareboardclickCallback(new ShareBoardlistener() {
                                                         @Override
                                                         public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
-                                                            ShareUtils.shareWeb(DetailsOfFriendsWebActivity.this, shareModel.getObj().getUrl()+"&uid="+spImp.getUID(), model.getObj().getWho()+"的友记",
+                                                            ShareUtils.shareWeb(DetailsOfFriendsWebLocalActivity.this, shareModel.getObj().getUrl()+"&uid="+spImp.getUID(), model.getObj().getWho()+"的友记",
                                                                     shareModel.getObj().getTitle(), shareModel.getObj().getImages(), share_media);
                                                         }
                                                     }).open();
@@ -798,7 +838,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
             public void onClick(View v) {
                 popupWindow.dismiss();
                 Intent intent = new Intent();
-                intent.setClass(DetailsOfFriendsWebActivity.this, JuBaoActivity.class);
+                intent.setClass(DetailsOfFriendsWebLocalActivity.this, JuBaoActivity.class);
                 intent.putExtra("pfID",fmID);
                 intent.putExtra("type","1");
                 startActivity(intent);
@@ -832,7 +872,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
 
     }
     private void deleteYouJiOrVideo(final String type, final String delID) {// 传type 0删除游记 1删除视频  delID要删除的ID   userID登录用户的ID
-        AlertDialog.Builder builder = new AlertDialog.Builder(DetailsOfFriendsWebActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(DetailsOfFriendsWebLocalActivity.this);
         builder.setMessage("确定删除此友记？");
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
@@ -848,7 +888,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
                                 try {
                                     JSONObject jsonObject = new JSONObject(data);
                                     if (jsonObject.getInt("code") == 200){
-                                        toToast(DetailsOfFriendsWebActivity.this,"删除成功！");
+                                        toToast(DetailsOfFriendsWebLocalActivity.this,"删除成功！");
                                         Intent intent = new Intent();
                                         intent.putExtra("deleteID",fmID);
                                         intent.setAction("android.friendscometogether.HomeFragment.YouJi");
@@ -858,7 +898,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
                                         sendBroadcast(intent);
                                         finish();
                                     }else {
-                                        toToast(DetailsOfFriendsWebActivity.this,"删除失败："+jsonObject.getInt("code"));
+                                        toToast(DetailsOfFriendsWebLocalActivity.this,"删除失败："+jsonObject.getInt("code"));
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -867,7 +907,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-                                toToast(DetailsOfFriendsWebActivity.this,"删除失败："+errCode+"/"+errMsg);
+                                toToast(DetailsOfFriendsWebLocalActivity.this,"删除失败："+errCode+"/"+errMsg);
                             }
                         });
             }
@@ -879,7 +919,7 @@ public class DetailsOfFriendsWebActivity extends BaseSonicWebActivity {
         }).show();
     }
     private void startVideoACtivity(String vid,String vname,String img,String vurl){
-        Intent it = new Intent(DetailsOfFriendsWebActivity.this, VideoActivity.class);
+        Intent it = new Intent(DetailsOfFriendsWebLocalActivity.this, VideoActivity.class);
         it.putExtra("videoUrl", vurl);
         it.putExtra("title", vname);
         it.putExtra("picUrl", img);

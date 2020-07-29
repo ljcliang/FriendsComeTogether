@@ -518,28 +518,36 @@
 <!--                    android:layout_marginLeft="30px"-->
 <!--                    android:layout_marginRight="30px"-->
 <!--                    android:background="#cccccc" />-->
-                <TextView
+                <LinearLayout
+                    android:id="@+id/ll_goods"
                     android:layout_marginTop="20px"
-                    android:layout_marginBottom="10px"
-                    android:layout_marginLeft="39px"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="34px"
-                    android:textColor="@color/black_101010"
-                    android:text="最新上架"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <RelativeLayout
-                    android:layout_marginLeft="39px"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_zuixin_goods"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_marginTop="30px"
+                        android:layout_marginBottom="10px"
+                        android:layout_marginLeft="39px"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="34px"
+                        android:textColor="@color/black_101010"
+                        android:text="最新上架"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:background="@color/white_ffffff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_zuixin_goods"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </RelativeLayout>
+                </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/rl_label"
                     android:layout_width="match_parent"
+                    android:layout_marginBottom="20px"
                     android:layout_height="80px"
                     android:layout_marginTop="40px">
 
@@ -578,22 +586,21 @@
                         <RelativeLayout
                             android:id="@+id/rl_tab_4"
                             android:layout_width="200px"
-                            android:layout_height="80px">
+                            android:layout_height="65px">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginBottom="35px"
                                 android:text="视频"
                                 android:textColor="@color/black_333333"
-                                android:textSize="35px"
+                                android:textSize="38px"
                                 android:textStyle="bold" />
 
                             <View
                                 android:id="@+id/bottom_line_4"
-                                android:layout_width="100px"
-                                android:layout_height="10px"
+                                android:layout_width="50px"
+                                android:layout_height="7px"
                                 android:layout_alignParentBottom="true"
                                 android:layout_centerHorizontal="true"
                                 android:background="@drawable/bg_d84c37_30px"
@@ -602,23 +609,22 @@
                         <RelativeLayout
                             android:id="@+id/rl_tab_2"
                             android:layout_width="200px"
-                            android:layout_height="80px">
+                            android:layout_height="65px">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginBottom="35px"
                                 android:paddingBottom="1px"
                                 android:text="友记"
                                 android:textColor="@color/black_333333"
-                                android:textSize="35px"
+                                android:textSize="38px"
                                 android:textStyle="bold" />
 
                             <View
                                 android:id="@+id/bottom_line_2"
-                                android:layout_width="100px"
-                                android:layout_height="10px"
+                                android:layout_width="50px"
+                                android:layout_height="7px"
                                 android:layout_alignParentBottom="true"
                                 android:layout_centerHorizontal="true"
                                 android:background="@drawable/bg_d84c37_30px"
@@ -628,22 +634,21 @@
                         <RelativeLayout
                             android:id="@+id/rl_tab_3"
                             android:layout_width="200px"
-                            android:layout_height="80px">
+                            android:layout_height="65px">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginBottom="35px"
                                 android:text="友聚"
                                 android:textColor="@color/black_333333"
-                                android:textSize="35px"
+                                android:textSize="38px"
                                 android:textStyle="bold" />
 
                             <View
                                 android:id="@+id/bottom_line_3"
-                                android:layout_width="100px"
-                                android:layout_height="10px"
+                                android:layout_width="50px"
+                                android:layout_height="7px"
                                 android:layout_alignParentBottom="true"
                                 android:layout_centerHorizontal="true"
                                 android:background="@drawable/bg_d84c37_30px"

@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".webpages.ShopGoodsDetailsWebActivity">
     <RelativeLayout
+        android:visibility="gone"
         style="@style/rl_top_bar_dp">
         <TextView
             android:id="@+id/tv_title"

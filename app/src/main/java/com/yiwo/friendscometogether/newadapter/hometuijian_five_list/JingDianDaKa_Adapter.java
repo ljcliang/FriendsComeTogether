@@ -1,4 +1,4 @@
-package com.yiwo.friendscometogether.newadapter;
+package com.yiwo.friendscometogether.newadapter.hometuijian_five_list;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,14 +15,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.newmodel.HomeTuiJianYouJiShiPinModel;
-import com.yiwo.friendscometogether.newmodel.Home_youjiShiPin_0407_model;
+import com.yiwo.friendscometogether.newmodel.HomePageSkipListModel;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
-import com.yiwo.friendscometogether.pages.VideoActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebLocalActivity;
 
 import java.util.List;
 
@@ -30,11 +27,11 @@ import java.util.List;
  * Created by ljc on 2020/3/25.
  */
 
-public class Home_TuiJian_YouJiShiPin_Adapter extends RecyclerView.Adapter<Home_TuiJian_YouJiShiPin_Adapter.ViewHolder>{
+public class JingDianDaKa_Adapter extends RecyclerView.Adapter<JingDianDaKa_Adapter.ViewHolder>{
     private Context context;
-    private List<HomeTuiJianYouJiShiPinModel.ObjBean> data;
+    private List<HomePageSkipListModel.ObjBean.InfoListBean> data;
     private SpImp spImp;
-    public Home_TuiJian_YouJiShiPin_Adapter(List<HomeTuiJianYouJiShiPinModel.ObjBean> data){
+    public JingDianDaKa_Adapter(List<HomePageSkipListModel.ObjBean.InfoListBean> data){
         this.data = data;
     }
     @Override
@@ -43,7 +40,7 @@ public class Home_TuiJian_YouJiShiPin_Adapter extends RecyclerView.Adapter<Home_
         spImp = new SpImp(context);
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_home_youji_0407_item, parent, false);
 //        ScreenAdapterTools.getInstance().loadView(view);
-        Home_TuiJian_YouJiShiPin_Adapter.ViewHolder holder = new Home_TuiJian_YouJiShiPin_Adapter.ViewHolder(view);
+        JingDianDaKa_Adapter.ViewHolder holder = new JingDianDaKa_Adapter.ViewHolder(view);
         Log.d("jaizai,","00000");
         return holder;
     }
@@ -131,17 +128,17 @@ public class Home_TuiJian_YouJiShiPin_Adapter extends RecyclerView.Adapter<Home_
             @Override
             public void onClick(View v) {
                 if (data.get(position).getTp().equals("0")){
-                    intent.setClass(context, DetailsOfFriendsWebLocalActivity.class);
+                    intent.setClass(context, DetailsOfFriendsWebActivity.class);
                     intent.putExtra("fmid", data.get(position).getFmID());
 //                    intent.putExtra("str", data.get(position).getStrInfo());
                     context.startActivity(intent);
                 }else {
-                    intent.setClass(context, VideoActivity.class);
-                    intent.putExtra("videoUrl", data.get(position).getPalyUrl());
-                    intent.putExtra("title", data.get(position).getFmtitle());
-                    intent.putExtra("picUrl", data.get(position).getPicList().get(0));
-                    intent.putExtra("vid", data.get(position).getFmID());
-                    context.startActivity(intent);
+//                    intent.setClass(context, VideoActivity.class);
+//                    intent.putExtra("videoUrl", data.get(position).getPalyUrl());
+//                    intent.putExtra("title", data.get(position).getFmtitle());
+//                    intent.putExtra("picUrl", data.get(position).getPicList().get(0));
+//                    intent.putExtra("vid", data.get(position).getFmID());
+//                    context.startActivity(intent);
                 }
             }
         });
@@ -150,7 +147,7 @@ public class Home_TuiJian_YouJiShiPin_Adapter extends RecyclerView.Adapter<Home_
         }else {
             holder.rl_xiangguan_huodong.setVisibility(View.VISIBLE);
         }
-        holder.tv_huodong.setText(data.get(position).getPfInfo());
+        holder.tv_huodong.setText(data.get(position).getPftitle());
         holder.rl_xiangguan_huodong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

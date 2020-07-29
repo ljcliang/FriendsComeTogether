@@ -14,7 +14,7 @@
             android:layout_marginBottom="3dp"
             android:background="@drawable/bg_white_5dp"
             android:layout_width="170dp"
-            android:layout_height="304dp"/>
+            android:layout_height="260dp"/>
     </RelativeLayout>
     <LinearLayout
         android:id="@+id/ll_all"
@@ -24,7 +24,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="3dp"
         android:layout_width="170dp"
-        android:layout_height="304dp">
+        android:layout_height="260dp">
         <LinearLayout
             android:layout_marginTop="8dp"
             android:layout_marginLeft="12dp"
@@ -116,17 +116,17 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
-            android:layout_marginLeft="7dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <com.yiwo.friendscometogether.widget.CustomRoundAngleImageView
                 android:id="@+id/iv_big"
                 android:src="@mipmap/zanwutupian"
-                test:radius1="5dp"
+                test:right_top_radius1="10dp"
+                test:right_bottom_radius1="10dp"
                 android:scaleType="centerCrop"
-                android:layout_width="146dp"
-                android:layout_height="196dp" />
+                android:layout_width="150dp"
+                android:layout_height="150dp" />
             <LinearLayout
                 android:layout_gravity="bottom"
                 android:orientation="vertical"
