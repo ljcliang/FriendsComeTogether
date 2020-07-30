@@ -104,7 +104,7 @@ android {
     }
 
     greendao {
-        schemaVersion 2
+        schemaVersion 3
         daoPackage 'com.yiwo.friendscometogether.greendao.gen'
         targetGenDir 'src/main/java'
     }

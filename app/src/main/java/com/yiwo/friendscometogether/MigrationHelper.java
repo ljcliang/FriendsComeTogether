@@ -10,6 +10,7 @@ import com.yiwo.friendscometogether.greendao.gen.DuiZhangFenZuDbModelDao;
 import com.yiwo.friendscometogether.greendao.gen.LookHistoryDbModelDao;
 import com.yiwo.friendscometogether.greendao.gen.MyGameCardDbModelDao;
 import com.yiwo.friendscometogether.greendao.gen.UserGiveModelDao;
+import com.yiwo.friendscometogether.greendao.gen.YouJiWebInfoDbModelDao;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -37,7 +38,8 @@ public class MigrationHelper extends DaoMaster.DevOpenHelper {
                     MyGameCardDbModelDao.class,
                     DuiZhangDeHuoDongDbModelDao.class,
                     LookHistoryDbModelDao.class,
-                    UserGiveModelDao.class);
+                    UserGiveModelDao.class,
+                    YouJiWebInfoDbModelDao.class);
         }
     }
 }

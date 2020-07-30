@@ -40,6 +40,8 @@ import com.yiwo.friendscometogether.base.BaseSonicWebActivity;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.dbmodel.LookHistoryDbModel;
 import com.yiwo.friendscometogether.dbmodel.UserGiveModel;
+import com.yiwo.friendscometogether.dbmodel.WebInfoOfDbUntils;
+import com.yiwo.friendscometogether.dbmodel.YouJiWebInfoDbModel;
 import com.yiwo.friendscometogether.greendao.gen.DaoMaster;
 import com.yiwo.friendscometogether.greendao.gen.DaoSession;
 import com.yiwo.friendscometogether.greendao.gen.LookHistoryDbModelDao;
@@ -126,6 +128,9 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
 
     private boolean isFirst = true;
     private Dialog dialog;
+
+    WebInfoOfDbUntils webInfoOfDbUntils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,6 +143,7 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
         uid = spImp.getUID();
 //        url = NetConfig.BaseUrl+"action/ac_article/youJiWeb?id="+fmID+"&uid="+uid;
         url = "file:///android_asset/htmlfile/demoJ.html";
+        webInfoOfDbUntils = new WebInfoOfDbUntils(this);
         initWebView(webView,url);
         initIntentSonic(url,webView);
         setDatabase();
@@ -158,35 +164,83 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
 //                        String strr3 = "0";
 //                        Log.d("adsadasd",strr1+""+strr2+""+strr3);
 //                        webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
-                        ViseHttp.POST(NetConfig.articleInfo)
-                                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
-                                .addParam("uid", spImp.getUID())
-                                .addParam("fmID",fmID)
-                                .addParam("type","0")
-                                .request(new ACallback<String>() {
-                                    @Override
-                                    public void onSuccess(String data) {
-                                        try {
-                                            JSONObject jsonObject = new JSONObject(data);
-                                            if (jsonObject.getInt("code") == 200){
-                                                Gson gson = new Gson();
-                                                LocalWebInfoModel mode =  gson.fromJson(data,LocalWebInfoModel.class);
-                                                String strr1 = mode.getObj().getStr();
-                                                String strr2 = "";
-                                                String strr3 = "0";
-                                                Log.d("adsadasd",strr1+""+strr2+""+strr3);
-                                                webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+                        if (webInfoOfDbUntils.hasThisId(fmID)){
+                            String strr1 = webInfoOfDbUntils.queryYouJi(fmID).getWeb_info();
+                            String strr2 = "";
+                            String strr3 = "0";
+                        Log.d("adsadasd：：\n",strr1+"\n"+strr2+"\n"+strr3);
+                        webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+                            /**
+                             * 加载之后再次查询更新数据库
+                             */
+                            ViseHttp.POST(NetConfig.articleInfo)
+                                    .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
+                                    .addParam("uid", spImp.getUID())
+                                    .addParam("fmID",fmID)
+                                    .addParam("type","0")
+                                    .request(new ACallback<String>() {
+                                        @Override
+                                        public void onSuccess(String data) {
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(data);
+                                                if (jsonObject.getInt("code") == 200){
+                                                    Gson gson = new Gson();
+                                                    LocalWebInfoModel mode =  gson.fromJson(data,LocalWebInfoModel.class);
+//                                                    String strr1 = mode.getObj().getStr();
+//                                                    String strr2 = "";
+//                                                    String strr3 = "0";
+//                                                    Log.d("adsadasd",strr1+""+strr2+""+strr3);
+//                                                    webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+                                                    YouJiWebInfoDbModel youJiWebInfoDbModel = new YouJiWebInfoDbModel();
+                                                    youJiWebInfoDbModel.setWeb_info(mode.getObj().getStr());
+                                                    youJiWebInfoDbModel.setFm_id(fmID);
+                                                    webInfoOfDbUntils.insertYouJiModel(youJiWebInfoDbModel);
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
                                             }
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
                                         }
-                                    }
 
-                                    @Override
-                                    public void onFail(int errCode, String errMsg) {
+                                        @Override
+                                        public void onFail(int errCode, String errMsg) {
 
-                                    }
-                                });
+                                        }
+                                    });
+                        }else {
+                            ViseHttp.POST(NetConfig.articleInfo)
+                                    .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
+                                    .addParam("uid", spImp.getUID())
+                                    .addParam("fmID",fmID)
+                                    .addParam("type","0")
+                                    .request(new ACallback<String>() {
+                                        @Override
+                                        public void onSuccess(String data) {
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(data);
+                                                if (jsonObject.getInt("code") == 200){
+                                                    Gson gson = new Gson();
+                                                    LocalWebInfoModel mode =  gson.fromJson(data,LocalWebInfoModel.class);
+                                                    String strr1 = mode.getObj().getStr();
+                                                    String strr2 = "";
+                                                    String strr3 = "0";
+                                                    Log.d("数据库中没有此条数据：ID-",fmID+"\n"+strr1+""+strr2+""+strr3);
+                                                    webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+                                                    YouJiWebInfoDbModel youJiWebInfoDbModel = new YouJiWebInfoDbModel();
+                                                    youJiWebInfoDbModel.setWeb_info(mode.getObj().getStr());
+                                                    youJiWebInfoDbModel.setFm_id(fmID);
+                                                    webInfoOfDbUntils.insertYouJiModel(youJiWebInfoDbModel);
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFail(int errCode, String errMsg) {
+
+                                        }
+                                    });
+                        }
                     }
                 }else{
                     progresss_bar.setVisibility(View.VISIBLE);//开始加载网页时显示进度条

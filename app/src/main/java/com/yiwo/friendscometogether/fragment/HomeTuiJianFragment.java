@@ -45,6 +45,8 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
+import com.yiwo.friendscometogether.dbmodel.WebInfoOfDbUntils;
+import com.yiwo.friendscometogether.dbmodel.YouJiWebInfoDbModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.HomeTuiJianXinPinShangJiaAdapter;
 import com.yiwo.friendscometogether.newadapter.HomeTuiJian_JingCaiLuXian_Adapter;
@@ -77,8 +79,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -174,8 +182,9 @@ public class HomeTuiJianFragment extends BaseFragment {
     private int page1 = 1;
     private PreLoadWebYouJiBroadcastReceiver preLoadWebYouJiBroadcastReceiver = new PreLoadWebYouJiBroadcastReceiver();
 
+    private WebInfoOfDbUntils webInfoOfDbUntils;
 
-    public static HomeTuiJianFragment newInstance(String cityName) {//status  不传或传100 全部     传1待处理  2已处理   3已完成   4退款
+   public static HomeTuiJianFragment newInstance(String cityName) {//status  不传或传100 全部     传1待处理  2已处理   3已完成   4退款
         Bundle args = new Bundle();
         args.putString(CITY_NAME_KEY, cityName);
         HomeTuiJianFragment fragment = new HomeTuiJianFragment();
@@ -194,6 +203,7 @@ public class HomeTuiJianFragment extends BaseFragment {
         unbinder = ButterKnife.bind(this, rootView);
         ScreenAdapterTools.getInstance().loadView(rootView);
         spImp = new SpImp(getContext());
+        webInfoOfDbUntils = new WebInfoOfDbUntils(getContext());
         cityName = getArguments().getString(CITY_NAME_KEY);
         IntentFilter filter1 = new IntentFilter();
         filter1.addAction("android.friendscometogether.HomeFragment.PreLoadWebYouJiBroadcastReceiver");
@@ -234,42 +244,11 @@ public class HomeTuiJianFragment extends BaseFragment {
                                 HomeTuiJianYouJiShiPinModel model = gson.fromJson(data, HomeTuiJianYouJiShiPinModel.class);
                                 listYouJiShiPin.clear();
                                 listYouJiShiPin.addAll(model.getObj());
+                                preReMenYouJi(listYouJiShiPin);
                                 if (listYouJiShiPin.size() > 0) {
                                     rlYouJiShiPin.setVisibility(View.VISIBLE);
                                 } else {
                                     rlYouJiShiPin.setVisibility(View.GONE);
-                                }
-                                for (HomeTuiJianYouJiShiPinModel.ObjBean objBean : listYouJiShiPin) {
-                                    ViseHttp.POST(NetConfig.articleInfo)
-                                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
-                                            .addParam("uid", spImp.getUID())
-                                            .addParam("fmID", objBean.getFmID())
-                                            .addParam("type", "0")
-                                            .request(new ACallback<String>() {
-                                                @Override
-                                                public void onSuccess(String data) {
-                                                    try {
-                                                        JSONObject jsonObject = new JSONObject(data);
-                                                        if (jsonObject.getInt("code") == 200) {
-                                                            Gson gson = new Gson();
-                                                            LocalWebInfoModel mode = gson.fromJson(data, LocalWebInfoModel.class);
-                                                            objBean.setStrInfo(mode.getObj().getStr());
-//                                                            String strr1 = mode.getObj().getStr();
-//                                                            String strr2 = "";
-//                                                            String strr3 = "0";
-//                                                            Log.d("adsadasd",strr1+""+strr2+""+strr3);
-//                                                            webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
-                                                        }
-                                                    } catch (JSONException e) {
-                                                        e.printStackTrace();
-                                                    }
-                                                }
-
-                                                @Override
-                                                public void onFail(int errCode, String errMsg) {
-
-                                                }
-                                            });
                                 }
                                 youJiShiPinAdapter.notifyDataSetChanged();
                                 page1 = 2;
@@ -361,7 +340,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                                 jianTuShiKeAdapter.notifyDataSetChanged();
                                 if (listJianTuShiKe.size() > 0) {
                                     if (hasPermission()) {
-                                        preLoadYouJi_tuijain(listJianTuShiKe);
+                                        preReMenZhaoMu(listJianTuShiKe);
                                     } else {
                                         requestPermission();
                                     }
@@ -647,7 +626,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                                         jianTuShiKeAdapter.notifyDataSetChanged();
                                         if (listJianTuShiKe.size() > 0) {
                                             if (hasPermission()) {
-                                                preLoadYouJi_tuijain(listJianTuShiKe);
+                                                preReMenZhaoMu(listJianTuShiKe);
                                             } else {
                                                 requestPermission();
                                             }
@@ -718,6 +697,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                                         HomeTuiJianYouJiShiPinModel model = gson.fromJson(data, HomeTuiJianYouJiShiPinModel.class);
                                         listYouJiShiPin.clear();
                                         listYouJiShiPin.addAll(model.getObj());
+                                        preReMenYouJi(listYouJiShiPin);
                                         if (listYouJiShiPin.size() > 0) {
                                             rlYouJiShiPin.setVisibility(View.VISIBLE);
                                         } else {
@@ -766,7 +746,7 @@ public class HomeTuiJianFragment extends BaseFragment {
 //                                            int i = listDuiZhangPuZi.size() - 1;
 //                                            int j = model.getObj().size();
                                             listYouJiShiPin.addAll(model.getObj());
-                                            preLoadYouJi_tuijain_list(model.getObj());
+                                            preReMenYouJi(model.getObj());
 
                                             if (listYouJiShiPin != null && youJiShiPinAdapter != null) {
 //                                                youJiShiPinAdapter.notifyDataSetChanged();
@@ -836,24 +816,6 @@ public class HomeTuiJianFragment extends BaseFragment {
             }
         });
     }
-
-    private void preLoadYouJi_tuijain_list(List<HomeTuiJianYouJiShiPinModel.ObjBean> list) {
-        Log.d("读写内存权限", "youquanxian");
-        for (int i = 0; i < list.size(); i++) {
-            String url = NetConfig.BaseUrl + "action/ac_article/youJiWeb?id=" + list.get(i).getFmID() + "&uid=" + spImp.getUID();
-            SonicSessionConfig.Builder sessionConfigBuilder = new SonicSessionConfig.Builder();
-            sessionConfigBuilder.setSupportLocalServer(true);
-            HashMap mapRp = new HashMap();
-            String str_vlue = "http://www.91yiwo.com/ylyy/include/activity_web/js/jquery-3.3.1.min.js;"
-                    + "http://www.91yiwo.com/ylyy/include/activity_web/css/web_main.css;"
-                    + "http://www.91yiwo.com/ylyy/include/activity_web/js/builder.js;";
-            mapRp.put("sonic-link", str_vlue);
-            sessionConfigBuilder.setCustomResponseHeaders(mapRp);
-            boolean preloadSuccess = SonicEngine.getInstance().preCreateSession(url, sessionConfigBuilder.build());
-            Log.d("preloadpreloadp", preloadSuccess + "" + url);
-        }
-    }
-
     //     直播列表关注
     private void guanZhuLivePerson(final int position) {
         Log.d("adasds", position + "");
@@ -916,7 +878,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                 if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                     requestPermission();
                 } else {
-                    preLoadYouJi_tuijain(listJianTuShiKe);
+                    preReMenZhaoMu(listJianTuShiKe);
                 }
             }
         }
@@ -930,24 +892,6 @@ public class HomeTuiJianFragment extends BaseFragment {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE_STORAGE);
         }
     }
-
-    private void preLoadYouJi_tuijain(List<NewHomeTuiJian.ObjBean.ZmListBean.YjListBean> list) {
-        Log.d("读写内存权限", "youquanxian");
-        for (int i = 0; i < list.size(); i++) {
-            String url = NetConfig.BaseUrl + "action/ac_article/youJiWeb?id=" + list.get(i).getFmID() + "&uid=" + spImp.getUID();
-            SonicSessionConfig.Builder sessionConfigBuilder = new SonicSessionConfig.Builder();
-            sessionConfigBuilder.setSupportLocalServer(true);
-            HashMap mapRp = new HashMap();
-            String str_vlue = "http://www.91yiwo.com/ylyy/include/activity_web/js/jquery-3.3.1.min.js;"
-                    + "http://www.91yiwo.com/ylyy/include/activity_web/css/web_main.css;"
-                    + "http://www.91yiwo.com/ylyy/include/activity_web/js/builder.js;";
-            mapRp.put("sonic-link", str_vlue);
-            sessionConfigBuilder.setCustomResponseHeaders(mapRp);
-            boolean preloadSuccess = SonicEngine.getInstance().preCreateSession(url, sessionConfigBuilder.build());
-            Log.d("preloadpreloadp", preloadSuccess + "" + url);
-        }
-    }
-
     private boolean hasPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return getContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
@@ -1067,13 +1011,95 @@ public class HomeTuiJianFragment extends BaseFragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (hasPermission()) {
-                preLoadYouJi_tuijain(listJianTuShiKe);
+                preReMenZhaoMu(listJianTuShiKe);
             } else {
                 requestPermission();
             }
         }
     }
 
+
+    private void preReMenZhaoMu(List<NewHomeTuiJian.ObjBean.ZmListBean.YjListBean> listJianTuShiKe){
+        for (NewHomeTuiJian.ObjBean.ZmListBean.YjListBean bean : listJianTuShiKe){
+            insertWebList("0",bean.getFmID());
+        }
+    }
+    private void preReMenYouJi(List<HomeTuiJianYouJiShiPinModel.ObjBean> youji){
+//        for (int i = 0 ; i<500;i++){
+//            for (HomeTuiJianYouJiShiPinModel.ObjBean bean : youji){
+//                insertWebList("0",bean.getFmID());
+//            }
+//        }
+        for (HomeTuiJianYouJiShiPinModel.ObjBean bean : youji){
+            insertWebList("0",bean.getFmID());
+        }
+    }
+
+    //创建及执行
+    ExecutorService fixedThreadPool = Executors.newFixedThreadPool(1);
+    private void insertWebList(String type,String fmId){
+        InsertWeb2DbRunnable insertWeb2DbRunnable = new InsertWeb2DbRunnable(type,fmId);
+        fixedThreadPool.execute(insertWeb2DbRunnable);
+    }
+
+    /**
+     * 请求接口  获取webInFo的线程
+     */
+    int iii =  0;
+    public class InsertWeb2DbRunnable implements Runnable {
+
+        private String type,fId;
+
+
+        /**
+         *
+         * @param type web  类型  0是友记，1是友聚活动，2是商品
+         * @param f_id 友记、活动、商品的ID
+         */
+        public InsertWeb2DbRunnable(String type,String f_id){
+            this.type = type;
+            this.fId = f_id;
+        }
+        @Override
+        public void run() {
+            ViseHttp.POST(NetConfig.articleInfo)
+                    .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
+                    .addParam("uid", spImp.getUID())
+                    .addParam("fmID",fId)
+                    .addParam("type",type)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if (jsonObject.getInt("code") == 200){
+                                    Log.d("qingqiushuju:",new Date().toLocaleString()+"diaa::"+iii );
+                                    iii++;
+                                    Gson gson = new Gson();
+                                    LocalWebInfoModel mode =  gson.fromJson(data,LocalWebInfoModel.class);
+                                    switch (type){
+                                        case "0":
+                                            YouJiWebInfoDbModel youJiWebInfoDbModel = new YouJiWebInfoDbModel();
+                                            youJiWebInfoDbModel.setWeb_info(mode.getObj().getStr());
+                                            youJiWebInfoDbModel.setFm_id(fId);
+                                            webInfoOfDbUntils.insertYouJiModel(youJiWebInfoDbModel);
+                                            break;
+                                        case "1":
+                                            break;
+                                    }
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    });
+        }
+    }
     private void enterLiveRoom(final HomeTuiJianModel.ObjBean.ActivityBean.CaptainBean zhiboBean) {
         dialog_loading = WeiboDialogUtils.createLoadingDialog(getContext(), "进入房间中");
         Log.d("asdasdas", "UID:" + zhiboBean.getUid() + "///" + zhiboBean.getChannel_id());
