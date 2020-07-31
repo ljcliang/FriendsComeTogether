@@ -321,11 +321,12 @@ public class ModifyIntercalationActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.activity_create_intercalation_rl_complete:
-                if(TextUtils.isEmpty(etTitle.getText().toString())){
-                    toToast(ModifyIntercalationActivity.this, "请添加标题");
-                } else {
-                    complete();
-                }
+                complete();
+//                if(TextUtils.isEmpty(etContent.getText().toString())){
+//                    toToast(ModifyIntercalationActivity.this, "请添加内容");
+//                } else {
+//                    complete();
+//                }
                 break;
         }
     }

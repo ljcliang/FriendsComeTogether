@@ -27,6 +27,8 @@ public class DaoMaster extends AbstractDaoMaster {
         MyGameCardDbModelDao.createTable(db, ifNotExists);
         UserGiveModelDao.createTable(db, ifNotExists);
         YouJiWebInfoDbModelDao.createTable(db, ifNotExists);
+        YouJuHuoDongWebInfoDbModelDao.createTable(db, ifNotExists);
+        GoodsWebInfoDbModelDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
@@ -37,6 +39,8 @@ public class DaoMaster extends AbstractDaoMaster {
         MyGameCardDbModelDao.dropTable(db, ifExists);
         UserGiveModelDao.dropTable(db, ifExists);
         YouJiWebInfoDbModelDao.dropTable(db, ifExists);
+        YouJuHuoDongWebInfoDbModelDao.dropTable(db, ifExists);
+        GoodsWebInfoDbModelDao.dropTable(db, ifExists);
     }
 
     /**
@@ -61,6 +65,8 @@ public class DaoMaster extends AbstractDaoMaster {
         registerDaoClass(MyGameCardDbModelDao.class);
         registerDaoClass(UserGiveModelDao.class);
         registerDaoClass(YouJiWebInfoDbModelDao.class);
+        registerDaoClass(YouJuHuoDongWebInfoDbModelDao.class);
+        registerDaoClass(GoodsWebInfoDbModelDao.class);
     }
 
     public DaoSession newSession() {

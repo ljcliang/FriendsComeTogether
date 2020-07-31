@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity">
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/activity_details_of_friends_together_rl_top"
         style="@style/rl_top_bar">
 
@@ -39,7 +40,6 @@
     <WebView
         android:id="@+id/wv"
         android:layout_below="@+id/activity_details_of_friends_together_rl_top"
-        android:layout_above="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></WebView>
     <ProgressBar
@@ -50,6 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="5px" />
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="98px"

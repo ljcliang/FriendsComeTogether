@@ -63,6 +63,7 @@ import com.yiwo.friendscometogether.pages.VideoActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.tongban_emoticon.TbEmoticonFragment;
 import com.yiwo.friendscometogether.utils.ShareUtils;
+import com.yiwo.friendscometogether.utils.WebUntils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -168,8 +169,16 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
                             String strr1 = webInfoOfDbUntils.queryYouJi(fmID).getWeb_info();
                             String strr2 = "";
                             String strr3 = "0";
-                        Log.d("adsadasd：：\n",strr1+"\n"+strr2+"\n"+strr3);
-                        webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+                            if (getIntent().getBooleanExtra("isZiXun",false)){
+                                strr3 = "5";
+                            }else {
+                                strr3 = "0";
+                            }
+//                            strr1 = WebUntils.replaceStr(strr1);
+                            Log.d("adsadasd--nzian：：\n",strr1);
+                            String s = WebUntils.replaceStr(strr1);
+                        Log.d("adsadasd：：\n",s+"\n"+strr2+"\n"+strr3);
+                        webView.loadUrl("javascript:getTongbanDataAndroid('"+s+"','"+strr2+"','"+strr3+"')");
                             /**
                              * 加载之后再次查询更新数据库
                              */
@@ -441,6 +450,47 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
         Log.d("SessionmDaoSession11",mDaoSession.toString());
         Log.d("SessionmDaoSession11",mDaoSession.getUserGiveModelDao().toString());
     }
+    private void share(){
+        Intent intent = new Intent();
+        if (TextUtils.isEmpty(uid) || uid.equals("0")) {
+            intent.setClass(DetailsOfFriendsWebLocalActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            ViseHttp.POST(NetConfig.activeShareUrl)
+                    .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.activeShareUrl))
+                    .addParam("id", fmID)
+                    .addParam("type", "1")
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            Log.d("asdasd",data);
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if (jsonObject.getInt("code") == 200) {
+                                    Gson gson = new Gson();
+                                    final ActiveShareModel shareModel = gson.fromJson(data, ActiveShareModel.class);
+                                    new ShareAction(DetailsOfFriendsWebLocalActivity.this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+                                            .setShareboardclickCallback(new ShareBoardlistener() {
+                                                @Override
+                                                public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                                                    ShareUtils.shareWeb(DetailsOfFriendsWebLocalActivity.this, shareModel.getObj().getUrl()+"&uid="+spImp.getUID(), model.getObj().getWho()+"的友记",
+                                                            shareModel.getObj().getTitle(), shareModel.getObj().getImages(), share_media);
+                                                }
+                                            }).open();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    });
+        }
+    }
     @OnClick({R.id.activity_details_of_friends_rl_back,R.id.activity_details_of_friends_ll_comment,
             R.id.activity_details_of_friends_ll_share,R.id.activity_details_of_friends_ll_praise,
             R.id.activity_details_of_friends_ll_star,R.id.rl_show_more,R.id.activity_details_of_friends_ll_intercalation,
@@ -477,44 +527,7 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
                 }
                 break;
             case R.id.activity_details_of_friends_ll_share://分享
-                if (TextUtils.isEmpty(uid) || uid.equals("0")) {
-                    intent.setClass(DetailsOfFriendsWebLocalActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    ViseHttp.POST(NetConfig.activeShareUrl)
-                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.activeShareUrl))
-                            .addParam("id", fmID)
-                            .addParam("type", "1")
-                            .request(new ACallback<String>() {
-                                @Override
-                                public void onSuccess(String data) {
-                                    Log.d("asdasd",data);
-                                    try {
-                                        JSONObject jsonObject = new JSONObject(data);
-                                        if (jsonObject.getInt("code") == 200) {
-                                            Gson gson = new Gson();
-                                            final ActiveShareModel shareModel = gson.fromJson(data, ActiveShareModel.class);
-                                            new ShareAction(DetailsOfFriendsWebLocalActivity.this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
-                                                    .setShareboardclickCallback(new ShareBoardlistener() {
-                                                        @Override
-                                                        public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
-                                                            ShareUtils.shareWeb(DetailsOfFriendsWebLocalActivity.this, shareModel.getObj().getUrl()+"&uid="+spImp.getUID(), model.getObj().getWho()+"的友记",
-                                                                    shareModel.getObj().getTitle(), shareModel.getObj().getImages(), share_media);
-                                                        }
-                                                    }).open();
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-
-                                @Override
-                                public void onFail(int errCode, String errMsg) {
-
-                                }
-                            });
-                }
+                share();
                 break;
             case R.id.activity_details_of_friends_ll_praise://点赞
                 if (TextUtils.isEmpty(uid) || uid.equals("0")) {
@@ -732,6 +745,10 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
                 intent.putExtra("id", fmID);
                 startActivity(intent);
             }
+        }
+        @JavascriptInterface
+        public void sharego(){//分享
+            share();
         }
         @JavascriptInterface
         public void reportuser(String uId,String pId){//举报  评论人 的ID，评论ID

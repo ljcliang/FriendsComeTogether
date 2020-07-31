@@ -105,6 +105,20 @@ public class HomeShopGoodsFragment extends BaseFragment {
         return rootView;
     }
 
+    @Override
+    public void onNetChange(int netMobile) {
+        super.onNetChange(netMobile);
+        if (netMobile == 1) {
+            Log.e("2222", "inspectNet:连接wifi");
+            initData();
+        } else if (netMobile == 0) {
+            Log.e("2222", "inspectNet:连接移动数据");
+            initData();
+        } else if (netMobile == -1) {
+            Log.e("2222", "inspectNet:当前没有网络");
+        }
+    }
+
     private void initData() {
         //友铺
         ViseHttp.POST(NetConfig.homeGoodsList)
@@ -119,17 +133,10 @@ public class HomeShopGoodsFragment extends BaseFragment {
                                 Gson gson = new Gson();
                                 HomeYouPuModel model = gson.fromJson(data, HomeYouPuModel.class);
                                 page4 = 2;
-                                listYouPu = model.getObj();
-                                // /设置布局管理器为2列，纵向
-                                StaggeredGridLayoutManager mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL){
-                                    @Override
-                                    public boolean canScrollVertically() {
-                                        return true;
-                                    }
-                                };
-                                rv_youpu.setLayoutManager(mLayoutManager);
-                                youPuAdapter = new HomeYouPu_Adapter(listYouPu);
-                                rv_youpu.setAdapter(youPuAdapter);
+                                listYouPu.clear();
+                                listYouPu.addAll(model.getObj());
+                                youPuAdapter.notifyDataSetChanged();
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -144,38 +151,22 @@ public class HomeShopGoodsFragment extends BaseFragment {
 
     private void  initView(View view2){
         rv_youpu = view2.findViewById(R.id.rv_youpu);
+        // /设置布局管理器为2列，纵向
+        StaggeredGridLayoutManager mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL){
+            @Override
+            public boolean canScrollVertically() {
+                return true;
+            }
+        };
+        rv_youpu.setLayoutManager(mLayoutManager);
+        youPuAdapter = new HomeYouPu_Adapter(listYouPu);
+        rv_youpu.setAdapter(youPuAdapter);
         refreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
         refreshLayout.setRefreshFooter(new ClassicsFooter(getContext()));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(final RefreshLayout refreshlayout) {
-                ViseHttp.POST(NetConfig.homeGoodsList)
-                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.homeGoodsList))
-                        .addParam("uid", spImp.getUID())
-                        .request(new ACallback<String>() {
-                            @Override
-                            public void onSuccess(String data) {
-                                try {
-                                    JSONObject jsonObject = new JSONObject(data);
-                                    if(jsonObject.getInt("code") == 200){
-                                        Gson gson = new Gson();
-                                        HomeYouPuModel model = gson.fromJson(data, HomeYouPuModel.class);
-                                        page4 = 2;
-                                        listYouPu.clear();
-                                        listYouPu.addAll(model.getObj());
-                                        youPuAdapter.notifyDataSetChanged();
-//                                        WeiboDialogUtils.closeDialog(dialog_loading);
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                            @Override
-                            public void onFail(int errCode, String errMsg) {
-//                                WeiboDialogUtils.closeDialog(dialog_loading);
-                            }
-                        });
+                initData();
                 refreshLayout.finishRefresh(1000);
             }
         });

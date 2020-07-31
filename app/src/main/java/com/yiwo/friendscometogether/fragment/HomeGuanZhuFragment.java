@@ -29,11 +29,14 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseFragment;
+import com.yiwo.friendscometogether.dbmodel.WebInfoOfDbUntils;
+import com.yiwo.friendscometogether.dbmodel.YouJiWebInfoDbModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.HomeGuanZhu_DuiZhangDaiDui_Adapter;
 import com.yiwo.friendscometogether.newadapter.HomeGuanZhu_YouJiShiPin_Adapter;
 import com.yiwo.friendscometogether.newadapter.Home_GuanZhu_YouJiShiPin_Adapter;
 import com.yiwo.friendscometogether.newmodel.HomeGuanZhuModel;
+import com.yiwo.friendscometogether.newmodel.LocalWebInfoModel;
 import com.yiwo.friendscometogether.newpage.GuanZhuDuiZhangListActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.ExStaggeredGridLayoutManager;
@@ -42,8 +45,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,7 +68,7 @@ public class HomeGuanZhuFragment extends BaseFragment {
     private Unbinder unbinder;
     private SpImp spImp;
     private int page2 = 1;
-
+    private WebInfoOfDbUntils webInfoOfDbUntils;
     //关注页面
     RecyclerView rvGuanZhuYoujishipin;//关注
     private Home_GuanZhu_YouJiShiPin_Adapter adapterGuanzhuYouJi;//
@@ -85,6 +91,7 @@ public class HomeGuanZhuFragment extends BaseFragment {
         rootView = inflater.inflate(R.layout.home_lay_guanzhu, null);
         unbinder = ButterKnife.bind(this, rootView);
         spImp = new SpImp(getContext());
+        webInfoOfDbUntils = new WebInfoOfDbUntils(getContext());
         initView(rootView);
         initData();
         return rootView;
@@ -99,6 +106,21 @@ public class HomeGuanZhuFragment extends BaseFragment {
                 break;
         }
     }
+
+    @Override
+    public void onNetChange(int netMobile) {
+        super.onNetChange(netMobile);
+        if (netMobile == 1) {
+            Log.e("2222", "inspectNet:连接wifi");
+            initData();
+        } else if (netMobile == 0) {
+            Log.e("2222", "inspectNet:连接移动数据");
+            initData();
+        } else if (netMobile == -1) {
+            Log.e("2222", "inspectNet:当前没有网络");
+        }
+    }
+
     private void initData() {
         //关注
         ViseHttp.POST(NetConfig.homePageGz)
@@ -116,14 +138,9 @@ public class HomeGuanZhuFragment extends BaseFragment {
                                 mListGuanzhu.clear();
                                 mListGuanzhu.addAll(model.getObj().getYj_video());
                                 if (mListGuanzhu.size()>0){
-                                    if (hasPermission()){
-                                        preLoadYouJi_guanzhu(mListGuanzhu);
-                                    }else {
-                                        requestPermission();
-                                    }
+                                    preGuanZhuYouJi(mListGuanzhu);
                                 }
                                 adapterGuanzhuYouJi.notifyDataSetChanged();
-
                                 mlistDuiZhangDaiDui.clear();
                                 mlistDuiZhangDaiDui.addAll(model.getObj().getCaptainPf());
                                 adapterGuanZhuDuiZhangDaiDui.notifyDataSetChanged();
@@ -206,7 +223,7 @@ public class HomeGuanZhuFragment extends BaseFragment {
                                         page2 = 2;
                                         mListGuanzhu.clear();
                                         mListGuanzhu.addAll( model.getObj().getYj_video());
-                                        preLoadYouJi_guanzhu(mListGuanzhu);
+                                        preGuanZhuYouJi(mListGuanzhu);
                                         adapterGuanzhuYouJi.notifyDataSetChanged();
 //                                        WeiboDialogUtils.closeDialog(dialog_loading);
                                         mlistDuiZhangDaiDui.clear();
@@ -244,7 +261,7 @@ public class HomeGuanZhuFragment extends BaseFragment {
                                         HomeGuanZhuModel model = gson.fromJson(data, HomeGuanZhuModel.class);
                                         if (model.getObj().getYj_video().size()>0){
                                             mListGuanzhu.addAll(model.getObj().getYj_video());
-                                            preLoadYouJi_guanzhu(model.getObj().getYj_video());
+                                            preGuanZhuYouJi(model.getObj().getYj_video());
                                             adapterGuanzhuYouJi.notifyDataSetChanged();
                                             page2++;
                                         }
@@ -268,7 +285,74 @@ public class HomeGuanZhuFragment extends BaseFragment {
         });
     }
 
+    private void preGuanZhuYouJi(List<HomeGuanZhuModel.ObjBean.YjVideoBean> list){
+        for (HomeGuanZhuModel.ObjBean.YjVideoBean bean : list){
+            insertWebList("0",bean.getFmID());
+        }
+    }
+    //创建及执行
+    ExecutorService fixedThreadPool = Executors.newFixedThreadPool(1);
+    private void insertWebList(String type,String fmId){
+        if (type.equals("0") && webInfoOfDbUntils.hasThisId(fmId)){
 
+        }else {
+            InsertWeb2DbRunnable insertWeb2DbRunnable = new InsertWeb2DbRunnable(type,fmId);
+            fixedThreadPool.execute(insertWeb2DbRunnable);
+        }
+    }
+    public class InsertWeb2DbRunnable implements Runnable {
+
+        private String type,fId;
+
+
+        /**
+         *
+         * @param type web  类型  0是友记，1是友聚活动，2是商品
+         * @param f_id 友记、活动、商品的ID
+         */
+        public InsertWeb2DbRunnable(String type,String f_id){
+            this.type = type;
+            this.fId = f_id;
+        }
+        @Override
+        public void run() {
+            ViseHttp.POST(NetConfig.articleInfo)
+                    .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
+                    .addParam("uid", spImp.getUID())
+                    .addParam("fmID",fId)
+                    .addParam("type",type)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if (jsonObject.getInt("code") == 200){
+                                    Log.d("qingqiushuju:",new Date().toLocaleString()+"diaa::"+fId );
+                                    Gson gson = new Gson();
+                                    LocalWebInfoModel mode =  gson.fromJson(data,LocalWebInfoModel.class);
+                                    switch (type){
+                                        case "0":
+                                            YouJiWebInfoDbModel youJiWebInfoDbModel = new YouJiWebInfoDbModel();
+                                            youJiWebInfoDbModel.setWeb_info(mode.getObj().getStr());
+                                            youJiWebInfoDbModel.setFm_id(fId);
+                                            webInfoOfDbUntils.insertYouJiModel(youJiWebInfoDbModel);
+                                            break;
+                                        case "1":
+                                            break;
+                                    }
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    });
+        }
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -278,52 +362,5 @@ public class HomeGuanZhuFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-    }
-
-    private static final int PERMISSION_REQUEST_CODE_STORAGE = 1001;
-    private void requestPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE_STORAGE);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        Log.d("读写内存权限,","permissionsSize:"+permissions.length+"///"+"grantResultsSize:"+grantResults.length);
-        for (int i = 0;i<permissions.length;i++){
-            if (permissions[i].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)){
-                if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                    requestPermission();
-                } else {
-                    preLoadYouJi_guanzhu(mListGuanzhu);
-                }
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-    private void preLoadYouJi_guanzhu(List<HomeGuanZhuModel.ObjBean.YjVideoBean> list) {
-        Log.d("读写内存权限","youquanxian");
-        for (int i = 0 ;i<list.size();i++){
-            if (list.get(i).getTp().equals("2")){//为友记  的情况
-                String url = NetConfig.BaseUrl+"action/ac_article/youJiWeb?id="+list.get(i).getFmID()+"&uid="+spImp.getUID();
-                SonicSessionConfig.Builder sessionConfigBuilder = new SonicSessionConfig.Builder();
-                sessionConfigBuilder.setSupportLocalServer(true);
-                HashMap mapRp = new HashMap();
-                String str_vlue = "http://www.91yiwo.com/ylyy/include/activity_web/js/jquery-3.3.1.min.js;"
-                        +"http://www.91yiwo.com/ylyy/include/activity_web/css/web_main.css;"
-                        +"http://www.91yiwo.com/ylyy/include/activity_web/js/builder.js;";
-                mapRp.put("sonic-link",str_vlue);
-                sessionConfigBuilder.setCustomResponseHeaders(mapRp);
-                boolean preloadSuccess = SonicEngine.getInstance().preCreateSession(url, sessionConfigBuilder.build());
-                Log.d("preloadpreloadp",preloadSuccess+""+url);
-            }
-        }
-    }
-    private boolean hasPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return getContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-        }
-        return true;
     }
 }

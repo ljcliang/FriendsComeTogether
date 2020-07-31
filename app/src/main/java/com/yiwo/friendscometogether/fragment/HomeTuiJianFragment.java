@@ -2,8 +2,6 @@ package com.yiwo.friendscometogether.fragment;
 
 import android.Manifest;
 import android.app.Dialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -38,7 +36,6 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.stx.xhb.xbanner.XBanner;
 import com.tencent.sonic.sdk.SonicEngine;
-import com.tencent.sonic.sdk.SonicSessionConfig;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
@@ -80,13 +77,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -180,7 +173,6 @@ public class HomeTuiJianFragment extends BaseFragment {
     private Home_TuiJian_YouJiShiPin_Adapter youJiShiPinAdapter;
     private List<HomeTuiJianYouJiShiPinModel.ObjBean> listYouJiShiPin = new ArrayList<>();
     private int page1 = 1;
-    private PreLoadWebYouJiBroadcastReceiver preLoadWebYouJiBroadcastReceiver = new PreLoadWebYouJiBroadcastReceiver();
 
     private WebInfoOfDbUntils webInfoOfDbUntils;
 
@@ -207,7 +199,6 @@ public class HomeTuiJianFragment extends BaseFragment {
         cityName = getArguments().getString(CITY_NAME_KEY);
         IntentFilter filter1 = new IntentFilter();
         filter1.addAction("android.friendscometogether.HomeFragment.PreLoadWebYouJiBroadcastReceiver");
-        getContext().registerReceiver(preLoadWebYouJiBroadcastReceiver, filter1);
         initView(rootView);
         initData();
 
@@ -223,6 +214,20 @@ public class HomeTuiJianFragment extends BaseFragment {
             }
         });
         return rootView;
+    }
+
+    @Override
+    public void onNetChange(int netMobile) {
+        super.onNetChange(netMobile);
+        if (netMobile == 1) {
+            Log.e("2222", "inspectNet:连接wifi");
+            initData();
+        } else if (netMobile == 0) {
+            Log.e("2222", "inspectNet:连接移动数据");
+            initData();
+        } else if (netMobile == -1) {
+            Log.e("2222", "inspectNet:当前没有网络");
+        }
     }
 
     /**
@@ -293,7 +298,9 @@ public class HomeTuiJianFragment extends BaseFragment {
                                 //资讯头条
                                 listZiXunTouTiao.clear();
                                 listZiXunTouTiao.addAll(model.getObj().getZx());
+                                preZiXunTouTiao(listZiXunTouTiao);
                                 ziXunTouTiaoAdapter.notifyDataSetChanged();
+
                                 //广告
                                 listAD.clear();
                                 listAD.addAll(model.getObj().getAd());
@@ -328,7 +335,6 @@ public class HomeTuiJianFragment extends BaseFragment {
                                     }
                                     listRemenTab.add(reMenZhaoMuTabModel);
                                     reMenZhaoMuTabAdapter.notifyDataSetChanged();
-                                    listJianTuShiKe.clear();
                                 }
                                 //热门招募list(荐途时刻)
 
@@ -339,11 +345,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                                 listJianTuShiKe.addAll(model.getObj().getZmList().get(0).getYjList());
                                 jianTuShiKeAdapter.notifyDataSetChanged();
                                 if (listJianTuShiKe.size() > 0) {
-                                    if (hasPermission()) {
-                                        preReMenZhaoMu(listJianTuShiKe);
-                                    } else {
-                                        requestPermission();
-                                    }
+                                    preReMenZhaoMu(listJianTuShiKe);
                                     rlJianTuShiKe.setVisibility(View.VISIBLE);
                                 } else {
                                     rlJianTuShiKe.setVisibility(View.GONE);
@@ -579,6 +581,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                                         //资讯头条
                                         listZiXunTouTiao.clear();
                                         listZiXunTouTiao.addAll(model.getObj().getZx());
+                                        preZiXunTouTiao(listZiXunTouTiao);
                                         ziXunTouTiaoAdapter.notifyDataSetChanged();
                                         //广告
                                         listAD.clear();
@@ -625,11 +628,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                                         listJianTuShiKe.addAll(model.getObj().getZmList().get(0).getYjList());
                                         jianTuShiKeAdapter.notifyDataSetChanged();
                                         if (listJianTuShiKe.size() > 0) {
-                                            if (hasPermission()) {
-                                                preReMenZhaoMu(listJianTuShiKe);
-                                            } else {
-                                                requestPermission();
-                                            }
+                                            preReMenZhaoMu(listJianTuShiKe);
                                             rlJianTuShiKe.setVisibility(View.VISIBLE);
                                         } else {
                                             rlJianTuShiKe.setVisibility(View.GONE);
@@ -865,25 +864,9 @@ public class HomeTuiJianFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getContext().unregisterReceiver(preLoadWebYouJiBroadcastReceiver);
         SonicEngine.getInstance().cleanCache();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        Log.d("读写内存权限,", "permissionsSize:" + permissions.length + "///" + "grantResultsSize:" + grantResults.length);
-        for (int i = 0; i < permissions.length; i++) {
-            if (permissions[i].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                    requestPermission();
-                } else {
-                    preReMenZhaoMu(listJianTuShiKe);
-                }
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
 
     private static final int PERMISSION_REQUEST_CODE_STORAGE = 1001;
 
@@ -1005,20 +988,11 @@ public class HomeTuiJianFragment extends BaseFragment {
                 break;
         }
     }
-
-    private class PreLoadWebYouJiBroadcastReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (hasPermission()) {
-                preReMenZhaoMu(listJianTuShiKe);
-            } else {
-                requestPermission();
-            }
+    private void preZiXunTouTiao(List<NewHomeTuiJian.ObjBean.ZxBean> listZiXunTouTiao){
+        for (NewHomeTuiJian.ObjBean.ZxBean bean : listZiXunTouTiao){
+            insertWebList("0",bean.getFmID());
         }
     }
-
-
     private void preReMenZhaoMu(List<NewHomeTuiJian.ObjBean.ZmListBean.YjListBean> listJianTuShiKe){
         for (NewHomeTuiJian.ObjBean.ZmListBean.YjListBean bean : listJianTuShiKe){
             insertWebList("0",bean.getFmID());

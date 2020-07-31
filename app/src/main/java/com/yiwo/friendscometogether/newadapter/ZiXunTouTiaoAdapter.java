@@ -1,17 +1,21 @@
 package com.yiwo.friendscometogether.newadapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.newmodel.NewHomeTuiJian;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebLocalActivity;
 
 import java.util.List;
 
@@ -43,6 +47,16 @@ public class ZiXunTouTiaoAdapter extends RecyclerView.Adapter<ZiXunTouTiaoAdapte
         }
         holder.tv_look_num.setText(data.get(position).getFmlook());
         holder.tv_pinglun_num.setText(data.get(position).getFmcomment());
+        holder.ll_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(context, DetailsOfFriendsWebLocalActivity.class);
+                intent.putExtra("fmid", data.get(position).getFmID());
+                intent.putExtra("isZiXun",true);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -53,6 +67,7 @@ public class ZiXunTouTiaoAdapter extends RecyclerView.Adapter<ZiXunTouTiaoAdapte
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView tv_title,tv_look_num,tv_pinglun_num;
         ImageView iv0,iv1,iv2;
+        LinearLayout ll_all;
         public ViewHolder(View itemView) {
             super(itemView);
             tv_title =  itemView.findViewById(R.id.tv_title);
@@ -61,6 +76,7 @@ public class ZiXunTouTiaoAdapter extends RecyclerView.Adapter<ZiXunTouTiaoAdapte
             iv0 =  itemView.findViewById(R.id.iv0);
             iv1 =  itemView.findViewById(R.id.iv1);
             iv2 =  itemView.findViewById(R.id.iv2);
+            ll_all =  itemView.findViewById(R.id.ll_all);
         }
     }
 }

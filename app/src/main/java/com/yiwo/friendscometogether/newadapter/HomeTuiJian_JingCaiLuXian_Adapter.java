@@ -19,7 +19,7 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.custom.LookPasswordDialog;
 import com.yiwo.friendscometogether.newmodel.HomeTuiJianModel;
 import com.yiwo.friendscometogether.sp.SpImp;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
 
 import java.util.List;
 
@@ -90,7 +90,7 @@ public class HomeTuiJian_JingCaiLuXian_Adapter extends RecyclerView.Adapter<Home
                 public void onClick(View v) {
                     final Intent intent = new Intent();
                     if (TextUtils.isEmpty(data.get(position).getPfpwd())) {
-                        intent.setClass(context, DetailsOfFriendTogetherWebActivity.class);
+                        intent.setClass(context, DetailsOfFriendTogetherWebLocalActivity.class);
                         intent.putExtra("pfID", data.get(position).getPfID());
                         context.startActivity(intent);
                     } else {
@@ -98,7 +98,7 @@ public class HomeTuiJian_JingCaiLuXian_Adapter extends RecyclerView.Adapter<Home
                             @Override
                             public boolean setActivityText(String s) {
                                 if (s.equals(data.get(position).getPfpwd())) {
-                                    intent.setClass(context, DetailsOfFriendTogetherWebActivity.class);
+                                    intent.setClass(context, DetailsOfFriendTogetherWebLocalActivity.class);
                                     intent.putExtra("pfID", data.get(position).getPfID());
                                     context.startActivity(intent);
                                     return true;

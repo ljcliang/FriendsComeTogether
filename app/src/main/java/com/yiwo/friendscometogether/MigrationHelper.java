@@ -7,10 +7,12 @@ import android.util.Log;
 import com.yiwo.friendscometogether.greendao.gen.DaoMaster;
 import com.yiwo.friendscometogether.greendao.gen.DuiZhangDeHuoDongDbModelDao;
 import com.yiwo.friendscometogether.greendao.gen.DuiZhangFenZuDbModelDao;
+import com.yiwo.friendscometogether.greendao.gen.GoodsWebInfoDbModelDao;
 import com.yiwo.friendscometogether.greendao.gen.LookHistoryDbModelDao;
 import com.yiwo.friendscometogether.greendao.gen.MyGameCardDbModelDao;
 import com.yiwo.friendscometogether.greendao.gen.UserGiveModelDao;
 import com.yiwo.friendscometogether.greendao.gen.YouJiWebInfoDbModelDao;
+import com.yiwo.friendscometogether.greendao.gen.YouJuHuoDongWebInfoDbModelDao;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -39,7 +41,10 @@ public class MigrationHelper extends DaoMaster.DevOpenHelper {
                     DuiZhangDeHuoDongDbModelDao.class,
                     LookHistoryDbModelDao.class,
                     UserGiveModelDao.class,
-                    YouJiWebInfoDbModelDao.class);
+                    YouJiWebInfoDbModelDao.class,
+                    YouJuHuoDongWebInfoDbModelDao.class,
+                    GoodsWebInfoDbModelDao.class
+                    );
         }
     }
 }

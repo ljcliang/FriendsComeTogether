@@ -176,6 +176,7 @@ public class HomeFragment4 extends BaseFragment {
         fragmentList.add(homeShopGoodsFragment);
         pagerAdapter = new PagerAdapter(getChildFragmentManager(),fragmentList);
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setOffscreenPageLimit(3);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

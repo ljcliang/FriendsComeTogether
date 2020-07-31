@@ -200,10 +200,14 @@ public class CreateIntercalationActivity extends BaseActivity {
                 complete(1,true);//存草稿 并且再次打开创建续写页面进行创作
                 break;
             case R.id.btn_baocun:
-                if (type.equals("1")){
-                    complete(0,false);//发布
+                if (mList.size()==0){
+                    toToast(CreateIntercalationActivity.this,"请添加图片");
                 }else {
-                    complete(1,false);//存草稿
+                    if (type.equals("1")){
+                        complete(0,false);//发布
+                    }else {
+                        complete(1,false);//存草稿
+                    }
                 }
                 break;
         }
@@ -224,41 +228,45 @@ public class CreateIntercalationActivity extends BaseActivity {
                 for (int i = 0; i < mList.size(); i++) {
                     list.add(mList.get(i).getPic());
                 }
-                Luban.with(CreateIntercalationActivity.this)
-                        .load(list)
-                        .ignoreBy(100)
-                        .filter(new CompressionPredicate() {
-                            @Override
-                            public boolean apply(String path) {
-                                return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
-                            }
-                        })
-                        .setCompressListener(new OnCompressListener() {
-                            @Override
-                            public void onStart() {
-                                // TODO 压缩开始前调用，可以在方法内启动 loading UI
-                            }
-
-                            @Override
-                            public void onSuccess(File file) {
-                                // TODO 压缩成功后调用，返回压缩后的图片文件
-                                files.add(file);
-                                Log.e("222", list.size() + "..." + files.size());
-                                if (files.size() == list.size()) {
-                                    for (int i = 0; i < files.size(); i++) {
-                                        map.put("images[" + i + "]", files.get(i));
-                                    }
-                                    Log.e("222", map.size() + "");
-                                    e.onNext(map);
+                if (list.size()>0){
+                    Luban.with(CreateIntercalationActivity.this)
+                            .load(list)
+                            .ignoreBy(100)
+                            .filter(new CompressionPredicate() {
+                                @Override
+                                public boolean apply(String path) {
+                                    return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
                                 }
-                            }
+                            })
+                            .setCompressListener(new OnCompressListener() {
+                                @Override
+                                public void onStart() {
+                                    // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                                }
 
-                            @Override
-                            public void onError(Throwable e) {
-                                // TODO 当压缩过程出现问题时调用
-                                WeiboDialogUtils.closeDialog(dialog);
-                            }
-                        }).launch();
+                                @Override
+                                public void onSuccess(File file) {
+                                    // TODO 压缩成功后调用，返回压缩后的图片文件
+                                    files.add(file);
+                                    Log.e("222", list.size() + "..." + files.size());
+                                    if (files.size() == list.size()) {
+                                        for (int i = 0; i < files.size(); i++) {
+                                            map.put("images[" + i + "]", files.get(i));
+                                        }
+                                        Log.e("222", map.size() + "");
+                                        e.onNext(map);
+                                    }
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    // TODO 当压缩过程出现问题时调用
+                                    WeiboDialogUtils.closeDialog(dialog);
+                                }
+                            }).launch();
+                }else {
+                    e.onNext(map);
+                }
             }
         });
         Observer<Map<String, File>> observer = new Observer<Map<String, File>>() {

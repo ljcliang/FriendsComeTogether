@@ -218,6 +218,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".webpages.DetailsOfFriendTogetherWebActivity" />
+        <activity android:name=".webpages.DetailsOfFriendTogetherWebLocalActivity" />
         <activity android:name=".webpages.ShopGoodsDetailsWebLocalActivity" />
         <activity android:name=".newpage.MoreCommentHuodongActivity" />
         <activity android:name=".webpages.ShopInfoWebActivity" />

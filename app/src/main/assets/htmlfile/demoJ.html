@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
@@ -8,99 +7,33 @@
 	<script src="jquery.min.js"></script>
 </head>
 <body style="background:#F3F3F3;">
+	<div id="topbar" class="tb_topbar"><img class="yj_backimg" onclick="backgo();"><img class="yj_shareimg" onclick="sharego();"></div>
 	<div class="yj_mainimg">
-		<div id="data0Content"><img id="dsiko" class="yj_mainimg_img" imgtitle=""></div>
-	</div><img id="backgo" class="yj_backimg" onclick="backgo();" style="top:0.8rem;"><img class="yj_btnmoreimg" style="top:0.8rem;" onclick="btnmore()">
+		<div id="data0Content"><img class="yj_mainimg_img"></div>
+	</div><img id="backgo" class="yj_backimg" onclick="backgo();"><img class="yj_shareimg" onclick="sharego();">
 	<div class="main_topdiv"></div>
 	<div class="yj_main_box left">
-		<div id="data1Content" class="user_info_box">
-			<img alt="" class="user_info_box_img">
-			<div class="user_info_box_font left">······</div>
-			<div class="user_info_box_lvbox left">
-				<div class="user_info_box_lv left">Lv.1</div><img class="tb_dzimg_03 left">
-			</div>
-			<div class="user_info_box_font_sm right">···天前&nbsp;···阅读</div>
-			<div class="user_info_fol right" onclick="dd();">+关注</div>
+		<div class="user_info1_box" id="data1Content">
+			<img alt="" class="user_info1_box_img">
+			<div class="user_info1_box_font left">······</div><div class="user_info1_box_lv left">Lv.1</div><img class="tb_dzimg_null left" style="margin-top:0.15rem;"><div class="user_info1_box_font_sm left">----------</div>
+			<div class="user_info_fol right">+关注</div>
+			<div class="user_info_box_font_sm right">······</div>
+			<div class="left" style="height:0.1rem;width:100%;background:#FFF;"></div>
 			<hr class="user_info_box_line">
 		</div>
 		<div class="left" style="height:0.3rem;width:100%;background:#FFF;"></div>
-		<div id="data2Content" class="yj_content_box">
-			<img class="yj_content_box_dwimg">······&nbsp;<b>·</b>&nbsp;努力加载中...<img class="emoji_14">
-		</div>
-		<div class="yj_gg9 left" id="data3Content" style="display:block;">
-			<div style="height:0.15rem;width:100%"></div>
-			<div style="height:0.15rem;width:100%"></div>
-				<ul>
-					<li><div><img></div></li>
-					<li><div><img></div></li>
-					<li><div><img></div></li>
-				</ul>
-			</div>
-		</div>
-		<div class="left" style="height:0.2rem;width:100%;background:#FFF;"></div>
-		<div class="yj_content_oneline left" id="data4Content" style="display:block;">
-			<img class="yj_content_oneline_timeimg left">xxxx-xx-xx~xxxx-xx-xx<span class="right">人均<sm>￥</sm>···&nbsp;&nbsp;</span><img class="yj_content_oneline_moneyimg right">
-		</div>
+		<div id="data2Content" class="yj_content_box">努力加载中...<img class="emoji_14"></div>
+		<div class="tb_pre_box" id="data3Content"></div>
+		<div class="tb_pre_box" id="data4Content"></div>
 	</div>
 	<div class="clear"></div>
 	<div class="info_downdiv"></div>
 	<div style="height:0.1rem;width:100%"></div>
 	<div class="tb_pre_box" id="data5Content"><!--关联--></div>
-	<div class="tb_pre_box" id="data6Content"><!--续写&参写--></div>
-	<div class="tb_pre_box" id="data7Content" style="display:block;">
-		<div class="yj_main_box left">
-			<div class="pinglun-list">
-				<div class="pinglun-userinfo left">
-					<img class="pinglun-userinfo-img">
-					<div class="pinglun-userinfo-content-box"><span>·······</span><span><font style="font-size:0.22rem;color:#333333;">···</font></span></div>
-				</div>
-				<span class="pinglun-content-span">努力加载中...<img class="emoji_14"></span>
-				<div class="left" style="height:0.1rem;width:100%"></div>
-				<div class="pinglun-huifu">
-					<div class="pinglun-huifu-div left"><img class="pinglun-huifu-userimg"><span>······&nbsp;&nbsp;</span><font style="font-size:0.2rem;color:#333333;">···</font></div>
-					<span class="pinglun-huifu-div-span left">努力加载中...<img class="emoji_14"></span>
-				</div>
-			</div>
-			<div class="left" style="height:0.2rem;width:100%"></div>
-		</div>
-		<div class="clear"></div>
-		<div class="info_downdiv"></div>
-		<div style="height:0.2rem;width:100%"></div>
-	</div>
-	<div class="tb_pre_box" id="data8Content" style="display:block;">
-		<div class="info_topdiv"></div>
-		<div class="yj_main_box left">
-			<div class="yj_main_box_tit"><img class="yj_main_box_img">更多内容</div>
-			<div style="height:0.3rem;width:100%"></div>
-			<div class="yjlist_gg4">
-				<ul>
-					<li>
-					<div class="div_shadow_02 left">
-						<div class="picbox_img_list"></div><img alt="" class="shopinfo_img right">
-						<div class="shopinfo_font right">······</div>
-						<div class="shopinfo_lvdiv_tb right">Lv.1</div>
-						<div style="height:0.05rem;width:100%;" class="left"></div>
-						<div class="infofont_list left"><img class="infofont_list_img">······&nbsp;<b>·</b>&nbsp;努力加载中...</div>
-						<div style="height:0.1rem;width:100%;" class="left"></div>
-					</div>
-					</li>
-					<li>
-					<div class="div_shadow_02 left">
-						<div class="picbox_img_list"></div>
-						<img alt="" class="shopinfo_img right">
-						<div class="shopinfo_font right">······</div>
-						<div class="shopinfo_lvdiv_tb right">Lv.1</div>
-						<div style="height:0.05rem;width:100%;" class="left"></div>
-						<div class="infofont_list left"><img class="infofont_list_img">······&nbsp;<b>·</b>&nbsp;努力加载中...</div>
-						<div style="height:0.1rem;width:100%;" class="left"></div>
-					</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
+	<div class="tb_pre_box" id="data6Content"><!--续--></div>
+	<div class="tb_pre_box" id="data7Content"><!--评--></div>
+	<div class="tb_pre_box" id="data8Content"><!--更多--></div>
 	<div class="clear"></div>
-	<div style="height:0.5rem;width:100%;background:#FFF;"></div>
 	<div id="htmlshow" style="font-size:0.35rem;color:#101010;"></div>
 	<!--预览页面-->
 	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true" >
