@@ -485,6 +485,7 @@
                     </LinearLayout>
                 </RelativeLayout>
                 <RelativeLayout
+                    android:visibility="gone"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="24dp"

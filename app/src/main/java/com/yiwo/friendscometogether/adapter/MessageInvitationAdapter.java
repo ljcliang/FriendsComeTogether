@@ -22,7 +22,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.MessageInvitationListModel;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
 
 import java.util.List;
 
@@ -163,7 +163,7 @@ public class MessageInvitationAdapter extends RecyclerView.Adapter<MessageInvita
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.putExtra("pfID", data.get(position).getTid());
-                intent.setClass(context, DetailsOfFriendTogetherWebActivity.class);
+                intent.setClass(context, DetailsOfFriendTogetherWebLocalActivity.class);
                 context.startActivity(intent);
             }
         });
@@ -172,7 +172,7 @@ public class MessageInvitationAdapter extends RecyclerView.Adapter<MessageInvita
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.putExtra("pfID", data.get(position).getTid());
-                intent.setClass(context, DetailsOfFriendTogetherWebActivity.class);
+                intent.setClass(context, DetailsOfFriendTogetherWebLocalActivity.class);
                 context.startActivity(intent);
             }
         });

@@ -16,7 +16,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.PersonMain_YouJu_model;
 import com.yiwo.friendscometogether.model.PersonMain_Youji_model;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
 
 import java.util.List;
 
@@ -51,7 +51,7 @@ public class PersonMainActivity_YouJu_Adapter extends RecyclerView.Adapter<Perso
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(context, DetailsOfFriendTogetherWebActivity.class);
+                intent.setClass(context, DetailsOfFriendTogetherWebLocalActivity.class);
                 intent.putExtra("pfID",data.get(position).getPfID());
                 intent.putExtra("phase_id",data.get(position).getPhase_id());
                 context.startActivity(intent);

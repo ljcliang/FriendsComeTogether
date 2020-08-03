@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity">
+    tools:context="com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity">
     <RelativeLayout
         android:visibility="gone"
         android:id="@+id/activity_details_of_friends_together_rl_top"

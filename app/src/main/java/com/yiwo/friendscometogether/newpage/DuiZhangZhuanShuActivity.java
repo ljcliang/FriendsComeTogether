@@ -46,6 +46,7 @@ import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.ShareUtils;
 import com.yiwo.friendscometogether.wangyiyunshipin.wangyiyunlive.EnterLiveActivity;
 import com.yiwo.friendscometogether.webpages.DuiZhangShangPuWebActivity;
+import com.yiwo.friendscometogether.webpages.GuanLiGoodsWebActivity;
 import com.yiwo.friendscometogether.webpages.RenWuWebActivity;
 import com.yiwo.friendscometogether.webpages.ShouRuMingXiWebActivity;
 import com.yiwo.friendscometogether.widget.CustomDatePicker;
@@ -241,9 +242,7 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.ll_wodeshangpu:
-                intent.setClass(DuiZhangZhuanShuActivity.this, DuiZhangShangPuWebActivity.class);
-                intent.putExtra("url",duiZhangZhuanShuModel.getObj().getGoodsShop());
-                startActivity(intent);
+                GuanLiGoodsWebActivity.start(DuiZhangZhuanShuActivity.this,NetConfig.GuanLiGoodsUrl+spImp.getUID());
                 break;
             case R.id.ll_shourumingxi:
                 intent.setClass(DuiZhangZhuanShuActivity.this, ShouRuMingXiWebActivity.class);

@@ -14,8 +14,8 @@ import com.squareup.picasso.Picasso;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.dbmodel.LookHistoryDbModel;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebLocalActivity;
 
 import java.util.List;
 
@@ -52,11 +52,11 @@ public class LookHistoryAdapter extends RecyclerView.Adapter<LookHistoryAdapter.
                 Intent intent = new Intent();
                 if(data.get(position).getType().equals("0")){
                     intent.putExtra("pfID", data.get(position).getLook_id());
-                    intent.setClass(context, DetailsOfFriendTogetherWebActivity.class);
+                    intent.setClass(context, DetailsOfFriendTogetherWebLocalActivity.class);
                     context.startActivity(intent);
                 }else {
                     intent.putExtra("fmid", data.get(position).getLook_id());
-                    intent.setClass(context, DetailsOfFriendsWebActivity.class);
+                    intent.setClass(context, DetailsOfFriendsWebLocalActivity.class);
                     context.startActivity(intent);
                 }
             }

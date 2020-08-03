@@ -31,8 +31,8 @@ import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.tongban_emoticon.String2HtmlTextTools;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.utils.ViewUtil;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebLocalActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -242,11 +242,11 @@ public class HomeTuiJian_ReMenZhaoMu_Adapter extends RecyclerView.Adapter<HomeTu
         holder.ll_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    intent.setClass(context, DetailsOfFriendsWebActivity.class);
+                    intent.setClass(context, DetailsOfFriendsWebLocalActivity.class);
                     intent.putExtra("fmid", data.get(position).getFmID());
                     context.startActivity(intent);
 //                if (data.get(position).getTp().equals("0")){
-//                    intent.setClass(context, DetailsOfFriendsWebActivity.class);
+//                    intent.setClass(context, DetailsOfFriendsWebLocalActivity.class);
 //                    intent.putExtra("fmid", data.get(position).getFmID());
 //                    context.startActivity(intent);
 //                }else {
@@ -269,7 +269,7 @@ public class HomeTuiJian_ReMenZhaoMu_Adapter extends RecyclerView.Adapter<HomeTu
             @Override
             public void onClick(View v) {
                 if (!TextUtils.isEmpty(data.get(position).getFmpartyID())){
-                    intent.setClass(context, DetailsOfFriendTogetherWebActivity.class);
+                    intent.setClass(context, DetailsOfFriendTogetherWebLocalActivity.class);
                     intent.putExtra("pfID", data.get(position).getFmpartyID());
                     context.startActivity(intent);
                 }

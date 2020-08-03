@@ -1,18 +1,15 @@
 package com.yiwo.friendscometogether.newadapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.model.UserLabelModel;
 import com.yiwo.friendscometogether.newmodel.ShangPinLabelModel;
 
 import java.util.List;
@@ -25,8 +22,10 @@ public class ShangPinLabelAdapter extends RecyclerView.Adapter<ShangPinLabelAdap
 
     private Context context;
     private List<ShangPinLabelModel.ObjBean> data;
-    public ShangPinLabelAdapter(List<ShangPinLabelModel.ObjBean> data) {
+    private OnItemChoosed onItemChoosed;
+    public ShangPinLabelAdapter(List<ShangPinLabelModel.ObjBean> data,OnItemChoosed onItemChoosedlistenner) {
         this.data = data;
+        this.onItemChoosed = onItemChoosedlistenner;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -36,34 +35,43 @@ public class ShangPinLabelAdapter extends RecyclerView.Adapter<ShangPinLabelAdap
         return holder;
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.tv.setText(data.get(position).getName());
         if (data.get(position).isChecked()){
             holder.rl.setBackgroundResource(R.drawable.bg_shangpin_label_choosed);
-            holder.tv.setTextColor(Color.parseColor("#d84c37"));
+            holder.tv.setTextColor(R.color.colorPrimary);
         }else {
             holder.rl.setBackgroundResource(R.drawable.bg_shangpin_label);
-            holder.tv.setTextColor(Color.parseColor("#101010"));
+            holder.tv.setTextColor(R.color.black_101010);
         }
+        holder.rl.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                onItemChoosed.onLongClick(position);
+                return false;
+            }
+        });
         holder.rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!data.get(position).isChecked()){
-                    int checkedNum = 0 ;
-                    for (ShangPinLabelModel.ObjBean bean : data){
-                        if (bean.isChecked()) checkedNum++;
-                    }
-                    if (checkedNum>2){
-                        Toast.makeText(context,"最多选择3个！",Toast.LENGTH_SHORT).show();
-                    }else {
-                        data.get(position).setChecked(true);
-                        notifyDataSetChanged();
-                    }
-                }else {
-                    data.get(position).setChecked(false);
-                    notifyDataSetChanged();
-                }
+                onItemChoosed.onChoosed(position);
+//                if (!data.get(position).isChecked()){
+//                    int checkedNum = 0 ;
+//                    for (ShangPinLabelModel.ObjBean bean : data){
+//                        if (bean.isChecked()) checkedNum++;
+//                    }
+//                    if (checkedNum>2){
+//                        Toast.makeText(context,"最多选择3个！",Toast.LENGTH_SHORT).show();
+//                    }else {
+//                        data.get(position).setChecked(true);
+//                        notifyDataSetChanged();
+//                    }
+//                }else {
+//                    data.get(position).setChecked(false);
+//                    notifyDataSetChanged();
+//                }
             }
         });
     }
@@ -83,5 +91,8 @@ public class ShangPinLabelAdapter extends RecyclerView.Adapter<ShangPinLabelAdap
             rl = itemView.findViewById(R.id.rl);
         }
     }
-
+    public interface OnItemChoosed{
+        void onChoosed(int pos);
+        void onLongClick(int pos);
+    }
 }

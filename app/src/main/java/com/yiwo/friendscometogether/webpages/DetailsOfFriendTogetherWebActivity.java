@@ -404,7 +404,7 @@ public class DetailsOfFriendTogetherWebActivity extends BaseSonicWebActivity {
         @JavascriptInterface
         public void jumpyouji(String fmID){
             Intent intent = new Intent();
-            intent.setClass(DetailsOfFriendTogetherWebActivity.this, DetailsOfFriendsWebActivity.class);
+            intent.setClass(DetailsOfFriendTogetherWebActivity.this, DetailsOfFriendsWebLocalActivity.class);
             intent.putExtra("fmid", fmID);
             startActivity(intent);
         }

@@ -23,7 +23,7 @@ import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.TokenUtils;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,7 +71,7 @@ public class HomeGuanZhu_DuiZhangDaiDui_list_Adapter extends RecyclerView.Adapte
         holder.rl_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent.setClass(context, DetailsOfFriendTogetherWebActivity.class);
+                intent.setClass(context, DetailsOfFriendTogetherWebLocalActivity.class);
                 intent.putExtra("pfID", data.get(position).getPfID());
                 context.startActivity(intent);
             }

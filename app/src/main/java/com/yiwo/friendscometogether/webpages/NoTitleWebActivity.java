@@ -24,7 +24,7 @@ public class NoTitleWebActivity extends BaseWebActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shop_info_web);
+        setContentView(R.layout.activity_no_title_web);
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
         StatusBarUtils.setStatusBarTransparent(NoTitleWebActivity.this);
         unbinder = ButterKnife.bind(this);

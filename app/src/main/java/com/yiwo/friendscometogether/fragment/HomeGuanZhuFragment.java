@@ -29,8 +29,10 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseFragment;
+import com.yiwo.friendscometogether.dbmodel.GoodsWebInfoDbModel;
 import com.yiwo.friendscometogether.dbmodel.WebInfoOfDbUntils;
 import com.yiwo.friendscometogether.dbmodel.YouJiWebInfoDbModel;
+import com.yiwo.friendscometogether.dbmodel.YouJuHuoDongWebInfoDbModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.HomeGuanZhu_DuiZhangDaiDui_Adapter;
 import com.yiwo.friendscometogether.newadapter.HomeGuanZhu_YouJiShiPin_Adapter;
@@ -143,6 +145,7 @@ public class HomeGuanZhuFragment extends BaseFragment {
                                 adapterGuanzhuYouJi.notifyDataSetChanged();
                                 mlistDuiZhangDaiDui.clear();
                                 mlistDuiZhangDaiDui.addAll(model.getObj().getCaptainPf());
+                                preGuanZhuYouJu(mlistDuiZhangDaiDui);
                                 adapterGuanZhuDuiZhangDaiDui.notifyDataSetChanged();
                             }else {
 
@@ -228,6 +231,7 @@ public class HomeGuanZhuFragment extends BaseFragment {
 //                                        WeiboDialogUtils.closeDialog(dialog_loading);
                                         mlistDuiZhangDaiDui.clear();
                                         mlistDuiZhangDaiDui.addAll(model.getObj().getCaptainPf());
+                                        preGuanZhuYouJu(mlistDuiZhangDaiDui);
                                         adapterGuanZhuDuiZhangDaiDui.notifyDataSetChanged();
                                     }
                                 } catch (JSONException e) {
@@ -287,18 +291,23 @@ public class HomeGuanZhuFragment extends BaseFragment {
 
     private void preGuanZhuYouJi(List<HomeGuanZhuModel.ObjBean.YjVideoBean> list){
         for (HomeGuanZhuModel.ObjBean.YjVideoBean bean : list){
-            insertWebList("0",bean.getFmID());
+            if(!webInfoOfDbUntils.hasThisId_YouJi(bean.getFmID())){
+                insertWebList("0",bean.getFmID());
+            }
+        }
+    }
+    private void preGuanZhuYouJu(List<HomeGuanZhuModel.ObjBean.CaptainPfBean> list){
+        for (HomeGuanZhuModel.ObjBean.CaptainPfBean bean : list){
+            if(!webInfoOfDbUntils.hasThisId_HuoDong(bean.getPfID())){
+                insertWebList("1",bean.getPfID());
+            }
         }
     }
     //创建及执行
     ExecutorService fixedThreadPool = Executors.newFixedThreadPool(1);
     private void insertWebList(String type,String fmId){
-        if (type.equals("0") && webInfoOfDbUntils.hasThisId(fmId)){
-
-        }else {
-            InsertWeb2DbRunnable insertWeb2DbRunnable = new InsertWeb2DbRunnable(type,fmId);
-            fixedThreadPool.execute(insertWeb2DbRunnable);
-        }
+        InsertWeb2DbRunnable insertWeb2DbRunnable = new InsertWeb2DbRunnable(type,fmId);
+        fixedThreadPool.execute(insertWeb2DbRunnable);
     }
     public class InsertWeb2DbRunnable implements Runnable {
 
@@ -338,6 +347,16 @@ public class HomeGuanZhuFragment extends BaseFragment {
                                             webInfoOfDbUntils.insertYouJiModel(youJiWebInfoDbModel);
                                             break;
                                         case "1":
+                                            YouJuHuoDongWebInfoDbModel youJuWebInfoDbModel = new YouJuHuoDongWebInfoDbModel();
+                                            youJuWebInfoDbModel.setWeb_info(mode.getObj().getStr());
+                                            youJuWebInfoDbModel.setPf_id(fId);
+                                            webInfoOfDbUntils.insertYouJuHuoDongModel(youJuWebInfoDbModel);
+                                            break;
+                                        case "2":
+                                            GoodsWebInfoDbModel goodsWebInfoDbModel = new GoodsWebInfoDbModel();
+                                            goodsWebInfoDbModel.setWeb_info(mode.getObj().getStr());
+                                            goodsWebInfoDbModel.setGood_id(fId);
+                                            webInfoOfDbUntils.insertGoodModel(goodsWebInfoDbModel);
                                             break;
                                     }
                                 }
@@ -363,4 +382,5 @@ public class HomeGuanZhuFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
     }
+
 }

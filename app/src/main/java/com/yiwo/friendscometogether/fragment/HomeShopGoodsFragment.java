@@ -41,6 +41,10 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
+import com.yiwo.friendscometogether.dbmodel.GoodsWebInfoDbModel;
+import com.yiwo.friendscometogether.dbmodel.WebInfoOfDbUntils;
+import com.yiwo.friendscometogether.dbmodel.YouJiWebInfoDbModel;
+import com.yiwo.friendscometogether.dbmodel.YouJuHuoDongWebInfoDbModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.HomeTuiJian_DuiZhangPuZi_Adapter;
 import com.yiwo.friendscometogether.newadapter.HomeTuiJian_JianTuShiKe_Adapter;
@@ -51,6 +55,7 @@ import com.yiwo.friendscometogether.newadapter.HomeYouPu_Adapter;
 import com.yiwo.friendscometogether.newmodel.HomeTuiJianModel;
 import com.yiwo.friendscometogether.newmodel.HomeTuiJianYouJiShiPinModel;
 import com.yiwo.friendscometogether.newmodel.HomeYouPuModel;
+import com.yiwo.friendscometogether.newmodel.LocalWebInfoModel;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
@@ -64,8 +69,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,7 +89,7 @@ public class HomeShopGoodsFragment extends BaseFragment {
     private Unbinder unbinder;
     private SpImp spImp;
     private int page4 = 1;
-
+    private WebInfoOfDbUntils webInfoOfDbUntils;
 
     //友铺
     RecyclerView rv_youpu;//小视频
@@ -100,6 +108,7 @@ public class HomeShopGoodsFragment extends BaseFragment {
         rootView = inflater.inflate(R.layout.home_lay_youpu, null);
         unbinder = ButterKnife.bind(this, rootView);
         spImp = new SpImp(getContext());
+        webInfoOfDbUntils = new WebInfoOfDbUntils(getContext());
         initView(rootView);
         initData();
         return rootView;
@@ -119,6 +128,90 @@ public class HomeShopGoodsFragment extends BaseFragment {
         }
     }
 
+    public void preGoods(List<HomeYouPuModel.ObjBean> list){
+
+        for (HomeYouPuModel.ObjBean bean : list){
+            if (!webInfoOfDbUntils.hasThisId_Goods(bean.getGoodsID())){
+                insertWebList("2",bean.getGoodsID());
+            }
+        }
+
+    }
+    //创建及执行
+    ExecutorService fixedThreadPool = Executors.newFixedThreadPool(1);
+    private void insertWebList(String type,String fmId){
+        InsertWeb2DbRunnable insertWeb2DbRunnable = new InsertWeb2DbRunnable(type,fmId);
+        fixedThreadPool.execute(insertWeb2DbRunnable);
+    }
+
+    /**
+     * 请求接口  获取webInFo的线程
+     */
+    int iii =  0;
+    public class InsertWeb2DbRunnable implements Runnable {
+
+        private String type,fId;
+
+
+        /**
+         *
+         * @param type web  类型  0是友记，1是友聚活动，2是商品
+         * @param f_id 友记、活动、商品的ID
+         */
+        public InsertWeb2DbRunnable(String type,String f_id){
+            this.type = type;
+            this.fId = f_id;
+        }
+        @Override
+        public void run() {
+            ViseHttp.POST(NetConfig.articleInfo)
+                    .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
+                    .addParam("uid", spImp.getUID())
+                    .addParam("fmID",fId)
+                    .addParam("type",type)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if (jsonObject.getInt("code") == 200){
+                                    Log.d("qingqiushuju:",new Date().toLocaleString()+"diaa::"+iii );
+                                    iii++;
+                                    Gson gson = new Gson();
+                                    LocalWebInfoModel mode =  gson.fromJson(data,LocalWebInfoModel.class);
+                                    switch (type){
+                                        case "0":
+                                            YouJiWebInfoDbModel youJiWebInfoDbModel = new YouJiWebInfoDbModel();
+                                            youJiWebInfoDbModel.setWeb_info(mode.getObj().getStr());
+                                            youJiWebInfoDbModel.setFm_id(fId);
+                                            webInfoOfDbUntils.insertYouJiModel(youJiWebInfoDbModel);
+                                            break;
+                                        case "1":
+                                            YouJuHuoDongWebInfoDbModel youJuWebInfoDbModel = new YouJuHuoDongWebInfoDbModel();
+                                            youJuWebInfoDbModel.setWeb_info(mode.getObj().getStr());
+                                            youJuWebInfoDbModel.setPf_id(fId);
+                                            webInfoOfDbUntils.insertYouJuHuoDongModel(youJuWebInfoDbModel);
+                                            break;
+                                        case "2":
+                                            GoodsWebInfoDbModel goodsWebInfoDbModel = new GoodsWebInfoDbModel();
+                                            goodsWebInfoDbModel.setWeb_info(mode.getObj().getStr());
+                                            goodsWebInfoDbModel.setGood_id(fId);
+                                            webInfoOfDbUntils.insertGoodModel(goodsWebInfoDbModel);
+                                            break;
+                                    }
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    });
+        }
+    }
     private void initData() {
         //友铺
         ViseHttp.POST(NetConfig.homeGoodsList)
@@ -136,7 +229,7 @@ public class HomeShopGoodsFragment extends BaseFragment {
                                 listYouPu.clear();
                                 listYouPu.addAll(model.getObj());
                                 youPuAdapter.notifyDataSetChanged();
-
+                                preGoods(listYouPu);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -187,6 +280,7 @@ public class HomeShopGoodsFragment extends BaseFragment {
                                         HomeYouPuModel model = gson.fromJson(data, HomeYouPuModel.class);
                                         if (model.getObj().size()>0){
                                             listYouPu.addAll(model.getObj());
+                                            preGoods(model.getObj());
                                             youPuAdapter.notifyDataSetChanged();
                                             page4++;
                                         }

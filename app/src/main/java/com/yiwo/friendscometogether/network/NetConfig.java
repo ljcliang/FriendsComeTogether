@@ -511,4 +511,15 @@ public class NetConfig {
     public static String articleInfo = "action/ac_article/articleInfo";
 //    action/ac_newHome/homePageSkipGoods   商品列表   传uid 用户id    type  0免税商品  1特价商品
 public static String homePageSkipGoods = "action/ac_newHome/homePageSkipGoods";
+
+
+    //action/ac_goods/addMyTag   添加我的标签   name标签名   uid用户id  返回id
+    public static String addMyTag =  "action/ac_goods/addMyTag";
+    //    action/ac_goods/getMyTag  我的标签  传uid
+    public static String getMyTag =  "action/ac_goods/getMyTag";
+    //action/ac_goods/editMyTag   编辑  传id   name名字
+    public static String editMyTag =  "action/ac_goods/editMyTag";
+    //管理店铺 URL
+    public static String GuanLiGoodsUrl = BaseUrl+"action/ac_goods/myGoods?uid="; //后面加 用户id
+
 }

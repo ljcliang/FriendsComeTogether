@@ -19,18 +19,30 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.target.Target;
+import com.google.gson.Gson;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.ShareBoardlistener;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseSonicWebActivity;
+import com.yiwo.friendscometogether.dbmodel.GoodsWebInfoDbModel;
+import com.yiwo.friendscometogether.dbmodel.WebInfoOfDbUntils;
+import com.yiwo.friendscometogether.dbmodel.YouJuHuoDongWebInfoDbModel;
 import com.yiwo.friendscometogether.imagepreview.StatusBarUtils;
+import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.newmodel.LocalWebInfoModel;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.FileUtils;
 import com.yiwo.friendscometogether.utils.ShareUtils;
+import com.yiwo.friendscometogether.utils.WebUntils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 
@@ -48,6 +60,8 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
     private SpImp spImp;
     public static final String GOOD_ID_KEY = "goodId";
     private boolean isFirst = true;
+    WebInfoOfDbUntils webInfoOfDbUntils;
+    private String goodId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,30 +69,104 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
         spImp = new SpImp(this);
         unbinder = ButterKnife.bind(this);
         StatusBarUtils.setStatusBarTransparent(ShopGoodsDetailsWebLocalActivity.this);
+        goodId = getIntent().getStringExtra(GOOD_ID_KEY);
 //        url = "http://www.tongbanapp.com/index.php/action/ac_goods/goodsInfo?goodsID="+getIntent().getStringExtra(GOOD_ID_KEY)+"&uid="+spImp.getUID();
-        url = "file:///android_asset/htmlfile/demoN.html";
+        url = "file:///android_asset/htmlfile/demoG.html";
         Log.d("asdasd",url);
 //        url = getIntent().getStringExtra("url");
         initIntentSonic(url,webView);
-        webView.addJavascriptInterface(new ShopGoodsDetailsWebLocalActivity.AndroidInterface(),"android");//交互
-        String str = "uploads/xingcheng/20191111/2-0d822c33a29656244255ddc22dcae64d6742.jpeg$$$@@@uploads/xingcheng/20191113/2-98eef1686a0243956adf2923afd0d4ec7995.jpg|&|&|5|&|&|用户昵称|&|&|Lv.1|&|&| |&|&|2020-08-10|&|&|新华社|&|&|+关注$$$@@@内容内容内容$$$@@@uploads/xingcheng/20191219/1-094c1e183945869a478294ab70a68f9f9996.jpg|&|&|uploads/xingcheng/20191111/0-cf3b6ce69545a69ce122866f123548ec8699.jpg$$$@@@续写标题|@#|@#|续写内容|@#|@#|uploads/xingcheng/20191219/2-771b628f5a836007b580067abfaedebe1448.jpeg|@|@|续写图1描述 |&|&| 续写标题1|@#|@#|续写内容1|@#|@#| $$$@@@uploads/xingcheng/20191219/2-771b628f5a836007b580067abfaedebe1448.jpeg|@|@|111|@|@|评论用户昵称|@|@|3天前|@|@|主要内容|@#|@#| |&|&|uploads/xingcheng/20191219/2-771b628f5a836007b580067abfaedebe1448.jpeg|@|@|111|@|@|评论用户昵称1|@|@|3.1天前|@|@|主要内容1|@#|@#|uploads/xingcheng/20191219/2-771b628f5a836007b580067abfaedebe1448.jpeg|@|@|111|@|@|回复用户昵称|@|@|4天前|@|@|回复主要内容|#|#|uploads/xingcheng/20191219/2-771b628f5a836007b580067abfaedebe1448.jpeg|@|@|111|@|@|回复用户昵称1|@|@|4.1天前|@|@|回复主要内容1|#|#|uploads/xingcheng/20191219/2-771b628f5a836007b580067abfaedebe1448.jpeg|@|@|111|@|@|回复用户昵称2|@|@|4.2天前|@|@|回复主要内容2";
-        String strr1 = str;
-        String strr2 = getIntent().getStringExtra(GOOD_ID_KEY);
-        String strr3 = "5";
-//        String strr1 = "{\"txtstr\" : \""+str+"\",";
-//        String strr2 = "\"idpath\" : "+getIntent().getStringExtra(GOOD_ID_KEY)+",";
-//        String strr3 = "\"type\" : "+"5"+"}";
-        Log.d("adsadasd",strr1+""+strr2+""+strr3);
+        webInfoOfDbUntils = new WebInfoOfDbUntils(this);
         webView.setWebChromeClient(new WebChromeClient(){
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
                 if(newProgress==100 && isFirst){
-                    isFirst = false;
-                    webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+                    if (isFirst){
+                        isFirst = false;
+//                        String strr1 = getIntent().getStringExtra("str");
+//                        String strr2 = "";
+//                        String strr3 = "0";
+//                        Log.d("adsadasd",strr1+""+strr2+""+strr3);
+//                        webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+                        if (webInfoOfDbUntils.hasThisId_Goods(goodId)){
+                            String strr1 = webInfoOfDbUntils.queryGood(goodId).getWeb_info();
+                            String strr2 = "";
+                            String strr3 = "2";
+                            Log.d("adsadasd：：\n",strr1+"\n"+strr2+"\n"+strr3);
+                            webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+                            /**
+                             * 加载之后再次查询更新数据库
+                             */
+                            ViseHttp.POST(NetConfig.articleInfo)
+                                    .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
+                                    .addParam("uid", spImp.getUID())
+                                    .addParam("fmID",goodId)
+                                    .addParam("type","2")
+                                    .request(new ACallback<String>() {
+                                        @Override
+                                        public void onSuccess(String data) {
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(data);
+                                                if (jsonObject.getInt("code") == 200){
+                                                    Gson gson = new Gson();
+                                                    LocalWebInfoModel mode =  gson.fromJson(data,LocalWebInfoModel.class);
+                                                    GoodsWebInfoDbModel goodsWebInfoDbModel = new GoodsWebInfoDbModel();
+                                                    goodsWebInfoDbModel.setWeb_info(mode.getObj().getStr());
+                                                    goodsWebInfoDbModel.setGood_id(goodId);
+                                                    webInfoOfDbUntils.insertGoodModel(goodsWebInfoDbModel);
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFail(int errCode, String errMsg) {
+
+                                        }
+                                    });
+                        }else {
+                            ViseHttp.POST(NetConfig.articleInfo)
+                                    .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
+                                    .addParam("uid", spImp.getUID())
+                                    .addParam("fmID",goodId)
+                                    .addParam("type","2")
+                                    .request(new ACallback<String>() {
+                                        @Override
+                                        public void onSuccess(String data) {
+                                            try {
+                                                JSONObject jsonObject = new JSONObject(data);
+                                                if (jsonObject.getInt("code") == 200){
+                                                    Gson gson = new Gson();
+                                                    LocalWebInfoModel mode =  gson.fromJson(data,LocalWebInfoModel.class);
+                                                    String strr1 = mode.getObj().getStr();
+                                                    String strr2 = "";
+                                                    String strr3 = "2";
+                                                    strr1 = WebUntils.replaceStr(strr1);
+                                                    Log.d("adsadasd数据库中没有此条数据ID-",goodId+"\n"+strr1+"\n"+strr2+"\n"+strr3);
+                                                    webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+                                                    GoodsWebInfoDbModel goodsWebInfoDbModel = new GoodsWebInfoDbModel();
+                                                    goodsWebInfoDbModel.setWeb_info(mode.getObj().getStr());
+                                                    goodsWebInfoDbModel.setGood_id(goodId);
+                                                    webInfoOfDbUntils.insertGoodModel(goodsWebInfoDbModel);
+                                                }
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFail(int errCode, String errMsg) {
+
+                                        }
+                                    });
+                        }
+                    }
                 }
             }
         });
+        webView.addJavascriptInterface(new ShopGoodsDetailsWebLocalActivity.AndroidInterface(),"android");//交互
+
     }
     public static void open(Context context,String goodId){
         Intent intent = new Intent();
@@ -88,6 +176,11 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
     }
     public class AndroidInterface extends Object{
 
+        @JavascriptInterface
+        public void backgo(){
+            Log.d("交互了","fanhui");
+            finish();
+        }
         /**
          * toshare()  分享商品页的交互方法  传了商品id  商品名称  商品信息  商品图片  商品分享地址   5个参数
          */

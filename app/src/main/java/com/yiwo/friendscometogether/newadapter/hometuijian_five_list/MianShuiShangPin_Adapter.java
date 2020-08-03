@@ -16,7 +16,7 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.newmodel.HomePageSkipGoodsModel;
 import com.yiwo.friendscometogether.newpage.ShopHomeActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
-import com.yiwo.friendscometogether.webpages.ShopGoodsDetailsWebActivity;
+import com.yiwo.friendscometogether.webpages.ShopGoodsDetailsWebLocalActivity;
 
 import java.util.List;
 
@@ -59,7 +59,7 @@ public class MianShuiShangPin_Adapter extends RecyclerView.Adapter<MianShuiShang
         holder.ll_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShopGoodsDetailsWebActivity.open(context,data.get(position).getGid());
+                ShopGoodsDetailsWebLocalActivity.open(context,data.get(position).getGid());
             }
         });
         switch (data.get(position).getLevelName()){

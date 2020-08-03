@@ -17,8 +17,8 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.SearchListModel;
 import com.yiwo.friendscometogether.pages.SearchListActivity;
 import com.yiwo.friendscometogether.pages.VideoActivity;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebLocalActivity;
 
 import java.util.List;
 
@@ -53,11 +53,11 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
             public void onClick(View v) {
                 Intent it = new Intent();
                 if(data.get(position).getType().equals("0")){
-                    it.setClass(context, DetailsOfFriendTogetherWebActivity.class);
+                    it.setClass(context, DetailsOfFriendTogetherWebLocalActivity.class);
                     it.putExtra("pfID",data.get(position).getId());
                     context.startActivity(it);
                 } else if (data.get(position).getType().equals("1")){
-                    it.setClass(context, DetailsOfFriendsWebActivity.class);
+                    it.setClass(context, DetailsOfFriendsWebLocalActivity.class);
                     it.putExtra("fmid",data.get(position).getId());
                     context.startActivity(it);
                 }else if (data.get(position).getType().equals("2")) {

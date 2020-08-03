@@ -51,7 +51,7 @@ import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.BigDecimalUtils;
 import com.yiwo.friendscometogether.utils.StringUtils;
 import com.yiwo.friendscometogether.webpages.ApplyActivityAgreementWebActivity;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
 import com.yiwo.friendscometogether.webpages.YouHuiQuanWebActivity;
 
 import org.json.JSONException;

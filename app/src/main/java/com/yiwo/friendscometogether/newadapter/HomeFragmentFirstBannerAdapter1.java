@@ -16,7 +16,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.newmodel.HomeDataBannerHuoDongLiveModel;
 import com.yiwo.friendscometogether.sp.SpImp;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
 
 import java.util.List;
 
@@ -60,11 +60,11 @@ public class HomeFragmentFirstBannerAdapter1 extends RecyclerView.Adapter<HomeFr
             @Override
             public void onClick(View v) {
                 final Intent intent = new Intent();
-                intent.setClass(context, DetailsOfFriendTogetherWebActivity.class);
+                intent.setClass(context, DetailsOfFriendTogetherWebLocalActivity.class);
                 intent.putExtra("pfID", bean.getPfID());
                 context.startActivity(intent);
 //                if (TextUtils.isEmpty(bean.getPfpwd())) {
-//                    intent.setClass(context, DetailsOfFriendTogetherWebActivity.class);
+//                    intent.setClass(context, DetailsOfFriendTogetherWebLocalActivity.class);
 //                    intent.putExtra("pfID", bean.getPfID());
 //                    context.startActivity(intent);
 //                } else {
@@ -72,7 +72,7 @@ public class HomeFragmentFirstBannerAdapter1 extends RecyclerView.Adapter<HomeFr
 //                        @Override
 //                        public boolean setActivityText(String s) {
 //                            if (s.equals(bean.getPfpwd())) {
-//                                intent.setClass(context, DetailsOfFriendTogetherWebActivity.class);
+//                                intent.setClass(context, DetailsOfFriendTogetherWebLocalActivity.class);
 //                                intent.putExtra("pfID", bean.getPfID());
 //                                context.startActivity(intent);
 //                                return true;

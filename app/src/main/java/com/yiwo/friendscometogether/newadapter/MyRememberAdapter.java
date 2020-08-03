@@ -26,7 +26,7 @@ import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.pages.EditorFriendRememberActivity;
 import com.yiwo.friendscometogether.pages.ModifyFriendRememberActivity;
 import com.yiwo.friendscometogether.pages.TeamIntercalationActivity;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebLocalActivity;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebLocalActivity;
 
 import org.json.JSONException;

@@ -31,8 +31,8 @@ import com.yiwo.friendscometogether.tongban_emoticon.String2HtmlTextTools;
 import com.yiwo.friendscometogether.utils.StringUtils;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.utils.ViewUtil;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebLocalActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -235,7 +235,7 @@ public class HomeGuanZhu_YouJiShiPin_Adapter extends RecyclerView.Adapter<HomeGu
             @Override
             public void onClick(View v) {
                 if (data.get(position).getTp().equals("0")){
-                    intent.setClass(context, DetailsOfFriendsWebActivity.class);
+                    intent.setClass(context, DetailsOfFriendsWebLocalActivity.class);
                     intent.putExtra("fmid", data.get(position).getFmID());
                     context.startActivity(intent);
                 }else {
@@ -258,7 +258,7 @@ public class HomeGuanZhu_YouJiShiPin_Adapter extends RecyclerView.Adapter<HomeGu
             @Override
             public void onClick(View v) {
                 if (!TextUtils.isEmpty(data.get(position).getFmpartyID())){
-                    intent.setClass(context, DetailsOfFriendTogetherWebActivity.class);
+                    intent.setClass(context, DetailsOfFriendTogetherWebLocalActivity.class);
                     intent.putExtra("pfID", data.get(position).getFmpartyID());
                     context.startActivity(intent);
                 }

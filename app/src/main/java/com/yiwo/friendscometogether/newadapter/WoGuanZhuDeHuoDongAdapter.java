@@ -18,7 +18,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.newmodel.GuanZhuHuoDongModel;
 import com.yiwo.friendscometogether.sp.SpImp;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
 
 import java.util.List;
 
@@ -75,7 +75,7 @@ public class WoGuanZhuDeHuoDongAdapter extends RecyclerView.Adapter<WoGuanZhuDeH
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(context, DetailsOfFriendTogetherWebActivity.class);
+                intent.setClass(context, DetailsOfFriendTogetherWebLocalActivity.class);
                 intent.putExtra("pfID",data.get(position).getPfID());
                 context.startActivity(intent);
             }

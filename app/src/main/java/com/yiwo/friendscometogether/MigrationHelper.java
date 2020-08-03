@@ -44,6 +44,7 @@ public class MigrationHelper extends DaoMaster.DevOpenHelper {
                     YouJiWebInfoDbModelDao.class,
                     YouJuHuoDongWebInfoDbModelDao.class,
                     GoodsWebInfoDbModelDao.class
+
                     );
         }
     }

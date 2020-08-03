@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,8 +15,8 @@ import android.widget.Toast;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newmodel.ShangPinServiceModel;
+import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 
 import org.json.JSONException;
@@ -32,7 +31,7 @@ public class ShangPinServiceAdapter extends RecyclerView.Adapter<ShangPinService
     private List<ShangPinServiceModel.ObjBean> data;
     private SpImp spImp;
     private boolean canChoose ;
-    public ShangPinServiceAdapter(List<ShangPinServiceModel.ObjBean> data,boolean canChoose){
+    public ShangPinServiceAdapter(List<ShangPinServiceModel.ObjBean> data, boolean canChoose){
         this.data = data;
         this.canChoose = canChoose;
     }
@@ -46,10 +45,10 @@ public class ShangPinServiceAdapter extends RecyclerView.Adapter<ShangPinService
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvInfo.setText(data.get(position).getInfo());
         holder.tvName.setText(data.get(position).getName());
-        holder.ivChecked.setImageResource(data.get(position).isChecked() ? R.mipmap.checkbox_red_true:R.mipmap.checkbox_red_false);
+        holder.ivChecked.setImageResource(data.get(position).isChecked() ? R.mipmap.checkbox_black_true:R.mipmap.checkbox_black_false);
         if (canChoose){
             holder.rlAll.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.newmodel.HomeTuiJianModel;
-import com.yiwo.friendscometogether.webpages.ShopGoodsDetailsWebActivity;
+import com.yiwo.friendscometogether.webpages.ShopGoodsDetailsWebLocalActivity;
 import com.yiwo.friendscometogether.webpages.ShopGoodsDetailsWebLocalActivity;
 
 import java.util.List;

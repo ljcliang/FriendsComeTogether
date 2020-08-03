@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,7 +29,11 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.FutureTarget;
+import com.bumptech.glide.request.target.Target;
 import com.google.gson.Gson;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -62,6 +69,7 @@ import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.VideoActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.tongban_emoticon.TbEmoticonFragment;
+import com.yiwo.friendscometogether.utils.FileUtils;
 import com.yiwo.friendscometogether.utils.ShareUtils;
 import com.yiwo.friendscometogether.utils.WebUntils;
 
@@ -69,6 +77,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -150,7 +159,7 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
         setDatabase();
         userGiveModelDao =  mDaoSession.getUserGiveModelDao();
         lookHistoryDbModelDao = mDaoSession.getLookHistoryDbModelDao();
-        Log.d("aaaa",url);
+        Log.d("aaaa",url+"\n"+fmID);
 
         webView.setWebChromeClient(new WebChromeClient(){
             @Override
@@ -165,7 +174,7 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
 //                        String strr3 = "0";
 //                        Log.d("adsadasd",strr1+""+strr2+""+strr3);
 //                        webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
-                        if (webInfoOfDbUntils.hasThisId(fmID)){
+                        if (webInfoOfDbUntils.hasThisId_YouJi(fmID)){
                             String strr1 = webInfoOfDbUntils.queryYouJi(fmID).getWeb_info();
                             String strr2 = "";
                             String strr3 = "0";
@@ -723,7 +732,7 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
             //相关活动跳转
             Intent intent = new Intent();
             intent.putExtra("pfID", pfID);
-            intent.setClass(DetailsOfFriendsWebLocalActivity.this, DetailsOfFriendTogetherWebActivity.class);
+            intent.setClass(DetailsOfFriendsWebLocalActivity.this, DetailsOfFriendTogetherWebLocalActivity.class);
             startActivity(intent);
         }
         @JavascriptInterface
@@ -731,7 +740,7 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
             //相关活动跳转
             Intent intent = new Intent();
             intent.putExtra("pfID", pfID);
-            intent.setClass(DetailsOfFriendsWebLocalActivity.this, DetailsOfFriendTogetherWebActivity.class);
+            intent.setClass(DetailsOfFriendsWebLocalActivity.this, DetailsOfFriendTogetherWebLocalActivity.class);
             startActivity(intent);
         }
         @JavascriptInterface
@@ -779,6 +788,72 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
         public void backgo(){
             onBackPressed();
         }
+        @JavascriptInterface
+        public void saveImg(String img_url){
+            Log.d("asdas",img_url);
+            AlertDialog.Builder builder = new AlertDialog.Builder(DetailsOfFriendsWebLocalActivity.this);
+            builder.setMessage("确定保存图片到本地？")
+                    .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            download(img_url);
+                        }
+                    }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            }).show();
+        }
+    }
+    // 保存图片到手机
+    public void download(final String url) {
+
+        new AsyncTask<Void, Integer, File>() {
+
+            @Override
+            protected File doInBackground(Void... params) {
+                File file = null;
+                try {
+                    FutureTarget<File> future = Glide
+                            .with(DetailsOfFriendsWebLocalActivity.this)
+                            .load(url)
+                            .downloadOnly(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL);
+
+                    file = future.get();
+
+                    // 首先保存图片
+                    File pictureFolder = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsoluteFile();
+//                    File pictureFolder = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);;
+                    File appDir = new File(pictureFolder ,"Beauty");
+                    if (!appDir.exists()) {
+                        appDir.mkdirs();
+                    }
+                    String fileName = "瞳伴图片_"+System.currentTimeMillis() + ".jpg";
+                    File destFile = new File(appDir, fileName);
+                    FileUtils.copy(file, destFile);
+                    // 最后通知图库更新
+                    DetailsOfFriendsWebLocalActivity.this.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+                            Uri.fromFile(new File(destFile.getPath()))));
+
+
+                } catch (Exception e) {
+                    Log.e("123132", e.getMessage());
+                }
+                return file;
+            }
+
+            @Override
+            protected void onPostExecute(File file) {
+
+                Toast.makeText(DetailsOfFriendsWebLocalActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            protected void onProgressUpdate(Integer... values) {
+                super.onProgressUpdate(values);
+            }
+        }.execute();
     }
     private void showMuLuPopupwindow(View p_view) {
 

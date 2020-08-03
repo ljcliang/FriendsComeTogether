@@ -15,8 +15,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.UserCollectionModel;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebLocalActivity;
 
 import java.util.List;
 
@@ -94,11 +94,11 @@ public class AllCollectionAdapter extends RecyclerView.Adapter<AllCollectionAdap
                 Intent intent = new Intent();
                 if(data.get(position).getFtype().equals("1")){
                     intent.putExtra("pfID", data.get(position).getFtableid());
-                    intent.setClass(context, DetailsOfFriendTogetherWebActivity.class);
+                    intent.setClass(context, DetailsOfFriendTogetherWebLocalActivity.class);
                     context.startActivity(intent);
                 }else {
                     intent.putExtra("fmid", data.get(position).getFtableid());
-                    intent.setClass(context, DetailsOfFriendsWebActivity.class);
+                    intent.setClass(context, DetailsOfFriendsWebLocalActivity.class);
                     context.startActivity(intent);
                 }
             }

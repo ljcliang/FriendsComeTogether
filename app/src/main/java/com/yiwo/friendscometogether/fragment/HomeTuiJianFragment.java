@@ -42,8 +42,10 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
+import com.yiwo.friendscometogether.dbmodel.GoodsWebInfoDbModel;
 import com.yiwo.friendscometogether.dbmodel.WebInfoOfDbUntils;
 import com.yiwo.friendscometogether.dbmodel.YouJiWebInfoDbModel;
+import com.yiwo.friendscometogether.dbmodel.YouJuHuoDongWebInfoDbModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.HomeTuiJianXinPinShangJiaAdapter;
 import com.yiwo.friendscometogether.newadapter.HomeTuiJian_JingCaiLuXian_Adapter;
@@ -67,8 +69,10 @@ import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.wangyiyunshipin.DemoCache;
 import com.yiwo.friendscometogether.wangyiyunshipin.server.entity.RoomInfoEntity;
 import com.yiwo.friendscometogether.wangyiyunshipin.wangyiyunlive.LiveRoomActivity;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebActivity;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebLocalActivity;
+import com.yiwo.friendscometogether.webpages.NoTitleWebActivity;
+import com.yiwo.friendscometogether.webpages.ShopGoodsDetailsWebLocalActivity;
 import com.yiwo.friendscometogether.webpages.ShopInfoWebActivity;
 import com.yiwo.friendscometogether.widget.FullyLinearLayoutManager;
 
@@ -333,6 +337,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                                     } else {
                                         reMenZhaoMuTabModel.setSelect(false);
                                     }
+                                    listRemenTab.clear();
                                     listRemenTab.add(reMenZhaoMuTabModel);
                                     reMenZhaoMuTabAdapter.notifyDataSetChanged();
                                 }
@@ -353,9 +358,11 @@ public class HomeTuiJianFragment extends BaseFragment {
                                 //精彩路线
                                 listJingCaiLuXian.clear();
                                 listJingCaiLuXian.addAll(model.getObj().getActivity());
+
                                 jingCaiLuXianAdapter.notifyDataSetChanged();
                                 if (listJingCaiLuXian.size() > 0) {
                                     rlJingCaiLuXian.setVisibility(View.VISIBLE);
+                                    prePinZhiLuXian(listJingCaiLuXian);
                                 } else {
                                     rlJingCaiLuXian.setVisibility(View.GONE);
                                 }
@@ -374,6 +381,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                                 duiZhangPuZiAdapter.notifyDataSetChanged();
                                 if (listDuiZhangPuZi.size() > 0) {
                                     rlDuiZhangPuZi.setVisibility(View.VISIBLE);
+                                    preXinPinShangJia(listDuiZhangPuZi);
                                 } else {
                                     rlDuiZhangPuZi.setVisibility(View.GONE);
                                 }
@@ -615,6 +623,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                                             } else {
                                                 reMenZhaoMuTabModel.setSelect(false);
                                             }
+                                            listRemenTab.clear();
                                             listRemenTab.add(reMenZhaoMuTabModel);
                                             reMenZhaoMuTabAdapter.notifyDataSetChanged();
                                         }
@@ -639,6 +648,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                                         jingCaiLuXianAdapter.notifyDataSetChanged();
                                         if (listJingCaiLuXian.size() > 0) {
                                             rlJingCaiLuXian.setVisibility(View.VISIBLE);
+                                            prePinZhiLuXian(listJingCaiLuXian);
                                         } else {
                                             rlJingCaiLuXian.setVisibility(View.GONE);
                                         }
@@ -657,6 +667,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                                         duiZhangPuZiAdapter.notifyDataSetChanged();
                                         if (listDuiZhangPuZi.size() > 0) {
                                             rlDuiZhangPuZi.setVisibility(View.VISIBLE);
+                                            preXinPinShangJia(listDuiZhangPuZi);
                                         } else {
                                             rlDuiZhangPuZi.setVisibility(View.GONE);
                                         }
@@ -796,7 +807,7 @@ public class HomeTuiJianFragment extends BaseFragment {
             @Override
             public void onItemClick(XBanner banner, Object model, View view, int position) {
                 Intent intent = new Intent();
-                intent.setClass(getContext(), DetailsOfFriendTogetherWebActivity.class);
+                intent.setClass(getContext(), DetailsOfFriendTogetherWebLocalActivity.class);
                 intent.putExtra("pfID", listBanner.get(position).getSid());
                 startActivity(intent);
             }
@@ -870,18 +881,6 @@ public class HomeTuiJianFragment extends BaseFragment {
 
     private static final int PERMISSION_REQUEST_CODE_STORAGE = 1001;
 
-    private void requestPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE_STORAGE);
-        }
-    }
-    private boolean hasPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return getContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-        }
-        return true;
-    }
-
     @OnClick({R.id.ll_wenlvzixun, R.id.ll_zuixinzhaomu, R.id.ll_mianshuishangpin, R.id.ll_tejiabuwei, R.id.ll_jingdiandaka,
                 R.id.rl_iv_gg0,R.id.rl_iv_gg1,R.id.rl_iv_gg2,R.id.rl_iv_gg3,
                 R.id.rl_zixun_more})
@@ -910,17 +909,17 @@ public class HomeTuiJianFragment extends BaseFragment {
                 if (listAD.size()>0){
                     if (listAD.get(0).getJumpType().equals("0")){
 
-                        intent.setClass(getContext(), DetailsOfFriendTogetherWebActivity.class);
+                        intent.setClass(getContext(), DetailsOfFriendTogetherWebLocalActivity.class);
                         intent.putExtra("pfID", listAD.get(0).getSid());
                         startActivity(intent);
                     }else if (listAD.get(0).getJumpType().equals("1")){
-                        intent.setClass(getContext(), DetailsOfFriendsWebActivity.class);
+                        intent.setClass(getContext(), DetailsOfFriendsWebLocalActivity.class);
                         intent.putExtra("fmid", listAD.get(0).getSid());
                         startActivity(intent);
                     }else if(listAD.get(0).getJumpType().equals("-1")){
 
                     }else {
-                        intent.setClass(getContext(), ShopInfoWebActivity.class);
+                        intent.setClass(getContext(), NoTitleWebActivity.class);
                         intent.putExtra("url",listAD.get(0).getJumpUrl());
                         startActivity(intent);
                     }
@@ -930,17 +929,17 @@ public class HomeTuiJianFragment extends BaseFragment {
                 if (listAD.size()>1){
                     if (listAD.get(1).getJumpType().equals("0")){
 
-                        intent.setClass(getContext(), DetailsOfFriendTogetherWebActivity.class);
+                        intent.setClass(getContext(), DetailsOfFriendTogetherWebLocalActivity.class);
                         intent.putExtra("pfID", listAD.get(1).getSid());
                         startActivity(intent);
                     }else if (listAD.get(1).getJumpType().equals("1")){
-                        intent.setClass(getContext(), DetailsOfFriendsWebActivity.class);
+                        intent.setClass(getContext(), DetailsOfFriendsWebLocalActivity.class);
                         intent.putExtra("fmid", listAD.get(1).getSid());
                         startActivity(intent);
                     }else if(listAD.get(0).getJumpType().equals("-1")){
 
                     }else {
-                        intent.setClass(getContext(), ShopInfoWebActivity.class);
+                        intent.setClass(getContext(), NoTitleWebActivity.class);
                         intent.putExtra("url",listAD.get(1).getJumpUrl());
                         startActivity(intent);
                     }
@@ -950,17 +949,17 @@ public class HomeTuiJianFragment extends BaseFragment {
                 if (listAD.size()>2){
                     if (listAD.get(2).getJumpType().equals("0")){
 
-                        intent.setClass(getContext(), DetailsOfFriendTogetherWebActivity.class);
+                        intent.setClass(getContext(), DetailsOfFriendTogetherWebLocalActivity.class);
                         intent.putExtra("pfID", listAD.get(2).getSid());
                         startActivity(intent);
                     }else if (listAD.get(2).getJumpType().equals("1")){
-                        intent.setClass(getContext(), DetailsOfFriendsWebActivity.class);
+                        intent.setClass(getContext(), DetailsOfFriendsWebLocalActivity.class);
                         intent.putExtra("fmid", listAD.get(2).getSid());
                         startActivity(intent);
                     }else if(listAD.get(0).getJumpType().equals("-1")){
 
                     }else {
-                        intent.setClass(getContext(), ShopInfoWebActivity.class);
+                        intent.setClass(getContext(), NoTitleWebActivity.class);
                         intent.putExtra("url",listAD.get(2).getJumpUrl());
                         startActivity(intent);
                     }
@@ -970,17 +969,17 @@ public class HomeTuiJianFragment extends BaseFragment {
                 if (listAD.size()>3){
                     if (listAD.get(3).getJumpType().equals("0")){
 
-                        intent.setClass(getContext(), DetailsOfFriendTogetherWebActivity.class);
+                        intent.setClass(getContext(), DetailsOfFriendTogetherWebLocalActivity.class);
                         intent.putExtra("pfID", listAD.get(3).getSid());
                         startActivity(intent);
                     }else if (listAD.get(3).getJumpType().equals("1")){
-                        intent.setClass(getContext(), DetailsOfFriendsWebActivity.class);
+                        intent.setClass(getContext(), DetailsOfFriendsWebLocalActivity.class);
                         intent.putExtra("fmid", listAD.get(3).getSid());
                         startActivity(intent);
                     }else if(listAD.get(0).getJumpType().equals("-1")){
 
                     }else {
-                        intent.setClass(getContext(), ShopInfoWebActivity.class);
+                        intent.setClass(getContext(), NoTitleWebActivity.class);
                         intent.putExtra("url",listAD.get(3).getJumpUrl());
                         startActivity(intent);
                     }
@@ -999,16 +998,20 @@ public class HomeTuiJianFragment extends BaseFragment {
         }
     }
     private void preReMenYouJi(List<HomeTuiJianYouJiShiPinModel.ObjBean> youji){
-//        for (int i = 0 ; i<500;i++){
-//            for (HomeTuiJianYouJiShiPinModel.ObjBean bean : youji){
-//                insertWebList("0",bean.getFmID());
-//            }
-//        }
         for (HomeTuiJianYouJiShiPinModel.ObjBean bean : youji){
             insertWebList("0",bean.getFmID());
         }
     }
-
+    private void prePinZhiLuXian(List<HomeTuiJianModel.ObjBean.ActivityBean> listJingCaiLuXian){
+        for (HomeTuiJianModel.ObjBean.ActivityBean bean : listJingCaiLuXian){
+            insertWebList("1",bean.getPfID());
+        }
+    }
+    private void preXinPinShangJia(List<HomeTuiJianModel.ObjBean.GoodsBean> listGoodsLuXian){
+        for (HomeTuiJianModel.ObjBean.GoodsBean bean : listGoodsLuXian){
+            insertWebList("2",bean.getGid());
+        }
+    }
     //创建及执行
     ExecutorService fixedThreadPool = Executors.newFixedThreadPool(1);
     private void insertWebList(String type,String fmId){
@@ -1059,6 +1062,16 @@ public class HomeTuiJianFragment extends BaseFragment {
                                             webInfoOfDbUntils.insertYouJiModel(youJiWebInfoDbModel);
                                             break;
                                         case "1":
+                                            YouJuHuoDongWebInfoDbModel youJuWebInfoDbModel = new YouJuHuoDongWebInfoDbModel();
+                                            youJuWebInfoDbModel.setWeb_info(mode.getObj().getStr());
+                                            youJuWebInfoDbModel.setPf_id(fId);
+                                            webInfoOfDbUntils.insertYouJuHuoDongModel(youJuWebInfoDbModel);
+                                            break;
+                                        case "2":
+                                            GoodsWebInfoDbModel goodsWebInfoDbModel = new GoodsWebInfoDbModel();
+                                            goodsWebInfoDbModel.setWeb_info(mode.getObj().getStr());
+                                            goodsWebInfoDbModel.setGood_id(fId);
+                                            webInfoOfDbUntils.insertGoodModel(goodsWebInfoDbModel);
                                             break;
                                     }
                                 }
