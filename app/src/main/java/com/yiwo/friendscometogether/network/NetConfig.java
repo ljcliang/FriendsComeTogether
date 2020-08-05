@@ -521,5 +521,14 @@ public static String homePageSkipGoods = "action/ac_newHome/homePageSkipGoods";
     public static String editMyTag =  "action/ac_goods/editMyTag";
     //管理店铺 URL
     public static String GuanLiGoodsUrl = BaseUrl+"action/ac_goods/myGoods?uid="; //后面加 用户id
-
+    //action/ac_activity/getPhaeUser     传pfID    phase_id 获取报名人员字符串
+    public static String getPhaeUser = "action/ac_activity/getPhaeUser";
+    //    action/ac_goods/addCart     uid用户id   goodsID商品id   specID规格id   num数量 .//加入购物车
+    public static String addCart = "action/ac_goods/addCart";
+    //    http://www.tongbanapp.com/action/ac_goods/myCart?uid=用户id   购物车页面
+    public static String myCartWebUrl = "action/ac_goods/myCart?uid=";
+    //www.tongbanapp.com/action/ac_goods/nowBuy?uid=用户id&goodsID=商品id&specID=规格id&num=购买数量
+    public static String nowBuy = "action/ac_goods/nowBuy?";
+    //action/ac_goods/getGoodsInfo   获取商品信息   传goodsID     返回  goodsName 商品名   goodsImg图片   goodsInfo介绍      shareUrl分享链接
+    public static String getGoodsInfo = "action/ac_goods/getGoodsInfo";
 }

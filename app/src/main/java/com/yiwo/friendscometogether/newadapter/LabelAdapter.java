@@ -1,6 +1,7 @@
 package com.yiwo.friendscometogether.newadapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +40,8 @@ public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_label, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_label_1, parent, false);
+        ScreenAdapterTools.getInstance().loadView(view);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
@@ -48,13 +50,15 @@ public class LabelAdapter extends RecyclerView.Adapter<LabelAdapter.ViewHolder> 
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         if(isReset){
             holder.tv.setBackgroundResource(R.drawable.bg_d8d8d8_border_30px);
+            holder.tv.setTextColor(Color.parseColor("#101010"));
         }
         holder.tv.setText(data.get(position).getLname());
         holder.tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isReset = false;
-                holder.tv.setBackgroundResource(R.drawable.bg_d8d8d8_30px);
+                holder.tv.setBackgroundResource(R.drawable.bg_d84c37_border_30px);
+                holder.tv.setTextColor(Color.parseColor("#d84c37"));
                 listener.onSelete(position);
             }
         });

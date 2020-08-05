@@ -186,21 +186,7 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
          */
         @JavascriptInterface
         public void tosharegoods(String shangpinId,String shangpinName,String shangpinInfo,String shangpinImage,String shareUrl){
-            Intent intent = new Intent();
-            if (TextUtils.isEmpty(spImp.getUID()) || spImp.getUID().equals("0")) {
-                intent.setClass(ShopGoodsDetailsWebLocalActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            } else {
-                new ShareAction(ShopGoodsDetailsWebLocalActivity.this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
-                        .setShareboardclickCallback(new ShareBoardlistener() {
-                            @Override
-                            public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
-                                ShareUtils.shareWeb(ShopGoodsDetailsWebLocalActivity.this, shareUrl, shangpinName,
-                                        shangpinInfo, shangpinImage, share_media);
-                            }
-                        }).open();
-            }
+            sharegoods( shangpinId, shangpinName, shangpinInfo, shangpinImage, shareUrl);
         }
         /**
          * gotoapp()  跳到app首页的交互方法
@@ -257,6 +243,99 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
         @JavascriptInterface
         public void btnmore(){
         }
+//addCart(商品id，规格id，数量)
+//addBuy(商品id，规格id，数量)
+        @JavascriptInterface
+        public void addCart(String goodId,String guiGeId,String num){
+            Log.d("ssssdddd",goodId+"///"+guiGeId+".////"+num);
+            addGoodsCar(goodId,guiGeId,num);
+        }
+        @JavascriptInterface
+        public void buycargo(){
+            Log.d("ssssdddd","openCar");
+            GoodsCartWebActivity.open(ShopGoodsDetailsWebLocalActivity.this,NetConfig.BaseUrl+NetConfig.myCartWebUrl+spImp.getUID());
+        }
+        @JavascriptInterface
+        public void addBuy(String goodId,String guiGeId,String num){
+            Log.d("ssssddddbuy",goodId+"///"+guiGeId+".////"+num);
+            Intent intent = new Intent();
+            intent.setClass(ShopGoodsDetailsWebLocalActivity.this, ShopGoodsBuyWebActivity.class);
+            String url = NetConfig.BaseUrl+NetConfig.nowBuy+"uid="+spImp.getUID()+"&goodsID="+goodId+"&specID="+guiGeId+"&num="+num;
+            Log.d("ssssddddbuy_url",url);
+            intent.putExtra("url",url);
+            startActivity(intent);
+        }
+        @JavascriptInterface
+        public void sharego(){//分享
+            share(goodId);
+        }
+    }
+
+    private void share(String goodId) {
+        ViseHttp.POST(NetConfig.getGoodsInfo)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.getGoodsInfo))
+                .addParam("goodsID",goodId)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        Log.d("ssssdddd",data);
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200){
+                                JSONObject jsonObject1 = jsonObject.getJSONObject("obj");
+                                sharegoods(goodId,jsonObject1.getString("goodsName"),jsonObject1.getString("goodsInfo"),
+                                        jsonObject1.getString("goodsImg"),jsonObject1.getString("shareUrl"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+    }
+
+    public void sharegoods(String shangpinId,String shangpinName,String shangpinInfo,String shangpinImage,String shareUrl){
+        new ShareAction(ShopGoodsDetailsWebLocalActivity.this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+                .setShareboardclickCallback(new ShareBoardlistener() {
+                    @Override
+                    public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                        ShareUtils.shareWeb(ShopGoodsDetailsWebLocalActivity.this, shareUrl, shangpinName,
+                                shangpinInfo, shangpinImage, share_media);
+                    }
+                }).open();
+    }
+    private void addGoodsCar(String goodId,String guiGeId,String num){
+        ViseHttp.POST(NetConfig.addCart)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.addCart))
+                .addParam("uid",spImp.getUID())
+                .addParam("goodsID", goodId)
+                .addParam("specID",guiGeId)
+                .addParam("num",num)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        Log.d("ssssdddd",data);
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200){
+                                webView.loadUrl("javascript:addbuycarok('"+1+"')");
+                            }else {
+                                webView.loadUrl("javascript:addbuycarok('"+0+"')");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+                        webView.loadUrl("javascript:addbuycarok('"+0+"')");
+                    }
+                });
     }
     private void liaotian(String liaotianAccount) {
         String account = spImp.getYXID();

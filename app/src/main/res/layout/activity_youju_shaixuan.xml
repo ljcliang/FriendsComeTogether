@@ -274,6 +274,7 @@
 
                 <TextView
                     android:layout_marginTop="32px"
+                    android:layout_marginBottom="30px"
                     android:textStyle="bold"
                     android:textColor="@color/black_333333"
                     android:textSize="28px"

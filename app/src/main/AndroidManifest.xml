@@ -231,6 +231,7 @@
         <activity android:name=".newpage.MoreCommentHuodongActivity" />
         <activity android:name=".webpages.ShopInfoWebActivity" />
         <activity android:name=".webpages.NoTitleWebActivity" />
+        <activity android:name=".webpages.GoodsCartWebActivity" />
         <activity android:name=".webpages.YouHuiQuanWebActivity" />
         <activity android:name=".webpages.DuiZhangShangPuWebActivity" />
         <activity android:name=".webpages.ShouRuMingXiWebActivity" />

@@ -167,7 +167,7 @@ public class BaseSonicWebActivity extends BaseActivity {
         intent.putExtra(SonicJavaScriptInterface.PARAM_LOAD_URL_TIME, System.currentTimeMillis());
         sonicJavaScriptInterface = new SonicJavaScriptInterface(sonicSessionClient, intent);
         webView.addJavascriptInterface(sonicJavaScriptInterface, "sonic");
-
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         // init webview settings
         webSettings.setAllowContentAccess(true);
         webSettings.setDatabaseEnabled(true);

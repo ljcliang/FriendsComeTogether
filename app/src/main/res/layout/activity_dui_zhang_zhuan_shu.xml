@@ -372,6 +372,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <ImageView
+                            android:visibility="gone"
                             android:id="@+id/iv_game_tishi1"
                             android:layout_marginRight="2dp"
                             android:src="@mipmap/tishi"
@@ -417,6 +418,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <ImageView
+                            android:visibility="gone"
                             android:id="@+id/iv_game_tishi2"
                             android:layout_marginRight="2dp"
                             android:src="@mipmap/tishi"
@@ -462,6 +464,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <ImageView
+                            android:visibility="gone"
                             android:id="@+id/iv_game_tishi3"
                             android:layout_marginRight="2dp"
                             android:src="@mipmap/tishi"
@@ -508,6 +511,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <ImageView
+                            android:visibility="gone"
                             android:id="@+id/iv_game_tishi4"
                             android:layout_marginRight="2dp"
                             android:src="@mipmap/tishi"
@@ -531,6 +535,7 @@
                     </LinearLayout>
                 </RelativeLayout>
                 <RelativeLayout
+                    android:visibility="gone"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="24dp"

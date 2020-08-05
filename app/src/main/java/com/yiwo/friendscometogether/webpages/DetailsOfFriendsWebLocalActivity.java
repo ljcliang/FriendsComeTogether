@@ -17,6 +17,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -191,39 +192,7 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
                             /**
                              * 加载之后再次查询更新数据库
                              */
-                            ViseHttp.POST(NetConfig.articleInfo)
-                                    .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
-                                    .addParam("uid", spImp.getUID())
-                                    .addParam("fmID",fmID)
-                                    .addParam("type","0")
-                                    .request(new ACallback<String>() {
-                                        @Override
-                                        public void onSuccess(String data) {
-                                            try {
-                                                JSONObject jsonObject = new JSONObject(data);
-                                                if (jsonObject.getInt("code") == 200){
-                                                    Gson gson = new Gson();
-                                                    LocalWebInfoModel mode =  gson.fromJson(data,LocalWebInfoModel.class);
-//                                                    String strr1 = mode.getObj().getStr();
-//                                                    String strr2 = "";
-//                                                    String strr3 = "0";
-//                                                    Log.d("adsadasd",strr1+""+strr2+""+strr3);
-//                                                    webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
-                                                    YouJiWebInfoDbModel youJiWebInfoDbModel = new YouJiWebInfoDbModel();
-                                                    youJiWebInfoDbModel.setWeb_info(mode.getObj().getStr());
-                                                    youJiWebInfoDbModel.setFm_id(fmID);
-                                                    webInfoOfDbUntils.insertYouJiModel(youJiWebInfoDbModel);
-                                                }
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onFail(int errCode, String errMsg) {
-
-                                        }
-                                    });
+                            saveNewWebInFo(fmID);
                         }else {
                             ViseHttp.POST(NetConfig.articleInfo)
                                     .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
@@ -278,6 +247,70 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
         });
         initData();
         initEmotionMainFragment();
+    }
+    private void guanzhu(String guanzhuId){
+        ViseHttp.POST(NetConfig.focusOnLeaderUrl)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.focusOnLeaderUrl))
+                .addParam("userID", spImp.getUID())
+                .addParam("attention_userID", guanzhuId)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        Log.d("asdasd",data);
+                        try {
+                            JSONObject jsonObject1 = new JSONObject(data);
+                            if (jsonObject1.getInt("code") == 200) {
+                                toToast(DetailsOfFriendsWebLocalActivity.this,jsonObject1.getString("message"));
+                                saveNewWebInFo(fmID);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+    }
+
+    private void saveNewWebInFo(String id) {
+        ViseHttp.POST(NetConfig.articleInfo)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
+                .addParam("uid", spImp.getUID())
+                .addParam("fmID",id)
+                .addParam("type","0")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        Log.d("saveNewWebInFo：","id---"+id);
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200){
+                                Gson gson = new Gson();
+                                LocalWebInfoModel mode =  gson.fromJson(data,LocalWebInfoModel.class);
+//                                                    String strr1 = mode.getObj().getStr();
+//                                                    String strr2 = "";
+//                                                    String strr3 = "0";
+//                                                    Log.d("adsadasd",strr1+""+strr2+""+strr3);
+//                                                    webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+                                YouJiWebInfoDbModel youJiWebInfoDbModel = new YouJiWebInfoDbModel();
+                                youJiWebInfoDbModel.setWeb_info(mode.getObj().getStr());
+                                youJiWebInfoDbModel.setFm_id(fmID);
+                                webInfoOfDbUntils.insertYouJiModel(youJiWebInfoDbModel);
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
     }
 
     @Override
@@ -720,6 +753,27 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
                 e.printStackTrace();
             }
         }
+//        loadmore(友记id,友记id)  更多内容
+
+        /**
+         *
+         * @param youjiIds youjiId 逗号分割
+         */
+        @JavascriptInterface
+        public void loadmore(String youjiIds){
+            Log.d("sssss",youjiIds);
+            String[] strings = youjiIds.split(",");
+            for (String s : strings){
+                if (!webInfoOfDbUntils.hasThisId_YouJi(s)){
+                    saveNewWebInFo(s);
+                }
+            }
+        }
+//        gzUsers（被关注人id）  关注用户
+        @JavascriptInterface
+        public void gzUsers(String userId){
+            guanzhu(userId);
+        }
         @JavascriptInterface
         public void userinfo(String uid){
             Intent intent = new Intent();
@@ -877,22 +931,23 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
         // 设置点击窗口外边窗口消失
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupWindow.setOutsideTouchable(true);
-        popupWindow.showAsDropDown(p_view,0,0);
+//        popupWindow.showAsDropDown(p_view,0,0);
+        popupWindow.showAtLocation(webView, Gravity.RIGHT,0,-20);
 //        // 设置popWindow的显示和消失动画
         popupWindow.setAnimationStyle(R.style.popwindow_anim_left_in_out);
         WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.alpha = 1f;
-        getWindow().setAttributes(params);
+//        params.alpha = 1f;
+//        getWindow().setAttributes(params);
         popupWindow.update();
-        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
-            // 在dismiss中恢复透明度
-            public void onDismiss() {
-                WindowManager.LayoutParams params = getWindow().getAttributes();
-                params.alpha = 1f;
-                getWindow().setAttributes(params);
-            }
-        });
+//        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+//
+//            // 在dismiss中恢复透明度
+//            public void onDismiss() {
+//                WindowManager.LayoutParams params = getWindow().getAttributes();
+//                params.alpha = 1f;
+//                getWindow().setAttributes(params);
+//            }
+//        });
     }
     private void showMore(final View view_p) {
 

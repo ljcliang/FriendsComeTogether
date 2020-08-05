@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
@@ -8,11 +8,12 @@
 	<script src="jquery.min.js"></script>
 </head>
 <body style="background:#F3F3F3;font-family:'Microsoft YaHei',微软雅黑,'SimHei',黑体;font-size:0.1rem;">
+	<div id="topbar" class="tb_topbar"><img class="yj_backimg" onclick="backgo();"></div>
 	<div class="yj_mainimg">
 		<div id="data0Content"><img class="yj_mainimg_img"></div>
-	</div><img id="backgo" class="yj_backimg" onclick="backgo();" style="top:0.8rem;"><img class="yj_btnmoreimg" style="top:0.8rem;" onclick="btnmore()">
+	</div><img class="yj_homenull_L" onclick="backgo();"><img id="backgo" class="yj_backimg" style="top:0.9rem;">
 	<div class="tbshop_goods_box">
-		<div style="height:0.1rem;width:100%"></div><img class="tbshop_goods_share" onclick="sharego();tbgoodspreload('uploads/xingcheng/20191223/18aa8a62c5bf43ee78302fad6aa25c21.jpg$$$@@@康师傅老坛酸菜牛肉面|&|&|3.5|&|&|5.5|&|&|袋、350克|@|@|6.6|@|@|100|#|#|桶、400克|@|@|8.5|@|@|120|#|#|箱、1500克|@|@|38|@|@|99$$$@@@uploads/xingcheng/20191111/1-d4553c8dd6e22734ed371c641ff521239172.jpg|@|@|111|@|@|评论用户昵称|@|@|3天前|@|@|主要内容|@|@|5|@#|@#| |&|&|uploads/xingcheng/20191111/1-d4553c8dd6e22734ed371c641ff521239172.jpg|@|@|111|@|@|评论用户昵称1|@|@|3.1天前|@|@|主要内容1|@|@|4|@#|@#|uploads/xingcheng/20191111/1-d4553c8dd6e22734ed371c641ff521239172.jpg|@|@|111|@|@|回复用户昵称|@|@|4天前|@|@|回复主要内容|#|#|uploads/xingcheng/20191111/1-d4553c8dd6e22734ed371c641ff521239172.jpg|@|@|111|@|@|回复用户昵称1|@|@|4.1天前|@|@|回复主要内容1|#|#|uploads/xingcheng/20191111/1-d4553c8dd6e22734ed371c641ff521239172.jpg|@|@|111|@|@|回复用户昵称2|@|@|4.2天前|@|@|回复主要内容2$$$@@@配送服务|@|@|黑龙江省内免运费士大夫撒旦发阿斯顿发撒打发啊多发点是否阿迪斯发第三方阿迪斯发第三方（*&（……*%……*（|&|&|配送服务1|@|@|黑龙江省内免运费1|&|&|配送服务2|@|@|黑龙江省内免运费2|&|&|配送服务3|@|@|黑龙江省内免运费3$$$@@@详细内容详细内容详细内容详细内容|&|&|uploads/xingcheng/20191111/0-0d822c33a29656244255ddc22dcae64d5802.jpg|@|@|图片描述|#|#|uploads/xingcheng/20191219/0-bf1457120a2484ad0184336b435ae52d8409.png|@|@| |#|#|uploads/xingcheng/20191111/2-0d822c33a29656244255ddc22dcae64d6742.jpeg|@|@| ')">
+		<div style="height:0.1rem;width:100%"></div><img class="tbshop_goods_share" onclick="sharego();">
 		<div id="data1Content" class="tbshop_goodstit" >努力加载中...<img class="emoji_14"></div>
 		<div id="data2Content" class="tbshop_goodsprice"><sm>￥</sm><red>------</red></div>
 		<div id="specsall" class="tbshop_goodsspecs_div" onclick="tb_shareshow(2);" style="background:#D84B37">&nbsp;已选择：xx</div>
@@ -75,13 +76,14 @@
 			<div class="left" style="height:1.2rem;width:100%;"></div>
 		</div>
 	</div>
-	<div class="buycar_footbar_show" id="data6Content">
-		<div class="buycar_footbar_show_font" style="width:0.3rem;"></div><img class="icon_img04">&nbsp;<img class="icon_img02"><div class="buycar_footbar_show_font" style="width:1rem;text-align:left;"></div><div class="buycar_footbar_show_btnL" style="width:3rem;" onclick="alert(document.cookie);">加入购物车</div><div class="buycar_footbar_show_btnR" style="width:3rem;" onclick="alert(document.cookie);">立即购买</div>
+	<div id="htmlshow" class="htmlshowsty"></div>
+	<div class="buycar_footbar_show">
+		<div class="buycar_footbar_show_font" style="width:0;"></div><img class="icon_img04" onclick="chatgo()">&nbsp;<img class="icon_img02" onclick="goodsfav(this)">&nbsp;<img class="icon_img08" onclick="buycargo()"><div class="buycar_footbar_show_font" style="width:1rem;text-align:left;"></div><div class="buycar_footbar_show_btnL" style="width:3rem;" onclick="addCar()">加购物车</div><div class="buycar_footbar_show_btnR" style="width:3rem;" onclick="addBuy()">立即购买</div>
 	</div>
 	<!--预览页面-->
 	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true" >
 		<div class="pswp__bg"></div>
-		<div class="pswp__scroll-wrap">
+		<div class="pswp__scroll-wrap" style="margin-top:0.2rem;">
 			<div class="pswp__container">
 				<div class="pswp__item"></div>
 				<div class="pswp__item"></div>
@@ -135,59 +137,16 @@
 				<li><div class="tbaddcut_box right"><img class="tbaddcut_box_addimg right"><input id="goodssum" class="right" value="1" type="number"><img class="tbaddcut_box_cutimg right"></div></li>
 			</ul>
 		</div>
-		<div class="tb_share_btnbox" style="padding-left:0.6rem;" id="data9Content"><div class="tb_share_btnL left" style="width:2.5rem;">加入购物车</div><div class="tb_share_btnR left" style="width:2.5rem;">立即购买</div></div>
+		<div class="tb_share_btnbox" style="padding-left:0.6rem;" id="data9Content"><div class="tb_share_btnL left" style="width:2.5rem;" onclick="addCar()">加购物车</div><div class="tb_share_btnR left" style="width:2.5rem;" onclick="addBuy()">立即购买</div></div>
 	</div>
 	<div id="tbshareshow" class="tb_share_overback" onclick="tb_shareclose();"></div>
+	<div id="show_explaindiv" class="show_explain"></div>
+	<input type="hidden" id="buygoods" value="">
 	<script type="text/javascript">remrun();</script>
 </body>
 <script type="text/javascript">
-//规格选择相关处理
 goodsshowval = "";
 var showimglist = new Array();
-function showtopmenu(){
-	if (document.getElementById('topmenu').style.display=="none")
-	{
-		document.getElementById('topmenu').style.display="block";
-	}else{
-		document.getElementById('topmenu').style.display="none";
-	}
-}
-function selspecsall(spstr,obj){
-	var domobj = document.getElementsByClassName('divimg');
-	var i;
-	for (i = 0; i < domobj.length; i++) {
-		domobj[i].classList.remove("sel");
-	}
-	obj.children[0].classList.add("sel");
-	document.getElementById('specsall').innerHTML = "已选择："+spstr+"&nbsp;x&nbsp;"+document.getElementById('goodssum').value;
-	document.getElementById('selspecsname').value = spstr;
-}
-function ggval(obj){
-	setspecsalldemo(obj.value);
-}
-function goodscount(aa){
-		i = document.getElementById('goodssum').value;
-		if(i === "" || i == null || isNaN(i))
-		{
-			i = 1;
-		}
-		i = parseInt(i);
-		if (aa=='add')
-		{
-			i = i + 1;
-		}else{
-			if (i<2)
-			{
-				i=1;
-			}else{
-				i = i - 1;
-			}
-		}
-		document.getElementById('goodssum').value = i;
-		setspecsalldemo(i);
-	}
-function setspecsalldemo(valstr){
-	document.getElementById('specsall').innerHTML = "已选择："+document.getElementById('selspecsname').value+"&nbsp;x&nbsp;"+valstr;
-}
+var items = new Array();
 </script>
 </html>

@@ -135,14 +135,14 @@
             <ImageView
                 android:layout_marginRight="5dp"
                 android:layout_gravity="center_vertical"
-                android:src="@mipmap/eye_black"
+                android:src="@mipmap/liulan_new"
                 android:id="@+id/iv_look_num"
                 android:layout_width="16dp"
                 android:layout_height="16dp"/>
             <TextView
                 android:text="0"
                 android:textSize="12sp"
-                android:textColor="@color/color_grey_999999"
+                android:textColor="#272A2C"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="12dp"
                 android:id="@+id/tv_look_num"
@@ -158,7 +158,7 @@
             <TextView
                 android:text="0"
                 android:textSize="12sp"
-                android:textColor="@color/color_grey_999999"
+                android:textColor="#272A2C"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="5dp"
                 android:id="@+id/tv_pinglun_num"

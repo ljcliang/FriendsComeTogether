@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -95,6 +96,8 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
     RelativeLayout rl_show_more;
     @BindView(R.id.progresss_bar)
     ProgressBar progresss_bar;
+    @BindView(R.id.view_showmore)
+    View view_showmore;
     private Unbinder unbinder;
     SpImp spImp;
     private String uid;
@@ -155,45 +158,13 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
                         if (webInfoOfDbUntils.hasThisId_HuoDong(pfID)){
                             String strr1 = webInfoOfDbUntils.queryYouJu(pfID).getWeb_info();
                             String strr2 = "";
-                            String strr3 = "1";
+                            String strr3 = "1";//0youji,1youju;2shangpin,5jingcailuxian;3canjiarenyuan;
                             Log.d("adsadasd：：\n",strr1+"\n"+strr2+"\n"+strr3);
                             webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
                             /**
                              * 加载之后再次查询更新数据库
                              */
-                            ViseHttp.POST(NetConfig.articleInfo)
-                                    .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
-                                    .addParam("uid", spImp.getUID())
-                                    .addParam("fmID",pfID)
-                                    .addParam("type","1")
-                                    .request(new ACallback<String>() {
-                                        @Override
-                                        public void onSuccess(String data) {
-                                            try {
-                                                JSONObject jsonObject = new JSONObject(data);
-                                                if (jsonObject.getInt("code") == 200){
-                                                    Gson gson = new Gson();
-                                                    LocalWebInfoModel mode =  gson.fromJson(data,LocalWebInfoModel.class);
-//                                                    String strr1 = mode.getObj().getStr();
-//                                                    String strr2 = "";
-//                                                    String strr3 = "0";
-//                                                    Log.d("adsadasd",strr1+""+strr2+""+strr3);
-//                                                    webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
-                                                    YouJuHuoDongWebInfoDbModel youJuHuoDongWebInfoDbModel = new YouJuHuoDongWebInfoDbModel();
-                                                    youJuHuoDongWebInfoDbModel.setWeb_info(mode.getObj().getStr());
-                                                    youJuHuoDongWebInfoDbModel.setPf_id(pfID);
-                                                    webInfoOfDbUntils.insertYouJuHuoDongModel(youJuHuoDongWebInfoDbModel);
-                                                }
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onFail(int errCode, String errMsg) {
-
-                                        }
-                                    });
+                            saveNewWebInFo();
                         }else {
                             ViseHttp.POST(NetConfig.articleInfo)
                                     .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
@@ -240,6 +211,42 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
         });
         webView.addJavascriptInterface(new DetailsOfFriendTogetherWebLocalActivity.AndroidInterface(),"android");//交互
         initData();
+    }
+
+    private void saveNewWebInFo() {
+        ViseHttp.POST(NetConfig.articleInfo)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
+                .addParam("uid", spImp.getUID())
+                .addParam("fmID",pfID)
+                .addParam("type","1")
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200){
+                                Gson gson = new Gson();
+                                LocalWebInfoModel mode =  gson.fromJson(data,LocalWebInfoModel.class);
+//                                                    String strr1 = mode.getObj().getStr();
+//                                                    String strr2 = "";
+//                                                    String strr3 = "0";
+//                                                    Log.d("adsadasd",strr1+""+strr2+""+strr3);
+//                                                    webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+                                YouJuHuoDongWebInfoDbModel youJuHuoDongWebInfoDbModel = new YouJuHuoDongWebInfoDbModel();
+                                youJuHuoDongWebInfoDbModel.setWeb_info(mode.getObj().getStr());
+                                youJuHuoDongWebInfoDbModel.setPf_id(pfID);
+                                webInfoOfDbUntils.insertYouJuHuoDongModel(youJuHuoDongWebInfoDbModel);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
     }
 
     private void setDatabase() {
@@ -310,51 +317,7 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
                 finish();
                 break;
             case R.id.details_applyTv:
-                if (TextUtils.isEmpty(spImp.getUID()) || spImp.getUID().equals("0")) {
-                    Intent intent = new Intent(DetailsOfFriendTogetherWebLocalActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    ViseHttp.POST(NetConfig.isRealNameUrl)
-                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.isRealNameUrl))
-                            .addParam("userID", spImp.getUID())
-                            .request(new ACallback<String>() {
-                                @Override
-                                public void onSuccess(String data) {
-                                    Log.i("123321", data);
-                                    IsRealNameModel models = new Gson().fromJson(data, IsRealNameModel.class);
-                                    if (models.getCode() == 200) {
-                                        if (models.getObj().getOk().equals("2")) {
-                                            Intent it = new Intent(DetailsOfFriendTogetherWebLocalActivity.this, ApplyActivity.class);
-                                            it.putExtra("if_pay", model.getObj().getInfo().getPfspendtype());
-                                            it.putExtra("title", model.getObj().getInfo().getPftitle());
-                                            it.putExtra("pfID", model.getObj().getInfo().getPfID());
-                                            it.putExtra("name", model.getObj().getInfo().getTruename());
-                                            it.putExtra("sex", model.getObj().getInfo().getPeoplesex());
-                                            it.putExtra("age", model.getObj().getInfo().getAge());
-                                            it.putExtra("pic", model.getObj().getInfo().getPfpic());
-                                            it.putExtra("issingle", model.getObj().getInfo().getMarry());
-                                            it.putExtra("city", model.getObj().getInfo().getAddress());
-                                            it.putExtra("tel", model.getObj().getInfo().getTel());
-                                            it.putExtra("choose_date_intex",chooseDateIndex);
-                                            it.putExtra("Pfexplain",model.getObj().getInfo().getOthers());
-                                            startActivity(it);
-                                        } else if (models.getObj().getOk().equals("1")) {
-                                            toToast(DetailsOfFriendTogetherWebLocalActivity.this, "请于身份审核通过后报名");
-                                        } else {
-                                            startActivity(new Intent(DetailsOfFriendTogetherWebLocalActivity.this, RealNameActivity.class));
-                                        }
-                                    } else {
-                                        toToast(DetailsOfFriendTogetherWebLocalActivity.this, models.getMessage());
-                                    }
-                                }
-
-                                @Override
-                                public void onFail(int errCode, String errMsg) {
-
-                                }
-                            });
-                }
+                apply();
                 break;
             case R.id.activity_details_of_friends_together_ll_share:
                 share();
@@ -370,6 +333,55 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
                 break;
         }
     }
+
+    private void apply() {
+        if (TextUtils.isEmpty(spImp.getUID()) || spImp.getUID().equals("0")) {
+            Intent intent = new Intent(DetailsOfFriendTogetherWebLocalActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            ViseHttp.POST(NetConfig.isRealNameUrl)
+                    .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.isRealNameUrl))
+                    .addParam("userID", spImp.getUID())
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            Log.i("123321", data);
+                            IsRealNameModel models = new Gson().fromJson(data, IsRealNameModel.class);
+                            if (models.getCode() == 200) {
+                                if (models.getObj().getOk().equals("2")) {
+                                    Intent it = new Intent(DetailsOfFriendTogetherWebLocalActivity.this, ApplyActivity.class);
+                                    it.putExtra("if_pay", model.getObj().getInfo().getPfspendtype());
+                                    it.putExtra("title", model.getObj().getInfo().getPftitle());
+                                    it.putExtra("pfID", model.getObj().getInfo().getPfID());
+                                    it.putExtra("name", model.getObj().getInfo().getTruename());
+                                    it.putExtra("sex", model.getObj().getInfo().getPeoplesex());
+                                    it.putExtra("age", model.getObj().getInfo().getAge());
+                                    it.putExtra("pic", model.getObj().getInfo().getPfpic());
+                                    it.putExtra("issingle", model.getObj().getInfo().getMarry());
+                                    it.putExtra("city", model.getObj().getInfo().getAddress());
+                                    it.putExtra("tel", model.getObj().getInfo().getTel());
+                                    it.putExtra("choose_date_intex",chooseDateIndex);
+                                    it.putExtra("Pfexplain",model.getObj().getInfo().getOthers());
+                                    startActivity(it);
+                                } else if (models.getObj().getOk().equals("1")) {
+                                    toToast(DetailsOfFriendTogetherWebLocalActivity.this, "请于身份审核通过后报名");
+                                } else {
+                                    startActivity(new Intent(DetailsOfFriendTogetherWebLocalActivity.this, RealNameActivity.class));
+                                }
+                            } else {
+                                toToast(DetailsOfFriendTogetherWebLocalActivity.this, models.getMessage());
+                            }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    });
+        }
+    }
+
     private void share(){
         ViseHttp.POST(NetConfig.activeShareUrl)
                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.activeShareUrl))
@@ -461,6 +473,10 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
             finish();
         }
         @JavascriptInterface
+        public void btnmore(){
+            showMore(view_showmore);
+        }
+        @JavascriptInterface
         public void lookpostpicture(String json,String index){
 //            [{"id":"958","imgurl":"http:\/\/39.104.102.152\/uploads\/header\/2019\/03\/27\/7c2494c2f044a8011c6030e7ed75baad155365614111.jpg","desc":""},
 //              {"id":"959","imgurl":"http:\/\/39.104.102.152\/uploads\/header\/2019\/03\/27\/7c2494c2f044a8011c6030e7ed75baad1553656141238.jpg","desc":""},
@@ -499,6 +515,7 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
         }
         @JavascriptInterface
         public void clickphase(String index){
+            Log.d("asdasdas","选择期数：："+index);
             chooseDateIndex = Integer.parseInt(index);
         }
         @JavascriptInterface
@@ -557,7 +574,48 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
                 }
             }).show();
         }
+        //partysend（）友聚报名
+        @JavascriptInterface
+        public void partysend(){
+            Log.d("asdasdas","活动报名");
+            apply();
+        }
+        //getPhaeUser（友聚id，期数id）  友聚报名人员
+        @JavascriptInterface
+        public void getPhaeUser(String youJuId,String qiShuId){
+            Log.d("asdasdas","youji:"+youJuId+";;;"+"qishu ::"+qiShuId);
+            refreshCanJiaRenYuan(youJuId,qiShuId);
+        }
     }
+
+    private void refreshCanJiaRenYuan(String youJuId, String qiShuId) {
+        ViseHttp.POST(NetConfig.getPhaeUser)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.getPhaeUser))
+                .addParam("pfID", youJuId)
+                .addParam("phase_id",qiShuId)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            Log.d("asdasdas",data);
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200){
+                                String str = jsonObject.getJSONObject("obj").getString("str");
+                                Log.d("asdasdas","str::"+str);
+                                webView.loadUrl("javascript:loadnewjoin('"+str+"')");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+    }
+
     // 保存图片到手机
     public void download(final String url) {
 
@@ -616,15 +674,22 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
         LinearLayout ll_show_more = view.findViewById(R.id.ll_show_more);
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ll_show_more.getLayoutParams();
         LinearLayout llMuLu = view.findViewById(R.id.ll_mulu);
-
-        if (listMuLu.size()>0){
-            llMuLu.setVisibility(View.VISIBLE);
-            params.height = 200;
-        }else {
-            llMuLu.setVisibility(View.GONE);
-            params.height = 100;
-        }
-        ll_show_more.setLayoutParams(params);
+//        if (listMuLu.size()>0){
+//            llMuLu.setVisibility(View.GONE);
+//            params.height = 200;
+//        }else {
+//            llMuLu.setVisibility(View.GONE);
+//            params.height = 100;
+//        }
+//        ll_show_more.setLayoutParams(params);
+        LinearLayout llShare = view.findViewById(R.id.ll_share);
+        llShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                share();
+                popupWindow.dismiss();
+            }
+        });
         ScreenAdapterTools.getInstance().loadView(view);//确定后dp
         llMuLu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -683,7 +748,13 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
         muLuItemAdapter.setListener(new MuLuItemYouJuAdapter.ChooseListen() {
             @Override
             public void chooseItemId(String ID) {
-                webView.loadUrl("javascript:jumptitle('"+ID+"')");
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        webView.loadUrl("javascript:jumptitle('"+ID+"')");
+//                        popupWindow.dismiss();
+                    }
+                });
                 popupWindow.dismiss();
             }
         });
@@ -694,22 +765,24 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
         // 设置点击窗口外边窗口消失
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         popupWindow.setOutsideTouchable(true);
-        popupWindow.showAsDropDown(p_view,0,0);
+//        popupWindow.showAsDropDown(p_view,0,0);
+//        popupWindow.showAsDropDown(p_view,0,0);
+        popupWindow.showAtLocation(webView, Gravity.RIGHT,0,500);
 //        // 设置popWindow的显示和消失动画
         popupWindow.setAnimationStyle(R.style.popwindow_anim_left_in_out);
-        WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.alpha = 1f;
-        getWindow().setAttributes(params);
+//        WindowManager.LayoutParams params = getWindow().getAttributes();
+//        params.alpha = 1f;
+//        getWindow().setAttributes(params);
         popupWindow.update();
-        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-
-            // 在dismiss中恢复透明度
-            public void onDismiss() {
-                WindowManager.LayoutParams params = getWindow().getAttributes();
-                params.alpha = 1f;
-                getWindow().setAttributes(params);
-            }
-        });
+//        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+//
+//            // 在dismiss中恢复透明度
+//            public void onDismiss() {
+//                WindowManager.LayoutParams params = getWindow().getAttributes();
+//                params.alpha = 1f;
+//                getWindow().setAttributes(params);
+//            }
+//        });
     }
     private void liaotian(String liaotianAccount) {
         String account = spImp.getYXID();

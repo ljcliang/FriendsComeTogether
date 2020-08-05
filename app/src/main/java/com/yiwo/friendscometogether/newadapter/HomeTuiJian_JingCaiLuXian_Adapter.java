@@ -84,6 +84,7 @@ public class HomeTuiJian_JingCaiLuXian_Adapter extends RecyclerView.Adapter<Home
 
             holder.tvName.setText(data.get(position).getPftitle());
             holder.tv_go_time.setText(data.get(position).getDayTime());
+            holder.tv_price.setText(data.get(position).getPhase_price());
             Glide.with(context).load(data.get(position).getPfpic()).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv);
             holder.rl.setOnClickListener(new View.OnClickListener() {
                 @Override

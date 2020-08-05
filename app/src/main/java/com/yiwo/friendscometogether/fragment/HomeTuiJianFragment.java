@@ -329,6 +329,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                                     Glide.with(getContext()).load(model.getObj().getAd().get(3).getPic()).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(ivG3);
                                 }
                                 //热门招募 tab
+                                listRemenTab.clear();
                                 for (int i = 0; i < model.getObj().getZmList().size(); i++) {
                                     ReMenZhaoMuTabModel reMenZhaoMuTabModel = new ReMenZhaoMuTabModel();
                                     reMenZhaoMuTabModel.setName(model.getObj().getZmList().get(i).getAddress());
@@ -337,7 +338,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                                     } else {
                                         reMenZhaoMuTabModel.setSelect(false);
                                     }
-                                    listRemenTab.clear();
+
                                     listRemenTab.add(reMenZhaoMuTabModel);
                                     reMenZhaoMuTabAdapter.notifyDataSetChanged();
                                 }
@@ -615,6 +616,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                                             Glide.with(getContext()).load(model.getObj().getAd().get(3).getPic()).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(ivG3);
                                         }
                                         //热门招募 tab
+                                        listRemenTab.clear();
                                         for (int i = 0; i < model.getObj().getZmList().size(); i++) {
                                             ReMenZhaoMuTabModel reMenZhaoMuTabModel = new ReMenZhaoMuTabModel();
                                             reMenZhaoMuTabModel.setName(model.getObj().getZmList().get(i).getAddress());
@@ -623,7 +625,6 @@ public class HomeTuiJianFragment extends BaseFragment {
                                             } else {
                                                 reMenZhaoMuTabModel.setSelect(false);
                                             }
-                                            listRemenTab.clear();
                                             listRemenTab.add(reMenZhaoMuTabModel);
                                             reMenZhaoMuTabAdapter.notifyDataSetChanged();
                                         }

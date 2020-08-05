@@ -388,6 +388,7 @@ public class HomeTuiJianModel {
              * listImg : uploads/xingcheng/20191223/e42561aa4ce75bea45504b740befec9e.jpg
              * pfpwd :
              * dayTime : 等待出发(31日~31日)
+             * phase_price : 999.00
              */
 
             private String phase_begin_time;
@@ -402,6 +403,7 @@ public class HomeTuiJianModel {
             private String listImg;
             private String pfpwd;
             private String dayTime;
+            private String phase_price;
 
             public String getPhase_begin_time() {
                 return phase_begin_time;
@@ -497,6 +499,14 @@ public class HomeTuiJianModel {
 
             public void setDayTime(String dayTime) {
                 this.dayTime = dayTime;
+            }
+
+            public String getPhase_price() {
+                return phase_price;
+            }
+
+            public void setPhase_price(String phase_price) {
+                this.phase_price = phase_price;
             }
 
             public static class CaptainBean {
