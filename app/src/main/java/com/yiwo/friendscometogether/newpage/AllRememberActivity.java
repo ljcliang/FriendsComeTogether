@@ -3,7 +3,6 @@ package com.yiwo.friendscometogether.newpage;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,7 +14,6 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.newadapter.AllRememberViewpagerAdapter;
 import com.yiwo.friendscometogether.newfragment.AllChawenFragment;
-import com.yiwo.friendscometogether.newfragment.AllRememberFragment;
 import com.yiwo.friendscometogether.newfragment.MyCollectionFragment;
 import com.yiwo.friendscometogether.newfragment.MyRememberFragment;
 

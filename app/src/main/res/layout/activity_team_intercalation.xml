@@ -12,7 +12,7 @@
         style="@style/rl_top_bar">
 
         <TextView
-            android:text="插文管理"
+            android:text="参写管理"
             style="@style/tv_top_title" />
         
         <RelativeLayout

@@ -44,6 +44,8 @@ public class PersonMainActivity_Video_Adapter extends RecyclerView.Adapter<Perso
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Glide.with(context).load(data.get(position).getImg()).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv_video);
         holder.video_tv_title.setText(data.get(position).getVname());
+        holder.tv_address.setText(data.get(position).getAddress());
+        holder.tv_pinglun_num.setText(data.get(position).getCommentNum());
         holder.rv_video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,13 +70,14 @@ public class PersonMainActivity_Video_Adapter extends RecyclerView.Adapter<Perso
         private RelativeLayout rv_video;
         private ImageView iv_video;
 
-        private TextView video_tv_title;
+        private TextView video_tv_title,tv_address,tv_pinglun_num;
         //        https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3585167714,172627266&fm=173&app=49&f=JPEG?w=640&h=497&s=1E8E136D4E4A74559805DDA20300F009
         public ViewHolder(View itemView) {
             super(itemView);
             rv_video = itemView.findViewById(R.id.rv_video);
             iv_video = itemView.findViewById(R.id.iv_video);
-
+            tv_address = itemView.findViewById(R.id.tv_address);
+            tv_pinglun_num = itemView.findViewById(R.id.tv_pinglun_num);
             video_tv_title = itemView.findViewById(R.id.video_tv_title);
         }
     }

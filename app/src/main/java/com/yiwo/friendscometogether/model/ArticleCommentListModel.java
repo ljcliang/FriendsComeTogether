@@ -189,7 +189,7 @@ public class ArticleCommentListModel {
             private String fcreply;
             private String which_fcID;
             private String username;
-
+            private String userpic;
             public String getFcID() {
                 return fcID;
             }
@@ -260,6 +260,14 @@ public class ArticleCommentListModel {
 
             public void setUsername(String username) {
                 this.username = username;
+            }
+
+            public String getUserpic() {
+                return userpic;
+            }
+
+            public void setUserpic(String userpic) {
+                this.userpic = userpic;
             }
         }
     }

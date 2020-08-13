@@ -173,13 +173,14 @@ public class EditorFriendRememberActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.activity_editor_friend_remember_rl_back, R.id.activity_editor_friend_remember_tv_add, R.id.rl_modify, R.id.rl_complete})
+    @OnClick({R.id.activity_editor_friend_remember_rl_back, R.id.activity_editor_friend_remember_tv_add, R.id.rl_modify, R.id.rl_complete,R.id.rl_xuxie})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.activity_editor_friend_remember_rl_back:
                 onBackPressed();
                 break;
+            case R.id.rl_xuxie:
             case R.id.activity_editor_friend_remember_tv_add:
                 intent.setClass(EditorFriendRememberActivity.this, CreateIntercalationActivity.class);
                 intent.putExtra("id", id);

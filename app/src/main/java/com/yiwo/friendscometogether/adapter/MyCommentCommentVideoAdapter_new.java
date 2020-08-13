@@ -1,0 +1,107 @@
+package com.yiwo.friendscometogether.adapter;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.yatoooon.screenadaptation.ScreenAdapterTools;
+import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.model.ActicleCommentVideoModel;
+import com.yiwo.friendscometogether.model.ArticleCommentListModel;
+import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.tongban_emoticon.String2HtmlTextTools;
+
+import java.util.List;
+
+/**
+ * Created by Administrator on 2018/8/2.
+ * 视频回复adapter
+ */
+
+public class MyCommentCommentVideoAdapter_new extends RecyclerView.Adapter<MyCommentCommentVideoAdapter_new.ViewHolder> {
+
+    private Context context;
+    private List<ArticleCommentListModel.ObjBean.PicBean> data;
+    private OnReplyCommentListener listener;
+    private OnDeleteHuiFuListener onDeleteHuiFuListener;
+    private SpImp spImp;
+    public void setOnReplyCommentListener(OnReplyCommentListener listener){
+        this.listener = listener;
+    }
+
+    public MyCommentCommentVideoAdapter_new(List<ArticleCommentListModel.ObjBean.PicBean> data) {
+        this.data = data;
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        this.context = parent.getContext();
+        spImp = new SpImp(context);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_article_comment_comment_video, parent, false);
+        ScreenAdapterTools.getInstance().loadView(view);
+        ViewHolder holder = new ViewHolder(view);
+        return holder;
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        Glide.with(context).load(data.get(position).getUserpic()).apply(new RequestOptions().placeholder(R.mipmap.my_head).error(R.mipmap.my_head)).into(holder.imageView);
+        holder.tv_name.setText(data.get(position).getUsername());
+//        holder.tv.setText(data.get(position).getVcontent()+"  "+data.get(position).getVctime());
+        String2HtmlTextTools.tvSetHtmlForImage(context,holder.tv,data.get(position).getFctitle()+"  "+data.get(position).getFctime());
+//        if (spImp.getIsAdmin().equals("1")){
+//            holder.btn_delete.setVisibility(View.VISIBLE);
+//        }else {
+            holder.btn_delete.setVisibility(View.INVISIBLE);
+//        }
+        holder.btn_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                if (spImp.getIsAdmin().equals("1")){
+//                    onDeleteHuiFuListener.OnDelete(data.get(position).getVcID(),data.get(position).getVcontent());
+//                }
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return data == null ? 0 : data.size();
+    }
+
+    public void setOnDeleteHuiFuListener(OnDeleteHuiFuListener onDeleteHuiFuListener) {
+        this.onDeleteHuiFuListener = onDeleteHuiFuListener;
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView tv;
+        private LinearLayout ll;
+        private TextView tv_name;
+        private ImageView imageView;
+        private TextView btn_delete;
+        public ViewHolder(View itemView) {
+            super(itemView);
+            tv = itemView.findViewById(R.id.activity_article_comment_rv_rv_tv);
+            ll = itemView.findViewById(R.id.ll);
+            tv_name = itemView.findViewById(R.id.tv_name);
+            imageView = itemView.findViewById(R.id.activity_article_comment_rv_rv_iv_avatar);
+            btn_delete = itemView.findViewById(R.id.btn_delete);
+        }
+
+    }
+
+    public interface OnReplyCommentListener{
+        void onReplyComment(String ID);
+    }
+    public interface OnDeleteHuiFuListener{
+        void OnDelete(String id, String content);
+    }
+}

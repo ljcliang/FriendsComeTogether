@@ -303,7 +303,11 @@
         <activity android:name=".wangyiyunshipin.VideoUpLoadListActivity" />
         <activity android:name=".newpage.ApplyForCaptainActivity" />
         <activity android:name=".newpage.DuiZhangZhuanShuActivity" />
-
+        <activity android:name=".newpage.renzheng.RenZheng4_WanChengRenZhengActivity" />
+        <activity android:name=".newpage.renzheng.RenZheng3_RenZhengFeiActivity" />
+        <activity android:name=".newpage.renzheng.RenZheng2_BindWXActivity" />
+        <activity android:name=".newpage.renzheng.RenZheng0_BeginActivity" />
+        <activity android:name=".newpage.renzheng.RenZheng1_EditInfoActivity" />
         <meta-data
             android:name="designwidth"
             android:value="750" />

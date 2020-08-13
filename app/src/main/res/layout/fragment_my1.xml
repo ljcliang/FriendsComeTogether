@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F5F5">
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="45px"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -18,55 +21,82 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_f6f6f6">
-                <RelativeLayout
-                    android:visibility="gone"
-                    android:id="@+id/rl_duizhang_set"
-                    android:layout_marginRight="30px"
-                    android:layout_alignTop="@+id/ll_person_page"
-                    android:layout_toLeftOf="@+id/ll_person_page"
-                    android:layout_width="wrap_content"
-                    android:layout_height="75px">
-                    <ImageView
-                        android:layout_marginRight="5px"
-                        android:layout_centerVertical="true"
-                        android:visibility="visible"
-                        android:src="@mipmap/duizhang_set"
-                        android:id="@+id/iv_renwu"
-                        android:layout_width="45px"
-                        android:layout_height="45px" />
-                    <TextView
-                        android:text="队长"
-                        android:textColor="@color/black_101010"
-                        android:layout_toRightOf="@+id/iv_renwu"
-                        android:layout_centerVertical="true"
-                        android:textSize="30px"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </RelativeLayout>
-
                 <LinearLayout
-                    android:id="@+id/ll_person_page"
-                    android:layout_width="75px"
-                    android:layout_height="75px"
+                    android:id="@+id/ll_right_bar"
+                    android:orientation="horizontal"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="40px"
-                    android:layout_marginTop="50px"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="20px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:layout_marginRight="10px"
+                        android:visibility="visible"
+                        android:id="@+id/rl_duizhang_shop"
+                        android:layout_width="75px"
+                        android:layout_height="75px">
+                        <ImageView
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="5px"
+                            android:layout_centerVertical="true"
+                            android:visibility="visible"
+                            android:src="@mipmap/my_shop"
+                            android:layout_width="45px"
+                            android:layout_height="45px" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_marginRight="10px"
+                        android:visibility="visible"
+                        android:id="@+id/rl_duizhang_order"
+                        android:layout_width="75px"
+                        android:layout_height="75px">
+                        <ImageView
+                            android:layout_centerInParent="true"
+                            android:visibility="visible"
+                            android:src="@mipmap/my_order"
+                            android:layout_width="48px"
+                            android:layout_height="48px" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_marginRight="10px"
+                        android:visibility="visible"
+                        android:id="@+id/rl_duizhang_set"
+                        android:layout_width="75px"
+                        android:layout_height="75px">
+                        <ImageView
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="5px"
+                            android:layout_centerVertical="true"
+                            android:visibility="visible"
+                            android:src="@mipmap/duizhang_set"
+                            android:id="@+id/iv_renwu"
+                            android:layout_width="45px"
+                            android:layout_height="45px" />
+                    </RelativeLayout>
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/ll_person_page"
+                        android:layout_width="75px"
+                        android:layout_height="75px"
+                        android:layout_alignParentRight="true"
+                        android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_marginLeft="20px"
-                        android:layout_width="45px"
-                        android:layout_height="45px"
-                        android:layout_gravity="center"
-                        android:src="@mipmap/go_home_page" />
+                        <ImageView
+                            android:layout_marginLeft="20px"
+                            android:layout_width="45px"
+                            android:layout_height="45px"
+                            android:layout_gravity="center"
+                            android:src="@mipmap/go_home_page" />
 
+                    </LinearLayout>
                 </LinearLayout>
+
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_avatar"
                     android:layout_width="150px"
                     android:layout_height="150px"
-                    android:layout_below="@+id/ll_person_page"
+                    android:layout_below="@+id/ll_right_bar"
                     android:layout_marginLeft="30px"
                     android:src="@mipmap/my_head" />
                 <LinearLayout
@@ -148,7 +178,7 @@
                 <RelativeLayout
 
                     android:layout_gravity="center_vertical"
-                    android:id="@+id/rl_set_info"
+                    android:id="@+id/rl_person_page"
                     android:layout_width="144px"
                     android:layout_height="134px"
                     android:layout_below="@+id/iv_avatar"
@@ -160,8 +190,7 @@
                         android:layout_height="100px">
                         <ImageView
                             android:layout_centerInParent="true"
-                            android:layout_margin="10px"
-                            android:src="@mipmap/chilun"
+                            android:src="@mipmap/go_home_page"
                             android:layout_width="60px"
                             android:layout_height="60px"/>
                     </RelativeLayout>
@@ -811,4 +840,4 @@
 
     </ScrollView>
 
-</RelativeLayout>
+</LinearLayout>

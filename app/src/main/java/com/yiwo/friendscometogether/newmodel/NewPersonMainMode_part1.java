@@ -129,6 +129,7 @@ public class NewPersonMainMode_part1 {
              * otherUserId : 4
              * if_kefu : 0
              * captain : 1
+             * levelName : 0
              */
 
             private String wy_accid;
@@ -149,6 +150,7 @@ public class NewPersonMainMode_part1 {
             private String otherUserId;
             private String if_kefu;
             private String captain;
+            private String levelName;
 
             public String getWy_accid() {
                 return wy_accid;
@@ -292,6 +294,14 @@ public class NewPersonMainMode_part1 {
 
             public void setCaptain(String captain) {
                 this.captain = captain;
+            }
+
+            public String getLevelName() {
+                return levelName;
+            }
+
+            public void setLevelName(String levelName) {
+                this.levelName = levelName;
             }
         }
 

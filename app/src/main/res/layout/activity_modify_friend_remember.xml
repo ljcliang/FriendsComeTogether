@@ -12,7 +12,7 @@
 
         <TextView
             style="@style/tv_top_title"
-            android:text="修改友记" />
+            android:text="修改内容" />
 
         <RelativeLayout
             android:id="@+id/activity_create_friend_remember_rl_back"
@@ -23,7 +23,7 @@
                 android:layout_centerInParent="true"
                 android:textColor="@color/red_d84c37"
                 android:textSize="30px"
-                android:text="取消"
+                android:text="返回"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -190,7 +190,7 @@
                     android:lines="9"
                     android:hint="请输入内容"
                     android:textColor="@color/black_333333"
-                    android:textSize="28px" />
+                    android:textSize="31px" />
 
                 <TextView
                     android:layout_alignTop="@+id/activity_create_friend_remember_tv_title"

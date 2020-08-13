@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -57,6 +58,8 @@ public class Home_TuiJian_YouJiShiPin_Adapter extends RecyclerView.Adapter<Home_
         holder.tv_content.setText("    "+data.get(position).getFmaddress()+" · "+data.get(position).getFmtitle());
 
         holder.tv_look_num.setText(data.get(position).getFmlook());
+        holder.tv_wucanxie_seenum.setText(data.get(position).getFmlook());
+        holder.tv_wucanxie_pinglun_num.setText(data.get(position).getCNum());
         Glide.with(context).load(data.get(position).getUserpic()).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_head);
         holder.iv_head.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +79,7 @@ public class Home_TuiJian_YouJiShiPin_Adapter extends RecyclerView.Adapter<Home_
         if (data.get(position).getInPerson().size()>0){
             holder.rl_canyuxiezuo.setVisibility(View.VISIBLE);
             holder.iv_canyu1.setVisibility(View.VISIBLE);
+            holder.ll_wucanxie_seenum.setVisibility(View.GONE);
             Glide.with(context).load(data.get(position).getInPerson().get(0)).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(holder.iv_canyu1);
             if (data.get(position).getInPerson().size()>=5){
                 holder.tv_canyu.setText("···"+ data.get(position).getInPersonNum()+"人参与写作");
@@ -84,6 +88,7 @@ public class Home_TuiJian_YouJiShiPin_Adapter extends RecyclerView.Adapter<Home_
             }
         }else {
             holder.rl_canyuxiezuo.setVisibility(View.GONE);
+            holder.ll_wucanxie_seenum.setVisibility(View.VISIBLE);
         }
         if (data.get(position).getInPerson().size()>1){
             holder.iv_canyu2.setVisibility(View.VISIBLE);
@@ -174,6 +179,8 @@ public class Home_TuiJian_YouJiShiPin_Adapter extends RecyclerView.Adapter<Home_
         TextView tv_name,tv_level,tv_address,tv_content,tv_huodong,tv_canyu,tv_look_num;
         ImageView iv_level,iv_canyu1,iv_canyu2,iv_canyu3,iv_canyu4,iv_play;
         RelativeLayout rl_all,rl_canyuxiezuo,rl_xiangguan_huodong;
+        LinearLayout ll_wucanxie_seenum;
+        TextView tv_wucanxie_seenum,tv_wucanxie_pinglun_num;
         public ViewHolder(View itemView) {
             super(itemView);
 
@@ -195,6 +202,9 @@ public class Home_TuiJian_YouJiShiPin_Adapter extends RecyclerView.Adapter<Home_
             rl_xiangguan_huodong = itemView.findViewById(R.id.rl_xiangguan_huodong);
             rl_canyuxiezuo = itemView.findViewById(R.id.rl_canyuxiezuo);
             rl_all= itemView.findViewById(R.id.rl_all);
+            ll_wucanxie_seenum = itemView.findViewById(R.id.ll_wucanxie_seenum);
+            tv_wucanxie_seenum = itemView.findViewById(R.id.tv_look_num_wucanxie);
+            tv_wucanxie_pinglun_num= itemView.findViewById(R.id.tv_pinglun_num_wucanxie);
         }
     }
 }

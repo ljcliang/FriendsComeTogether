@@ -42,6 +42,8 @@ import com.yiwo.friendscometogether.newadapter.LiShuGongSiChooseAdapter;
 import com.yiwo.friendscometogether.newmodel.DuiZhangXuanZeHuoDongModel;
 import com.yiwo.friendscometogether.newmodel.DuiZhangZhuanShuModel;
 import com.yiwo.friendscometogether.newmodel.LiShuGongSiSearchModel;
+import com.yiwo.friendscometogether.newpage.renzheng.RenZheng0_BeginActivity;
+import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.ShareUtils;
 import com.yiwo.friendscometogether.wangyiyunshipin.wangyiyunlive.EnterLiveActivity;
@@ -233,7 +235,7 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
     @OnClick({R.id.rl_btn_bangding,R.id.rl_btn_startlive,R.id.rl_btn_setlive,R.id.rl_btn_xuanzehuodong,R.id.rl_back,R.id.ll_wodeshangpu,R.id.ll_shourumingxi,
             R.id.iv_message_xuanzehuodong,R.id.iv_game_tishi1,R.id.iv_game_tishi2,R.id.iv_game_tishi3,R.id.iv_game_tishi4,R.id.iv_game_tishi5,R.id.iv_zhanghu_tishi1,
             R.id.rl_btn_game_start1,R.id.rl_btn_game_start2,R.id.rl_btn_game_start3,R.id.rl_btn_game_start4,R.id.rl_btn_game_start5,
-            R.id.tv_shop_name,R.id.tv_jindu})
+            R.id.tv_shop_name,R.id.tv_jindu,R.id.rl_btn_bangding_shanghu})
     public void onClick(View v){
         Intent intent = new Intent();
         AlertDialog.Builder builder = new AlertDialog.Builder(DuiZhangZhuanShuActivity.this);
@@ -242,12 +244,20 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.ll_wodeshangpu:
-                GuanLiGoodsWebActivity.start(DuiZhangZhuanShuActivity.this,NetConfig.GuanLiGoodsUrl+spImp.getUID());
+                if (!spImp.getIfSign().equals("1")) {
+                    RenZheng0_BeginActivity.openActivity(DuiZhangZhuanShuActivity.this);
+                } else {
+                    GuanLiGoodsWebActivity.start(DuiZhangZhuanShuActivity.this,NetConfig.GuanLiGoodsUrl+spImp.getUID());
+                }
                 break;
             case R.id.ll_shourumingxi:
-                intent.setClass(DuiZhangZhuanShuActivity.this, ShouRuMingXiWebActivity.class);
-                intent.putExtra("url",duiZhangZhuanShuModel.getObj().getComeInInfo());
-                startActivity(intent);
+                if (!spImp.getIfSign().equals("1")) {
+                    RenZheng0_BeginActivity.openActivity(DuiZhangZhuanShuActivity.this);
+                } else {
+                    intent.setClass(DuiZhangZhuanShuActivity.this, ShouRuMingXiWebActivity.class);
+                    intent.putExtra("url",duiZhangZhuanShuModel.getObj().getComeInInfo());
+                    startActivity(intent);
+                }
                 break;
             case R.id.rl_btn_bangding:
                 mShareAPI.getPlatformInfo(DuiZhangZhuanShuActivity.this, SHARE_MEDIA.WEIXIN, umAuthListener);//绑定微信
@@ -256,7 +266,19 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                 customDatePicker.show(now);
                 break;
             case R.id.rl_btn_startlive:
-                EnterLiveActivity.start(DuiZhangZhuanShuActivity.this);
+                int intLevelName = Integer.parseInt(duiZhangZhuanShuModel.getObj().getLevelName());
+                if (intLevelName>1){
+                    EnterLiveActivity.start(DuiZhangZhuanShuActivity.this);
+                }else {
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(DuiZhangZhuanShuActivity.this);
+                    builder1.setMessage("队长等级黄金及以上才可直播")
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
+                }
                 break;
             case R.id.rl_btn_xuanzehuodong:
                 XuanZeTuanQiActivity.startActivity(DuiZhangZhuanShuActivity.this,yiXuanHuoDongModel,duiZhangZhuanShuModel.getObj().getIfover());
@@ -312,6 +334,9 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                     }
                 });
                 titleMessageOkDialog.show();
+                break;
+            case R.id.rl_btn_bangding_shanghu:
+                RenZheng0_BeginActivity.openActivity(DuiZhangZhuanShuActivity.this);
                 break;
             case R.id.iv_game_tishi1:
 //                duiZhangZhuanShuModel.getObj().getMesQuestion()

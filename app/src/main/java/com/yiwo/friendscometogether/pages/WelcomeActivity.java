@@ -148,6 +148,7 @@ public class WelcomeActivity extends BaseActivity {
                                 spImp.setIsAdmin("0");
                                 spImp.setWyUpAccid("");
                                 spImp.setWyUpToken("");
+                                spImp.clear();
                                 spCache.clear();
                                 intent.setClass(WelcomeActivity.this, MainActivity.class);
                                 startActivity(intent);

@@ -51,6 +51,7 @@ public class PersonMain_Videos_Model {
          * img : http://vodsmnjjkoj.nosdn.127.net/616371f8-1670-427f-ace3-0efe9401711d_1_0_0.jpg
          * look_num : 0
          * wy_vid : 2729841243
+         * address : 地址
          */
 
         private String vID;
@@ -60,7 +61,8 @@ public class PersonMain_Videos_Model {
         private String img;
         private String look_num;
         private String wy_vid;
-
+        private String address;
+        private String commentNum;
         public String getVID() {
             return vID;
         }
@@ -115,6 +117,22 @@ public class PersonMain_Videos_Model {
 
         public void setWy_vid(String wy_vid) {
             this.wy_vid = wy_vid;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public void setAddress(String address) {
+            this.address = address;
+        }
+
+        public String getCommentNum() {
+            return commentNum;
+        }
+
+        public void setCommentNum(String commentNum) {
+            this.commentNum = commentNum;
         }
     }
 }

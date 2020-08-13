@@ -397,23 +397,6 @@ public class MyFriendActivity extends BaseActivity {
 
                     }
                 });
-
-//        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-//                switch (i) {
-//                    case R.id.rb1:
-//                        toToast(MyFocusActivity.this, "我请客");
-//                        type = 0;
-//                        break;
-////                    case R.id.rb2:
-////                        toToast(MyFocusActivity.this, "自费");
-////                        type = 1;
-////                        break;
-//                }
-//            }
-//        });
-
         popupWindow = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
         popupWindow.setTouchable(true);
         popupWindow.setFocusable(true);

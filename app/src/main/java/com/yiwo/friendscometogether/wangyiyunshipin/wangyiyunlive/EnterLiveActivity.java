@@ -153,6 +153,7 @@ public class EnterLiveActivity extends BaseActivity {
         msgReceiver = new MsgReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("LiveStreamingStopFinished");
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         registerReceiver(msgReceiver, intentFilter);
         spImp = new SpImp(EnterLiveActivity.this);
         bPermission = checkPublishPermission();

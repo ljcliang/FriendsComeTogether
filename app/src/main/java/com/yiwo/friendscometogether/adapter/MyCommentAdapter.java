@@ -1,6 +1,7 @@
 package com.yiwo.friendscometogether.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.model.ArticleCommentListModel;
 import com.yiwo.friendscometogether.tongban_emoticon.String2HtmlTextTools;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebLocalActivity;
 
 import java.util.List;
 
@@ -49,9 +51,18 @@ public class MyCommentAdapter extends RecyclerView.Adapter<MyCommentAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
+        Intent intent = new Intent();
         Glide.with(context).load(data.get(position).getUserpic()).apply(new RequestOptions().placeholder(R.mipmap.my_head).error(R.mipmap.my_head)).into(holder.ivAvatar);
         holder.tvNickname.setText(data.get(position).getUsername());
         holder.tvTitle.setText(data.get(position).getNewsTile());
+        holder.tvTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent.setClass(context, DetailsOfFriendsWebLocalActivity.class);
+                intent.putExtra("fmid", data.get(position).getFmID());
+                context.startActivity(intent);
+            }
+        });
 //        holder.tvContent.setText(data.get(position).getFctitle());
         String2HtmlTextTools.tvSetHtmlForImage(context,holder.tvContent,data.get(position).getFctitle());
         holder.tvTime.setText(data.get(position).getFctime());
@@ -60,7 +71,7 @@ public class MyCommentAdapter extends RecyclerView.Adapter<MyCommentAdapter.View
             LinearLayoutManager manager = new LinearLayoutManager(context);
             manager.setOrientation(LinearLayoutManager.VERTICAL);
             holder.recyclerView.setLayoutManager(manager);
-            MyCommentCommentAdapter adapter = new MyCommentCommentAdapter(data.get(position).getPic());
+            MyCommentCommentVideoAdapter_new adapter = new MyCommentCommentVideoAdapter_new(data.get(position).getPic());
             holder.recyclerView.setAdapter(adapter);
         }else {
             holder.recyclerView.setVisibility(View.GONE);

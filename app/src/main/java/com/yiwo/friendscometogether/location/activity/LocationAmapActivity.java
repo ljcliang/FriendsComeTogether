@@ -71,7 +71,7 @@ public class LocationAmapActivity extends UI implements OnCameraChangeListener, 
         setContentView(R.layout.map_view_amap_layout);
         mapView = findViewById(R.id.autonavi_mapView);
         mapView.onCreate(savedInstanceState);// 此方法必须重写
-
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         ToolBarOptions options = new NimToolBarOptions();
         setToolBar(R.id.toolbar, options);
 

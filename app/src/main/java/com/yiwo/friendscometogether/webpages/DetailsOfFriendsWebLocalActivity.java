@@ -185,7 +185,7 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
                                 strr3 = "0";
                             }
 //                            strr1 = WebUntils.replaceStr(strr1);
-                            Log.d("adsadasd--nzian：：\n",strr1);
+                            Log.d("adsadasd--nzian：：",strr1);
                             String s = WebUntils.replaceStr(strr1);
                         Log.d("adsadasd：：\n",s+"\n"+strr2+"\n"+strr3);
                         webView.loadUrl("javascript:getTongbanDataAndroid('"+s+"','"+strr2+"','"+strr3+"')");
@@ -297,7 +297,7 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
 //                                                    webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
                                 YouJiWebInfoDbModel youJiWebInfoDbModel = new YouJiWebInfoDbModel();
                                 youJiWebInfoDbModel.setWeb_info(mode.getObj().getStr());
-                                youJiWebInfoDbModel.setFm_id(fmID);
+                                youJiWebInfoDbModel.setFm_id(id);
                                 webInfoOfDbUntils.insertYouJiModel(youJiWebInfoDbModel);
 
                             }

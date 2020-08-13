@@ -51,7 +51,7 @@ public class ZuiXinZhaoMu_Adapter extends RecyclerView.Adapter<ZuiXinZhaoMu_Adap
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
         spImp = new SpImp(context);
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_youji_shipin_0326, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_zuixinzhaomu, parent, false);
 //        ScreenAdapterTools.getInstance().loadView(view);
         ZuiXinZhaoMu_Adapter.ViewHolder holder = new ZuiXinZhaoMu_Adapter.ViewHolder(view);
         return holder;

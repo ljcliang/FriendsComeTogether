@@ -23,24 +23,24 @@ public class DaoMaster extends AbstractDaoMaster {
     public static void createAllTables(Database db, boolean ifNotExists) {
         DuiZhangDeHuoDongDbModelDao.createTable(db, ifNotExists);
         DuiZhangFenZuDbModelDao.createTable(db, ifNotExists);
+        GoodsWebInfoDbModelDao.createTable(db, ifNotExists);
         LookHistoryDbModelDao.createTable(db, ifNotExists);
         MyGameCardDbModelDao.createTable(db, ifNotExists);
         UserGiveModelDao.createTable(db, ifNotExists);
         YouJiWebInfoDbModelDao.createTable(db, ifNotExists);
         YouJuHuoDongWebInfoDbModelDao.createTable(db, ifNotExists);
-        GoodsWebInfoDbModelDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
         DuiZhangDeHuoDongDbModelDao.dropTable(db, ifExists);
         DuiZhangFenZuDbModelDao.dropTable(db, ifExists);
+        GoodsWebInfoDbModelDao.dropTable(db, ifExists);
         LookHistoryDbModelDao.dropTable(db, ifExists);
         MyGameCardDbModelDao.dropTable(db, ifExists);
         UserGiveModelDao.dropTable(db, ifExists);
         YouJiWebInfoDbModelDao.dropTable(db, ifExists);
         YouJuHuoDongWebInfoDbModelDao.dropTable(db, ifExists);
-        GoodsWebInfoDbModelDao.dropTable(db, ifExists);
     }
 
     /**
@@ -61,12 +61,12 @@ public class DaoMaster extends AbstractDaoMaster {
         super(db, SCHEMA_VERSION);
         registerDaoClass(DuiZhangDeHuoDongDbModelDao.class);
         registerDaoClass(DuiZhangFenZuDbModelDao.class);
+        registerDaoClass(GoodsWebInfoDbModelDao.class);
         registerDaoClass(LookHistoryDbModelDao.class);
         registerDaoClass(MyGameCardDbModelDao.class);
         registerDaoClass(UserGiveModelDao.class);
         registerDaoClass(YouJiWebInfoDbModelDao.class);
         registerDaoClass(YouJuHuoDongWebInfoDbModelDao.class);
-        registerDaoClass(GoodsWebInfoDbModelDao.class);
     }
 
     public DaoSession newSession() {

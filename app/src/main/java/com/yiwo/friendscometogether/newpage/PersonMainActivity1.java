@@ -31,6 +31,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.DuiZhangShowDialog;
+import com.yiwo.friendscometogether.custom.DuiZhangShowLVDialog;
 import com.yiwo.friendscometogether.custom.FriendDescribeDialog;
 import com.yiwo.friendscometogether.custom.HuoZanDialog;
 import com.yiwo.friendscometogether.custom.NotOnLiveDialog;
@@ -165,7 +166,8 @@ public class PersonMainActivity1 extends BaseActivity {
     RecyclerView rv_zuixin_goods;
     @BindView(R.id.ll_goods)
     LinearLayout ll_goods;
-
+    @BindView(R.id.iv_level)
+    ImageView iv_level;
     //商品
     private List<NewPersonMainMode_part1.ObjBean.GoodsBean> list_goods = new ArrayList<>();
     private PersonMainZuiXinShangPinAdapter shangPinAdapter;
@@ -481,12 +483,34 @@ public class PersonMainActivity1 extends BaseActivity {
                                         tv_person_name.setText(model.getObj().getInfo().getUsername());
 
                                         tv_level.setText("LV"+model.getObj().getInfo().getUsergrade());
+                                        iv_level.setVisibility(View.GONE);
                                         if (model.getObj().getInfo().getCaptain().equals("1")){
-                                            rl_level.setBackgroundResource(R.mipmap.lv_duizhang_daidui);
+                                            tv_level.setText("领队");
+                                            iv_level.setVisibility(View.VISIBLE);
                                         }else if (model.getObj().getInfo().getCaptain().equals("2")){
-                                            rl_level.setBackgroundResource(R.mipmap.lv_duizhang_daili);
+//                                            rl_level.setBackgroundResource(R.mipmap.lv_duizhang_daili);
                                         }else {
-                                            rl_level.setBackgroundResource(R.mipmap.lv_putong);
+//                                            rl_level.setBackgroundResource(R.mipmap.lv_putong);
+                                        }
+                                        switch (model.getObj().getInfo().getLevelName()){
+                                            case "0":
+                                                iv_level.setImageResource(R.mipmap.level_qingtong);
+                                                break;
+                                            case "1":
+                                                iv_level.setImageResource(R.mipmap.level_baiyin);
+                                                break;
+                                            case "2":
+                                                iv_level.setImageResource(R.mipmap.level_huangjin);
+                                                break;
+                                            case "3":
+                                                iv_level.setImageResource(R.mipmap.level_bojin);
+                                                break;
+                                            case "4":
+                                                iv_level.setImageResource(R.mipmap.level_zuanshi);
+                                                break;
+                                            case "5":
+                                                iv_level.setImageResource(R.mipmap.level_huangguan);
+                                                break;
                                         }
                                         if (model.getObj().getInfo().getUsermarry().equals("1")){
                                             tv_person_marry.setText("单身");
@@ -804,14 +828,36 @@ public class PersonMainActivity1 extends BaseActivity {
                                 }else if(model.getObj().getInfo().getIf_kefu().equals("1")){
                                     iv_kefu.setVisibility(View.VISIBLE);
                                 }
-                                if (model.getObj().getInfo().getCaptain().equals("1")){
-                                    rl_level.setBackgroundResource(R.mipmap.lv_duizhang_daidui);
-                                }else if (model.getObj().getInfo().getCaptain().equals("2")){
-                                    rl_level.setBackgroundResource(R.mipmap.lv_duizhang_daili);
-                                }else {
-                                    rl_level.setBackgroundResource(R.mipmap.lv_putong);
-                                }
+                                iv_level.setVisibility(View.GONE);
                                 tv_level.setText("LV"+model.getObj().getInfo().getUsergrade());
+                                if (model.getObj().getInfo().getCaptain().equals("1")){
+                                    tv_level.setText("领队");
+                                    iv_level.setVisibility(View.VISIBLE);
+                                }else if (model.getObj().getInfo().getCaptain().equals("2")){
+//                                            rl_level.setBackgroundResource(R.mipmap.lv_duizhang_daili);
+                                }else {
+//                                            rl_level.setBackgroundResource(R.mipmap.lv_putong);
+                                }
+                                switch (model.getObj().getInfo().getLevelName()){
+                                    case "0":
+                                        iv_level.setImageResource(R.mipmap.level_qingtong);
+                                        break;
+                                    case "1":
+                                        iv_level.setImageResource(R.mipmap.level_baiyin);
+                                        break;
+                                    case "2":
+                                        iv_level.setImageResource(R.mipmap.level_huangjin);
+                                        break;
+                                    case "3":
+                                        iv_level.setImageResource(R.mipmap.level_bojin);
+                                        break;
+                                    case "4":
+                                        iv_level.setImageResource(R.mipmap.level_zuanshi);
+                                        break;
+                                    case "5":
+                                        iv_level.setImageResource(R.mipmap.level_huangguan);
+                                        break;
+                                }
                                 //---------共同标签-----------------------------
                                 NewPersonMainMode_part1.ObjBean.UsertagBean.SameBean sameBean = model.getObj().getUsertag().getSame();
 
@@ -1116,7 +1162,7 @@ public class PersonMainActivity1 extends BaseActivity {
                 break;
 
             case R.id.rl_level:
-                showDialogLvIcon();
+//                showDialogLvIcon();
                 break;
         }
 

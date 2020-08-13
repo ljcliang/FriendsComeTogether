@@ -42,7 +42,13 @@
                 android:layout_height="wrap_content" />
 
         </RelativeLayout>
-
+        <RelativeLayout
+            android:id="@+id/rl_xuxie"
+            style="@style/TopBarStyle_RlRight_dp">
+            <TextView
+                android:text="续写"
+                style="@style/TopBarStyle_TVRight_dp"/>
+        </RelativeLayout>
     </RelativeLayout>
     <ScrollView
         android:layout_below="@+id/activity_editor_friend_remember_rl_top"
@@ -173,6 +179,7 @@
 
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/activity_editor_friend_remember_tv_add"
         android:background="@color/red_d84c37"
         android:layout_alignParentBottom="true"

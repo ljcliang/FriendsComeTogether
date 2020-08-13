@@ -37,6 +37,7 @@
         </RelativeLayout>
     </RelativeLayout>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:background="@color/white_ffffff"
         android:id="@+id/refresh_layout"
         android:layout_below="@+id/activity_my_videos_rl_top"
         android:layout_width="match_parent"

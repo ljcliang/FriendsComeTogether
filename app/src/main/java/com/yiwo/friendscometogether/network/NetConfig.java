@@ -531,4 +531,50 @@ public static String homePageSkipGoods = "action/ac_newHome/homePageSkipGoods";
     public static String nowBuy = "action/ac_goods/nowBuy?";
     //action/ac_goods/getGoodsInfo   获取商品信息   传goodsID     返回  goodsName 商品名   goodsImg图片   goodsInfo介绍      shareUrl分享链接
     public static String getGoodsInfo = "action/ac_goods/getGoodsInfo";
+
+
+    /**
+     *  action/ac_user/userVerify         传   uid 用户id    tel 电话    store_name 店铺名称
+     *  merchant_shortname  店铺简称    email 邮箱     id_card_name身份证上的姓名
+     *  id_card_number身份证号    idCardCopy身份证人像面   idCardNational 身份证国徽面   businessLicense营业执照   shopImg店铺照片
+     */
+    public static String userVerify =  "action/ac_user/userVerify";
+    /**
+     * action/ac_user/     wxQuery
+     * 查询是否签约微信   传uid用户id   返回 sign0待签约  1已签约   url签约地址
+     *   sign  0 未上传  1审核中  2待授权  3已授权  4失败
+     *   pay  0未付费  1已付费 2 不需要验证费；
+     */
+    public static String wxQuery = "action/ac_user/wxQuery";
+    /**
+     * action/ac_user/getMoneyFromWx  提现
+     * 传uid 用户id
+     * 返回 status 0未认证  1提现余额不足   2未绑定银行卡   3绑定银行卡信息有误 请重新绑定  4操作成功
+     */
+    public static String getMoneyFromWx = "action/ac_user/getMoneyFromWx";
+
+    /**
+     * action/ac_user/getCode  获取邀请码   传uid  用户id   返回 inviteCode
+     */
+    public static String getCode = "action/ac_user/getCode";
+    /**
+     * action/ac_user/getCodeMoney    获取邀请码 金额    传 code 邀请码   返回 price
+     */
+    public static String getCodeMoney = "action/ac_user/getCodeMoney";
+    /**
+     * action/ac_shopInfo     /     shopInvitePay    传uid用户id     inviteCode邀请码
+     */
+    public static String shopInvitePay = "action/ac_shopInfo/shopInvitePay";
+    /**
+     * action/ac_user/inviteInfo     返回 price
+     */
+    public static String inviteInfo = "action/ac_user/inviteInfo";
+    /**
+     * action/ac_login/verifyStatus          verifyCodeStatus 0关闭 1开启
+     */
+    public static String verifyStatus = "action/ac_login/verifyStatus";
+    /**
+     * "http://www.tongbanapp.com/index.php/action/ac_captainMission/comeInInfo?uid=4",//销售明细
+     */
+    public static String comeInInfo = BaseUrl+"action/ac_captainMission/comeInInfo?uid=";
 }

@@ -43,10 +43,10 @@ public class LabelChooseOneAdapter extends RecyclerView.Adapter<LabelChooseOneAd
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         if(!data.get(position).isChoose()){
-            holder.tv.setBackgroundResource(R.drawable.bg_gray_border_5dp);
-            holder.tv.setTextColor(Color.parseColor("#979797"));
+            holder.tv.setBackgroundResource(R.drawable.bg_d8d8d8_border_30px);
+            holder.tv.setTextColor(Color.parseColor("#101010"));
         }else {
-            holder.tv.setBackgroundResource(R.drawable.bg_redd84c37_border_5dp);
+            holder.tv.setBackgroundResource(R.drawable.bg_d84c37_border_30px);
             holder.tv.setTextColor(Color.parseColor("#d84c37"));
         }
         holder.tv.setText(data.get(position).getLname());

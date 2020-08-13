@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:test="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rl_all"
+    android:elevation="1dp"
     android:background="@drawable/bg_white_5dp"
     android:layout_marginLeft="3dp"
     android:layout_marginRight="3dp"
@@ -160,6 +161,63 @@
                 android:layout_width="18dp"
                 android:layout_height="18dp"/>
         </RelativeLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_wucanxie_seenum"
+            android:layout_gravity="right"
+            android:layout_marginTop="8dp"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/d_0810_liulan"/>
+
+            <TextView
+                android:id="@+id/tv_look_num_wucanxie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:ellipsize="end"
+                android:lines="1"
+                android:maxWidth="50dp"
+                android:text="35"
+                android:textColor="@color/black_666666"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:id="@+id/ll_youji_comment"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:src="@mipmap/d_0810_pinglun" />
+
+                <TextView
+
+                    android:id="@+id/tv_pinglun_num_wucanxie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:maxWidth="50dp"
+                    android:text="35"
+                    android:textColor="@color/black_666666"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+        </LinearLayout>
         <RelativeLayout
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
@@ -231,7 +289,7 @@
                     android:layout_height="18dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="5dp"
-                    android:src="@mipmap/liulan_0420" />
+                    android:src="@mipmap/d_0810_liulan" />
                 <TextView
                     android:id="@+id/tv_look_num"
                     android:layout_width="wrap_content"

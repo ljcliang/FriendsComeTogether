@@ -113,6 +113,7 @@ public class SetActivity extends BaseActivity {
                                 spImp.setIsAdmin("0");
                                 spImp.setWyUpAccid("");
                                 spImp.setWyUpToken("");
+                                spImp.clear();
                                 spCache.clear();
                                 NimUIKit.logout();
                                 //清除vas_sonic缓存

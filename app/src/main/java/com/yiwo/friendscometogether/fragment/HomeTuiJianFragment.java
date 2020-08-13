@@ -1,11 +1,8 @@
 package com.yiwo.friendscometogether.fragment;
 
-import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -72,8 +69,6 @@ import com.yiwo.friendscometogether.wangyiyunshipin.wangyiyunlive.LiveRoomActivi
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebLocalActivity;
 import com.yiwo.friendscometogether.webpages.NoTitleWebActivity;
-import com.yiwo.friendscometogether.webpages.ShopGoodsDetailsWebLocalActivity;
-import com.yiwo.friendscometogether.webpages.ShopInfoWebActivity;
 import com.yiwo.friendscometogether.widget.FullyLinearLayoutManager;
 
 import org.json.JSONException;

@@ -105,7 +105,7 @@
                             android:layout_width="2px"
                             android:layout_height="60px"
                             android:layout_gravity="center_vertical"
-                            android:background="#f5f5f5" />
+                            android:background="#e8e8e8" />
 
                         <LinearLayout
                             android:id="@+id/ll_huozan"
@@ -138,7 +138,7 @@
                             android:layout_width="2px"
                             android:layout_height="60px"
                             android:layout_gravity="center_vertical"
-                            android:background="#f5f5f5" />
+                            android:background="#e8e8e8" />
 
                         <LinearLayout
                             android:id="@+id/ll_fans"
@@ -275,27 +275,33 @@
 
                         <RelativeLayout
                             android:id="@+id/rl_level"
-                            android:layout_width="124px"
-                            android:layout_height="40px"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
                             android:layout_marginBottom="3px"
                             android:layout_marginLeft="10px"
-                            android:background="@mipmap/level_bg">
+                            android:background="@drawable/bg_ffac27_10px">
 
                             <TextView
                                 android:id="@+id/tv_level"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginRight="22px"
-                                android:text="1"
-                                android:textColor="@color/white_ffffff"
-                                android:textSize="20px" />
+                                android:layout_centerInParent="true"
+                                android:layout_marginLeft="15px"
+                                android:layout_marginRight="15px"
+                                android:lines="1"
+                                android:text="Lv.1"
+                                android:textColor="@color/black_101010"
+                                android:textSize="24px" />
 
                         </RelativeLayout>
-
+                        <ImageView
+                            android:id="@+id/iv_level"
+                            android:layout_marginRight="5px"
+                            android:layout_marginLeft="5px"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="38px"
+                            android:layout_height="38px" />
                         <ImageView
                             android:id="@+id/iv_kefu"
                             android:layout_width="40px"
@@ -308,7 +314,7 @@
                             android:visibility="gone" />
                     </LinearLayout>
                     <TextView
-                        android:layout_marginTop="8px"
+                        android:layout_marginTop="10px"
                         android:layout_below="@+id/ll_name"
                         android:id="@+id/tv_person_sign_text"
                         android:layout_width="wrap_content"
@@ -330,7 +336,7 @@
                         android:visibility="gone" />
                 </RelativeLayout>
                 <LinearLayout
-                    android:layout_marginTop="20px"
+                    android:layout_marginTop="25px"
                     android:layout_marginBottom="10px"
                     android:orientation="horizontal"
                     android:layout_marginLeft="39px"

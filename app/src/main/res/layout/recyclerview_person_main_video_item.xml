@@ -6,58 +6,117 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
-    <RelativeLayout
-        android:layout_marginLeft="13px"
-        android:layout_marginRight="13px"
-        android:layout_marginBottom="10px"
-        android:elevation="5px"
-        android:id="@+id/rv_video"
-        android:layout_width="match_parent"
-        android:layout_height="580px"
+    <LinearLayout
+        android:orientation="vertical"
         android:background="@drawable/bg_white_16px"
-        android:visibility="visible">
-
-        <com.yiwo.friendscometogether.widget.CustomRoundAngleImageView
-            android:id="@+id/iv_video"
-            android:layout_above="@+id/ll_video_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_marginLeft="13px"
+            android:layout_marginRight="13px"
+            android:layout_marginBottom="10px"
+            android:elevation="5px"
+            android:id="@+id/rv_video"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/welcome"
-            test:left_top_radius1="16px"
-            test:right_top_radius1="16px" />
+            android:layout_height="580px"
+            android:visibility="visible">
 
-        <ImageView
-            android:layout_width="55px"
-            android:layout_height="55px"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="16px"
-            android:layout_marginTop="16px"
-            android:src="@mipmap/youji_video" />
-        <LinearLayout
-            android:id="@+id/ll_video_info"
-            android:background="@drawable/bg_white_16px"
-            android:orientation="vertical"
-            android:layout_alignParentBottom="true"
+            <com.yiwo.friendscometogether.widget.CustomRoundAngleImageView
+                android:id="@+id/iv_video"
+                android:layout_above="@+id/ll_video_info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/welcome"
+                test:left_top_radius1="16px"
+                test:right_top_radius1="16px" />
+
+            <ImageView
+                android:layout_width="55px"
+                android:layout_height="55px"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="16px"
+                android:layout_marginTop="16px"
+                android:src="@mipmap/youji_video" />
+            <LinearLayout
+                android:id="@+id/ll_video_info"
+                android:background="@drawable/bg_white_16px"
+                android:orientation="vertical"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/video_tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15px"
+                    android:layout_marginLeft="21px"
+                    android:layout_marginRight="21px"
+                    android:layout_marginTop="10px"
+                    android:ellipsize="end"
+                    android:maxLines="4"
+                    android:text="巴厘岛小众神秘彭丽普兰，被认为是世界上最清洁的三个村庄之一巴厘岛小众神秘彭丽普兰，被认为是世界上最清洁的三个村庄之一"
+                    android:textColor="#424242"
+                    android:textSize="32px" />
+
+            </LinearLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginBottom="20px"
+            android:layout_below="@+id/rv_video"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/video_tv_title"
+            <LinearLayout
+                android:layout_toLeftOf="@+id/ll_num"
+                android:layout_marginRight="10px"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15px"
-                android:layout_marginLeft="21px"
-                android:layout_marginRight="21px"
-                android:layout_marginTop="10px"
-                android:ellipsize="end"
-                android:maxLines="4"
-                android:text="巴厘岛小众神秘彭丽普兰，被认为是世界上最清洁的三个村庄之一巴厘岛小众神秘彭丽普兰，被认为是世界上最清洁的三个村庄之一"
-                android:textColor="#424242"
-                android:textSize="32px" />
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="4px"
+                    android:src="@mipmap/location_blue"
+                    android:layout_width="22px"
+                    android:layout_height="28px" />
 
-        </LinearLayout>
-    </RelativeLayout>
-
-
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:gravity="left"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textSize="28px"
+                    android:text="哈尔滨"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#6a6a6a"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_num"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_marginRight="12px"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/xiaoxi_rv"
+                    android:layout_width="42px"
+                    android:layout_height="37px" />
+                <TextView
+                    android:id="@+id/tv_pinglun_num"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:text="26"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="28px"
+                    android:textColor="#6a6a6a"
+                    android:maxWidth="100px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>

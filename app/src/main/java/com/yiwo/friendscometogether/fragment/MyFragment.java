@@ -1,5 +1,6 @@
 package com.yiwo.friendscometogether.fragment;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,6 +23,8 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseFragment;
+import com.yiwo.friendscometogether.custom.DuiZhangShowDialog;
+import com.yiwo.friendscometogether.custom.DuiZhangShowLVDialog;
 import com.yiwo.friendscometogether.imagepreview.StatusBarUtils;
 import com.yiwo.friendscometogether.model.UserModel;
 import com.yiwo.friendscometogether.network.NetConfig;
@@ -36,6 +40,7 @@ import com.yiwo.friendscometogether.newpage.MyVideosActivity;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.newpage.RenWuActivity;
 import com.yiwo.friendscometogether.newpage.SuperLikeActivity;
+import com.yiwo.friendscometogether.newpage.renzheng.RenZheng0_BeginActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.LookHistoryActivity;
 import com.yiwo.friendscometogether.pages.MyCommentActivity;
@@ -45,6 +50,8 @@ import com.yiwo.friendscometogether.pages.MyPicturesActivity;
 import com.yiwo.friendscometogether.pages.SetActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.wangyiyunshipin.VideoUpLoadListActivity;
+import com.yiwo.friendscometogether.webpages.GuanLiGoodsWebActivity;
+import com.yiwo.friendscometogether.webpages.ShouRuMingXiWebActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -87,7 +94,11 @@ public class MyFragment extends BaseFragment {
     ImageView iv_duizhang_level;
     @BindView(R.id.rl_duizhang_set)
     RelativeLayout rl_duizhang_set;
-    private SpImp spImp;
+
+    @BindView(R.id.ll_right_bar)
+    LinearLayout llRightBar;
+    private  UserModel userModel;
+ private SpImp spImp;
     private String uid = "";
 
     @Nullable
@@ -137,7 +148,7 @@ public class MyFragment extends BaseFragment {
                                 JSONObject jsonObject = new JSONObject(data);
                                 if (jsonObject.getInt("code") == 200) {
                                     Gson gson = new Gson();
-                                    UserModel userModel = gson.fromJson(data, UserModel.class);
+                                     userModel = gson.fromJson(data, UserModel.class);
                                     Glide.with(getContext()).load(userModel.getObj().getHeadeimg()).apply(new RequestOptions()
                                                                                                             .placeholder(R.mipmap.my_head)
                                                                                                             .error(R.mipmap.my_head)).into(ivAvatar);
@@ -150,7 +161,8 @@ public class MyFragment extends BaseFragment {
                                         iv_renwu.setVisibility(View.VISIBLE);
                                         rl_duizhang_set.setVisibility(View.VISIBLE);
                                         iv_duizhang_level.setVisibility(View.VISIBLE);
-                                        switch (userModel.getObj().getSign()){
+                                        llRightBar.setVisibility(View.VISIBLE);
+                                        switch (userModel.getObj().getLevelName()){
                                             case "0":
                                                 iv_duizhang_level.setImageResource(R.mipmap.level_qingtong);
                                                 break;
@@ -174,6 +186,7 @@ public class MyFragment extends BaseFragment {
                                         iv_renwu.setVisibility(View.GONE);
                                         rl_duizhang_set.setVisibility(View.GONE);
                                         iv_duizhang_level.setVisibility(View.GONE);
+                                        llRightBar.setVisibility(View.GONE);
                                     }
                                     if(userModel.getObj().getType().equals("0")){
                                         iv_find_super_like.setVisibility(View.GONE);
@@ -232,11 +245,15 @@ public class MyFragment extends BaseFragment {
     }
 
     @OnClick({R.id.ll_order_all,R.id.ll_order_title, R.id.ll_to_pay, R.id.ll_to_trip, R.id.ll_to_comment, R.id.ll_return_money, R.id.rl_my_picture,R.id.rl_my_video, R.id.rl_my_friend,
-    R.id.rl_my_comment, R.id.rl_history, R.id.rl_person_set, R.id.ll_remember,R.id.ll_guanzhu, R.id.ll_huodong, R.id.ll_message,R.id.ll_person_page,
-            R.id.iv_avatar,R.id.rl_set_info,R.id.iv_find_super_like,R.id.iv_renwu,R.id.rl_duizhang_set,R.id.rl_game_group,R.id.rl_pay_rank,R.id.rl_video_upload_list})
+    R.id.rl_my_comment, R.id.rl_history, R.id.rl_person_set, R.id.ll_remember,R.id.ll_guanzhu, R.id.ll_huodong, R.id.ll_message,R.id.ll_person_page,R.id.iv_level,
+            R.id.iv_avatar,R.id.rl_person_page,R.id.iv_find_super_like,R.id.iv_renwu,R.id.rl_duizhang_set,R.id.rl_duizhang_shop,R.id.rl_duizhang_order,R.id.rl_game_group,R.id.rl_pay_rank,R.id.rl_video_upload_list})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
+            case R.id.iv_level:
+                DuiZhangShowLVDialog duiZhangShowDialog = new DuiZhangShowLVDialog(getContext(),userModel.getObj().getLevelName(),userModel.getObj().getMessage());
+                duiZhangShowDialog.show();
+                break;
             case R.id.ll_order_title:
             case R.id.ll_order_all:
                 if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
@@ -398,7 +415,17 @@ public class MyFragment extends BaseFragment {
                     startActivity(intent);
                 }
                 break;
-            case R.id.rl_set_info:
+            case R.id.rl_person_page:
+                if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+                    Intent intent0 = new Intent();
+                    intent0.setClass(getContext(), PersonMainActivity1.class);
+                    intent0.putExtra("person_id",uid);
+                    startActivity(intent0);
+                } else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
+                break;
             case R.id.iv_avatar:
                 if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
                     intent.setClass(getContext(), MyInformationActivity.class);
@@ -426,6 +453,28 @@ public class MyFragment extends BaseFragment {
                 intent.setClass(getContext(), DuiZhangZhuanShuActivity.class);
                 startActivity(intent);
 
+                break;
+            case R.id.rl_duizhang_order:
+                if (TextUtils.isEmpty(spImp.getUID()) || spImp.getUID().equals("0")) {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                } else if (!spImp.getIfSign().equals("1")) {
+                    RenZheng0_BeginActivity.openActivity(getContext());
+                } else {
+                    intent.setClass(getContext(), ShouRuMingXiWebActivity.class);
+                    intent.putExtra("url",NetConfig.comeInInfo+spImp.getUID());
+                    startActivity(intent);
+                }
+                break;
+            case R.id.rl_duizhang_shop:
+                if (TextUtils.isEmpty(spImp.getUID()) || spImp.getUID().equals("0")) {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
+                } else if (!spImp.getIfSign().equals("1")) {
+                    RenZheng0_BeginActivity.openActivity(getContext());
+                } else {
+                    GuanLiGoodsWebActivity.start(getContext(),NetConfig.GuanLiGoodsUrl+spImp.getUID());
+                }
                 break;
             case R.id.rl_pay_rank:
                 if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {

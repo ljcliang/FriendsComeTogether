@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.network.NetConfig;
 
@@ -21,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class UserAgreementActivity extends AppCompatActivity {
+public class UserAgreementActivity extends BaseActivity {
     @BindView(R.id.activity_user_agreement_webview)
     WebView webView;
     @BindView(R.id.ctivity_user_agreement_tv_title)

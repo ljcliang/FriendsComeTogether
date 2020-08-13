@@ -37,7 +37,7 @@
             android:background="@drawable/bg_white_30px_border_gray"
             android:gravity="center"
             android:text="完成"
-            android:textColor="@color/white_ffffff"
+            android:textColor="@color/red_d84c37"
             android:textSize="14sp" />
     </RelativeLayout>
     <FrameLayout

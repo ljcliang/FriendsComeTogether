@@ -168,12 +168,16 @@ public class MyRememberAdapter extends RecyclerView.Adapter<MyRememberAdapter.Vi
         });
         if (data.get(position).getInNum().equals("0")){
             holder.viewXuXie.setVisibility(View.INVISIBLE);
+            holder.tvCanYuXieZuo.setText("团友共有"+data.get(position).getInNum()+"人参与写作");
+        }else if (data.get(position).getInNum().equals("-1")){
+            holder.viewXuXie.setVisibility(View.VISIBLE);
+            holder.tvCanYuXieZuo.setText("未设置团友共同写作");
         }else {
             holder.viewXuXie.setVisibility(View.VISIBLE);
+            holder.tvCanYuXieZuo.setText("尚无团友参与写作");
         }
         holder.tvFaBuShiJian.setText("发表时间： "+data.get(position).getFmtime());
         holder.tvGuanLianHuoDong.setText("关联活动： "+data.get(position).getPftitle());
-        holder.tvCanYuXieZuo.setText("团友共有"+data.get(position).getInNum()+"人参与写作");
     }
 
     @Override

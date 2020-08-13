@@ -1,5 +1,7 @@
 package com.yiwo.friendscometogether.model;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2018/7/24.
  */
@@ -9,7 +11,7 @@ public class UserModel {
     /**
      * code : 200
      * message : 获取成功!
-     * obj : {"headeimg":"http://47.92.136.19/uploads/header/2018/10/19/3ccfe6790eeac1bc99dbfcd164dabb89153992760420.jpg","username":"老司机","sex":"0","useraddress":"黑龙江省-哈尔滨市","userautograph":"恶魔","userbirthday":"1993-09-25","usertime":"2018-08-01","usercodeok":"已认证","usermarry":"1","usergrade":"1","sign":"0","vip":"1","news":15,"Friendnote":1,"Focusonnews":9,"Activitymessage":1}
+     * obj : {"headeimg":"http://www.tongbanapp.com/uploads/header/2019/12/31/ab17a31d0c6d8acc7fa5d64847390bee157776891312.png","username":"花生的瞳伴店铺","sex":"0","useraddress":"黑龙江省-哈尔滨市","userautograph":"嗷呜～","userbirthday":"1995-02-05","usertime":"2019-04-11 14:12:32","usercodeok":"已认证","usermarry":"1","usergrade":"1","sign":"1","vip":"0","news":"0","Friendnote":"13","Focusonnews":"37","Activitymessage":"0","type":"0","levelName":"0","message":["青铜：获得开启商铺，发布行程功能。","白银：累计发布50篇友记，15个视频，获得100个赞、50个评论，完成带队任务5次，获得平台线路带队功能。","黄金：累计发布100篇友记，20个视频，获得200个赞、100个评论，完成带队任务10次，获得直播功能。","铂金：累计发布200篇友记，30个视频，获得500个赞、200个评论，完成带队任务15次。","钻石：累计发布300篇友记，50个视频，获得800个赞、300个评论，完成带队任务30次。","王冠：累计发布500篇友记，80个视频，获得1000个赞、500个评论，完成带队任务50次。"]}
      */
 
     private int code;
@@ -42,23 +44,25 @@ public class UserModel {
 
     public static class ObjBean {
         /**
-         * headeimg : http://47.92.136.19/uploads/header/2018/10/19/3ccfe6790eeac1bc99dbfcd164dabb89153992760420.jpg
-         * username : 老司机
+         * headeimg : http://www.tongbanapp.com/uploads/header/2019/12/31/ab17a31d0c6d8acc7fa5d64847390bee157776891312.png
+         * username : 花生的瞳伴店铺
          * sex : 0
          * useraddress : 黑龙江省-哈尔滨市
-         * userautograph : 恶魔
-         * userbirthday : 1993-09-25
-         * usertime : 2018-08-01
+         * userautograph : 嗷呜～
+         * userbirthday : 1995-02-05
+         * usertime : 2019-04-11 14:12:32
          * usercodeok : 已认证
          * usermarry : 1
          * usergrade : 1
-         * sign : 0   0 不是领队 1 是领队
-         * vip : 1
-         * news : 15
-         * Friendnote : 1
-         * Focusonnews : 9
-         * Activitymessage : 1
-         * type  0未开启  1已开启
+         * sign : 1
+         * vip : 0
+         * news : 0
+         * Friendnote : 13
+         * Focusonnews : 37
+         * Activitymessage : 0
+         * type : 0
+         * levelName : 0
+         * message : ["青铜：获得开启商铺，发布行程功能。","白银：累计发布50篇友记，15个视频，获得100个赞、50个评论，完成带队任务5次，获得平台线路带队功能。","黄金：累计发布100篇友记，20个视频，获得200个赞、100个评论，完成带队任务10次，获得直播功能。","铂金：累计发布200篇友记，30个视频，获得500个赞、200个评论，完成带队任务15次。","钻石：累计发布300篇友记，50个视频，获得800个赞、300个评论，完成带队任务30次。","王冠：累计发布500篇友记，80个视频，获得1000个赞、500个评论，完成带队任务50次。"]
          */
 
         private String headeimg;
@@ -73,11 +77,14 @@ public class UserModel {
         private String usergrade;
         private String sign;
         private String vip;
-        private int news;
-        private int Friendnote;
-        private int Focusonnews;
-        private int Activitymessage;
+        private String news;
+        private String Friendnote;
+        private String Focusonnews;
+        private String Activitymessage;
         private String type;
+        private String levelName;
+        private List<String> message;
+
         public String getHeadeimg() {
             return headeimg;
         }
@@ -174,35 +181,35 @@ public class UserModel {
             this.vip = vip;
         }
 
-        public int getNews() {
+        public String getNews() {
             return news;
         }
 
-        public void setNews(int news) {
+        public void setNews(String news) {
             this.news = news;
         }
 
-        public int getFriendnote() {
+        public String getFriendnote() {
             return Friendnote;
         }
 
-        public void setFriendnote(int Friendnote) {
+        public void setFriendnote(String Friendnote) {
             this.Friendnote = Friendnote;
         }
 
-        public int getFocusonnews() {
+        public String getFocusonnews() {
             return Focusonnews;
         }
 
-        public void setFocusonnews(int Focusonnews) {
+        public void setFocusonnews(String Focusonnews) {
             this.Focusonnews = Focusonnews;
         }
 
-        public int getActivitymessage() {
+        public String getActivitymessage() {
             return Activitymessage;
         }
 
-        public void setActivitymessage(int Activitymessage) {
+        public void setActivitymessage(String Activitymessage) {
             this.Activitymessage = Activitymessage;
         }
 
@@ -212,6 +219,22 @@ public class UserModel {
 
         public void setType(String type) {
             this.type = type;
+        }
+
+        public String getLevelName() {
+            return levelName;
+        }
+
+        public void setLevelName(String levelName) {
+            this.levelName = levelName;
+        }
+
+        public List<String> getMessage() {
+            return message;
+        }
+
+        public void setMessage(List<String> message) {
+            this.message = message;
         }
     }
 }

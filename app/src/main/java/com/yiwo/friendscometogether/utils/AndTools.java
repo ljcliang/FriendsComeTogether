@@ -2,19 +2,27 @@ package com.yiwo.friendscometogether.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.net.Uri;
+import android.os.Environment;
 import android.os.PowerManager;
 import android.telephony.TelephonyManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AndTools {
 
@@ -227,6 +235,32 @@ public class AndTools {
             }catch(Throwable t){
                 t.printStackTrace();
             }
+        }
+    }
+    public static void saveScreenShot(final Context context,Bitmap bitmap)  {
+        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+        OutputStream outStream = null;
+        String filename;//声明文件名
+        // 以保存时间为文件名
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat ("yyyyMMddHHmmss");
+        filename =  sdf.format(date);
+        File file = new File(extStorageDirectory, filename+".JPEG");
+        //创建文件，第一个参数为路径，第二个参数为文件名
+        try {
+            outStream = new FileOutputStream(file);//创建输入流
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outStream);
+            outStream.close();
+//             /**       这三行可以实现相册更新
+            Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            Uri uri = Uri.fromFile(file);intent.setData(uri);
+            context.sendBroadcast(intent);
+//               /这个广播的目的就是更新图库，发了这个广播进入相册就可以找到你保存的图片了！*/
+            Toast.makeText(context,"已保存至相册！",
+                    Toast.LENGTH_SHORT).show();
+        } catch(Exception e) {
+            Toast.makeText(context, "exception:" + e,
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
