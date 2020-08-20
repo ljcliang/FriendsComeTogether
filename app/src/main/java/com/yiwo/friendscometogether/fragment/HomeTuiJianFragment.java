@@ -343,7 +343,9 @@ public class HomeTuiJianFragment extends BaseFragment {
                                 lisZhaoMuData.addAll(model.getObj().getZmList());
 
                                 listJianTuShiKe.clear();
-                                listJianTuShiKe.addAll(model.getObj().getZmList().get(0).getYjList());
+                                if (model.getObj().getZmList().size()>0){
+                                    listJianTuShiKe.addAll(model.getObj().getZmList().get(0).getYjList());
+                                }
                                 jianTuShiKeAdapter.notifyDataSetChanged();
                                 if (listJianTuShiKe.size() > 0) {
                                     preReMenZhaoMu(listJianTuShiKe);
@@ -630,7 +632,9 @@ public class HomeTuiJianFragment extends BaseFragment {
 
                                         //荐途时刻
                                         listJianTuShiKe.clear();
-                                        listJianTuShiKe.addAll(model.getObj().getZmList().get(0).getYjList());
+                                        if (model.getObj().getZmList().size()>0){
+                                            listJianTuShiKe.addAll(model.getObj().getZmList().get(0).getYjList());
+                                        }
                                         jianTuShiKeAdapter.notifyDataSetChanged();
                                         if (listJianTuShiKe.size() > 0) {
                                             preReMenZhaoMu(listJianTuShiKe);

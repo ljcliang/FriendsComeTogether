@@ -243,9 +243,11 @@ public class RenZheng3_RenZhengFeiActivity extends BaseActivity {
                     }
                 });
     }
-    @OnClick({R.id.btn_yanzheng, R.id.btn_zhifu})
+    @OnClick({R.id.btn_yanzheng, R.id.btn_zhifu,R.id.rl_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.rl_back:
+                onBackPressed();
             case R.id.btn_yanzheng:
                 if (TextUtils.isEmpty(edtCode.getText())){
                  toToast(RenZheng3_RenZhengFeiActivity.this,"邀请码为空");

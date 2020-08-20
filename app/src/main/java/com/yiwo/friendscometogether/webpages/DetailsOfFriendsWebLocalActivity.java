@@ -769,6 +769,7 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
                 }
             }
         }
+
 //        gzUsers（被关注人id）  关注用户
         @JavascriptInterface
         public void gzUsers(String userId){
@@ -780,6 +781,11 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
             intent.setClass(DetailsOfFriendsWebLocalActivity.this, PersonMainActivity1.class);
             intent.putExtra("person_id", uid);
             startActivity(intent);
+        }
+//        jumpgoodsshow（gID）  友记 - 关联商品跳转
+        @JavascriptInterface
+        public void jumpgoodsshow(String gID){
+            ShopGoodsDetailsWebLocalActivity.open(DetailsOfFriendsWebLocalActivity.this,gID);
         }
         @JavascriptInterface
         public void aboutactivity(String pfID){//相关活动

@@ -743,6 +743,7 @@ public class HomeTuiJianModel {
              * usergrade : 2
              * levelName : 0
              * price : 0.01
+             * costPrice : 99
              * gz : 0
              * star : 4
              * comNum : 2
@@ -757,6 +758,7 @@ public class HomeTuiJianModel {
             private String usergrade;
             private String levelName;
             private String price;
+            private String costPrice;
             private String gz;
             private String star;
             private String comNum;
@@ -855,6 +857,14 @@ public class HomeTuiJianModel {
 
             public void setComNum(String comNum) {
                 this.comNum = comNum;
+            }
+
+            public String getCostPrice() {
+                return costPrice;
+            }
+
+            public void setCostPrice(String costPrice) {
+                this.costPrice = costPrice;
             }
         }
 

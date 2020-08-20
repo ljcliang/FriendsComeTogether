@@ -6,17 +6,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".newpage.renzheng.RenZheng0_BeginActivity">
-    <TextView
-        android:id="@+id/tv_refresh"
-        android:textColor="@color/red_d84c37"
-        android:gravity="center"
-        android:textSize="15sp"
-        android:text="刷新"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp"
-        android:layout_gravity="right"
-        android:layout_width="80dp"
-        android:layout_height="35dp"/>
+    <RelativeLayout
+        android:background="#fafafa"
+        style="@style/rl_top_bar_dp">
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            style="@style/rl_return">
+            <ImageView
+                style="@style/iv_return_dp"/>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_refresh"
+            android:textColor="@color/red_d84c37"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:text="刷新"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="80dp"
+            android:layout_height="35dp"/>
+    </RelativeLayout>
     <TextView
         android:id="@+id/tv_message"
         android:layout_marginTop="200dp"

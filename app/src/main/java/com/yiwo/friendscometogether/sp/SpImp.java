@@ -203,6 +203,30 @@ public class SpImp {
     public String getIfSign(){
         return sp.getString(SpPublic.IF_SIGN,"");
     }
+    public void setIsShop(String s){
+        editor.putString(SpPublic.IS_SHOP, s).toString();
+        editor.commit();
+    }
+
+    /**
+     *
+     * @return 显示店铺  0否 1是
+     */
+    public String getIsShop(){
+        return sp.getString(SpPublic.IS_SHOP,"");
+    }
+    public void setIsCaptain(String s){
+        editor.putString(SpPublic.IF_DUIZHANG, s).toString();
+        editor.commit();
+    }
+
+    /**
+     *
+     * @return 显示店铺  0否 1是
+     */
+    public String getIsCaptain(){
+        return sp.getString(SpPublic.IF_DUIZHANG,"");
+    }
     public void clear(){
         editor.clear().commit();
     }

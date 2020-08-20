@@ -39,6 +39,11 @@ public class SuoShuHuoDongActivity extends BaseActivity {
     EditText editText;
     @BindView(R.id.tv_sousuo)
     TextView btn_sousuo;
+    /**
+     * type  0 友聚  1商品
+     */
+    private String type ="0";
+    public static final String TYPE_KEY = "type_key";
     private  List<GetFriendActiveListModel.ObjBean> dataList = new ArrayList<>();
 
     SuoShuHuoDongListAdapter adapter;
@@ -49,6 +54,7 @@ public class SuoShuHuoDongActivity extends BaseActivity {
         setContentView(R.layout.activity_suo_shuo_huo_dong);
         ButterKnife.bind(this);
         spImp = new SpImp(this);
+        type = getIntent().getStringExtra(TYPE_KEY);
         initRv();
         initData();
     }
@@ -57,6 +63,7 @@ public class SuoShuHuoDongActivity extends BaseActivity {
         ViseHttp.POST(NetConfig.getFriendActiveListUrl)
                 .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.getFriendActiveListUrl))
                 .addParam("searchword",editText.getText().toString())
+                .addParam("type",type)
                 .addParam("uid", spImp.getUID())
                 .request(new ACallback<String>() {
                     @Override

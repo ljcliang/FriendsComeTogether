@@ -7,6 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".newpage.renzheng.RenZheng3_RenZhengFeiActivity">
     <RelativeLayout
+        android:background="#fafafa"
+        style="@style/rl_top_bar_dp">
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            style="@style/rl_return">
+            <ImageView
+                style="@style/iv_return_dp"/>
+        </RelativeLayout>
+    </RelativeLayout>
+    <RelativeLayout
         android:background="@drawable/bg_d8d8d8_0px_trans"
         android:layout_marginTop="100dp"
         android:layout_gravity="center_horizontal"

@@ -119,9 +119,12 @@ public class RenZheng1_EditInfoActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    @OnClick({R.id.rl_up_yingyezhizhao, R.id.rl_up_dianmianzhaopian, R.id.rl_up_shenfenzheng_renxiang, R.id.rl_up_shenfenzheng_guohui, R.id.tv_next,R.id.ll_check_email})
+    @OnClick({R.id.rl_up_yingyezhizhao, R.id.rl_up_dianmianzhaopian, R.id.rl_up_shenfenzheng_renxiang, R.id.rl_up_shenfenzheng_guohui, R.id.tv_next,R.id.ll_check_email,R.id.rl_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.rl_back:
+                onBackPressed();
+                break;
             case R.id.rl_up_yingyezhizhao:
                 ImageSelector.builder()
                         .useCamera(true) // 设置是否使用拍照

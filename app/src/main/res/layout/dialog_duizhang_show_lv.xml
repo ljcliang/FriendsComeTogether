@@ -9,28 +9,8 @@
         android:id="@+id/vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-    <ImageView
-        android:visibility="gone"
-        android:scaleType="centerCrop"
-        android:id="@+id/iv_bg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:src="@mipmap/show_duizhang_lv_huangjin"
-        android:layout_alignParentTop="true" />
-    <TextView
-        android:id="@+id/tv_text"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/black_101010"
-        android:layout_marginTop="700px"
-        android:layout_marginRight="150px"
-        android:layout_marginLeft="150px"
-        android:textSize="38px"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
     <RelativeLayout
-        android:layout_marginBottom="250px"
+        android:layout_marginBottom="220px"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/rl_close"
@@ -41,27 +21,5 @@
             android:src="@mipmap/show_duizhang_lv_close"
             android:layout_width="70px"
             android:layout_height="70px"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:visibility="gone"
-        android:id="@+id/btn_guanzhu"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40px"
-        android:layout_below="@+id/tv_info"
-        android:background="@drawable/bg_d84c37_30px"
-        android:layout_width="300px"
-        android:layout_height="80px">
-        <LinearLayout
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/tv_guanzhu"
-                android:textSize="32px"
-                android:textColor="@color/white_ffffff"
-                android:text="关注"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

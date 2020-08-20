@@ -577,4 +577,14 @@ public static String homePageSkipGoods = "action/ac_newHome/homePageSkipGoods";
      * "http://www.tongbanapp.com/index.php/action/ac_captainMission/comeInInfo?uid=4",//销售明细
      */
     public static String comeInInfo = BaseUrl+"action/ac_captainMission/comeInInfo?uid=";
+    //    action/ac_goods   /    sellerOrder    传page分页  uid店铺id status  不传或传100 全部     传1待处理  2已处理   3已完成   4退款
+    public static String sellerOrder = "action/ac_goods/sellerOrder";
+    //    action/ac_goods   /   sellerDoOrder  操作订单   传uid 用户id   orderID 订单id  type 操作类型  0拒绝接单  1出单  2删除       type=0时传 qxyy 拒绝接单的原因
+    public static String sellerDoOrder = "action/ac_goods/sellerDoOrder";
+    //    action/ac_goods/orderRefund   确认退款   传 uid 用户id   orderID 订单id
+    public static String orderRefund = "action/ac_goods/orderRefund";
+    /**(
+     * action/ac_goods/getSureTime 收货时间       传 orderID 订单id
+     */
+    public static String getSureTime = "action/ac_goods/getSureTime";
 }

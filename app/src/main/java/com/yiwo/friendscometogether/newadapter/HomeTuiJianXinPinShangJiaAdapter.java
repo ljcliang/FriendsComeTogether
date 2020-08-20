@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -50,7 +51,14 @@ public class HomeTuiJianXinPinShangJiaAdapter extends RecyclerView.Adapter<HomeT
         Glide.with(context).load(data.get(position).getGoodsImg()).apply(new RequestOptions().error(R.mipmap.zanwutupian).placeholder(R.mipmap.zanwutupian)).into(holder.iv);
         holder.tv_name.setText(data.get(position).getGoodsName());
         holder.tv_now_price.setText(data.get(position).getPrice());
-        holder.tv_old_price.setText(data.get(position).getPrice());
+        holder.tv_old_price.setText(data.get(position).getCostPrice());
+        double d_now = Double.parseDouble(data.get(position).getPrice());
+        double d_old = Double.parseDouble(data.get(position).getCostPrice());
+        if (d_now<d_old){
+            holder.rl_old_price.setVisibility(View.VISIBLE);
+        }else {
+            holder.rl_old_price.setVisibility(View.GONE);
+        }
         switch (data.get(position).getStar()){
             case "0" :
                 holder.iv_star1.setImageResource(R.mipmap.pingxing);
@@ -108,6 +116,7 @@ public class HomeTuiJianXinPinShangJiaAdapter extends RecyclerView.Adapter<HomeT
         ImageView iv_star1,iv_star2,iv_star3,iv_star4,iv_star5;
         TextView tv_name,tv_now_price,tv_old_price;
         LinearLayout ll_all;
+        RelativeLayout rl_old_price;
         public ViewHolder(View itemView) {
             super(itemView);
             iv = itemView.findViewById(R.id.iv);
@@ -120,6 +129,7 @@ public class HomeTuiJianXinPinShangJiaAdapter extends RecyclerView.Adapter<HomeT
             iv_star4 = itemView.findViewById(R.id.iv_star4);
             iv_star5 = itemView.findViewById(R.id.iv_star5);
             ll_all = itemView.findViewById(R.id.ll_all);
+            rl_old_price = itemView.findViewById(R.id.rl_old_price);
         }
     }
     public interface AddClickListenner{

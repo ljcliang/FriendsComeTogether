@@ -24,6 +24,7 @@ import com.yiwo.friendscometogether.model.CityModel;
 import com.yiwo.friendscometogether.model.OtherCityModel;
 import com.yiwo.friendscometogether.network.ActivityConfig;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.newpage.CreateFriendRememberActivity1;
 import com.yiwo.friendscometogether.newpage.YoujuShaixuanActivity;
 import com.yiwo.friendscometogether.utils.UserUtils;
 
@@ -207,7 +208,7 @@ public class CityActivity extends BaseActivity {
                     if (ac.equals("youju")) {
 //                        it.setClass(CityActivity.this, CreateFriendTogetherActivity.class);
                     } else if (ac.equals("createYouJi")){
-                        it.setClass(CityActivity.this, CreateFriendRememberActivity.class);
+                        it.setClass(CityActivity.this, CreateFriendRememberActivity1.class);
                     } else if (ac.equals("youJuShaiXuan")){
                         it.setClass(CityActivity.this, YoujuShaixuanActivity.class);
                     } else {

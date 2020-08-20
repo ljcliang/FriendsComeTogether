@@ -60,6 +60,7 @@ import com.yiwo.friendscometogether.pages.CityActivity;
 import com.yiwo.friendscometogether.pages.CreateIntercalationActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.GetJsonDataUtil;
+import com.yiwo.friendscometogether.utils.SolveEditTextScrollClash;
 import com.yiwo.friendscometogether.utils.StringUtils;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.widget.CustomDatePicker;
@@ -191,6 +192,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
 
     private String yourChoiceActiveId = "";
     private String yourChoiceActiveName = "";
+    private String gltype = "0";
     private List<GetFriendActiveListModel.ObjBean> activeList;
 
     private String password;
@@ -352,6 +354,8 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                                 Gson gson = new Gson();
                                 UserLabelModel userLabelModel = gson.fromJson(data, UserLabelModel.class);
                                 labelList = new ArrayList<>();
+//                                UserLabelModel.ObjBean bean = new UserLabelModel.ObjBean("65","文旅资讯","6");
+//                                labelList.add(bean);
                                 labelList.addAll(userLabelModel.getObj());
                             }
                         } catch (JSONException e) {
@@ -365,6 +369,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                     }
                 });
         etTitle.addTextChangedListener(textTitleWatcher);
+        etTitle.setOnTouchListener(new SolveEditTextScrollClash(etTitle));
         etContent.addTextChangedListener(textContentWatcher);
 
     }
@@ -547,9 +552,30 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                 showFriendRememberLabelPop();
                 break;
             case R.id.activity_create_friend_remember_rl_active_title:
-                //活动标题
-                    Intent it_suoshu = new Intent(CreateFriendRememberActivity1.this, SuoShuHuoDongActivity.class);
-                    startActivityForResult(it_suoshu, REQUEST_CODE_SUO_SHU_HUO_DONG);
+                AlertDialog.Builder builder1 =
+                            new AlertDialog.Builder(CreateFriendRememberActivity1.this)
+                             .setTitle("关联活动或商品")
+                             .setItems(new String[]{"选择活动","选择商品"},
+                               new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,
+                                  int which) {
+                                    if (which == 0){
+                                        gltype = "0";
+                                        Intent it_suoshu = new Intent(CreateFriendRememberActivity1.this, SuoShuHuoDongActivity.class);
+                                        it_suoshu.putExtra(SuoShuHuoDongActivity.TYPE_KEY,"0");
+                                        startActivityForResult(it_suoshu, REQUEST_CODE_SUO_SHU_HUO_DONG);
+                                    }else if (which ==1){
+                                        gltype = "1";
+                                        Intent it_suoshu = new Intent(CreateFriendRememberActivity1.this, SuoShuHuoDongActivity.class);
+                                        it_suoshu.putExtra(SuoShuHuoDongActivity.TYPE_KEY,"1");
+                                        startActivityForResult(it_suoshu, REQUEST_CODE_SUO_SHU_HUO_DONG);
+                                    }
+                                    dialog.dismiss();
+                                }
+                               });
+                builder1.show();
+                        //活动标题
+
                 break;
             case R.id.activity_create_friend_remember_rl_is_intercalation:
                 final String[] items1 = { "是","否" };
@@ -1007,6 +1033,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                         .addParam("fmendtime", tvTimeEnd.getText().toString())
                         .addParam("percapitacost", etPrice.getText().toString())
                         .addParam("activity_id", TextUtils.isEmpty(tvActiveTitle.getText().toString())?"0":yourChoiceActiveId)
+                        .addParam("gltype",gltype)
                         .addParam("insertatext", tvIsIntercalation.getText().toString().equals("是")?"0":"1")
                         .addParam("accesspassword", password)
                         .addParam("type", "0")
@@ -1176,6 +1203,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                         .addParam("fmendtime", tvTimeEnd.getText().toString())
                         .addParam("percapitacost", etPrice.getText().toString())
                         .addParam("activity_id", TextUtils.isEmpty(tvActiveTitle.getText().toString())?"0":yourChoiceActiveId)
+                        .addParam("gltype",gltype)
                         .addParam("insertatext", tvIsIntercalation.getText().toString().equals("是")?"0":"1")
                         .addParam("accesspassword", password)
                         .addParam("type", "1")
@@ -1325,6 +1353,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                         .addParam("fmendtime", tvTimeEnd.getText().toString())
                         .addParam("percapitacost", etPrice.getText().toString())
                         .addParam("activity_id", TextUtils.isEmpty(tvActiveTitle.getText().toString())?"0":yourChoiceActiveId)
+                        .addParam("gltype",gltype)
                         .addParam("insertatext", tvIsIntercalation.getText().toString().equals("是")?"0":"1")
                         .addParam("accesspassword", password)
                         .addParam("type", "1")

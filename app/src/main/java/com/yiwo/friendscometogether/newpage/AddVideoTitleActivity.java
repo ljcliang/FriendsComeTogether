@@ -26,27 +26,20 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.netease.nim.uikit.common.ui.dialog.EasyAlertDialogHelper;
-import com.netease.nim.uikit.common.util.sys.NetworkUtil;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.model.CityModel;
+import com.yiwo.friendscometogether.model.GetFriendActiveListModel;
 import com.yiwo.friendscometogether.network.ActivityConfig;
 import com.yiwo.friendscometogether.pages.CityActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.FileUtils;
 import com.yiwo.friendscometogether.wangyiyunshipin.TakeVideoFragment_new;
 import com.yiwo.friendscometogether.wangyiyunshipin.VideoUpLoadListActivity;
-import com.yiwo.friendscometogether.wangyiyunshipin.server.entity.AddVideoResponseEntity;
-import com.yiwo.friendscometogether.wangyiyunshipin.shortvideo.UploadState;
-import com.yiwo.friendscometogether.wangyiyunshipin.upload.constant.UploadType;
-import com.yiwo.friendscometogether.wangyiyunshipin.upload.controller.UploadController;
 import com.yiwo.friendscometogether.wangyiyunshipin.upload.model.VideoItem;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,9 +55,14 @@ public class AddVideoTitleActivity extends BaseActivity{
     TextView tv_num;
     @BindView(R.id.activity_create_friend_remember_tv_activity_city)
     EditText tvCity;
-
+    @BindView(R.id.activity_create_friend_remember_tv_active_title)
+    TextView tvAboutGoods;
     private static final int REQUEST_CODE_GET_CITY = 1;
+    private static final int REQUEST_CODE_SUO_SHU_HUO_DONG = 2;
 
+    private String yourChoiceActiveId = "";
+    private String yourChoiceActiveName = "";
+    private String gltype = "0";
     private VideoItem videoItem;
     private String url_screenshot;
     private SpImp spImp;
@@ -93,7 +91,7 @@ public class AddVideoTitleActivity extends BaseActivity{
         Log.d("asdasd",videoItem.getUriString()+"|||"+videoItem.getFilePath());
         Glide.with(AddVideoTitleActivity.this).load(videoItem.getUriString()).apply(new RequestOptions().error(R.mipmap.zanwutupian)).into(iv);
     }
-    @OnClick({R.id.rl_back,R.id.activity_up_load_video_rl_complete,R.id.rl_choose_address})
+    @OnClick({R.id.rl_back,R.id.activity_up_load_video_rl_complete,R.id.rl_choose_address,R.id.activity_create_friend_remember_rl_active_title})
      public void onClick(View view){
         switch (view.getId()){
             case R.id.rl_back:
@@ -107,6 +105,30 @@ public class AddVideoTitleActivity extends BaseActivity{
             case R.id.activity_up_load_video_rl_complete:
 
                 showActivePopupwindow();
+                break;
+            case R.id.activity_create_friend_remember_rl_active_title:
+                AlertDialog.Builder builder1 =
+                        new AlertDialog.Builder(AddVideoTitleActivity.this)
+                                .setTitle("关联活动或商品")
+                                .setItems(new String[]{"选择活动","选择商品"},
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog,
+                                                                int which) {
+                                                if (which == 0){
+                                                    gltype = "0";
+                                                    Intent it_suoshu = new Intent(AddVideoTitleActivity.this, SuoShuHuoDongActivity.class);
+                                                    it_suoshu.putExtra(SuoShuHuoDongActivity.TYPE_KEY,"0");
+                                                    startActivityForResult(it_suoshu, REQUEST_CODE_SUO_SHU_HUO_DONG);
+                                                }else if (which ==1){
+                                                    gltype = "1";
+                                                    Intent it_suoshu = new Intent(AddVideoTitleActivity.this, SuoShuHuoDongActivity.class);
+                                                    it_suoshu.putExtra(SuoShuHuoDongActivity.TYPE_KEY,"1");
+                                                    startActivityForResult(it_suoshu, REQUEST_CODE_SUO_SHU_HUO_DONG);
+                                                }
+                                                dialog.dismiss();
+                                            }
+                                        });
+                builder1.show();
                 break;
         }
     }
@@ -159,7 +181,8 @@ public class AddVideoTitleActivity extends BaseActivity{
                     spImp.setLastCreateVideoAddress(tvCity.getText().toString());
                     videoItem.setVideoFaBuName(editText.getText().toString());
                     videoItem.setVideoAddress(tvCity.getText().toString());
-
+                    videoItem.setVideoAboutGoods(yourChoiceActiveId);
+                    videoItem.setVideoGuanLianType(gltype);
                     VideoUpLoadListActivity.startVideoUpLoadListActivity(AddVideoTitleActivity.this,videoItem);
                     popupWindow.dismiss();
                     finish();
@@ -229,6 +252,12 @@ public class AddVideoTitleActivity extends BaseActivity{
         } else if (requestCode == REQUEST_CODE_GET_CITY && resultCode == 3) {//国际城市
             String city = data.getStringExtra("city");
             tvCity.setText(city);
+        }
+        if (requestCode == REQUEST_CODE_SUO_SHU_HUO_DONG && resultCode == 1){
+            GetFriendActiveListModel.ObjBean bean = (GetFriendActiveListModel.ObjBean) data.getSerializableExtra("suoshuhuodong");
+            yourChoiceActiveName = bean.getPftitle();
+            yourChoiceActiveId = bean.getPfID();
+            tvAboutGoods.setText(yourChoiceActiveName);
         }
     }
     private void close(){

@@ -115,37 +115,38 @@ public class MyVideosActivity extends BaseActivity {
 
             @Override
             public void onEditClick(final int i) {
-                EditContentDialog_L dialog_l = new EditContentDialog_L(MyVideosActivity.this, "请输入新的标题", new EditContentDialog_L.OnReturnListener() {
-                    @Override
-                    public void onReturn(final String content) {
-                        ViseHttp.POST(NetConfig.videoEdit)
-                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.videoEdit))
-                                .addParam("vID",list.get(i).getVID())
-                                .addParam("userID",spImp.getUID())
-                                .addParam("vname",content)
-                                .request(new ACallback<String>() {
-                                    @Override
-                                    public void onSuccess(String data) {
-                                        try {
-                                            JSONObject jsonObject = new JSONObject(data);
-                                            if (jsonObject.getInt("code") == 200){
-                                                toToast(MyVideosActivity.this,"修改成功");
-                                                list.get(i).setVname(content);
-                                                adapter.notifyDataSetChanged();
-                                            }
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFail(int errCode, String errMsg) {
-                                        toToast(MyVideosActivity.this,"修改失败");
-                                    }
-                                });
-                    }
-                });
-                dialog_l.show();
+                EditVideoTitleActivity.startEditVideoInfoActivity(MyVideosActivity.this,i,list.get(i));
+//                EditContentDialog_L dialog_l = new EditContentDialog_L(MyVideosActivity.this, "请输入新的标题", new EditContentDialog_L.OnReturnListener() {
+//                    @Override
+//                    public void onReturn(final String content) {
+//                        ViseHttp.POST(NetConfig.videoEdit)
+//                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.videoEdit))
+//                                .addParam("vID",list.get(i).getVID())
+//                                .addParam("userID",spImp.getUID())
+//                                .addParam("vname",content)
+//                                .request(new ACallback<String>() {
+//                                    @Override
+//                                    public void onSuccess(String data) {
+//                                        try {
+//                                            JSONObject jsonObject = new JSONObject(data);
+//                                            if (jsonObject.getInt("code") == 200){
+//                                                toToast(MyVideosActivity.this,"修改成功");
+//                                                list.get(i).setVname(content);
+//                                                adapter.notifyDataSetChanged();
+//                                            }
+//                                        } catch (JSONException e) {
+//                                            e.printStackTrace();
+//                                        }
+//                                    }
+//
+//                                    @Override
+//                                    public void onFail(int errCode, String errMsg) {
+//                                        toToast(MyVideosActivity.this,"修改失败");
+//                                    }
+//                                });
+//                    }
+//                });
+//                dialog_l.show();
             }
         });
         recyclerView.setAdapter(adapter);

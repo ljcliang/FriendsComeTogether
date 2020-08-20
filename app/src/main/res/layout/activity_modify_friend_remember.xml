@@ -182,29 +182,30 @@
                     android:gravity="start"
                     android:background="@null"
                     android:id="@+id/activity_create_friend_remember_tv_title"
-                    android:layout_width="490px"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="40px"
+                    android:layout_marginRight="40px"
                     android:ellipsize="end"
                     android:lines="9"
                     android:hint="请输入内容"
                     android:textColor="@color/black_333333"
                     android:textSize="31px" />
 
-                <TextView
-                    android:layout_alignTop="@+id/activity_create_friend_remember_tv_title"
-                    android:id="@+id/activity_create_friend_remember_tv_title_num"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="40px"
-                    android:text="0/300"
-                    android:textColor="#9d9d9d"
-                    android:textSize="28px" />
-
             </RelativeLayout>
-
+            <TextView
+                android:layout_alignTop="@+id/activity_create_friend_remember_tv_title"
+                android:id="@+id/activity_create_friend_remember_tv_title_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:layout_marginBottom="20px"
+                android:layout_marginRight="40px"
+                android:text="0/300"
+                android:textColor="#9d9d9d"
+                android:textSize="28px" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="12px"
@@ -293,7 +294,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="12px"
                     android:layout_toRightOf="@+id/activity_create_friend_remember_iv_active_title"
-                    android:text="关联路线活动"
+                    android:text="关联活动或商品"
                     android:textColor="@color/black_666666"
                     android:textSize="28px" />
 

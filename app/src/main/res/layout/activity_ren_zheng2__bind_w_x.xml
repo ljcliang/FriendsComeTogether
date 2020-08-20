@@ -7,6 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".newpage.renzheng.RenZheng2_BindWXActivity">
     <RelativeLayout
+        android:background="#fafafa"
+        style="@style/rl_top_bar_dp">
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            style="@style/rl_return">
+            <ImageView
+                style="@style/iv_return_dp"/>
+        </RelativeLayout>
+    </RelativeLayout>
+    <RelativeLayout
         android:id="@+id/rl_bind_wx"
         android:padding="2dp"
         android:layout_marginTop="20dp"

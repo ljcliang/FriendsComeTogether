@@ -60,6 +60,10 @@
         <item name="android:layout_width">100px</item>
         <item name="android:layout_height">match_parent</item>
     </style>
+    <style name="rl_return_dp">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
     <!-- 右侧 按钮RelativeLay样式   -->
     <style name="TopBarStyle_RlRight_dp">
         <item name="android:paddingRight">15dp</item>

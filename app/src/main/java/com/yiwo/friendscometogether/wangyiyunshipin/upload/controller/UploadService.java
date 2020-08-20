@@ -424,6 +424,8 @@ public class UploadService extends Service {
                             .addParam("vid",videoItem.getVid()+"")
                             .addParam("uid",spImp.getUID())
                             .addParam("address",videoItem.getVideoAddress())
+                            .addParam("gltype",videoItem.getVideoGuanLianType())
+                            .addParam("glID",videoItem.getVideoAboutGoods())
                             .request(new ACallback<String>() {
                                 @Override
                                 public void onSuccess(String data) {

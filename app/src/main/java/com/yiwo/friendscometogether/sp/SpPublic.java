@@ -38,4 +38,9 @@ public class SpPublic {
     //是否已经认证
     public static String IF_SIGN = "if_sign";
 
+    //是否为商店
+    public static String IS_SHOP = "is_shop";
+    //是否为队长
+    public static String IF_DUIZHANG = "is_duizhang";
+
 }

@@ -30,6 +30,7 @@ import com.yiwo.friendscometogether.model.ModifyIntercalationModel;
 import com.yiwo.friendscometogether.model.UserIntercalationPicModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.utils.SolveEditTextScrollClash;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -274,7 +275,7 @@ public class ModifyIntercalationActivity extends BaseActivity {
                 });
 
         etContent.addTextChangedListener(textContentWatcher);
-
+        etContent.setOnTouchListener(new SolveEditTextScrollClash(etContent));
     }
 
     TextWatcher textContentWatcher = new TextWatcher() {

@@ -65,36 +65,33 @@
             android:focusableInTouchMode="true"
             android:layout_width="match_parent"
             android:layout_height="308px">
-
-            <TextView
-                android:id="@+id/activity_create_intercalation_tv_text_num"
-                android:layout_marginRight="40px"
-                android:layout_marginTop="24px"
-                android:layout_alignParentRight="true"
-                android:text="0/2000"
-                android:textColor="#9d9d9d"
-                android:textSize="28px"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
             <EditText
                 android:maxLength="2000"
                 android:id="@+id/activity_create_intercalation_et_content"
                 android:textColor="@color/black_333333"
                 android:layout_marginBottom="10px"
                 android:layout_marginTop="20px"
-                android:layout_toLeftOf="@+id/activity_create_intercalation_tv_text_num"
                 android:layout_marginLeft="40px"
                 android:layout_marginRight="40px"
                 android:gravity="start"
-                android:textSize="28px"
                 android:hint="请输入内容"
+                android:textSize="31px"
                 android:background="@null"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
         </RelativeLayout>
-
+        <TextView
+            android:id="@+id/activity_create_intercalation_tv_text_num"
+            android:layout_marginRight="40px"
+            android:layout_marginTop="24px"
+            android:layout_marginBottom="20px"
+            android:layout_gravity="right"
+            android:text="0/2000"
+            android:textColor="#9d9d9d"
+            android:textSize="28px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/activity_create_intercalation_rv"
             android:layout_marginRight="40px"

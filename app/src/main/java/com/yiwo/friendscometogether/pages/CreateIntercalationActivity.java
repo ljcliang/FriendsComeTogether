@@ -27,6 +27,7 @@ import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.UserIntercalationPicModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.utils.SolveEditTextScrollClash;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -147,7 +148,7 @@ public class CreateIntercalationActivity extends BaseActivity {
         });
 
         etContent.addTextChangedListener(textContentWatcher);
-
+        etContent.setOnTouchListener(new SolveEditTextScrollClash(etContent));
     }
 
     TextWatcher textContentWatcher = new TextWatcher() {
@@ -200,15 +201,20 @@ public class CreateIntercalationActivity extends BaseActivity {
                 complete(1,true);//存草稿 并且再次打开创建续写页面进行创作
                 break;
             case R.id.btn_baocun:
-                if (mList.size()==0){
-                    toToast(CreateIntercalationActivity.this,"请添加图片");
+                if (type.equals("1")){
+                    complete(0,false);//发布
                 }else {
-                    if (type.equals("1")){
-                        complete(0,false);//发布
-                    }else {
-                        complete(1,false);//存草稿
-                    }
+                    complete(1,false);//存草稿
                 }
+//                if (mList.size()==0){
+//                    toToast(CreateIntercalationActivity.this,"请添加图片");
+//                }else {
+//                    if (type.equals("1")){
+//                        complete(0,false);//发布
+//                    }else {
+//                        complete(1,false);//存草稿
+//                    }
+//                }
                 break;
         }
     }
@@ -218,7 +224,10 @@ public class CreateIntercalationActivity extends BaseActivity {
      * openagain 发布并且再次打开创作页面
      */
     private void complete(final int stuas,boolean openagain) {
-
+        if (mList.size()==0&&etTitle.getText().toString().equals("")&&etContent.getText().toString().equals("")){
+            toToast(this,"内容不能为空");
+            return;
+        }
         dialog = WeiboDialogUtils.createLoadingDialog(CreateIntercalationActivity.this, "请等待...");
         Observable<Map<String, File>> observable = Observable.create(new ObservableOnSubscribe<Map<String, File>>() {
             @Override

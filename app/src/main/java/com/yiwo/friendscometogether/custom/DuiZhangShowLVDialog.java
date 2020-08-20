@@ -43,6 +43,7 @@ public class DuiZhangShowLVDialog extends Dialog {
     private boolean isFollow;
     private String lv_name;
     private int[] imageIdArray;//图片资源的数组
+    private String[] strName;
     private List<View> viewList;//图片资源的集合
     private List<String> datas;
     public DuiZhangShowLVDialog(@NonNull Context context,String lv_name,List<String> datas) {
@@ -105,27 +106,30 @@ public class DuiZhangShowLVDialog extends Dialog {
                 dismiss();
             }
         });
-        ImageView imageView0 = view.findViewById(R.id.iv_bg);
         ViewPager viewPager = view.findViewById(R.id.vp);
-        TextView tv_text = view.findViewById(R.id.tv_text);
         imageIdArray = new int[]{R.mipmap.show_duizhang_lv_qingtong, R.mipmap.show_duizhang_lv_baiyin, R.mipmap.show_duizhang_lv_huangjin,
                 R.mipmap.show_duizhang_lv_bojin,R.mipmap.show_duizhang_lv_zuanshi,R.mipmap.show_duizhang_lv_wangguan};
+        strName = new String[]{"青铜队长","白银队长","黄金队长","铂金队长","钻石队长","王冠队长"};
         viewList = new ArrayList<>();
         //获取一个Layout参数，设置为全屏
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+//                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         for (int i = 0; i < imageIdArray.length; i++) {
+            View view_page_item = LayoutInflater.from(context).inflate(R.layout.layout_duizhang_show, null);
             //new ImageView并设置全屏和图片资源
-            ImageView imageView = new ImageView(context);
-            imageView.setLayoutParams(params);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setBackgroundResource(imageIdArray[i]);
-
+            ImageView imageView = view_page_item.findViewById(R.id.iv_bg);
+//            imageView.setLayoutParams(params);
+//            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setImageResource(imageIdArray[i]);
+            TextView tv_text_info = view_page_item.findViewById(R.id.tv_show_info);
+            tv_text_info.setText(datas.get(i));
+            TextView tv_level = view_page_item.findViewById(R.id.tv_level_name);
+            tv_level.setText(strName[i]);
             //将ImageView加入到集合中
-            viewList.add(imageView);
+            viewList.add(view_page_item);
         }
         //View集合初始化好后，设置Adapter
-        viewPager.setAdapter(new GuidePageAdapter(viewList));
+        viewPager.setAdapter(new VpAdapter(viewList));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -134,7 +138,6 @@ public class DuiZhangShowLVDialog extends Dialog {
 
             @Override
             public void onPageSelected(int position) {
-                tv_text.setText(datas.get(position));
             }
 
             @Override
@@ -144,45 +147,33 @@ public class DuiZhangShowLVDialog extends Dialog {
         });
         switch (lv_name){
             case "0":
-                imageView0.setImageResource(R.mipmap.show_duizhang_lv_qingtong);
                 viewPager.setCurrentItem(0);
-                tv_text.setText(datas.get(0));
                 break;
             case "1":
-                imageView0.setImageResource(R.mipmap.show_duizhang_lv_baiyin);
                 viewPager.setCurrentItem(1);
-                tv_text.setText(datas.get(1));
                 break;
             case "2":
-                imageView0.setImageResource(R.mipmap.show_duizhang_lv_huangjin);
                 viewPager.setCurrentItem(2);
-                tv_text.setText(datas.get(2));
                 break;
             case "3":
-                imageView0.setImageResource(R.mipmap.show_duizhang_lv_bojin);
                 viewPager.setCurrentItem(3);
-                tv_text.setText(datas.get(3));
                 break;
             case "4":
-                imageView0.setImageResource(R.mipmap.show_duizhang_lv_zuanshi);
                 viewPager.setCurrentItem(4);
-                tv_text.setText(datas.get(4));
                 break;
             case "5":
-                imageView0.setImageResource(R.mipmap.show_duizhang_lv_wangguan);
                 viewPager.setCurrentItem(5);
-                tv_text.setText(datas.get(5));
                 break;
         }
-        RelativeLayout btnGuanzhu = view.findViewById(R.id.btn_guanzhu);
-        TextView tvGuanzhu = view.findViewById(R.id.tv_guanzhu);
-        tvGuanzhu.setText(isFollow ? "已关注":"关 注");
-        btnGuanzhu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listenner.guanZhuListen(DuiZhangShowLVDialog.this);
-            }
-        });
+//        RelativeLayout btnGuanzhu = view.findViewById(R.id.btn_guanzhu);
+//        TextView tvGuanzhu = view.findViewById(R.id.tv_guanzhu);
+//        tvGuanzhu.setText(isFollow ? "已关注":"关 注");
+//        btnGuanzhu.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                listenner.guanZhuListen(DuiZhangShowLVDialog.this);
+//            }
+//        });
 //        rl.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

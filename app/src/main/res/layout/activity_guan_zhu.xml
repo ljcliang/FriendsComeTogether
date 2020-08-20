@@ -118,6 +118,7 @@
 
             </RelativeLayout>
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/rl_guanzhuhuodong"
                 android:layout_weight="1"
                 android:layout_width="0px"

@@ -62,6 +62,7 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
     private boolean isFirst = true;
     WebInfoOfDbUntils webInfoOfDbUntils;
     private String goodId;
+    private String shop_wy_Id = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +76,7 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
         Log.d("asdasd",url);
 //        url = getIntent().getStringExtra("url");
         initIntentSonic(url,webView);
+        getWYID();
         webInfoOfDbUntils = new WebInfoOfDbUntils(this);
         webView.setWebChromeClient(new WebChromeClient(){
             @Override
@@ -168,6 +170,11 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
         webView.addJavascriptInterface(new ShopGoodsDetailsWebLocalActivity.AndroidInterface(),"android");//交互
 
     }
+
+    private void getWYID() {
+
+    }
+
     public static void open(Context context,String goodId){
         Intent intent = new Intent();
         intent.putExtra(GOOD_ID_KEY,goodId);
@@ -217,11 +224,18 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
          */
         @JavascriptInterface
         public void tonowbuy(String url){
-            toToast(ShopGoodsDetailsWebLocalActivity.this,"buybuy");
-            Intent intent = new Intent();
-            intent.setClass(ShopGoodsDetailsWebLocalActivity.this, ShopGoodsBuyWebActivity.class);
-            intent.putExtra("url",url);
-            startActivity(intent);
+            String uid = spImp.getUID();
+            if (TextUtils.isEmpty(uid) || uid.equals("0")) {
+                Intent intent = new Intent();
+                intent.setClass(ShopGoodsDetailsWebLocalActivity.this, LoginActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent();
+                intent.setClass(ShopGoodsDetailsWebLocalActivity.this, ShopGoodsBuyWebActivity.class);
+                intent.putExtra("url",url);
+                startActivity(intent);
+            }
+
         }
         @JavascriptInterface
         public void saveImg(String img_url){
@@ -247,30 +261,93 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
 //addBuy(商品id，规格id，数量)
         @JavascriptInterface
         public void addCart(String goodId,String guiGeId,String num){
+            if (TextUtils.isEmpty(spImp.getUID()) || spImp.getUID().equals("0")) {
+                Intent intent = new Intent();
+                intent.setClass(ShopGoodsDetailsWebLocalActivity.this, LoginActivity.class);
+                startActivity(intent);
+            } else {
+                addGoodsCar(goodId,guiGeId,num);
+            }
             Log.d("ssssdddd",goodId+"///"+guiGeId+".////"+num);
-            addGoodsCar(goodId,guiGeId,num);
+
         }
         @JavascriptInterface
         public void buycargo(){
+            if (TextUtils.isEmpty(spImp.getUID()) || spImp.getUID().equals("0")) {
+                Intent intent = new Intent();
+                intent.setClass(ShopGoodsDetailsWebLocalActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }else {
+                GoodsCartWebActivity.open(ShopGoodsDetailsWebLocalActivity.this,NetConfig.BaseUrl+NetConfig.myCartWebUrl+spImp.getUID());
+            }
             Log.d("ssssdddd","openCar");
-            GoodsCartWebActivity.open(ShopGoodsDetailsWebLocalActivity.this,NetConfig.BaseUrl+NetConfig.myCartWebUrl+spImp.getUID());
         }
         @JavascriptInterface
         public void addBuy(String goodId,String guiGeId,String num){
+            if (TextUtils.isEmpty(spImp.getUID()) || spImp.getUID().equals("0")) {
+                Intent intent = new Intent();
+                intent.setClass(ShopGoodsDetailsWebLocalActivity.this, LoginActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent();
+                intent.setClass(ShopGoodsDetailsWebLocalActivity.this, ShopGoodsBuyWebActivity.class);
+                String url = NetConfig.BaseUrl+NetConfig.nowBuy+"uid="+spImp.getUID()+"&goodsID="+goodId+"&specID="+guiGeId+"&num="+num;
+                Log.d("ssssddddbuy_url",url);
+                intent.putExtra("url",url);
+                startActivity(intent);
+            }
             Log.d("ssssddddbuy",goodId+"///"+guiGeId+".////"+num);
-            Intent intent = new Intent();
-            intent.setClass(ShopGoodsDetailsWebLocalActivity.this, ShopGoodsBuyWebActivity.class);
-            String url = NetConfig.BaseUrl+NetConfig.nowBuy+"uid="+spImp.getUID()+"&goodsID="+goodId+"&specID="+guiGeId+"&num="+num;
-            Log.d("ssssddddbuy_url",url);
-            intent.putExtra("url",url);
-            startActivity(intent);
         }
         @JavascriptInterface
         public void sharego(){//分享
             share(goodId);
         }
+        @JavascriptInterface
+        public void chatgo(){//去聊天
+            quLiaoTian();
+        }
     }
+    private void quLiaoTian(){
+        String uid = spImp.getUID();
+        if (TextUtils.isEmpty(uid) || uid.equals("0")) {
+            Intent intent = new Intent();
+            intent.setClass(ShopGoodsDetailsWebLocalActivity.this, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            ViseHttp.POST(NetConfig.getGoodsInfo)
+                    .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.getGoodsInfo))
+                    .addParam("goodsID",goodId)
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            Log.d("ssssdddd",data);
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if (jsonObject.getInt("code") == 200){
+                                    JSONObject jsonObject1 = jsonObject.getJSONObject("obj");
+                                    liaotian(jsonObject1.getString("wy_accid"));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
 
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    });
+        }
+    }
+    private void liaotian(String liaotianAccount) {
+        String account = spImp.getYXID();
+        if (liaotianAccount == null||liaotianAccount.equals("")||account.equals(liaotianAccount)){
+
+        }else {
+            NimUIKit.setAccount(account);
+            NimUIKit.startP2PSession(ShopGoodsDetailsWebLocalActivity.this, liaotianAccount);
+        }
+    }
     private void share(String goodId) {
         ViseHttp.POST(NetConfig.getGoodsInfo)
                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.getGoodsInfo))
@@ -336,11 +413,6 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
                         webView.loadUrl("javascript:addbuycarok('"+0+"')");
                     }
                 });
-    }
-    private void liaotian(String liaotianAccount) {
-        String account = spImp.getYXID();
-        NimUIKit.setAccount(account);
-        NimUIKit.startP2PSession(ShopGoodsDetailsWebLocalActivity.this, liaotianAccount);
     }
     @OnClick({R.id.rl_back,R.id.btn})
     public void OnClick(View view){

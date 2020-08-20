@@ -14,6 +14,8 @@ public class VideoItem implements Serializable {
 
     String videoFaBuName = "";
     String videoAddress = "";
+    String videoAboutGoods = "";
+    String videoGuanLianType = "";
 
     String displayName;
     String filePath;
@@ -204,5 +206,20 @@ public class VideoItem implements Serializable {
 
     public void setVideoAddress(String videoAddress) {
         this.videoAddress = videoAddress;
+    }
+    public String getVideoAboutGoods() {
+        return videoAboutGoods;
+    }
+
+    public void setVideoAboutGoods(String videoAboutGoods) {
+        this.videoAboutGoods = videoAboutGoods;
+    }
+
+    public String getVideoGuanLianType() {
+        return videoGuanLianType;
+    }
+
+    public void setVideoGuanLianType(String videoGuanLianType) {
+        this.videoGuanLianType = videoGuanLianType;
     }
 }

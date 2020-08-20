@@ -44,6 +44,7 @@ import com.yiwo.friendscometogether.adapter.IntercalationAdapter;
 import com.yiwo.friendscometogether.custom.SetPasswordDialog;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.CityModel;
+import com.yiwo.friendscometogether.model.GetFriendActiveListModel;
 import com.yiwo.friendscometogether.model.JsonBean;
 import com.yiwo.friendscometogether.model.ModifyFriendRememberModel;
 import com.yiwo.friendscometogether.model.UserActiveListModel;
@@ -53,8 +54,10 @@ import com.yiwo.friendscometogether.network.ActivityConfig;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.NewIntercalationAdapter;
 import com.yiwo.friendscometogether.newpage.CreateFriendRememberActivity1;
+import com.yiwo.friendscometogether.newpage.SuoShuHuoDongActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.GetJsonDataUtil;
+import com.yiwo.friendscometogether.utils.SolveEditTextScrollClash;
 import com.yiwo.friendscometogether.utils.StringUtils;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.widget.CustomDatePicker;
@@ -161,12 +164,11 @@ public class ModifyFriendRememberActivity extends TakePhotoActivity {
     private PopupWindow popupWindow;
 
     private static final int REQUEST_CODE = 0x00000011;
-
+    private static final int REQUEST_CODE_SUO_SHU_HUO_DONG = 2;
     private String[] itemId;
     private String[] itemName;
     private String yourChoiceId = "";
     private String yourChoiceName = "";
-
     private SpImp spImp;
     private String uid = "";
 
@@ -178,6 +180,7 @@ public class ModifyFriendRememberActivity extends TakePhotoActivity {
     private String[] activeName;
     private String yourChoiceActiveId = "";
     private String yourChoiceActiveName = "";
+    private String gltype = "0";
     private List<UserActiveListModel.ObjBean> activeList;
 
     private String password;
@@ -429,6 +432,7 @@ public class ModifyFriendRememberActivity extends TakePhotoActivity {
                 });
 
         etTitle.addTextChangedListener(textTitleWatcher);
+        etTitle.setOnTouchListener(new SolveEditTextScrollClash(etTitle));
         etContent.addTextChangedListener(textContentWatcher);
 
     }
@@ -545,6 +549,12 @@ public class ModifyFriendRememberActivity extends TakePhotoActivity {
         } else if (requestCode == REQUEST_CODE_GET_CITY && resultCode == 3) {//国际城市
             String city = data.getStringExtra("city");
             tvCity.setText(city);
+        }
+        if (requestCode == REQUEST_CODE_SUO_SHU_HUO_DONG && resultCode == 1){
+            GetFriendActiveListModel.ObjBean bean = (GetFriendActiveListModel.ObjBean) data.getSerializableExtra("suoshuhuodong");
+            yourChoiceActiveName = bean.getPftitle();
+            yourChoiceActiveId = bean.getPfID();
+            tvActiveTitle.setText(yourChoiceActiveName);
         }
     }
 
@@ -724,43 +734,65 @@ public class ModifyFriendRememberActivity extends TakePhotoActivity {
 
                 break;
             case R.id.activity_create_friend_remember_rl_active_title:
+                AlertDialog.Builder builder1 =
+                        new AlertDialog.Builder(ModifyFriendRememberActivity.this)
+                                .setTitle("关联活动或商品")
+                                .setItems(new String[]{"选择活动","选择商品"},
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog,
+                                                                int which) {
+                                                if (which == 0){
+                                                    gltype = "0";
+                                                    Intent it_suoshu = new Intent(ModifyFriendRememberActivity.this, SuoShuHuoDongActivity.class);
+                                                    it_suoshu.putExtra(SuoShuHuoDongActivity.TYPE_KEY,"0");
+                                                    startActivityForResult(it_suoshu, REQUEST_CODE_SUO_SHU_HUO_DONG);
+                                                }else if (which ==1){
+                                                    gltype = "1";
+                                                    Intent it_suoshu = new Intent(ModifyFriendRememberActivity.this, SuoShuHuoDongActivity.class);
+                                                    it_suoshu.putExtra(SuoShuHuoDongActivity.TYPE_KEY,"1");
+                                                    startActivityForResult(it_suoshu, REQUEST_CODE_SUO_SHU_HUO_DONG);
+                                                }
+                                                dialog.dismiss();
+                                            }
+                                        });
+                builder1.show();
                 //活动标题
-                if(activeList.size()>0){
-                    AlertDialog.Builder singleChoiceDialog1 =
-                            new AlertDialog.Builder(ModifyFriendRememberActivity.this);
-                    singleChoiceDialog1.setTitle("请选择活动标题");
-                    // 第二个参数是默认选项，此处设置为0
-                    singleChoiceDialog1.setSingleChoiceItems(activeName, 0,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    yourChoiceActiveName = activeName[which];
-                                    yourChoiceActiveId = activeId[which];
-                                }
-                            });
-                    singleChoiceDialog1.setPositiveButton("确定",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    if (TextUtils.isEmpty(yourChoiceActiveName)) {
-                                        tvActiveTitle.setText(activeName[0]);
-                                        yourChoiceActiveId = activeId[0];
-                                    } else {
-                                        tvActiveTitle.setText(yourChoiceActiveName);
-                                        yourChoiceActiveName = "";
-                                    }
-                                }
-                            });
-                    singleChoiceDialog1.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-                    singleChoiceDialog1.show();
-                }else {
-                    Toast.makeText(ModifyFriendRememberActivity.this, "暂无活动", Toast.LENGTH_SHORT).show();
-                }
+//                if(activeList.size()>0){
+//                    AlertDialog.Builder singleChoiceDialog1 =
+//                            new AlertDialog.Builder(ModifyFriendRememberActivity.this);
+//                    singleChoiceDialog1.setTitle("请选择活动标题");
+//                    // 第二个参数是默认选项，此处设置为0
+//                    singleChoiceDialog1.setSingleChoiceItems(activeName, 0,
+//                            new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    yourChoiceActiveName = activeName[which];
+//                                    yourChoiceActiveId = activeId[which];
+//                                }
+//                            });
+//                    singleChoiceDialog1.setPositiveButton("确定",
+//                            new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    if (TextUtils.isEmpty(yourChoiceActiveName)) {
+//                                        tvActiveTitle.setText(activeName[0]);
+//                                        yourChoiceActiveId = activeId[0];
+//                                    } else {
+//                                        tvActiveTitle.setText(yourChoiceActiveName);
+//                                        yourChoiceActiveName = "";
+//                                    }
+//                                }
+//                            });
+//                    singleChoiceDialog1.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//
+//                        }
+//                    });
+//                    singleChoiceDialog1.show();
+//                }else {
+//                    Toast.makeText(ModifyFriendRememberActivity.this, "暂无活动", Toast.LENGTH_SHORT).show();
+//                }
                 break;
             case R.id.activity_create_friend_remember_rl_is_intercalation:
                 final String[] items1 = { "是","否" };
@@ -910,6 +942,7 @@ public class ModifyFriendRememberActivity extends TakePhotoActivity {
                             .addParam("fmendtime", tvTimeEnd.getText().toString())
                             .addParam("percapitacost", etPrice.getText().toString())
                             .addParam("activity_id", TextUtils.isEmpty(tvActiveTitle.getText().toString())?"0":yourChoiceActiveId)
+                            .addParam("gltype",gltype)
                             .addParam("insertatext", tvIsIntercalation.getText().toString().equals("是")?"0":"1")
                             .addParam("accesspassword", password)
                             .addParam("id", fmId)
@@ -969,6 +1002,7 @@ public class ModifyFriendRememberActivity extends TakePhotoActivity {
                     .addParam("fmendtime", tvTimeEnd.getText().toString())
                     .addParam("percapitacost", etPrice.getText().toString())
                     .addParam("activity_id", TextUtils.isEmpty(tvActiveTitle.getText().toString())?"0":yourChoiceActiveId)
+                    .addParam("gltype",gltype)
                     .addParam("insertatext", tvIsIntercalation.getText().toString().equals("是")?"0":"1")
                     .addParam("accesspassword", password)
                     .addParam("id", fmId)

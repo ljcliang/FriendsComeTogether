@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".webpages.ShopGoodsBuyWebActivity">
+    <RelativeLayout
+        style="@style/rl_top_bar_dp">
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent">
+
+            <ImageView style="@style/iv_return_dp" />
+        </RelativeLayout>
+        <TextView
+            android:text="支付"
+            style="@style/tv_top_title_dp"/>
+
+    </RelativeLayout>
     <WebView
+
         android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></WebView>
-    <RelativeLayout
-        android:id="@+id/rl_back"
-        android:layout_width="45dp"
-        android:layout_height="40dp">
-
-        <ImageView style="@style/iv_return_dp" />
-    </RelativeLayout>
-</RelativeLayout>
+</LinearLayout>

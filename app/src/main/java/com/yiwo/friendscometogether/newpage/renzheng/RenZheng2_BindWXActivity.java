@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -135,9 +136,13 @@ public class RenZheng2_BindWXActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    @OnClick({R.id.tv_save, R.id.tv_copy, R.id.tv_finsh})
+    @OnClick({R.id.tv_save, R.id.tv_copy, R.id.tv_finsh,R.id.rl_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.rl_back:
+                onBackPressed();
+                Log.d("dasdasd","sssss");
+                break;
             case R.id.tv_save:
                 AndTools.saveScreenShot(RenZheng2_BindWXActivity.this, bitmapEWM);
                 break;

@@ -5,6 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".newpage.renzheng.RenZheng1_EditInfoActivity">
+    <RelativeLayout
+        android:background="#fafafa"
+        style="@style/rl_top_bar_dp">
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            style="@style/rl_return">
+            <ImageView
+                style="@style/iv_return_dp"/>
+        </RelativeLayout>
+    </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -13,7 +23,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_width="match_parent"

@@ -29,7 +29,6 @@ public class GoodsCartWebActivity extends BaseSonicWebActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_car_web);
-        ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
         unbinder = ButterKnife.bind(this);
         url = getIntent().getStringExtra("url");
         initWebView(webView,url);

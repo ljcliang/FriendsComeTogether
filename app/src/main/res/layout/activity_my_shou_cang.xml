@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".newpage.MyShouCangActivity">
+    <RelativeLayout
+        android:id="@+id/rl_top_top"
+        style="@style/rl_top_bar">
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            style="@style/rl_return_dp">
+
+            <ImageView
+                style="@style/iv_return_dp" />
+
+        </RelativeLayout>
+
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:layout_centerInParent="true"
+            android:id="@+id/magic_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:paddingTop="3dp"
+        android:layout_below="@+id/rl_top"
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+</LinearLayout>

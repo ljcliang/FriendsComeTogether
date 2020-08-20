@@ -68,14 +68,12 @@ public class AllRememberActivity extends BaseActivity {
         fragmentList = new ArrayList<>();
         fragmentList.add(new MyRememberFragment());
         fragmentList.add(new AllChawenFragment());
-        fragmentList.add(new MyCollectionFragment());
         mViewPagerFragmentAdapter = new AllRememberViewpagerAdapter(mFragmentManager, fragmentList);
         mViewPager.setAdapter(mViewPagerFragmentAdapter);
 
         mTitleDataList = new ArrayList<>();
         mTitleDataList.add(" 我的友记 ");
         mTitleDataList.add(" 参写友记 ");
-        mTitleDataList.add(" 我的收藏 ");
 
         CommonNavigator commonNavigator = new CommonNavigator(this);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
