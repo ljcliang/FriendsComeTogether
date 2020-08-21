@@ -79,6 +79,7 @@ public class EditVideoTitleActivity extends BaseActivity {
         tvAboutGoods.setText(videoItem.getGname());
         yourChoiceActiveName = videoItem.getGname();
         yourChoiceActiveId = videoItem.getVID();
+        gltype = videoItem.getGl_type();
     }
     @OnClick({R.id.rl_back,R.id.activity_up_load_video_rl_complete,R.id.rl_choose_address,R.id.activity_create_friend_remember_rl_active_title})
      public void onClick(final View view){

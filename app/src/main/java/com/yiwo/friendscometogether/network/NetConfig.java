@@ -587,4 +587,16 @@ public static String homePageSkipGoods = "action/ac_newHome/homePageSkipGoods";
      * action/ac_goods/getSureTime 收货时间       传 orderID 订单id
      */
     public static String getSureTime = "action/ac_goods/getSureTime";
+    /**
+     * 收藏商品 action/ac_goods/collectGoods   传uid    goodsID
+     */
+    public static String collectGoods = "action/ac_goods/collectGoods";
+    /**
+     * 趙鵬 9:30:00
+     * action/ac_goods/myCollectGoods       传uid 用户id    page分页
+     * 返回   goodsID商品id   goodsName 商品名   goodsImg  商品图片
+     *        username商家名称   userpic商家头像
+     *          price 价格    userID商家id
+     */
+    public static String myCollectGoods = "action/ac_goods/myCollectGoods";
 }

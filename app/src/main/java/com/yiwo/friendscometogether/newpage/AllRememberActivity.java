@@ -14,7 +14,6 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.newadapter.AllRememberViewpagerAdapter;
 import com.yiwo.friendscometogether.newfragment.AllChawenFragment;
-import com.yiwo.friendscometogether.newfragment.MyCollectionFragment;
 import com.yiwo.friendscometogether.newfragment.MyRememberFragment;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;

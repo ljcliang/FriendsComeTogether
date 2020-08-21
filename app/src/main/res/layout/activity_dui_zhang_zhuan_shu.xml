@@ -136,6 +136,25 @@
                                 android:layout_height="wrap_content"/>
                         </LinearLayout>
                         <LinearLayout
+                            android:layout_marginTop="3dp"
+                            android:id="@+id/ll_tuanlv_xingcheng"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginRight="2dp"
+                                android:src="@mipmap/shangpu"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"/>
+                            <TextView
+                                android:textColor="@color/black_101010"
+                                android:layout_marginRight="13dp"
+                                android:layout_gravity="center_vertical"
+                                android:text="团旅行程"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
                             android:id="@+id/ll_shourumingxi"
                             android:layout_marginTop="3dp"
                             android:layout_width="wrap_content"
@@ -183,8 +202,8 @@
                 </RelativeLayout>
                 <LinearLayout
                     android:layout_marginBottom="21dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginRight="32dp"
+                    android:layout_marginLeft="28dp"
+                    android:layout_marginRight="28dp"
                     android:layout_below="@+id/rl_lishu"
                     android:layout_width="match_parent"
                     android:layout_height="34dp">
@@ -217,6 +236,18 @@
                             android:layout_alignParentRight="true"
                             android:layout_width="25dp"
                             android:layout_height="34dp"/>
+                        <RelativeLayout
+                            android:layout_alignParentLeft="true"
+                            android:id="@+id/rl_liwu_mingxi"
+                            android:layout_width="34dp"
+                            android:layout_height="match_parent">
+                            <ImageView
+                                android:layout_centerInParent="true"
+                                android:src="@mipmap/liwu_mingxi"
+                                android:id="@+id/iv_liwu_mingxi"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"/>
+                        </RelativeLayout>
                     </RelativeLayout>
                     <RelativeLayout
                         android:id="@+id/rl_btn_startlive"

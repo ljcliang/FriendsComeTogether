@@ -49,13 +49,16 @@ public class GuanLiGoodsWebActivity extends BaseSonicWebActivity {
         context.startActivity(intent);
     }
 
-    @OnClick({R.id.rl_return, R.id.rl_fabu, R.id.ll_btn_serch})
+    @OnClick({R.id.rl_return, R.id.rl_share,R.id.rl_fabu, R.id.ll_btn_serch})
     public void onClick(View v) {
         switch (v.getId()) {
             default:
                 break;
             case R.id.rl_return:
                 onBackPressed();
+                break;
+            case R.id.rl_share:
+
                 break;
             case R.id.rl_fabu:
                 Intent intent = new Intent();

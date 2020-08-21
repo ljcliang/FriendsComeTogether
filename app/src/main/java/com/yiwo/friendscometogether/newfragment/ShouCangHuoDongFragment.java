@@ -92,7 +92,7 @@ public class ShouCangHuoDongFragment extends BaseFragment {
         guanZhuDeHuoDongAdapter.setCancelGuanZHuLis(new WoGuanZhuDeHuoDongAdapter.CancelGuanZhuListion() {
             @Override
             public void cancleGuanzhu(final int posion) {
-                toDialog(getContext(), "提示：", "是否取消关注", new DialogInterface.OnClickListener() {
+                toDialog(getContext(), "提示：", "是否取消收藏", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ViseHttp.POST(NetConfig.focusOnToFriendTogetherUrl)

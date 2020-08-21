@@ -834,7 +834,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="33px"
                         android:id="@+id/iv12"
-                        android:src="@mipmap/wode_video"
+                        android:src="@mipmap/wode_shoucang"
                         android:layout_width="48px"
                         android:layout_height="48px" />
 

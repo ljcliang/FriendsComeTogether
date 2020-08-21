@@ -306,7 +306,44 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
         public void chatgo(){//去聊天
             quLiaoTian();
         }
+        @JavascriptInterface
+        public void  goodsfav(){
+            shouCangShangPin();
+        }
     }
+
+    private void shouCangShangPin() {
+        if (TextUtils.isEmpty(spImp.getUID()) || spImp.getUID().equals("0")) {
+            Intent intent = new Intent();
+            intent.setClass(ShopGoodsDetailsWebLocalActivity.this, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            ViseHttp.POST(NetConfig.collectGoods)
+                    .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.collectGoods))
+                    .addParam("goodsID",goodId)
+                    .addParam("uid",spImp.getUID())
+                    .request(new ACallback<String>() {
+                        @Override
+                        public void onSuccess(String data) {
+                            Log.d("ssssdddd",data);
+                            try {
+                                JSONObject jsonObject = new JSONObject(data);
+                                if (jsonObject.getInt("code") == 200){
+                                    toToast(ShopGoodsDetailsWebLocalActivity.this,jsonObject.getString("message"));
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onFail(int errCode, String errMsg) {
+
+                        }
+                    });
+        }
+    }
+
     private void quLiaoTian(){
         String uid = spImp.getUID();
         if (TextUtils.isEmpty(uid) || uid.equals("0")) {

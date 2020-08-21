@@ -49,6 +49,7 @@ import com.yiwo.friendscometogether.utils.ShareUtils;
 import com.yiwo.friendscometogether.wangyiyunshipin.wangyiyunlive.EnterLiveActivity;
 import com.yiwo.friendscometogether.webpages.DuiZhangShangPuWebActivity;
 import com.yiwo.friendscometogether.webpages.GuanLiGoodsWebActivity;
+import com.yiwo.friendscometogether.webpages.LiWuMingXiWebActivity;
 import com.yiwo.friendscometogether.webpages.RenWuWebActivity;
 import com.yiwo.friendscometogether.webpages.ShouRuMingXiWebActivity;
 import com.yiwo.friendscometogether.widget.CustomDatePicker;
@@ -232,7 +233,7 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                 });
     }
 
-    @OnClick({R.id.rl_btn_bangding,R.id.rl_btn_startlive,R.id.rl_btn_setlive,R.id.rl_btn_xuanzehuodong,R.id.rl_back,R.id.ll_wodeshangpu,R.id.ll_shourumingxi,
+    @OnClick({R.id.rl_btn_bangding,R.id.rl_btn_startlive,R.id.rl_btn_setlive,R.id.rl_btn_xuanzehuodong,R.id.rl_back,R.id.ll_wodeshangpu,R.id.ll_tuanlv_xingcheng,R.id.ll_shourumingxi,R.id.rl_liwu_mingxi,
             R.id.iv_message_xuanzehuodong,R.id.iv_game_tishi1,R.id.iv_game_tishi2,R.id.iv_game_tishi3,R.id.iv_game_tishi4,R.id.iv_game_tishi5,R.id.iv_zhanghu_tishi1,
             R.id.rl_btn_game_start1,R.id.rl_btn_game_start2,R.id.rl_btn_game_start3,R.id.rl_btn_game_start4,R.id.rl_btn_game_start5,
             R.id.tv_shop_name,R.id.tv_jindu,R.id.rl_btn_bangding_shanghu})
@@ -250,6 +251,9 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                     GuanLiGoodsWebActivity.start(DuiZhangZhuanShuActivity.this,NetConfig.GuanLiGoodsUrl+spImp.getUID());
                 }
                 break;
+            case R.id.ll_tuanlv_xingcheng:
+
+                break;
             case R.id.ll_shourumingxi:
                 if (!spImp.getIfSign().equals("1")) {
                     RenZheng0_BeginActivity.openActivity(DuiZhangZhuanShuActivity.this);
@@ -261,6 +265,9 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                 break;
             case R.id.rl_btn_bangding:
                 mShareAPI.getPlatformInfo(DuiZhangZhuanShuActivity.this, SHARE_MEDIA.WEIXIN, umAuthListener);//绑定微信
+                break;
+            case R.id.rl_liwu_mingxi:
+                LiWuMingXiWebActivity.open(DuiZhangZhuanShuActivity.this);
                 break;
             case R.id.rl_btn_setlive:
                 customDatePicker.show(now);

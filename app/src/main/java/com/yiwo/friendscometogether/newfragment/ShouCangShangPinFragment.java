@@ -23,8 +23,10 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.newadapter.ShouCangShangPinAdapter;
 import com.yiwo.friendscometogether.newadapter.WoGuanZhuDeHuoDongAdapter;
 import com.yiwo.friendscometogether.newmodel.GuanZhuHuoDongModel;
+import com.yiwo.friendscometogether.newmodel.ShouCangShangPinModel;
 import com.yiwo.friendscometogether.sp.SpImp;
 
 import org.json.JSONException;
@@ -46,12 +48,11 @@ public class ShouCangShangPinFragment extends BaseFragment {
     RecyclerView rv2;
     @BindView(R.id.refresh_layout)
     RefreshLayout refreshLayout;
-    private List<GuanZhuHuoDongModel.ObjBean> mGuanZhuHuoDongList = new ArrayList<>();
-    private WoGuanZhuDeHuoDongAdapter guanZhuDeHuoDongAdapter;
+    private List<ShouCangShangPinModel.ObjBean> shouCangShangPin = new ArrayList<>();
+    private ShouCangShangPinAdapter shouCangShangPinAdapter;
 
     private SpImp spImp;
-    private String uid = "";
-
+    private int page = 2;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -79,32 +80,59 @@ public class ShouCangShangPinFragment extends BaseFragment {
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                ViseHttp.POST(NetConfig.myCollectGoods)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.myCollectGoods))
+                        .addParam("uid", spImp.getUID())
+                        .addParam("page",page+"")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                Log.d("ljc_",data);
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if(jsonObject.getInt("code") == 200){
+                                        page++;
+                                        Gson gson = new Gson();
+                                        ShouCangShangPinModel model = gson.fromJson(data, ShouCangShangPinModel.class);
+                                        shouCangShangPin.addAll(model.getObj());
+                                        shouCangShangPinAdapter.notifyDataSetChanged();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
                 refreshLayout.finishLoadMore(1000);
             }
         });
     }
 
     private void initRv() {
-        guanZhuDeHuoDongAdapter = new WoGuanZhuDeHuoDongAdapter(mGuanZhuHuoDongList);
-        guanZhuDeHuoDongAdapter.setCancelGuanZHuLis(new WoGuanZhuDeHuoDongAdapter.CancelGuanZhuListion() {
+        shouCangShangPinAdapter = new ShouCangShangPinAdapter(shouCangShangPin);
+        shouCangShangPinAdapter.setListener(new ShouCangShangPinAdapter.OnCancelListener() {
             @Override
-            public void cancleGuanzhu(final int posion) {
-                toDialog(getContext(), "提示：", "是否取消关注", new DialogInterface.OnClickListener() {
+            public void onCancel(int i) {
+
+                toDialog(getContext(), "提示：", "是否取消收藏", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ViseHttp.POST(NetConfig.focusOnToFriendTogetherUrl)
-                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.focusOnToFriendTogetherUrl))
-                                .addParam("userID", spImp.getUID())
-                                .addParam("pfID", mGuanZhuHuoDongList.get(posion).getPfID())
+                        ViseHttp.POST(NetConfig.collectGoods)
+                                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.collectGoods))
+                                .addParam("uid", spImp.getUID())
+                                .addParam("goodsID", shouCangShangPin.get(i).getGoodsID())
                                 .request(new ACallback<String>() {
                                     @Override
                                     public void onSuccess(String data) {
                                         try {
                                             JSONObject jsonObject = new JSONObject(data);
                                             if(jsonObject.getInt("code") == 200){
-                                                toToast(getContext(),"取消关注成功");
-                                                mGuanZhuHuoDongList.remove(posion);
-                                                guanZhuDeHuoDongAdapter.notifyDataSetChanged();
+                                                toToast(getContext(),jsonObject.getString("message"));
+                                                shouCangShangPin.remove(i);
+                                                shouCangShangPinAdapter.notifyDataSetChanged();
                                             }
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -126,15 +154,13 @@ public class ShouCangShangPinFragment extends BaseFragment {
         });
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         rv2.setLayoutManager(manager);
-        rv2.setAdapter(guanZhuDeHuoDongAdapter);
+        rv2.setAdapter(shouCangShangPinAdapter);
     }
 
     private void initData() {
 
-        uid = spImp.getUID();
-
-        ViseHttp.POST(NetConfig.MyFocusActiveUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.MyFocusActiveUrl))
+        ViseHttp.POST(NetConfig.myCollectGoods)
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.myCollectGoods))
                 .addParam("uid", spImp.getUID())
                 .request(new ACallback<String>() {
                     @Override
@@ -143,11 +169,12 @@ public class ShouCangShangPinFragment extends BaseFragment {
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.getInt("code") == 200){
+                                page = 2;
                                 Gson gson = new Gson();
-                                GuanZhuHuoDongModel model = gson.fromJson(data, GuanZhuHuoDongModel.class);
-                                mGuanZhuHuoDongList.clear();
-                                mGuanZhuHuoDongList.addAll(model.getObj());
-                                guanZhuDeHuoDongAdapter.notifyDataSetChanged();
+                                ShouCangShangPinModel model = gson.fromJson(data, ShouCangShangPinModel.class);
+                                shouCangShangPin.clear();
+                                shouCangShangPin.addAll(model.getObj());
+                                shouCangShangPinAdapter.notifyDataSetChanged();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

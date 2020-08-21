@@ -57,6 +57,7 @@ public class MyVideosModel {
          * gname : 麻将
          * praise_num : 0
          * comment_num : 0
+         * gl_type ：1
          */
 
         private String vID;
@@ -70,6 +71,7 @@ public class MyVideosModel {
         private String gname;
         private String praise_num;
         private String comment_num;
+        private String gl_type;
 
         public String getVID() {
             return vID;
@@ -157,6 +159,14 @@ public class MyVideosModel {
 
         public void setComment_num(String comment_num) {
             this.comment_num = comment_num;
+        }
+
+        public String getGl_type() {
+            return gl_type;
+        }
+
+        public void setGl_type(String gl_type) {
+            this.gl_type = gl_type;
         }
     }
 }

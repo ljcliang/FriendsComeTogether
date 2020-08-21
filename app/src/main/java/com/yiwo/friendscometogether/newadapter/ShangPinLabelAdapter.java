@@ -41,7 +41,7 @@ public class ShangPinLabelAdapter extends RecyclerView.Adapter<ShangPinLabelAdap
         holder.tv.setText(data.get(position).getName());
         if (data.get(position).isChecked()){
             holder.rl.setBackgroundResource(R.drawable.bg_shangpin_label_choosed);
-            holder.tv.setTextColor(R.color.colorPrimary);
+            holder.tv.setTextColor(R.color.red_d84c37);
         }else {
             holder.rl.setBackgroundResource(R.drawable.bg_shangpin_label);
             holder.tv.setTextColor(R.color.black_101010);

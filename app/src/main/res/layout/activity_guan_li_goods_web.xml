@@ -20,11 +20,11 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:background="@drawable/bg_white_18dp"
             android:layout_centerInParent="true"
-            android:layout_toLeftOf="@+id/rl_fabu"
+            android:layout_toLeftOf="@+id/rl_share"
             android:layout_toRightOf="@+id/rl_return"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -64,12 +64,26 @@
             </LinearLayout>
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/rl_share"
+            android:layout_toLeftOf="@+id/rl_fabu"
+            android:layout_width="40dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@mipmap/shop_share"
+                android:layout_centerInParent="true"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_alignParentRight="true"
             android:id="@+id/rl_fabu"
-            style="@style/TopBarStyle_RlRight_dp">
-            <TextView
-                style="@style/TopBarStyle_TVRight_dp"
-                android:text="添加"
-                />
+            android:layout_width="40dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@mipmap/shop_good_add"
+                android:layout_centerInParent="true"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
         </RelativeLayout>
     </RelativeLayout>
     <WebView

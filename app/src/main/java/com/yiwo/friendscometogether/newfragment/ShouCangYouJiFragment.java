@@ -38,7 +38,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2018/12/18.
  */
 
-public class MyCollectionFragment extends BaseFragment {
+public class ShouCangYouJiFragment extends BaseFragment {
 
     @BindView(R.id.rv2)
     RecyclerView rv2;

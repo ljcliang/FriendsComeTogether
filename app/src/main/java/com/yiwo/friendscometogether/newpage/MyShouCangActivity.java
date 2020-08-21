@@ -12,7 +12,7 @@ import android.view.View;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.newadapter.AllRememberViewpagerAdapter;
-import com.yiwo.friendscometogether.newfragment.MyCollectionFragment;
+import com.yiwo.friendscometogether.newfragment.ShouCangYouJiFragment;
 import com.yiwo.friendscometogether.newfragment.ShouCangHuoDongFragment;
 import com.yiwo.friendscometogether.newfragment.ShouCangShangPinFragment;
 
@@ -72,14 +72,14 @@ public class MyShouCangActivity extends BaseActivity {
         fragmentList = new ArrayList<>();
         fragmentList.add(new ShouCangShangPinFragment());
         fragmentList.add(new ShouCangHuoDongFragment());
-        fragmentList.add(new MyCollectionFragment());
+        fragmentList.add(new ShouCangYouJiFragment());
         mViewPagerFragmentAdapter = new AllRememberViewpagerAdapter(mFragmentManager, fragmentList);
         mViewPager.setAdapter(mViewPagerFragmentAdapter);
 
         mTitleDataList = new ArrayList<>();
-        mTitleDataList.add(" 商品收藏 ");
-        mTitleDataList.add(" 活动收藏 ");
-        mTitleDataList.add(" 友记收藏 ");
+        mTitleDataList.add("  商 品  ");
+        mTitleDataList.add("  活 动  ");
+        mTitleDataList.add("  友 记  ");
 
         CommonNavigator commonNavigator = new CommonNavigator(this);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
@@ -110,7 +110,7 @@ public class MyShouCangActivity extends BaseActivity {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
                 indicator.setColors(Color.parseColor("#d84c37"));
                 indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
-                indicator.setLineWidth(100);
+                indicator.setLineWidth(60);
                 indicator.setRoundRadius(5);
                 return indicator;
             }

@@ -369,8 +369,9 @@ public class MyFragment extends BaseFragment {
                 break;
             case R.id.rl_my_shop_order:
                 if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
-                    intent.setClass(getContext(), ShopOrdersActivity.class);
-                    startActivity(intent);
+                    toToast(getContext(),"商品订单");
+//                    intent.setClass(getContext(), ShopOrdersActivity.class);
+//                    startActivity(intent);
                 } else {
                     intent.setClass(getContext(), LoginActivity.class);
                     startActivity(intent);

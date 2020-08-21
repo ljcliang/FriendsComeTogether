@@ -31,6 +31,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.DuiZhangShowDialog;
+import com.yiwo.friendscometogether.custom.DuiZhangShowLVAllDialog;
 import com.yiwo.friendscometogether.custom.DuiZhangShowLVDialog;
 import com.yiwo.friendscometogether.custom.FriendDescribeDialog;
 import com.yiwo.friendscometogether.custom.HuoZanDialog;
@@ -1162,7 +1163,7 @@ public class PersonMainActivity1 extends BaseActivity {
                 break;
 
             case R.id.rl_level:
-//                showDialogLvIcon();
+                showDialogLvIcon();
                 break;
         }
 
@@ -1233,52 +1234,12 @@ public class PersonMainActivity1 extends BaseActivity {
     }
 
     private void showDialogLvIcon() {
-//        int icon;
-//        String title;
-//        String message;
-//        if (model.getObj().getInfo().getCaptain().equals("1")){
-//            icon = R.mipmap.lv_icon_duizhang_daidui;
-//            title = "瞳伴队长";
-//            message = "全程陪同的主持人，带领团员观景、游戏、安排食宿。";
-//        }else if (model.getObj().getInfo().getCaptain().equals("2")){
-//            title = "代理队长";
-//            icon = R.mipmap.lv_icon_duizhang_daili;
-//            message = "瞳伴App运营人员，帮助引导线下客户参加瞳伴活动。";
-//        }else {
-//            return;
-//        }
-//        AlertDialog.Builder builder = new AlertDialog.Builder(PersonMainActivity1.this);
-//        builder.setIcon(icon)
-//                .setTitle(title)
-//                .setMessage(message)
-//                .setNegativeButton("确定", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.dismiss();
-//                    }
-//                })
-//                .show();
-        String info = "";
         if (model.getObj().getInfo().getCaptain().equals("1")){
-//            message = "全程陪同的主持人，带领团员观景、游戏、安排食宿。";
-            info = "瞳伴队长（导游 | 领队 | 带队主持）\n关注我，和我一起出发吧！";
-        }else if (model.getObj().getInfo().getCaptain().equals("2")){
-//            message = "瞳伴App运营人员，帮助引导线下客户参加瞳伴活动。";
-            info = "瞳伴App运营人员，\n帮助引导线下客户参加瞳伴活动。";
+            DuiZhangShowLVAllDialog dialog = new DuiZhangShowLVAllDialog(this);
+            dialog.show();
         }else {
             return;
         }
-        DuiZhangShowDialog duiZhangShowDialog = new DuiZhangShowDialog(PersonMainActivity1.this,
-                info, model.getObj().getInfo().getUserpic(), new DuiZhangShowDialog.OnGuanzhuListenner() {
-            @Override
-            public void guanZhuListen(Dialog dialog) {
-                if (isFollow != 1){
-                    guanzhu();
-                    dialog.dismiss();
-                }
-            }
-        },isFollow == 1);
-        duiZhangShowDialog.show();
     }
 
     private void liaotian(String liaotianAccount) {
