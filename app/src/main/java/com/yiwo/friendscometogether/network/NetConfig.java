@@ -599,4 +599,8 @@ public static String homePageSkipGoods = "action/ac_newHome/homePageSkipGoods";
      *          price 价格    userID商家id
      */
     public static String myCollectGoods = "action/ac_goods/myCollectGoods";
+    //    action/ac_goods/getSendSet   获取配送设置信息    传uid用户id
+    public static String getSendSet =  "action/ac_goods/getSendSet";
+    //action/ac_goods/      sendSet     配送设置           传uid 用户id   money配送费   noMoney满多少钱  zt  0可自提  1不可自提      ps0可配送 1不可配送
+    public static String sendSet = "action/ac_goods/sendSet";
 }

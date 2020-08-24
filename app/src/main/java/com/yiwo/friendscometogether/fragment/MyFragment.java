@@ -1,6 +1,5 @@
 package com.yiwo.friendscometogether.fragment;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,13 +16,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
-import com.squareup.picasso.Picasso;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseFragment;
-import com.yiwo.friendscometogether.custom.DuiZhangShowDialog;
 import com.yiwo.friendscometogether.custom.DuiZhangShowLVDialog;
 import com.yiwo.friendscometogether.imagepreview.StatusBarUtils;
 import com.yiwo.friendscometogether.model.UserModel;
@@ -38,8 +35,8 @@ import com.yiwo.friendscometogether.newpage.MyContactActivity;
 import com.yiwo.friendscometogether.newpage.MyGameCardActivity;
 import com.yiwo.friendscometogether.newpage.MyShouCangActivity;
 import com.yiwo.friendscometogether.newpage.MyVideosActivity;
+import com.yiwo.friendscometogether.newpage.PeiSongSettingActivity;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
-import com.yiwo.friendscometogether.newpage.RenWuActivity;
 import com.yiwo.friendscometogether.newpage.ShopOrdersActivity;
 import com.yiwo.friendscometogether.newpage.SuperLikeActivity;
 import com.yiwo.friendscometogether.newpage.renzheng.RenZheng0_BeginActivity;
@@ -270,8 +267,8 @@ public class MyFragment extends BaseFragment {
     }
 
     @OnClick({R.id.ll_order_all,R.id.ll_order_title, R.id.ll_to_pay, R.id.ll_to_trip, R.id.ll_to_comment, R.id.ll_return_money,R.id.ll_xiaoshou_order_title,R.id.ll_xiaoshou_daichuli,R.id.ll_xiaoshou_yichuli,R.id.ll_xiaoshou_yiwancheng,R.id.ll_xiaoshou_tuikuan,
-            R.id.rl_my_picture,R.id.rl_my_video,R.id.rl_my_shoucang, R.id.rl_my_friend,R.id.rl_my_shop_order,R.id.rl_my_xingcheng_order,
-    R.id.rl_my_comment, R.id.rl_history, R.id.rl_person_set, R.id.ll_remember,R.id.ll_guanzhu, R.id.ll_huodong, R.id.ll_message,R.id.ll_person_page,R.id.iv_level,
+            R.id.rl_my_picture,R.id.rl_my_video,R.id.rl_my_shoucang, R.id.rl_my_friend,R.id.rl_my_shop_order,R.id.rl_my_xingcheng_order,R.id.ll_peisong_shezhi,
+            R.id.rl_my_comment, R.id.rl_history, R.id.rl_person_set, R.id.ll_remember,R.id.ll_guanzhu, R.id.ll_huodong, R.id.ll_message,R.id.ll_person_page,R.id.iv_level,
             R.id.iv_avatar,R.id.rl_person_page,R.id.iv_find_super_like,R.id.iv_renwu,R.id.rl_duizhang_set,R.id.rl_duizhang_shop,R.id.rl_duizhang_order,R.id.rl_game_group,R.id.rl_pay_rank,R.id.rl_video_upload_list})
     public void onClick(View view){
         Intent intent = new Intent();
@@ -386,6 +383,9 @@ public class MyFragment extends BaseFragment {
                     intent.setClass(getContext(), LoginActivity.class);
                     startActivity(intent);
                 }
+                break;
+            case R.id.ll_peisong_shezhi:
+                PeiSongSettingActivity.open(getContext());
                 break;
             case R.id.rl_my_friend:
                 if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {

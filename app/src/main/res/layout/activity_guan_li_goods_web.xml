@@ -24,7 +24,7 @@
             android:layout_marginLeft="10dp"
             android:background="@drawable/bg_white_18dp"
             android:layout_centerInParent="true"
-            android:layout_toLeftOf="@+id/rl_share"
+            android:layout_toLeftOf="@+id/rl_show_more"
             android:layout_toRightOf="@+id/rl_return"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -64,6 +64,7 @@
             </LinearLayout>
         </RelativeLayout>
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/rl_share"
             android:layout_toLeftOf="@+id/rl_fabu"
             android:layout_width="40dp"
@@ -75,12 +76,24 @@
                 android:layout_height="20dp"/>
         </RelativeLayout>
         <RelativeLayout
+            android:visibility="gone"
             android:layout_alignParentRight="true"
             android:id="@+id/rl_fabu"
             android:layout_width="40dp"
             android:layout_height="match_parent">
             <ImageView
                 android:src="@mipmap/shop_good_add"
+                android:layout_centerInParent="true"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_alignParentRight="true"
+            android:id="@+id/rl_show_more"
+            android:layout_width="40dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@mipmap/gengduo_red"
                 android:layout_centerInParent="true"
                 android:layout_width="20dp"
                 android:layout_height="20dp"/>

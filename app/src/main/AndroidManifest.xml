@@ -315,7 +315,8 @@
         <activity android:name=".newpage.renzheng.RenZheng0_BeginActivity" />
         <activity android:name=".newpage.renzheng.RenZheng1_EditInfoActivity" />
         <activity android:name=".newpage.EditVideoTitleActivity" />
-
+        <activity android:name=".newpage.PeiSongSettingActivity" />
+        <activity android:name=".newpage.TiXianShuoMingActivity" />
         <meta-data
             android:name="designwidth"
             android:value="750" />

@@ -23,6 +23,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.newadapter.ShouCangShangPin2Adapter;
 import com.yiwo.friendscometogether.newadapter.ShouCangShangPinAdapter;
 import com.yiwo.friendscometogether.newadapter.WoGuanZhuDeHuoDongAdapter;
 import com.yiwo.friendscometogether.newmodel.GuanZhuHuoDongModel;
@@ -49,7 +50,7 @@ public class ShouCangShangPinFragment extends BaseFragment {
     @BindView(R.id.refresh_layout)
     RefreshLayout refreshLayout;
     private List<ShouCangShangPinModel.ObjBean> shouCangShangPin = new ArrayList<>();
-    private ShouCangShangPinAdapter shouCangShangPinAdapter;
+    private ShouCangShangPin2Adapter shouCangShangPinAdapter;
 
     private SpImp spImp;
     private int page = 2;
@@ -112,18 +113,17 @@ public class ShouCangShangPinFragment extends BaseFragment {
     }
 
     private void initRv() {
-        shouCangShangPinAdapter = new ShouCangShangPinAdapter(shouCangShangPin);
-        shouCangShangPinAdapter.setListener(new ShouCangShangPinAdapter.OnCancelListener() {
+        shouCangShangPinAdapter = new ShouCangShangPin2Adapter(shouCangShangPin);
+        shouCangShangPinAdapter.setCancelGuanZHuLis(new ShouCangShangPin2Adapter.CancelGuanZhuListion() {
             @Override
-            public void onCancel(int i) {
-
+            public void cancleGuanzhu(int posion) {
                 toDialog(getContext(), "提示：", "是否取消收藏", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ViseHttp.POST(NetConfig.collectGoods)
                                 .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.collectGoods))
                                 .addParam("uid", spImp.getUID())
-                                .addParam("goodsID", shouCangShangPin.get(i).getGoodsID())
+                                .addParam("goodsID", shouCangShangPin.get(posion).getGoodsID())
                                 .request(new ACallback<String>() {
                                     @Override
                                     public void onSuccess(String data) {
@@ -131,7 +131,7 @@ public class ShouCangShangPinFragment extends BaseFragment {
                                             JSONObject jsonObject = new JSONObject(data);
                                             if(jsonObject.getInt("code") == 200){
                                                 toToast(getContext(),jsonObject.getString("message"));
-                                                shouCangShangPin.remove(i);
+                                                shouCangShangPin.remove(posion);
                                                 shouCangShangPinAdapter.notifyDataSetChanged();
                                             }
                                         } catch (JSONException e) {

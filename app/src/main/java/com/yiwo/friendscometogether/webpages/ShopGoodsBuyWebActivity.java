@@ -64,6 +64,7 @@ public class ShopGoodsBuyWebActivity extends BaseSonicWebActivity {
          */
         @JavascriptInterface
         public void gopaygoods(String getAddress,String getPerson,String getTel,String goodsID,String specID,String uid,String num,String beizhu,String payType){
+            Log.d("22222",getAddress);
             ViseHttp.POST(NetConfig.insertGoodsOrder)
                     .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.insertGoodsOrder))
                     .addParam("getAddress", getAddress)

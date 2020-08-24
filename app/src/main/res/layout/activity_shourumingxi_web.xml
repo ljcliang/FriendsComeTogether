@@ -7,19 +7,26 @@
     android:orientation="vertical"
     tools:context="com.yiwo.friendscometogether.webpages.YouHuiQuanWebActivity">
     <RelativeLayout
-        style="@style/rl_top_bar">
+        style="@style/rl_top_bar_dp">
 
         <TextView
-            style="@style/tv_top_title"
+            style="@style/tv_top_title_dp"
             android:text="收入明细" />
 
         <RelativeLayout
             android:id="@+id/rl_back"
-            android:layout_width="100px"
-            android:layout_height="match_parent">
+            style="@style/rl_return_dp">
 
-            <ImageView style="@style/iv_return" />
+            <ImageView style="@style/iv_return_dp" />
 
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_alignParentRight="true"
+            android:id="@+id/rl_tixian"
+            style="@style/TopBarStyle_RlRight_dp">
+            <TextView
+                android:text="提现"
+                style="@style/TopBarStyle_TVRight_dp"/>
         </RelativeLayout>
     </RelativeLayout>
     <WebView

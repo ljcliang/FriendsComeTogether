@@ -41,7 +41,7 @@ public class FragmentShopAllOrderAdapter extends RecyclerView.Adapter<FragmentSh
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_all_order, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_shop_all_order, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
