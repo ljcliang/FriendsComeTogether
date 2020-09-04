@@ -19,7 +19,7 @@
 
             <RelativeLayout
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="20px"
+                android:layout_marginBottom="5px"
                 android:layout_marginTop="10px"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -103,7 +103,6 @@
                                         android:layout_centerInParent="true"
                                         android:textColor="@color/black_333333"
                                         android:textSize="58px"
-                                        android:textStyle="bold"
                                         android:text="推荐"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content" />
@@ -120,7 +119,6 @@
                                     <TextView
                                         android:id="@+id/tv_rl2"
                                         android:layout_centerInParent="true"
-                                        android:textStyle="bold"
                                         android:textColor="#999999"
                                         android:textSize="50px"
                                         android:text="关注"
@@ -135,7 +133,6 @@
                                     android:layout_height="match_parent">
 
                                     <TextView
-                                        android:textStyle="bold"
                                         android:textColor="#999999"
                                         android:id="@+id/tv_rl3"
                                         android:layout_centerInParent="true"

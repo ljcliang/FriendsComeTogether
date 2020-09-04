@@ -5,6 +5,6 @@ package com.yiwo.friendscometogether.network;
  */
 
 public class UMConfig {
-    public static String WECHAT_APPSECRET = "9d93a565d8231a85a41cb5a0b8e5c125";
+    public static String WECHAT_APPSECRET = "154188968cbbea63fd90fd3e7c64963e";
     public static String WECHAT_APPID = "wx77762a8eab365cf1";
 }

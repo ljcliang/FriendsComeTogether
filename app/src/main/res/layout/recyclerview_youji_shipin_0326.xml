@@ -272,6 +272,12 @@
                         android:text="巴厘岛七日休闲旅"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_marginLeft="5dp"
+                        android:src="@mipmap/go_round"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_marginTop="3dp"
@@ -406,12 +412,13 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:gravity="center_vertical"
                     android:layout_gravity="center_vertical"
                     android:id="@+id/tv_pinglun_name1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="middle"
-                    android:maxLength="5"
+                    android:maxLength="6"
                     android:singleLine="true"
                     android:text="塞北的雪："
                     android:textColor="@color/black_101010"
@@ -437,22 +444,24 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:gravity="center_vertical"
                     android:layout_gravity="center_vertical"
                     android:id="@+id/tv_pinglun_name2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="middle"
-                    android:maxLength="5"
+                    android:maxLength="6"
                     android:singleLine="true"
-                    android:text="雪山飞狐："
+                    android:text="雪山哈哈飞狐："
                     android:textColor="@color/black_101010"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
+
                     android:layout_gravity="center_vertical"
                     android:id="@+id/tv_pinglun_comment2"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLength="85"

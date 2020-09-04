@@ -1,5 +1,6 @@
 package com.yiwo.friendscometogether.webpages;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,12 +16,28 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
+import com.google.gson.Gson;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.shareboard.SnsPlatform;
+import com.umeng.socialize.utils.ShareBoardlistener;
+import com.vise.xsnow.http.ViseHttp;
+import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseSonicWebActivity;
+import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
+import com.yiwo.friendscometogether.model.ActiveShareModel;
+import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.newmodel.GoodShareModel;
 import com.yiwo.friendscometogether.newpage.FaBu_XiuGaiShangPinActivity;
 import com.yiwo.friendscometogether.newpage.JuBaoActivity;
 import com.yiwo.friendscometogether.newpage.PeiSongSettingActivity;
+import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.utils.ShareUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,6 +58,9 @@ public class GuanLiGoodsWebActivity extends BaseSonicWebActivity {
     private String url;
     @BindView(R.id.rl_show_more)
     RelativeLayout rl_show_more;
+
+    Dialog dialog;
+    private SpImp spImp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +68,7 @@ public class GuanLiGoodsWebActivity extends BaseSonicWebActivity {
         ButterKnife.bind(this);
         url = getIntent().getStringExtra("url");
         initIntentSonic(url, webView);
+        spImp = new SpImp(this);
         webView.addJavascriptInterface(new AndroidInterface(), "android");
     }
 
@@ -92,6 +113,10 @@ public class GuanLiGoodsWebActivity extends BaseSonicWebActivity {
             intent.putExtra(FaBu_XiuGaiShangPinActivity.GID, gid);
             startActivity(intent);
         }
+        @JavascriptInterface
+        public void goodsweb(String gid){
+            ShopGoodsDetailsWebLocalActivity.open(GuanLiGoodsWebActivity.this,gid);
+        }
     }
     private void showMore(final View view_p) {
 
@@ -112,6 +137,7 @@ public class GuanLiGoodsWebActivity extends BaseSonicWebActivity {
         ll_share_shop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                share();
                 popupWindow.dismiss();
             }
         });
@@ -153,7 +179,48 @@ public class GuanLiGoodsWebActivity extends BaseSonicWebActivity {
 
     }
 
+    /**
+     *
+     */
+//    new ShareAction(DetailsOfFriendTogetherWebLocalActivity.this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+//                                        .setShareboardclickCallback(new ShareBoardlistener() {
+//        @Override
+//        public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+//            ShareUtils.shareWeb(DetailsOfFriendTogetherWebLocalActivity.this, shareModel.getObj().getUrl()+"&uid="+spImp.getUID(), shareModel.getObj().getTitle(),
+//                    shareModel.getObj().getDesc(), shareModel.getObj().getImages(), share_media);
+//        }
+//    }).open();
     private void share() {
+//        dialog = WeiboDialogUtils.createLoadingDialog(this,"加载中...");
+        ViseHttp.POST(NetConfig.shareMyShop)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.shareMyShop))
+                .addParam("uid", spImp.getUID())
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200) {
+                                Gson gson = new Gson();
+                                final GoodShareModel shareModel = gson.fromJson(data, GoodShareModel.class);
+                                new ShareAction(GuanLiGoodsWebActivity.this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+                                        .setShareboardclickCallback(new ShareBoardlistener() {
+                                            @Override
+                                            public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                                                ShareUtils.shareWeb(GuanLiGoodsWebActivity.this, shareModel.getObj().getShareUrl(), shareModel.getObj().getUsername(),
+                                                        shareModel.getObj().getUserautograph(), shareModel.getObj().getUserpic(), share_media);
+                                            }
+                                        }).open();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
     }
 }

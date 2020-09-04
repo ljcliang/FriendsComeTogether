@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="75px">
             <ImageView
-                android:src="@mipmap/show_more_add_friend"
+                android:src="@mipmap/jaihaoyou"
                 android:layout_gravity="center_vertical"
                 android:layout_width="45px"
                 android:layout_height="45px" />
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="75px">
             <ImageView
-                android:src="@mipmap/show_more_black_persons"
+                android:src="@mipmap/heimingdan"
                 android:layout_gravity="center_vertical"
                 android:layout_width="45px"
                 android:layout_height="45px" />

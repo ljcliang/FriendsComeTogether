@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.custom.TitleMessageOkDialog;
 import com.yiwo.friendscometogether.newmodel.ShangPinUpLoadModel;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.utils.CashierInputFilter;
 
 import java.util.List;
 
@@ -58,6 +60,13 @@ public class FaBuShangPinJiaGeAdapter extends RecyclerView.Adapter<FaBuShangPinJ
                 listenner.deleteItem(position);
             }
         });
+        InputFilter[] filters = {new CashierInputFilter()};
+        holder.edt_jiage.setFilters(filters);
+        holder.edt_yuan_jiage.setFilters(filters);
+        holder.edt_guige.setTag(position);
+        holder.edt_jiage.setTag(position);
+        holder.edt_yuan_jiage.setTag(position);
+        holder.edt_kucun.setTag(position);
         holder.edt_jiage.setText(data.get(position).getNowPrice());
         holder.edt_yuan_jiage.setText(data.get(position).getOldPrice());
         holder.edt_guige.setText(data.get(position).getSpec());
@@ -80,6 +89,7 @@ public class FaBuShangPinJiaGeAdapter extends RecyclerView.Adapter<FaBuShangPinJ
                 titleMessageOkDialog1.show();
             }
         });
+
         holder.edt_guige.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -93,7 +103,9 @@ public class FaBuShangPinJiaGeAdapter extends RecyclerView.Adapter<FaBuShangPinJ
 
             @Override
             public void afterTextChanged(Editable s) {
-                data.get(position).setSpec(s.toString());
+                if ((int)holder.edt_guige.getTag() == position) {///设置tag解决错乱问题
+                    data.get(position).setSpec(s.toString());
+                }
             }
         });
         holder.edt_guige.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -122,7 +134,9 @@ public class FaBuShangPinJiaGeAdapter extends RecyclerView.Adapter<FaBuShangPinJ
 
             @Override
             public void afterTextChanged(Editable s) {
-                data.get(position).setNowPrice(s.toString());
+                if ((int)holder.edt_guige.getTag() == position) {///设置tag解决错乱问题
+                    data.get(position).setNowPrice(s.toString());
+                }
             }
         });
         holder.edt_yuan_jiage.addTextChangedListener(new TextWatcher() {
@@ -138,7 +152,9 @@ public class FaBuShangPinJiaGeAdapter extends RecyclerView.Adapter<FaBuShangPinJ
 
             @Override
             public void afterTextChanged(Editable s) {
-                data.get(position).setOldPrice(s.toString());
+                if ((int)holder.edt_guige.getTag() == position) {///设置tag解决错乱问题
+                    data.get(position).setOldPrice(s.toString());
+                }
             }
         });
         holder.edt_kucun.addTextChangedListener(new TextWatcher() {
@@ -154,7 +170,9 @@ public class FaBuShangPinJiaGeAdapter extends RecyclerView.Adapter<FaBuShangPinJ
 
             @Override
             public void afterTextChanged(Editable s) {
-                data.get(position).setAllNum(s.toString());
+                if ((int)holder.edt_guige.getTag() == position) {///设置tag解决错乱问题
+                    data.get(position).setAllNum(s.toString());
+                }
             }
         });
     }

@@ -50,6 +50,7 @@ import com.yiwo.friendscometogether.pages.SetActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.wangyiyunshipin.VideoUpLoadListActivity;
 import com.yiwo.friendscometogether.webpages.GuanLiGoodsWebActivity;
+import com.yiwo.friendscometogether.webpages.MyGoodsOrdersActivity;
 import com.yiwo.friendscometogether.webpages.ShouRuMingXiWebActivity;
 
 import org.json.JSONException;
@@ -366,7 +367,7 @@ public class MyFragment extends BaseFragment {
                 break;
             case R.id.rl_my_shop_order:
                 if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
-                    toToast(getContext(),"商品订单");
+                    MyGoodsOrdersActivity.open(getContext());
 //                    intent.setClass(getContext(), ShopOrdersActivity.class);
 //                    startActivity(intent);
                 } else {

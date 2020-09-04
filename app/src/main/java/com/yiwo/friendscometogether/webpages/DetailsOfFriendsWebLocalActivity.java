@@ -261,6 +261,14 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
                             JSONObject jsonObject1 = new JSONObject(data);
                             if (jsonObject1.getInt("code") == 200) {
                                 toToast(DetailsOfFriendsWebLocalActivity.this,jsonObject1.getString("message"));
+                                JSONObject jsData = jsonObject1.getJSONObject("obj");
+                                if (jsData.getString("attention").equals("1")){
+                                    //更新关注人状态
+                                    updateWebStaus(guanzhuId,"1","1");
+                                }else {
+                                    //更新关注人状态
+                                    updateWebStaus(guanzhuId,"1","0");
+                                }
                                 saveNewWebInFo(fmID);
                             }
                         } catch (JSONException e) {
@@ -865,6 +873,23 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
                 }
             }).show();
         }
+    }
+    /**
+     *
+     * @param id id:被关注人的id（当type=4时为当前登录人的ID），
+     * @param type type:1友记2友聚3商品4友聚补填人员,
+     * @param staus staus:1已收藏0未收藏（当type=4时传啥都无所谓,
+     *                                    当id=0时为收藏/取消收藏友记、友聚、商品，
+     *                                       ≠0时为关注/取消关注此id的人）)
+     */
+    public void updateWebStaus(String id,String type,String staus){
+        //                    supplement(id:被关注人的id（当type=4时为当前登录人的ID），
+//                              type:1友记2友聚3商品4友聚补填人员,
+//                              staus1已收藏0未收藏（当type=4时传啥都无所谓,、
+//                                                   当id=0时为收藏/取消收藏友记、友聚、商品，
+//                                                      ≠0时为关注/取消关注此id的人）)
+
+        webView.loadUrl("javascript:supplement('"+id+"','"+type+"','"+ staus+"')");
     }
     // 保存图片到手机
     public void download(final String url) {

@@ -71,7 +71,7 @@ public class MyCommentActivity extends BaseActivity {
         mViewPager.setAdapter(mViewPagerFragmentAdapter);
 
         mTitleDataList = new ArrayList<>();
-        mTitleDataList.add("友记评论");
+        mTitleDataList.add("相关评论");
 //        mTitleDataList.add("活动评价");
 
         CommonNavigator commonNavigator = new CommonNavigator(this);

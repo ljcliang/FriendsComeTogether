@@ -3,8 +3,6 @@ package com.yiwo.friendscometogether.webpages;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.webkit.WebView;
 import android.widget.RelativeLayout;
 
@@ -17,33 +15,28 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LiWuMingXiWebActivity extends BaseSonicWebActivity {
+public class MyGoodsOrdersActivity extends BaseSonicWebActivity {
 
     @BindView(R.id.rl_back)
     RelativeLayout rlBack;
-    @BindView(R.id.wb)
-    WebView wb;
+    @BindView(R.id.webView)
+    WebView webView;
     private SpImp spImp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_li_wu_ming_xi);
-        spImp = new SpImp(this);
+        setContentView(R.layout.activity_my_goods_orders);
         ButterKnife.bind(this);
-        initIntentSonic(NetConfig.presentComeInInfo + spImp.getUID() ,wb);
+        spImp = new SpImp(this);
+        initIntentSonic(NetConfig.orderList + spImp.getUID(),webView);
     }
-
     public static void open(Context context){
         Intent intent = new Intent();
-        intent.setClass(context,LiWuMingXiWebActivity.class);
+        intent.setClass(context,MyGoodsOrdersActivity.class);
         context.startActivity(intent);
     }
     @OnClick(R.id.rl_back)
-    public void onViewClicked(View v) {
-        switch (v.getId()){
-            case R.id.rl_back:
-                onBackPressed();
-                break;
-        }
+    public void onViewClicked() {
+        finish();
     }
 }

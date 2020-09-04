@@ -43,6 +43,7 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseSonicWebActivity;
+import com.yiwo.friendscometogether.custom.EditNumContentDialog_L;
 import com.yiwo.friendscometogether.dbmodel.LookHistoryDbModel;
 import com.yiwo.friendscometogether.dbmodel.WebInfoOfDbUntils;
 import com.yiwo.friendscometogether.dbmodel.YouJiWebInfoDbModel;
@@ -202,6 +203,10 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
                                     });
                         }
                     }
+                    //判断是否为自己的发布的友聚，是否显示“补填参加人员”
+                    updateWebStaus(spImp.getUID(),"4","-1");
+//                    updateWebStaus("7","4","-1");
+//                    supplement(userID)
                 }else{
                     progresss_bar.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
                     progresss_bar.setProgress(newProgress);//设置进度值				}
@@ -213,6 +218,23 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
         initData();
     }
 
+    /**
+     *
+     * @param id id:被关注人的id（当type=4时为当前登录人的ID），
+     * @param type type:1友记2友聚3商品4友聚补填人员,
+     * @param staus staus:1已收藏0未收藏（当type=4时传啥都无所谓,
+     *                                    当id=0时为收藏/取消收藏友记、友聚、商品，
+     *                                       ≠0时为关注/取消关注此id的人）)
+     */
+    public void updateWebStaus(String id,String type,String staus){
+        //                    supplement(id:被关注人的id（当type=4时为当前登录人的ID），
+//                              type:1友记2友聚3商品4友聚补填人员,
+//                              staus1已收藏0未收藏（当type=4时传啥都无所谓,、
+//                                                   当id=0时为收藏/取消收藏友记、友聚、商品，
+//                                                      ≠0时为关注/取消关注此id的人）)
+
+        webView.loadUrl("javascript:supplement('"+id+"','"+type+"','"+ staus+"')");
+    }
     private void saveNewWebInFo() {
         ViseHttp.POST(NetConfig.articleInfo)
                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
@@ -445,10 +467,14 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
                                     if (model.getCode() == 200) {
                                         if (model.getObj().equals("1")) {
                                             focusOnIv.setImageResource(R.mipmap.heart_red);
-                                            toToast(DetailsOfFriendTogetherWebLocalActivity.this, "关注成功");
+                                            //更新收藏活动状态
+                                            updateWebStaus("0","2","1");
+                                            toToast(DetailsOfFriendTogetherWebLocalActivity.this, "收藏成功");
                                         } else {
                                             focusOnIv.setImageResource(R.mipmap.heart_red_border);
-                                            toToast(DetailsOfFriendTogetherWebLocalActivity.this, "取消成功");
+                                            //更新收藏活动状态
+                                            updateWebStaus("0","2","0");
+                                            toToast(DetailsOfFriendTogetherWebLocalActivity.this, "已取消收藏");
                                         }
                                     }
                                 }else if(jsonObject.getInt("code") == 400) {
@@ -585,6 +611,24 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
         public void getPhaeUser(String youJuId,String qiShuId){
             Log.d("asdasdas","youji:"+youJuId+";;;"+"qishu ::"+qiShuId);
             refreshCanJiaRenYuan(youJuId,qiShuId);
+        }
+
+        /**
+         *
+         * @param showstr showstr参数的信息（就是日期和周几），直接显示就
+         * @param hid 活动id  hid  期数id  qid
+         * @param qid 活动id  hid  期数id  qid
+         */
+        @JavascriptInterface
+        public void addjoinuser(String showstr,String hid,String qid){
+            EditNumContentDialog_L dialogL = new EditNumContentDialog_L(DetailsOfFriendTogetherWebLocalActivity.this,
+                    showstr, new EditNumContentDialog_L.OnReturnListener() {
+                @Override
+                public void onReturn(String content) {
+                    toToast(DetailsOfFriendTogetherWebLocalActivity.this,hid+"//"+qid);
+                }
+            });
+            dialogL.show();
         }
     }
 

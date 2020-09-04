@@ -45,8 +45,8 @@ public  class String2HtmlTextTools {
                 Drawable drawable = null;
                 int rId = Integer.parseInt(source);
                 drawable = context.getResources().getDrawable(rId);
-                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
-                        drawable.getIntrinsicHeight());
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth()*76/100,
+                        drawable.getIntrinsicHeight()*76/100);
                 return drawable;
             }
         };

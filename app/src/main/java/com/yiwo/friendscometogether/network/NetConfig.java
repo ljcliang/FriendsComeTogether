@@ -165,11 +165,11 @@ public class NetConfig {
     public static String editorFriendTogetherSubtitleContentUrl = "action/ac_activity/update_activity_info";
     //用户协议地址
 //    public static String userAgreementUrl = "http://47.92.136.19/index.php/action/ac_public/user_agreement";
-    public static String userAgreementUrl = "http://39.104.102.152/index.php/action/ac_public/userDeal";
-    public static String userAgreementUrl1 = "http://39.104.102.152/index.php/action/ac_public/userDeal2";
-    public static String chongZhiXieYiUrl = "http://www.tongbanapp.com/action/ac_public/paydeal";
+    public static String userAgreementUrl = BaseUrl+"ac_public/userDeal";
+    public static String userAgreementUrl1 = BaseUrl+"ac_public/userDeal2";
+    public static String chongZhiXieYiUrl = BaseUrl+"action/ac_public/paydeal";
 //      报名协议
-    public static String joinDealUrl = "http://tb.91yiwo.cn/action/ac_public/joinDeal";
+    public static String joinDealUrl = BaseUrl+"action/ac_public/joinDeal";
     //获取用户的活动列表
     public static String userActiveListUrl = "action/ac_article/ActivityList";
     //显示实名认证信息
@@ -603,4 +603,45 @@ public static String homePageSkipGoods = "action/ac_newHome/homePageSkipGoods";
     public static String getSendSet =  "action/ac_goods/getSendSet";
     //action/ac_goods/      sendSet     配送设置           传uid 用户id   money配送费   noMoney满多少钱  zt  0可自提  1不可自提      ps0可配送 1不可配送
     public static String sendSet = "action/ac_goods/sendSet";
+    /**
+     * action/ac_user/shareMyShop    传uid 用户id       返回  username 名字
+     * userpic图片   userautograph介绍   shareUrl分享链接
+     */
+    public static String shareMyShop = "action/ac_user/shareMyShop";
+    /**
+     * http://www.tongbanapp.com/action/ac_goods/orderList?uid=用户id     我的订单列表web页
+     */
+    public static String orderList = BaseUrl + "action/ac_goods/orderList?uid=";
+    /**
+     * 团旅行程链接：   www.tongbanapp.com/action/ac_activity/myActivity?uid=用户id
+     */
+    public static String myActivity = BaseUrl + "action/ac_activity/myActivity?uid=";
+    /**
+     * http://www.tongbanapp.com/action/ac_captainMission/presentComeInInfo?uid=用户id
+     */
+    public static String presentComeInInfo = BaseUrl + "action/ac_captainMission/presentComeInInfo?uid=";
+    /**
+     * action/ac_activity/add_activity  添加活动   uid 用户id   pftitle标题  pfaddress 活动地点   go_address集合地点  keyWord搜索关键词   activity_ts活动特色    sex 性别 0不限 1男 2女   min_num要求最小报名人数    max_num要求最大报名人数   single 单身要求 0不限  1单身 age_begin要求开始年龄   age_end要求结束年龄    pfexplain其它要求   buyNeedKnow购买须知    feiYongBaoHan费用包含    feiYongBuHan费用不含     activityLabel活动标签 多个用逗号分隔
+     *
+     * phaseInfos期数信息  拼成json串   [{"phase_price":120,"userBonus":0,"begin_time":"2020-08-13","end_time":"2020-08-15","sign_up_over_time":"2020-08-10"},{"phase_price":120,"userBonus":0,"begin_time":"2020-08-13","end_time":"2020-08-15","sign_up_over_time":"2020-08-10"}]
+     * phase_price价格    userBonus提成    begin_time开始时间    end_time结束时间    sign_up_over_time报名截止时间
+     */
+    public static String add_activity = BaseUrl + "action/ac_activity/add_activity";
+    /**
+     * action/ac_activity/getActivityEditInfo 获取要编辑的活动的信息接口  传uid 用户id pfID活动id
+     *
+     */
+    public static String getActivityEditInfo = "action/ac_activity/getActivityEditInfo";
+    /**
+     * action/ac_activity/activityUpdateInfo   修改接口
+     *
+     * phaseInfos期数信息  拼成json串   [{"phase_id":1,"phase_price":120,"userBonus":0,"begin_time":"2020-08-13","end_time":"2020-08-15","sign_up_over_time":"2020-08-10"}]
+     * phase_id 期数id
+     */
+    public static String activityUpdateInfo = "action/ac_activity/activityUpdateInfo";
+    /**
+     * action/ac_activity/activityContent   添加续写     传uid用户id   title标题  content内容  file_img图片   imgInfo图片内容
+     */
+    public static String activityContent = "action/ac_activity/activityContent";
 }
+

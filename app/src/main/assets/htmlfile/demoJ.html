@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -7,34 +8,38 @@
 	<script src="jquery.min.js"></script>
 </head>
 <body style="background:#F3F3F3;">
-	<div id="topbar" class="tb_topbar"><img class="yj_backimg" onclick="backgo();"><img class="yj_shareimg" onclick="sharego();"></div>
-	<div class="yj_mainimg">
-		<div id="data0Content"><img class="yj_mainimg_img"></div>
-	</div><img class="yj_homenull_L" onclick="backgo();"><img class="yj_homenull_R" onclick="btnmore();"><img id="backgo" class="yj_backimg" style="top:0.9rem;"><img style="top:0.9rem;" class="yj_btnmoreimg"">
-	<div class="main_topdiv"></div>
-	<div class="yj_main_box left">
-		<div class="user_info1_box" id="data1Content">
-			<img alt="" class="user_info1_box_img">
-			<div class="user_info1_box_font left">······</div><div class="user_info1_box_lv left">Lv.1</div><img class="tb_dzimg_null left" style="margin-top:0.15rem;"><div class="user_info1_box_font_sm left">----------</div>
-			<div class="user_info_fol right">+关注</div>
-			<div class="user_info_box_font_sm right">······</div>
-			<div class="left" style="height:0.1rem;width:100%;background:#FFF;"></div>
-			<hr class="user_info_box_line">
-		</div>
-		<div class="left" style="height:0.3rem;width:100%;background:#FFF;"></div>
-		<div id="data2Content" class="yj_content_box">努力加载中...<img class="emoji_14"></div>
-		<div class="tb_pre_box" id="data3Content"></div>
-		<div class="tb_pre_box" id="data4Content"></div>
+	<div class="tb_pre_box" id="data00Content" style="display:block;">
+		<div id="topbar" class="tb_topbar"><img class="yj_backimg" onclick="backgo();"><img class="yj_shareimg" onclick="sharego();"></div>
+		<div class="yj_mainimg">
+			<div id="data0Content"><img class="yj_mainimg_img"></div>
+		</div><img class="yj_homenull_L" onclick="backgo();"><img class="yj_homenull_R" onclick="btnmore();"><img id="backgo" class="yj_backimg" style="top:0.9rem;"><img style="top:0.9rem;" class="yj_btnmoreimg">
 	</div>
-	<div class="clear"></div>
-	<div class="info_downdiv"></div>
-	<div style="height:0.1rem;width:100%"></div>
+	<div class="tb_pre_box" id="data01Content" style="display:block;">
+		<div class="main_topdiv"></div>
+		<div class="yj_main_box left">
+			<div class="user_info1_box" id="data1Content">
+				<img alt="" class="user_info1_box_img">
+				<div class="user_info1_box_font left">······</div><div class="user_info1_box_lv left">Lv.1</div><img class="tb_dzimg_null left" style="margin-top:0.15rem;"><div class="user_info1_box_font_sm left">----------</div>
+				<div class="user_info_fol right">+关注</div>
+				<div class="user_info_box_font_sm right">······</div>
+				<div class="left" style="height:0.1rem;width:100%;background:#FFF;"></div>
+				<hr class="user_info_box_line">
+			</div>
+			<div class="left" style="height:0.3rem;width:100%;background:#FFF;"></div>
+			<div id="data2Content" class="yj_content_box">努力加载中...<img class="emoji_14"></div>
+			<div class="tb_pre_box" id="data3Content"></div>
+			<div class="tb_pre_box" id="data4Content"></div>
+		</div>
+		<div class="clear"></div>
+		<div class="info_downdiv"></div>
+		<div style="height:0.1rem;width:100%"></div>
+	</div>
 	<div class="tb_pre_box" id="data5Content"><!--关联--></div>
 	<div class="tb_pre_box" id="data6Content"><!--续--></div>
 	<div class="tb_pre_box" id="data7Content"><!--评--></div>
 	<div class="tb_pre_box" id="data8Content"><!--更多--></div>
 	<div class="clear"></div>
-	<div id="htmlshow" style="font-size:0.35rem;color:#101010;"></div>
+	<div id="htmlshow" class="htmlshowsty"></div>
 	<!--预览页面-->
 	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="pswp__bg"></div>

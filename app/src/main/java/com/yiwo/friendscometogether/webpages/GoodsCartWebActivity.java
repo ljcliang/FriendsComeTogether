@@ -25,6 +25,7 @@ public class GoodsCartWebActivity extends BaseSonicWebActivity {
     WebView webView;
     private String url;
     private Unbinder unbinder;
+    private boolean isFirstLoad = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +35,17 @@ public class GoodsCartWebActivity extends BaseSonicWebActivity {
         initWebView(webView,url);
         initIntentSonic(url,webView);
         webView.addJavascriptInterface(new GoodsCartWebActivity.AndroidInterface(),"android");//交互
+        isFirstLoad = false;
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!isFirstLoad){
+            webView.reload();
+        }
+    }
+
     public class AndroidInterface extends Object{
         @JavascriptInterface
         public void gotopay(String url){

@@ -49,6 +49,7 @@ import com.yiwo.friendscometogether.utils.ShareUtils;
 import com.yiwo.friendscometogether.wangyiyunshipin.wangyiyunlive.EnterLiveActivity;
 import com.yiwo.friendscometogether.webpages.DuiZhangShangPuWebActivity;
 import com.yiwo.friendscometogether.webpages.GuanLiGoodsWebActivity;
+import com.yiwo.friendscometogether.webpages.GuanLiXingChengWebActivity;
 import com.yiwo.friendscometogether.webpages.LiWuMingXiWebActivity;
 import com.yiwo.friendscometogether.webpages.RenWuWebActivity;
 import com.yiwo.friendscometogether.webpages.ShouRuMingXiWebActivity;
@@ -252,7 +253,7 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                 }
                 break;
             case R.id.ll_tuanlv_xingcheng:
-
+                GuanLiXingChengWebActivity.start(DuiZhangZhuanShuActivity.this,NetConfig.myActivity+spImp.getUID());
                 break;
             case R.id.ll_shourumingxi:
                 if (!spImp.getIfSign().equals("1")) {

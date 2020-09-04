@@ -921,6 +921,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                     }else {
                         intent.setClass(getContext(), NoTitleWebActivity.class);
                         intent.putExtra("url",listAD.get(0).getJumpUrl());
+//                        intent.putExtra("url","http://www.tongbanapp.com/action/ac_goods/insertGoodsWeb");
                         startActivity(intent);
                     }
                 }

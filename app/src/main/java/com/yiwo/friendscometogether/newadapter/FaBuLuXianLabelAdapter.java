@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.model.UserLabelModel;
 import com.yiwo.friendscometogether.newmodel.ShangPinLabelModel;
 
 import java.util.List;
@@ -19,27 +20,27 @@ import java.util.List;
  * Created by Administrator on 2018/12/24.
  */
 
-public class ShangPinLabelAdapter extends RecyclerView.Adapter<ShangPinLabelAdapter.ViewHolder> {
+public class FaBuLuXianLabelAdapter extends RecyclerView.Adapter<FaBuLuXianLabelAdapter.ViewHolder> {
 
     private Context context;
-    private List<ShangPinLabelModel.ObjBean> data;
+    private List<UserLabelModel.ObjBean> data;
     private OnItemChoosed onItemChoosed;
-    public ShangPinLabelAdapter(List<ShangPinLabelModel.ObjBean> data,OnItemChoosed onItemChoosedlistenner) {
+    public FaBuLuXianLabelAdapter(List<UserLabelModel.ObjBean> data, OnItemChoosed onItemChoosedlistenner) {
         this.data = data;
         this.onItemChoosed = onItemChoosedlistenner;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_shangpin_label, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_fabuluxian_label, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.tv.setText(data.get(position).getName());
-        if (data.get(position).isChecked()){
+        holder.tv.setText(data.get(position).getLname());
+        if (data.get(position).isChoose()){
             holder.rl.setBackgroundResource(R.drawable.bg_shangpin_label_choosed);
             holder.tv.setTextColor(Color.parseColor("#d84c37"));
         }else {

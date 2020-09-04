@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -10,7 +11,7 @@
 	<div id="topbar" class="tb_topbar"><img class="yj_backimg" onclick="backgo();"><img class="yj_shareimg" onclick="sharego();"></div>
 	<div class="yj_mainimg">
 		<div id="data0Content"><img class="yj_mainimg_img"></div>
-	</div><img class="yj_homenull_L" onclick="backgo();"><img class="yj_homenull_R" onclick="btnmore();"><img id="backgo" class="yj_backimg" style="top:0.9rem;"><img style="top:0.9rem;" class="yj_btnmoreimg"">
+	</div><img class="yj_homenull_L" onclick="backgo();"><img class="yj_homenull_R" onclick="btnmore();"><img id="backgo" class="yj_backimg" style="top:0.9rem;"><img style="top:0.9rem;" class="yj_btnmoreimg">
 	<div class="main_topdiv left"></div>
 	<div class="tb_goods_box left">
 		<img class="tb_goods_share" onclick="sharego();">
@@ -23,7 +24,7 @@
 			<div class="tb_goodskefu_uname"><img class="tb_goodskefu_zximg">------</div>
 			<div class="tb_goodskefu_font left">--------------------</div>
 		</div>
-		<div class="tb_goodsprice tb_goodsprice_one left" id="data4Content"><sm>￥</sm>&nbsp;------</div><!-- tb_goodsprice_one 价格少于9位数加上-->
+		<div class="tb_goodsprice tb_goodsprice_one left" id="data4Content"><sm>￥</sm>&nbsp;------</div>
 		<div style="height:0.38rem;width:2.5rem;float:left;"></div>
 		<div id="topaddress" class="tb_goodsbuy_div left"  onclick="tb_shareshow(1);"><img class="tb_goodsbuycar">立即报名</div>
 	</div>
@@ -80,6 +81,7 @@
 		<div class="info_topdiv"></div>
 		<div class="yj_main_box left">
 			<div class="tb_goodsinfo_tit left">相关评价</div>
+			<div class="tb_goodsinfo_titmore" id="yjupjmore" onclick="">更多..</div>
 			<div style="height:0.6rem;width:100%"></div>
 			<div class="pinglun-list">
 				<div class="pinglun-userinfo left">
@@ -136,9 +138,9 @@
 	</div>
 	<div class="clear"></div>
 	<div style="height:1.2rem;width:100%;background:#FFF;"></div>
-	<div id="htmlshow"></div>
+	<div id="htmlshow" class="htmlshowsty"></div>
 	<div class="buycar_footbar" id="data16Content">
-		<div class="buycar_footbar_font" style="width:0.3rem;"></div><img class="icon_img04">&nbsp;<img class="icon_img02"><div class="buycar_footbar_font" style="width:1rem;text-align:left;"></div><div class="buycar_footbar_btn" style="width:3rem;" onclick="tb_shareshow(1);">立即报名</div>
+		<div class="buycar_footbar_font" style="width:0.3rem;"></div><img class="icon_img04">&nbsp;<img class="icon_img03"><div class="buycar_footbar_font" style="width:1rem;text-align:left;"></div><div class="buycar_footbar_btn" style="width:3rem;" onclick="tb_shareshow(1);">立即报名</div>
 	</div>
 	<!--预览页面-->
 	<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
@@ -195,21 +197,21 @@
 				<div class="tb_goodsinfo_tit" style="font-size:0.3rem;">选择日期</div>
 				<div class="seltime_box" id="data9Content">
 					<ul>
-						<li class="seltimeli seltime"><div class="divfont">-----</div><div class="divfont">周-</div><div class="divfont">￥------</div></li>
-						<li class="seltimeli"><div class="divfont">-----</div><div class="divfont">周-</div><div class="divfont">￥------</div></li>
-						<li class="seltimeli"><div class="divfont">-----</div><div class="divfont">周-</div><div class="divfont">￥------</div></li>
-						<li class="seltimeli"><div class="divfont">-----</div><div class="divfont">周-</div><div class="divfont">￥------</div></li>
-						<li class="seltimeli"><div class="divfont">-----</div><div class="divfont">周-</div><div class="divfont">￥------</div></li>
+						<li class="seltimeli seltime"><div class="divfont">----------</div><div class="divfont">周--</div><div class="divfont">￥------</div></li>
+						<li class="seltimeli"><div class="divfont">----------</div><div class="divfont">周--</div><div class="divfont">￥------</div></li>
+						<li class="seltimeli"><div class="divfont">----------</div><div class="divfont">周--</div><div class="divfont">￥------</div></li>
+						<li class="seltimeli"><div class="divfont">----------</div><div class="divfont">周--</div><div class="divfont">￥------</div></li>
 					</ul>
 				</div>
-				<div style="height:0.1rem;width:100%"></div>
-				<div style="width:100%;height:auto;border:0;" id="data10Content"><div id="joinuserdata" class="tb_goodsinfo_tit_1 left">参加人员0人&nbsp;点击查看</div></div>
-				<div id="joinuserinfo" class="dz_div" style="display:block;" id="data11Content"></div>
+				<div style="height:0.5rem;width:100%"></div>
+				<div style="width:50%;height:auto;border:0;float:left" id="data10Content"><div id="joinuserdata" class="tb_goodsinfo_tit_1 left" style="display:flex;align-items:center;">参加人员<img class="icon_img20"></div></div>
+				<div style="width:50%;height:auto;border:0;float:left;display:block" id="data15Content"></div>
+				<div class="dz_div" style="display:block;" id="data11Content"></div>
 				<div class="clear"></div>
 				<div style="height:0.5rem;width:100%"></div>
 			</div>
 		</div>
-		<div class="tb_share_btn" onclick="partysend();">报&nbsp;名&nbsp;参&nbsp;加<input id="partysend" type="hidden" value=""></div>
+		<div id="partysend_btn" class="tb_share_btn" onclick="partysend();">报&nbsp;名&nbsp;参&nbsp;加<input id="partysend" type="hidden" value=""><input id="partyuser" type="hidden" value="0"></div>
 	</div>
 	<div id="tbsharebox2" class="tbshare_box">
 		<div style="height:0.35rem;width:100%"></div>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".webpages.MyGoodsOrdersActivity">
+    <RelativeLayout
+        style="@style/rl_top_bar_dp">
+
+        <TextView
+            style="@style/tv_top_title_dp"
+            android:text="商品订单" />
+
+        <RelativeLayout
+            android:id="@+id/rl_back"
+            style="@style/rl_return_dp">
+
+            <ImageView style="@style/iv_return_dp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></WebView>
+
+</LinearLayout>
