@@ -30,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <LinearLayout
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:id="@+id/ll_right_shop"
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
                     </RelativeLayout>
                     <RelativeLayout
                         android:layout_marginRight="10px"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:id="@+id/rl_cart"
                         android:layout_width="75px"
                         android:layout_height="75px">

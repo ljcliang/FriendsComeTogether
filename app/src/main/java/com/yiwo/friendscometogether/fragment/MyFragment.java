@@ -269,6 +269,7 @@ public class MyFragment extends BaseFragment {
             tvNickname.setText("未登录");
             rl_level.setVisibility(View.GONE);
             rl_cart.setVisibility(View.GONE);
+            ll_right_shop.setVisibility(View.GONE);
             tvLevel.setText("Lv.0");
         }
     }
