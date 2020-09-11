@@ -54,6 +54,7 @@ import com.yiwo.friendscometogether.newfragment.YouJiFragment;
 import com.yiwo.friendscometogether.newpage.CreateFriendRememberActivityChoosePicOrVideos;
 import com.yiwo.friendscometogether.newpage.MessageActivity;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
+import com.yiwo.friendscometogether.newpage.ShopOrdersActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.wangyiyunshipin.upload.constant.UploadType;
@@ -582,8 +583,14 @@ public class MainActivity extends FragmentActivity {
             public void onMsgTextClicked(Context context, IMMessage message) {
                 if (message.getSessionId().equals("tongbanxiaozhushou")&&message.getMsgType()== MsgTypeEnum.text){//瞳伴小助手消息
                     Intent intent = new Intent();
-                    intent.setClass(context, MessageActivity.class);
-                    startActivity(intent);
+                    if (message.getContent().indexOf("您有新订单了")!=-1
+                            ||message.getContent().indexOf("您有新的订单退款信息")!=-1
+                            ||message.getContent().indexOf("提醒发货")!=-1){
+                        ShopOrdersActivity.open(context,0);
+                    }else {
+                        intent.setClass(context, MessageActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
 

@@ -14,7 +14,7 @@
             style="@style/rl_top_bar">
 
             <TextView
-                android:text="路线续写"
+                android:text="行程续写"
                 style="@style/tv_top_title" />
 
             <RelativeLayout

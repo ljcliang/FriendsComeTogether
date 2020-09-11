@@ -74,10 +74,10 @@ public class HomeTuiJian_ReMenZhaoMu_Adapter extends RecyclerView.Adapter<HomeTu
 //            holder.tv_pinglun_comment1.setText(data.get(position).getPlList().get(0).getFctitle());
             String2HtmlTextTools.tvSetHtmlForImage(context,holder.tv_pinglun_comment1,data.get(position).getPlList().get(0).getFctitle());
             holder.ll_pinglun_comment1.setVisibility(View.VISIBLE);
-            holder.tv_pinglun_num.setVisibility(View.VISIBLE);
+//            holder.tv_pinglun_num.setVisibility(View.VISIBLE);
         }else {
             holder.ll_pinglun_comment1.setVisibility(View.GONE);
-            holder.tv_pinglun_num.setVisibility(View.GONE);
+//            holder.tv_pinglun_num.setVisibility(View.GONE);
         }
         if (data.get(position).getPlList().size()>1){
             holder.tv_pinglun_name2.setText(data.get(position).getPlList().get(1).getUsername()+"：");

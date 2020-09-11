@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_marginTop="37dp"
+            android:layout_marginTop="17dp"
             android:orientation="vertical"
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -206,10 +206,11 @@
             </LinearLayout>
         </LinearLayout>
         <RelativeLayout
+            android:layout_marginLeft="5dp"
             android:elevation="1dp"
             android:layout_marginRight="3dp"
             android:background="@drawable/bg_white_5dp"
-            android:layout_weight="1.3"
+            android:layout_weight="1.4"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <com.yiwo.friendscometogether.widget.CustomRoundAngleImageView
@@ -395,6 +396,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                android:visibility="gone"
                 android:layout_marginTop="5dp"
                 android:id="@+id/tv_pinglun_num"
                 android:layout_centerVertical="true"

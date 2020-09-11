@@ -56,6 +56,7 @@ import com.yiwo.friendscometogether.newmodel.HomeTuiJianYouJiShiPinModel;
 import com.yiwo.friendscometogether.newmodel.LocalWebInfoModel;
 import com.yiwo.friendscometogether.newmodel.NewHomeTuiJian;
 import com.yiwo.friendscometogether.newmodel.ReMenZhaoMuTabModel;
+import com.yiwo.friendscometogether.newpage.HomeYouPuWithFragmentActivity;
 import com.yiwo.friendscometogether.newpage.MianShuiShangPinListActivity;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.newpage.ZiXunListActivity;
@@ -66,6 +67,7 @@ import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.wangyiyunshipin.DemoCache;
 import com.yiwo.friendscometogether.wangyiyunshipin.server.entity.RoomInfoEntity;
 import com.yiwo.friendscometogether.wangyiyunshipin.wangyiyunlive.LiveRoomActivity;
+import com.yiwo.friendscometogether.webpages.ChooseLuXianDateWebLocalActivity;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebLocalActivity;
 import com.yiwo.friendscometogether.webpages.NoTitleWebActivity;
@@ -828,7 +830,6 @@ public class HomeTuiJianFragment extends BaseFragment {
     }
     //     直播列表关注
     private void guanZhuLivePerson(final int position) {
-        Log.d("adasds", position + "");
         if (!TextUtils.isEmpty(spImp.getUID()) && !spImp.getUID().equals("0")) {
             if (listJingCaiLuXian.get(position).getCaptain().getFollow().equals("0")) {//未关注
                 ViseHttp.POST(NetConfig.userFocusUrl)
@@ -838,7 +839,6 @@ public class HomeTuiJianFragment extends BaseFragment {
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String result) {
-                                Log.d("adasds", result);
                                 try {
                                     JSONObject jsonObject = new JSONObject(result);
                                     if (jsonObject.getInt("code") == 200) {
@@ -855,7 +855,6 @@ public class HomeTuiJianFragment extends BaseFragment {
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-                                Log.d("adasds", errMsg);
                             }
                         });
             }
@@ -882,11 +881,15 @@ public class HomeTuiJianFragment extends BaseFragment {
     private static final int PERMISSION_REQUEST_CODE_STORAGE = 1001;
 
     @OnClick({R.id.ll_wenlvzixun, R.id.ll_zuixinzhaomu, R.id.ll_mianshuishangpin, R.id.ll_tejiabuwei, R.id.ll_jingdiandaka,
+            R.id.rl_duizhangpuzi,
                 R.id.rl_iv_gg0,R.id.rl_iv_gg1,R.id.rl_iv_gg2,R.id.rl_iv_gg3,
                 R.id.rl_zixun_more})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
+            case R.id.rl_duizhangpuzi:
+                HomeYouPuWithFragmentActivity.open(getContext());
+                break;
             case R.id.rl_zixun_more:
             case R.id.ll_wenlvzixun:
                 ZiXunListActivity.open(getContext(),"1");
@@ -1051,7 +1054,6 @@ public class HomeTuiJianFragment extends BaseFragment {
                             try {
                                 JSONObject jsonObject = new JSONObject(data);
                                 if (jsonObject.getInt("code") == 200){
-                                    Log.d("qingqiushuju:",new Date().toLocaleString()+"diaa::"+iii );
                                     iii++;
                                     Gson gson = new Gson();
                                     LocalWebInfoModel mode =  gson.fromJson(data,LocalWebInfoModel.class);
@@ -1090,7 +1092,6 @@ public class HomeTuiJianFragment extends BaseFragment {
     }
     private void enterLiveRoom(final HomeTuiJianModel.ObjBean.ActivityBean.CaptainBean zhiboBean) {
         dialog_loading = WeiboDialogUtils.createLoadingDialog(getContext(), "进入房间中");
-        Log.d("asdasdas", "UID:" + zhiboBean.getUid() + "///" + zhiboBean.getChannel_id());
         if (zhiboBean.getChannel_id() == null || TextUtils.isEmpty(zhiboBean.getChannel_id())) {
             Intent intent = new Intent();
             intent.setClass(getContext(), PersonMainActivity1.class);

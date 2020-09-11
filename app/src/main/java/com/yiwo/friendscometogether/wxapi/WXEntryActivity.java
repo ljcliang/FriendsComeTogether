@@ -2,6 +2,7 @@ package com.yiwo.friendscometogether.wxapi;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.umeng.socialize.weixin.view.WXCallbackActivity;
@@ -13,5 +14,6 @@ public class WXEntryActivity extends WXCallbackActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wxentry);
+        Log.d("微信分享","WXEntryActivity-onCreate");
     }
 }

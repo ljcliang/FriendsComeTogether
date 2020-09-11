@@ -18,7 +18,7 @@
         </RelativeLayout>
         <TextView
             android:id="@+id/tv_title"
-            android:text="发布路线"
+            android:text="发布行程"
             style="@style/tv_top_title_dp"/>
         <RelativeLayout
             android:visibility="gone"
@@ -210,7 +210,7 @@
                 <EditText
                     android:textColor="@color/black_333333"
                     android:textSize="14sp"
-                    android:hint="在这里输入路线的特色简介"
+                    android:hint="在这里输入行程的特色简介"
                     android:maxLength="60"
                     android:layout_marginLeft="21dp"
                     android:layout_marginRight="21dp"
@@ -346,30 +346,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
             <RelativeLayout
+                android:id="@+id/rl_choose_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_phase"
+                    android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/rl_btn_add_price"
+                    android:background="@drawable/bg_gray9a9a9a_border_5dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp">
+                    <TextView
+                        android:textSize="14sp"
+                        android:textColor="@color/black_666666"
+                        android:layout_centerInParent="true"
+                        android:text="选择期数"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>
             </RelativeLayout>
-            <RelativeLayout
-                android:id="@+id/rl_btn_add_price"
-                android:layout_gravity="right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_margin="10dp"
-                    android:src="@mipmap/add"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"/>
-            </RelativeLayout>
-            <View
-                android:background="@color/color_d8d8d8"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -393,7 +394,7 @@
                         android:lines="1"
                         android:id="@+id/edt_input_person_num_min"
                         android:paddingLeft="3dp"
-                        android:text="1"
+                        android:text=""
                         android:gravity="end"
                         android:textSize="14sp"
                         android:layout_marginLeft="10dp"
@@ -416,7 +417,7 @@
                         android:lines="1"
                         android:id="@+id/edt_input_person_num_max"
                         android:paddingLeft="3dp"
-                        android:text="10"
+                        android:text=""
                         android:gravity="end"
                         android:textSize="14sp"
                         android:textColor="@color/black_101010"
@@ -444,7 +445,7 @@
                         android:lines="1"
                         android:id="@+id/edt_input_person_age_min"
                         android:paddingLeft="3dp"
-                        android:text="1"
+                        android:text=""
                         android:gravity="end"
                         android:textSize="14sp"
                         android:layout_marginLeft="10dp"
@@ -467,7 +468,7 @@
                         android:lines="1"
                         android:id="@+id/edt_input_person_age_max"
                         android:paddingLeft="3dp"
-                        android:text="10"
+                        android:text=""
                         android:gravity="end"
                         android:textSize="14sp"
                         android:textColor="@color/black_101010"
@@ -819,6 +820,29 @@
                     android:text="立即发布"
                     android:layout_marginLeft="1dp"
                     android:background="@drawable/bg_d84c37_right_30px"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_bottom2"
+                android:layout_marginBottom="25dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+                <TextView
+                    android:id="@+id/btn_save"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:textColor="@color/white_ffffff"
+                    android:text="保  存"
+                    android:layout_marginRight="1dp"
+                    android:background="@drawable/bg_d84c37_30px"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>

@@ -49,8 +49,10 @@ import com.yiwo.friendscometogether.pages.MyPicturesActivity;
 import com.yiwo.friendscometogether.pages.SetActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.wangyiyunshipin.VideoUpLoadListActivity;
+import com.yiwo.friendscometogether.webpages.GoodsCartWebActivity;
 import com.yiwo.friendscometogether.webpages.GuanLiGoodsWebActivity;
 import com.yiwo.friendscometogether.webpages.MyGoodsOrdersActivity;
+import com.yiwo.friendscometogether.webpages.ShopGoodsDetailsWebLocalActivity;
 import com.yiwo.friendscometogether.webpages.ShouRuMingXiWebActivity;
 
 import org.json.JSONException;
@@ -108,6 +110,8 @@ public class MyFragment extends BaseFragment {
     LinearLayout ll_xingcheng_dingdan;
     @BindView(R.id.ll_shangpin_dingdan)
     LinearLayout ll_shangpin_dingdan;
+    @BindView(R.id.rl_cart)
+    RelativeLayout rl_cart;
     private  UserModel userModel;
  private SpImp spImp;
     private String uid = "";
@@ -146,6 +150,7 @@ public class MyFragment extends BaseFragment {
         uid = spImp.getUID();
         Log.e("222", uid);
         if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+            rl_cart.setVisibility(View.VISIBLE);
             if ( spImp.getIsCaptain().equals("1") || spImp.getIsShop().equals("1")){
                 ll_xiaoshou_order.setVisibility(View.VISIBLE);
                 ll_xingcheng_order.setVisibility(View.GONE);
@@ -263,6 +268,7 @@ public class MyFragment extends BaseFragment {
             iv_duizhang_level.setVisibility(View.GONE);
             tvNickname.setText("未登录");
             rl_level.setVisibility(View.GONE);
+            rl_cart.setVisibility(View.GONE);
             tvLevel.setText("Lv.0");
         }
     }
@@ -270,7 +276,7 @@ public class MyFragment extends BaseFragment {
     @OnClick({R.id.ll_order_all,R.id.ll_order_title, R.id.ll_to_pay, R.id.ll_to_trip, R.id.ll_to_comment, R.id.ll_return_money,R.id.ll_xiaoshou_order_title,R.id.ll_xiaoshou_daichuli,R.id.ll_xiaoshou_yichuli,R.id.ll_xiaoshou_yiwancheng,R.id.ll_xiaoshou_tuikuan,
             R.id.rl_my_picture,R.id.rl_my_video,R.id.rl_my_shoucang, R.id.rl_my_friend,R.id.rl_my_shop_order,R.id.rl_my_xingcheng_order,R.id.ll_peisong_shezhi,
             R.id.rl_my_comment, R.id.rl_history, R.id.rl_person_set, R.id.ll_remember,R.id.ll_guanzhu, R.id.ll_huodong, R.id.ll_message,R.id.ll_person_page,R.id.iv_level,
-            R.id.iv_avatar,R.id.rl_person_page,R.id.iv_find_super_like,R.id.iv_renwu,R.id.rl_duizhang_set,R.id.rl_duizhang_shop,R.id.rl_duizhang_order,R.id.rl_game_group,R.id.rl_pay_rank,R.id.rl_video_upload_list})
+            R.id.iv_avatar,R.id.rl_person_page,R.id.iv_find_super_like,R.id.iv_renwu,R.id.rl_duizhang_set,R.id.rl_duizhang_shop,R.id.rl_duizhang_order,R.id.rl_cart,R.id.rl_game_group,R.id.rl_pay_rank,R.id.rl_video_upload_list})
     public void onClick(View view){
         Intent intent = new Intent();
         switch (view.getId()){
@@ -374,6 +380,9 @@ public class MyFragment extends BaseFragment {
                     intent.setClass(getContext(), LoginActivity.class);
                     startActivity(intent);
                 }
+                break;
+            case R.id.rl_cart:
+                GoodsCartWebActivity.open(getContext(),NetConfig.BaseUrl+NetConfig.myCartWebUrl+spImp.getUID());
                 break;
             case R.id.rl_my_xingcheng_order:
                 if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {

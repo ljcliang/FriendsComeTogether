@@ -40,29 +40,45 @@ public class WenLvZiXunAdapter extends RecyclerView.Adapter<WenLvZiXunAdapter.Vi
         holder.ll_3.setVisibility(View.GONE);
         switch (position % 4){
             case 0:
-                holder.ll_1.setVisibility(View.VISIBLE);
-                holder.tv_title.setText(data.get(position).getFmtitle());
-                if (data.get(position).getPicList().size()>0){
-                    Glide.with(context).load(data.get(position).getPicList().get(0)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv0);
-                }
-                if (data.get(position).getPicList().size()>1){
-                    Glide.with(context).load(data.get(position).getPicList().get(1)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv1);
-                }
                 if (data.get(position).getPicList().size()>2){
-                    Glide.with(context).load(data.get(position).getPicList().get(2)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv2);
+                    holder.ll_1.setVisibility(View.VISIBLE);
+                    holder.tv_title.setText(data.get(position).getFmtitle());
+                    if (data.get(position).getPicList().size()>0){
+                        Glide.with(context).load(data.get(position).getPicList().get(0)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv0);
+                    }
+                    if (data.get(position).getPicList().size()>1){
+                        Glide.with(context).load(data.get(position).getPicList().get(1)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv1);
+                    }
+                    if (data.get(position).getPicList().size()>2){
+                        Glide.with(context).load(data.get(position).getPicList().get(2)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv2);
+                    }
+                }else {
+                    holder.ll_2.setVisibility(View.VISIBLE);
+                    holder.tv_title2.setText(data.get(position).getFmtitle());
+                    if (data.get(position).getPicList().size()>0){
+                        Glide.with(context).load(data.get(position).getPicList().get(0)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv2_0);
+                    }
                 }
                 break;
             case 1:
-                holder.ll_1.setVisibility(View.VISIBLE);
-                holder.tv_title.setText(data.get(position).getFmtitle());
-                if (data.get(position).getPicList().size()>0){
-                    Glide.with(context).load(data.get(position).getPicList().get(0)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv0);
-                }
-                if (data.get(position).getPicList().size()>1){
-                    Glide.with(context).load(data.get(position).getPicList().get(1)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv1);
-                }
                 if (data.get(position).getPicList().size()>2){
-                    Glide.with(context).load(data.get(position).getPicList().get(2)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv2);
+                    holder.ll_1.setVisibility(View.VISIBLE);
+                    holder.tv_title.setText(data.get(position).getFmtitle());
+                    if (data.get(position).getPicList().size()>0){
+                        Glide.with(context).load(data.get(position).getPicList().get(0)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv0);
+                    }
+                    if (data.get(position).getPicList().size()>1){
+                        Glide.with(context).load(data.get(position).getPicList().get(1)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv1);
+                    }
+                    if (data.get(position).getPicList().size()>2){
+                        Glide.with(context).load(data.get(position).getPicList().get(2)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv2);
+                    }
+                }else {
+                    holder.ll_2.setVisibility(View.VISIBLE);
+                    holder.tv_title2.setText(data.get(position).getFmtitle());
+                    if (data.get(position).getPicList().size()>0){
+                        Glide.with(context).load(data.get(position).getPicList().get(0)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv2_0);
+                    }
                 }
                 break;
             case 2:

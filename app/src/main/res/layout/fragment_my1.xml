@@ -30,6 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <LinearLayout
+                        android:visibility="visible"
                         android:id="@+id/ll_right_shop"
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
@@ -45,7 +46,7 @@
                                 android:layout_marginRight="5px"
                                 android:layout_centerVertical="true"
                                 android:visibility="visible"
-                                android:src="@mipmap/shangpu_1"
+                                android:src="@mipmap/dianpu"
                                 android:layout_width="45px"
                                 android:layout_height="45px" />
                         </RelativeLayout>
@@ -58,14 +59,14 @@
                             <ImageView
                                 android:layout_centerInParent="true"
                                 android:visibility="visible"
-                                android:src="@mipmap/my_order"
+                                android:src="@mipmap/xiaoshoumingxi"
                                 android:layout_width="48px"
                                 android:layout_height="48px" />
                         </RelativeLayout>
                     </LinearLayout>
                     <RelativeLayout
                         android:layout_marginRight="10px"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         android:id="@+id/rl_duizhang_set"
                         android:layout_width="75px"
                         android:layout_height="75px">
@@ -76,8 +77,24 @@
                             android:visibility="visible"
                             android:src="@mipmap/duizhang_set"
                             android:id="@+id/iv_renwu"
-                            android:layout_width="45px"
-                            android:layout_height="45px" />
+                            android:layout_width="48px"
+                            android:layout_height="48px" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_marginRight="10px"
+                        android:visibility="visible"
+                        android:id="@+id/rl_cart"
+                        android:layout_width="75px"
+                        android:layout_height="75px">
+                        <ImageView
+                            android:layout_centerInParent="true"
+                            android:layout_marginRight="5px"
+                            android:layout_centerVertical="true"
+                            android:visibility="visible"
+                            android:src="@mipmap/gouwuche"
+                            android:id="@+id/iv_gouwuche"
+                            android:layout_width="48px"
+                            android:layout_height="48px" />
                     </RelativeLayout>
                     <LinearLayout
                         android:visibility="gone"

@@ -98,7 +98,10 @@ public class HomeFragment4 extends BaseFragment {
     ImageView v2;
     @BindView(R.id.v3)
     ImageView v3;
-
+    @BindView(R.id.rl3)
+    RelativeLayout rl3;
+    @BindView(R.id.rl_view_3)
+    RelativeLayout rl_view_3;
     @BindView(R.id.tv_weiduxiaoxi)
     TextView tvWeiduxiaoxi;
 
@@ -173,7 +176,9 @@ public class HomeFragment4 extends BaseFragment {
         homeGuanZhuFragment = HomeGuanZhuFragment.newInstance();
         fragmentList.add(homeTuiJianFragment);
         fragmentList.add(homeGuanZhuFragment);
-        fragmentList.add(homeShopGoodsFragment);
+//        fragmentList.add(homeShopGoodsFragment);//隐藏商铺
+        rl3.setVisibility(View.GONE);//隐藏商铺
+        rl_view_3.setVisibility(View.GONE);//隐藏商铺
         pagerAdapter = new PagerAdapter(getChildFragmentManager(),fragmentList);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOffscreenPageLimit(3);

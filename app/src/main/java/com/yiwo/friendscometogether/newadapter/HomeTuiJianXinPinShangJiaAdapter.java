@@ -51,7 +51,7 @@ public class HomeTuiJianXinPinShangJiaAdapter extends RecyclerView.Adapter<HomeT
         Glide.with(context).load(data.get(position).getGoodsImg()).apply(new RequestOptions().error(R.mipmap.zanwutupian).placeholder(R.mipmap.zanwutupian)).into(holder.iv);
         holder.tv_name.setText(data.get(position).getGoodsName());
         holder.tv_now_price.setText(data.get(position).getPrice());
-        holder.tv_old_price.setText(data.get(position).getCostPrice());
+        holder.tv_old_price.setText("¥"+data.get(position).getCostPrice());
         double d_now = Double.parseDouble(data.get(position).getPrice());
         double d_old = Double.parseDouble(data.get(position).getCostPrice());
         if (d_now<d_old){

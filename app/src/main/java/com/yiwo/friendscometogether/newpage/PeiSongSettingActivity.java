@@ -142,10 +142,10 @@ public class PeiSongSettingActivity extends BaseActivity {
     }
 
     private void save() {
-        if (TextUtils.isEmpty(edtPeisongfanwei.getText().toString())){
-            toToast(this,"请输入配送范围");
-            return;
-        }
+//        if (TextUtils.isEmpty(edtPeisongfanwei.getText().toString())){
+//            toToast(this,"请输入配送范围");
+//            return;
+//        }
         if (TextUtils.isEmpty(edtPeisongfei.getText().toString())){
             toToast(this,"请输入配送费");
             return;

@@ -243,7 +243,7 @@
                                     android:layout_height="wrap_content">
                                     <ImageView
                                         android:layout_gravity="center_vertical"
-                                        android:src="@mipmap/activities_require_r"
+                                        android:src="@mipmap/activities_require_r_1"
                                         android:layout_width="38px"
                                         android:layout_height="38px"/>
                                     <TextView
@@ -534,6 +534,15 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
                             </LinearLayout>
+                            <TextView
+                                android:layout_marginRight="30px"
+                                android:text="更多.."
+                                android:layout_centerVertical="true"
+                                android:textColor="@color/black_101010"
+                                android:textSize="28px"
+                                android:layout_alignParentRight="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
                             <!--                    <View-->
                             <!--                        android:layout_width="match_parent"-->
                             <!--                        android:layout_height="4px"-->

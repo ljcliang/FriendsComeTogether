@@ -235,7 +235,7 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
     }
 
     @OnClick({R.id.rl_btn_bangding,R.id.rl_btn_startlive,R.id.rl_btn_setlive,R.id.rl_btn_xuanzehuodong,R.id.rl_back,R.id.ll_wodeshangpu,R.id.ll_tuanlv_xingcheng,R.id.ll_shourumingxi,R.id.rl_liwu_mingxi,
-            R.id.iv_message_xuanzehuodong,R.id.iv_game_tishi1,R.id.iv_game_tishi2,R.id.iv_game_tishi3,R.id.iv_game_tishi4,R.id.iv_game_tishi5,R.id.iv_zhanghu_tishi1,
+            R.id.iv_message_xuanzehuodong,R.id.iv_game_tishi1,R.id.iv_game_tishi2,R.id.iv_game_tishi3,R.id.iv_game_tishi4,R.id.iv_game_tishi5,R.id.iv_zhanghu_tishi1,R.id.iv_zhanghu_tishi2,
             R.id.rl_btn_game_start1,R.id.rl_btn_game_start2,R.id.rl_btn_game_start3,R.id.rl_btn_game_start4,R.id.rl_btn_game_start5,
             R.id.tv_shop_name,R.id.tv_jindu,R.id.rl_btn_bangding_shanghu})
     public void onClick(View v){
@@ -406,6 +406,16 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                     }
                 });
                 titleMessageOkDialog6.show();
+                break;
+            case R.id.iv_zhanghu_tishi2:
+                TitleMessageOkDialog titleMessageOkDialog7 = new TitleMessageOkDialog(DuiZhangZhuanShuActivity.this, "",
+                        duiZhangZhuanShuModel.getObj().getShopWx(), "知道了", new TitleMessageOkDialog.OnBtnClickListenner() {
+                    @Override
+                    public void onclick(Dialog dialog) {
+                        dialog.dismiss();
+                    }
+                });
+                titleMessageOkDialog7.show();
                 break;
         }
     }

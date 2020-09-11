@@ -31,121 +31,131 @@
                     android:layout_toLeftOf="@+id/ll_top_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="10px">
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <RelativeLayout
-                                android:layout_weight="1"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-                                <ImageView
-                                    android:layout_alignParentTop="true"
-                                    android:visibility="visible"
-                                    android:id="@+id/v1"
-                                    android:layout_centerHorizontal="true"
-                                    android:src="@drawable/bg_d84c37_30px"
-                                    android:layout_width="30px"
-                                    android:layout_height="5px"/>
-                            </RelativeLayout>
-                            <RelativeLayout
-                                android:layout_weight="1"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-                                <ImageView
-                                    android:layout_alignParentTop="true"
-                                    android:visibility="gone"
-                                    android:id="@+id/v2"
-                                    android:layout_centerHorizontal="true"
-                                    android:src="@drawable/bg_d84c37_30px"
-                                    android:layout_width="30px"
-                                    android:layout_height="5px"/>
-                            </RelativeLayout>
-                            <RelativeLayout
-                                android:layout_weight="1"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-                                <ImageView
-                                    android:layout_centerHorizontal="true"
-                                    android:layout_alignParentTop="true"
-                                    android:visibility="gone"
-                                    android:id="@+id/v3"
-                                    android:src="@drawable/bg_d84c37_30px"
-                                    android:layout_width="30px"
-                                    android:layout_height="5px"/>
-                            </RelativeLayout>
-                        </LinearLayout>
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_marginRight="110px"
+                        android:layout_marginLeft="20px"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                         <RelativeLayout
-                            android:id="@+id/rl_top"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="10px">
                             <LinearLayout
-                                android:id="@+id/ll_tab"
                                 android:orientation="horizontal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
-
                                 <RelativeLayout
-                                    android:id="@+id/rl1"
                                     android:layout_weight="1"
-                                    android:layout_width="0px"
-                                    android:layout_height="match_parent">
-
-                                    <TextView
-                                        android:id="@+id/tv_rl1"
-                                        android:layout_centerInParent="true"
-                                        android:textColor="@color/black_333333"
-                                        android:textSize="58px"
-                                        android:text="推荐"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
-
-
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <ImageView
+                                        android:layout_alignParentTop="true"
+                                        android:visibility="visible"
+                                        android:id="@+id/v1"
+                                        android:layout_centerHorizontal="true"
+                                        android:src="@drawable/bg_d84c37_30px"
+                                        android:layout_width="30px"
+                                        android:layout_height="5px"/>
                                 </RelativeLayout>
-
                                 <RelativeLayout
-                                    android:id="@+id/rl2"
                                     android:layout_weight="1"
-                                    android:layout_width="0px"
-                                    android:layout_height="match_parent">
-
-                                    <TextView
-                                        android:id="@+id/tv_rl2"
-                                        android:layout_centerInParent="true"
-                                        android:textColor="#999999"
-                                        android:textSize="50px"
-                                        android:text="关注"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <ImageView
+                                        android:layout_alignParentTop="true"
+                                        android:visibility="gone"
+                                        android:id="@+id/v2"
+                                        android:layout_centerHorizontal="true"
+                                        android:src="@drawable/bg_d84c37_30px"
+                                        android:layout_width="30px"
+                                        android:layout_height="5px"/>
                                 </RelativeLayout>
-
                                 <RelativeLayout
-                                    android:id="@+id/rl3"
+                                    android:id="@+id/rl_view_3"
+                                    android:visibility="gone"
                                     android:layout_weight="1"
-                                    android:layout_width="0px"
-                                    android:layout_height="match_parent">
-
-                                    <TextView
-                                        android:textColor="#999999"
-                                        android:id="@+id/tv_rl3"
-                                        android:layout_centerInParent="true"
-                                        android:textSize="50px"
-                                        android:text="友铺"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content" />
-
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <ImageView
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_alignParentTop="true"
+                                        android:visibility="gone"
+                                        android:id="@+id/v3"
+                                        android:src="@drawable/bg_d84c37_30px"
+                                        android:layout_width="30px"
+                                        android:layout_height="5px"/>
                                 </RelativeLayout>
-
                             </LinearLayout>
                         </RelativeLayout>
-                    </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <RelativeLayout
+                                android:id="@+id/rl_top"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:id="@+id/ll_tab"
+                                    android:orientation="horizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <RelativeLayout
+                                        android:id="@+id/rl1"
+                                        android:layout_weight="1"
+                                        android:layout_width="0px"
+                                        android:layout_height="match_parent">
+
+                                        <TextView
+                                            android:id="@+id/tv_rl1"
+                                            android:layout_centerInParent="true"
+                                            android:textColor="@color/black_333333"
+                                            android:textSize="58px"
+                                            android:text="推荐"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content" />
+
+
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:id="@+id/rl2"
+                                        android:layout_weight="1"
+                                        android:layout_width="0px"
+                                        android:layout_height="match_parent">
+
+                                        <TextView
+                                            android:id="@+id/tv_rl2"
+                                            android:layout_centerInParent="true"
+                                            android:textColor="#999999"
+                                            android:textSize="50px"
+                                            android:text="关注"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content" />
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:visibility="gone"
+                                        android:id="@+id/rl3"
+                                        android:layout_weight="1"
+                                        android:layout_width="0px"
+                                        android:layout_height="match_parent">
+
+                                        <TextView
+                                            android:textColor="#999999"
+                                            android:id="@+id/tv_rl3"
+                                            android:layout_centerInParent="true"
+                                            android:textSize="50px"
+                                            android:text="友铺"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content" />
+
+                                    </RelativeLayout>
+
+                                </LinearLayout>
+                            </RelativeLayout>
+                        </RelativeLayout>
+                    </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_centerVertical="true"

@@ -48,6 +48,7 @@ public class DuiZhangZhuanShuModel {
          * mesGroup :
          * mesWx :
          * mesBank :
+         * shopWx ：
          * goodsShop : http://www.tongbanapp.com/index.php/action/ac_goods/goodsList?uid=4&myID=4
          * comeInInfo : http://www.tongbanapp.com/index.php/action/ac_captainMission/comeInInfo?uid=4
          * info : 芽庄市是越南中南部沿海城市，以其质朴的海滩和卓越的潜水环境迅速成为受欢迎的国际旅游目的地，依山傍海、林木郁郁葱葱，芽庄湾是世界最美丽的海湾之一。
@@ -76,6 +77,7 @@ public class DuiZhangZhuanShuModel {
         private String mesGuess;
         private String mesGroup;
         private String mesWx;
+        private String shopWx;
         private String mesBank;
         private String goodsShop;
         private String comeInInfo;
@@ -311,6 +313,14 @@ public class DuiZhangZhuanShuModel {
 
         public void setMission(List<MissionBean> mission) {
             this.mission = mission;
+        }
+
+        public String getShopWx() {
+            return shopWx;
+        }
+
+        public void setShopWx(String shopWx) {
+            this.shopWx = shopWx;
         }
 
         public static class ShopNameBean {

@@ -5,12 +5,16 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
@@ -36,6 +40,8 @@ public class ShouRuMingXiWebActivity extends BaseWebActivity {
 
     @BindView(R.id.webView)
     WebView webView;
+    @BindView(R.id.refresh_layout)
+    RefreshLayout refresh_layout;
     private String url;
     private Unbinder unbinder;
     private SpImp spImp;
@@ -47,41 +53,16 @@ public class ShouRuMingXiWebActivity extends BaseWebActivity {
         unbinder = ButterKnife.bind(this);
         url = getIntent().getStringExtra("url");
         spImp = new SpImp(this);
-//        ViseHttp.POST(NetConfig.wxQuery)
-//                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.wxQuery))
-//                .addParam("uid", spImp.getUID())
-//                .request(new ACallback<String>() {
-//                    @Override
-//                    public void onSuccess(String data) {
-//                        Log.d("saasdasd",data);
-//                        try {
-//                            JSONObject jsonObject = new JSONObject(data);
-//                            if (jsonObject.getInt("code") == 200){
-//                                Gson gson = new Gson();
-//                                RenZhengModel model = gson.fromJson(data,RenZhengModel.class);
-//                                String sBindStaus = model.getObj().getSign();
-////                                sBindStaus = "2";
-//                                String sRenZhengFeiStaus = model.getObj().getPay();
-////                                sRenZhengFeiStaus = "1";
-//                                if (sBindStaus.equals("3")){
-//                                    if (sRenZhengFeiStaus.equals("1")||sRenZhengFeiStaus.equals("2")){
-//                                        spImp.setIfSign("1");
-//                                    }
-//                                }
-//                            }else {
-//                                spImp.setIfSign("0");
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFail(int errCode, String errMsg) {
-//
-//                    }
-//                });
         initWebView(webView,url);
+        refresh_layout.setEnableLoadMore(false);
+        refresh_layout.setRefreshHeader(new ClassicsHeader(this));
+        refresh_layout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                webView.reload();
+                refresh_layout.finishRefresh(500);
+            }
+        });
         webView.addJavascriptInterface(new ShouRuMingXiWebActivity.AndroidInterface(),"Android");//交互
     }
     @OnClick({R.id.rl_back,R.id.rl_tixian})

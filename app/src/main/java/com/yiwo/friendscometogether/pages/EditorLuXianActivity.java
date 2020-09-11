@@ -19,9 +19,14 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.EditorFriendRememberAdapter;
+import com.yiwo.friendscometogether.adapter.EditorLuXianAdapter;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.model.EditorFriendRememberModel;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.newmodel.ActivityEditorModel;
+import com.yiwo.friendscometogether.newmodel.Fabu_Xiugai_LuXian_model;
+import com.yiwo.friendscometogether.newpage.FaBu_XiuGai_LuXianActivity;
+import com.yiwo.friendscometogether.newpage.XuXieHuoDongActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,7 +38,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 //编辑我的友记和续写
-public class EditorFriendRememberActivity extends BaseActivity {
+public class EditorLuXianActivity extends BaseActivity {
 
     @BindView(R.id.activity_editor_friend_remember_rl_back)
     RelativeLayout rlBack;
@@ -58,8 +63,8 @@ public class EditorFriendRememberActivity extends BaseActivity {
     @BindView(R.id.rl_complete)
     RelativeLayout rlComplete;
 
-    private EditorFriendRememberAdapter adapter;
-    private List<EditorFriendRememberModel.ObjBean.RenewListBean> mList;
+    private EditorLuXianAdapter adapter;
+    private List<ActivityEditorModel.ObjBean.RenewListBean> mList;
 
     private String id = "";
     private String draft = "";// 状态
@@ -67,14 +72,14 @@ public class EditorFriendRememberActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editor_friend_remember);
+        setContentView(R.layout.activity_editor_lu_xian);
         ButterKnife.bind(this);
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
-        draft = intent.getStringExtra("draft");//草稿 状态是 2 ，已发布状态是 1
-        if(draft.equals("2")){
-            rlComplete.setVisibility(View.VISIBLE);
-        }
+        draft = intent.getStringExtra("draft");//草稿 状态是 0 ，已发布状态是 1
+//        if(draft.equals("2")){
+//            rlComplete.setVisibility(View.VISIBLE);
+//        }
         initData();
     }
 
@@ -85,9 +90,9 @@ public class EditorFriendRememberActivity extends BaseActivity {
 
     private void initData() {
         Log.d("idididid",id);
-        ViseHttp.POST(NetConfig.editorFriendRememberUrl)
+        ViseHttp.POST(NetConfig.activityEditor)
                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.editorFriendRememberUrl))
-                .addParam("id", id)
+                .addParam("pfID", id)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -96,13 +101,13 @@ public class EditorFriendRememberActivity extends BaseActivity {
                             Log.d("idididid::",data);
                             if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
-                                EditorFriendRememberModel model = gson.fromJson(data, EditorFriendRememberModel.class);
-                                tvTitle.setText(model.getObj().getFriendsList().getFmtitle());
-                                Glide.with(EditorFriendRememberActivity.this).load(model.getObj().getFriendsList().getFmpic()).apply(new RequestOptions().error(R.mipmap.zanwutupian).placeholder(R.mipmap.zanwutupian)).into(ivTitle);
+                                ActivityEditorModel model = gson.fromJson(data, ActivityEditorModel.class);
+                                tvTitle.setText(model.getObj().getFriendsList().getPftitle());
+                                Glide.with(EditorLuXianActivity.this).load(model.getObj().getFriendsList().getPfpic()).apply(new RequestOptions().error(R.mipmap.zanwutupian).placeholder(R.mipmap.zanwutupian)).into(ivTitle);
                                 tvPrice.setText("人均费用: ¥" + model.getObj().getFriendsList().getPrice());
-                                tvFabuTime.setText("发表时间："+ model.getObj().getFriendsList().getFmtime());
-                                tvXiangGuanHuoDong.setText("相关活动: " + model.getObj().getFriendsList().getPftitle());
-                                LinearLayoutManager manager = new LinearLayoutManager(EditorFriendRememberActivity.this){
+                                tvFabuTime.setText("发团时间："+ model.getObj().getFriendsList().getGotime());
+                                tvXiangGuanHuoDong.setText("行程地点: " + model.getObj().getFriendsList().getPfaddress());
+                                LinearLayoutManager manager = new LinearLayoutManager(EditorLuXianActivity.this){
                                     @Override
                                     public boolean canScrollVertically() {
                                         return false;
@@ -111,10 +116,10 @@ public class EditorFriendRememberActivity extends BaseActivity {
                                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                                 recyclerView.setLayoutManager(manager);
                                 mList = model.getObj().getRenewList();
-                                adapter = new EditorFriendRememberAdapter(model.getObj().getRenewList(), EditorFriendRememberActivity.this, new EditorFriendRememberAdapter.OndeleteListenner() {
+                                adapter = new EditorLuXianAdapter(model.getObj().getRenewList(), EditorLuXianActivity.this, new EditorLuXianAdapter.OndeleteListenner() {
                                     @Override
                                     public void delete(int pos) {
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(EditorFriendRememberActivity.this);
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(EditorLuXianActivity.this);
                                         builder.setMessage("确定删除？")
                                                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                                     @Override
@@ -129,12 +134,12 @@ public class EditorFriendRememberActivity extends BaseActivity {
                                                     }
                                                 }).show();
                                     }
-                                }, new EditorFriendRememberAdapter.OnEditListenner() {
+                                }, new EditorLuXianAdapter.OnEditListenner() {
                                     @Override
                                     public void edit(int pos) {
                                         Intent intent = new Intent();
-                                        intent.putExtra("id", mList.get(pos).getFfID());
-                                        intent.setClass(EditorFriendRememberActivity.this, ModifyIntercalationActivity.class);
+                                        intent.putExtra("id", mList.get(pos).getId());
+                                        intent.setClass(EditorLuXianActivity.this, ModifyLuXianXuXieActivity.class);
                                         startActivityForResult(intent,1);
                                     }
                                 });
@@ -153,9 +158,9 @@ public class EditorFriendRememberActivity extends BaseActivity {
 
     }
     private void deleteXuXie(int pos){
-        ViseHttp.POST(NetConfig.deleteRenewUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.deleteRenewUrl))
-                .addParam("id", mList.get(pos).getFfID())
+        ViseHttp.POST(NetConfig.delActivityContent)
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.delActivityContent))
+                .addParam("delID", mList.get(pos).getId())
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -164,7 +169,7 @@ public class EditorFriendRememberActivity extends BaseActivity {
                             if(jsonObject.getInt("code") == 200){
                                 mList.remove(pos);
                                 adapter.notifyDataSetChanged();
-                                toToast(EditorFriendRememberActivity.this, "删除成功");
+                                toToast(EditorLuXianActivity.this, "删除成功");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -187,53 +192,56 @@ public class EditorFriendRememberActivity extends BaseActivity {
                 break;
             case R.id.rl_xuxie:
             case R.id.activity_editor_friend_remember_tv_add:
-                intent.setClass(EditorFriendRememberActivity.this, CreateIntercalationActivity.class);
-                intent.putExtra("id", id);
-                intent.putExtra("type", draft);
+                intent.putExtra("id", id+"");
+                if (draft.equals("1")){//已发布
+                    intent.putExtra("type", "1");
+                }else {//未发布
+                    intent.putExtra("type", "2");
+                }
+                intent.setClass(EditorLuXianActivity.this, XuXieHuoDongActivity.class);
+//                startActivity(intent);
                 startActivityForResult(intent,1);
                 break;
             case R.id.rl_modify:
-                intent.setClass(EditorFriendRememberActivity.this, ModifyFriendRememberActivity.class);
-                intent.putExtra("id", id);
-                startActivityForResult(intent,1);
+                FaBu_XiuGai_LuXianActivity.open(EditorLuXianActivity.this,id);
                 break;
             case R.id.rl_complete:
-                ViseHttp.POST(NetConfig.releaseDraftUrl)
-                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.releaseDraftUrl))
-                        .addParam("id", id)
-                        .request(new ACallback<String>() {
-                            @Override
-                            public void onSuccess(String data) {
-                                Log.d("asaasas",data);
-                                try {
-                                    JSONObject jsonObject = new JSONObject(data);
-                                    if(jsonObject.getInt("code") == 200){
-                                        toToast(EditorFriendRememberActivity.this, jsonObject.getString("message"));
-                                        initData();
-                                    }else {
-                                        toToast(EditorFriendRememberActivity.this, jsonObject.getString("message"));
-                                        intent.setClass(EditorFriendRememberActivity.this, ModifyFriendRememberActivity.class);
-                                        intent.putExtra("id", id);
-                                        startActivityForResult(intent,1);
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                            @Override
-                            public void onFail(int errCode, String errMsg) {
-
-                            }
-                        });
-                break;
+//                ViseHttp.POST(NetConfig.releaseDraftUrl)
+//                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.releaseDraftUrl))
+//                        .addParam("id", id)
+//                        .request(new ACallback<String>() {
+//                            @Override
+//                            public void onSuccess(String data) {
+//                                Log.d("asaasas",data);
+//                                try {
+//                                    JSONObject jsonObject = new JSONObject(data);
+//                                    if(jsonObject.getInt("code") == 200){
+//                                        toToast(EditorLuXianActivity.this, jsonObject.getString("message"));
+//                                        initData();
+//                                    }else {
+//                                        toToast(EditorLuXianActivity.this, jsonObject.getString("message"));
+//                                        intent.setClass(EditorLuXianActivity.this, ModifyFriendRememberActivity.class);
+//                                        intent.putExtra("id", id);
+//                                        startActivityForResult(intent,1);
+//                                    }
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onFail(int errCode, String errMsg) {
+//
+//                            }
+//                        });
+//                break;
         }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        EditorFriendRememberActivity.this.finish();
+        EditorLuXianActivity.this.finish();
     }
 
     @Override

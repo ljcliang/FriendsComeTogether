@@ -235,6 +235,7 @@
 
             </RelativeLayout>
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/rl_tui_jian"
                 android:layout_width="match_parent"
                 android:layout_height="120px">

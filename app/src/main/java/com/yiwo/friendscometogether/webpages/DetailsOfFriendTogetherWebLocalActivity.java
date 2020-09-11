@@ -35,6 +35,7 @@ import com.bumptech.glide.request.target.Target;
 import com.google.gson.Gson;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.ShareBoardlistener;
@@ -64,6 +65,7 @@ import com.yiwo.friendscometogether.newmodel.YouJuWebModel;
 import com.yiwo.friendscometogether.newpage.JuBaoActivity;
 import com.yiwo.friendscometogether.newpage.MoreCommentHuodongActivity;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
+import com.yiwo.friendscometogether.newpage.RenWuActivity;
 import com.yiwo.friendscometogether.pages.ApplyActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.RealNameActivity;
@@ -128,6 +130,7 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
         setContentView(R.layout.activity_details_of_friend_together_web);
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
         StatusBarUtils.setStatusBarTransparent(DetailsOfFriendTogetherWebLocalActivity.this);
+        Log.d("活动生命周期","onCreate");
         unbinder = ButterKnife.bind(this);
         spImp = new SpImp(DetailsOfFriendTogetherWebLocalActivity.this);
         uid = spImp.getUID();
@@ -136,12 +139,6 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
         url = "file:///android_asset/htmlfile/demoU.html";
         setDatabase();
         lookHistoryDbModelDao = mDaoSession.getLookHistoryDbModelDao();
-//        if (getIntent().getStringExtra("phase_id")!= null){
-//            phase_id = getIntent().getStringExtra("phase_id");
-//            url = NetConfig.BaseUrl+"action/ac_activity/youJuWeb?pfID="+pfID+"&uid="+uid+"&phase_id="+phase_id;
-//        }else {
-//            url = NetConfig.BaseUrl+"action/ac_activity/youJuWeb?pfID="+pfID+"&uid="+uid;
-//        }
         initWebView(webView,url);
         initIntentSonic(url,webView);
         webView.setWebChromeClient(new WebChromeClient(){
@@ -217,7 +214,43 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
         webView.addJavascriptInterface(new DetailsOfFriendTogetherWebLocalActivity.AndroidInterface(),"android");//交互
         initData();
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("活动生命周期","onStart");
+        uid = spImp.getUID();
+        ShareUtils.closeDialog();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("活动生命周期","onResume");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("活动生命周期","onRestart");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("活动生命周期","onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("活动生命周期","onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("活动生命周期","onDestroy");
+    }
     /**
      *
      * @param id id:被关注人的id（当type=4时为当前登录人的ID），
@@ -837,5 +870,12 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
         Intent it = new Intent(DetailsOfFriendTogetherWebLocalActivity.this, VideoActivity.class);
         it.putExtra("videoUrl", vurl);
         startActivity(it);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("活动生命周期","onActivityResult");
+        UMShareAPI.get(DetailsOfFriendTogetherWebLocalActivity.this).onActivityResult(requestCode, resultCode, data);
     }
 }

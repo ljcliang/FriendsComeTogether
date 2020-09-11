@@ -1,5 +1,6 @@
 package com.yiwo.friendscometogether.newmodel;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class Fabu_Xiugai_LuXian_model {
@@ -253,7 +254,7 @@ public class Fabu_Xiugai_LuXian_model {
             this.phaseInfos = phaseInfos;
         }
 
-        public static class PhaseInfosBean {
+        public static class PhaseInfosBean implements Serializable {
             /**
              * phase_id : 536
              * sign_up_over_time : 2020-09-05

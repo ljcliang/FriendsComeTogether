@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.donkingliang.imageselector.utils.ImageSelector;
+import com.google.gson.Gson;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
@@ -76,7 +77,7 @@ public class XuXieHuoDongActivity extends BaseActivity {
 
     private SpImp spImp;
     private String uid = "";
-    private String id = "";
+    private String pf_id = "";
 
     private List<File> files = new ArrayList<>();
 
@@ -102,15 +103,15 @@ public class XuXieHuoDongActivity extends BaseActivity {
     private void initData() {
 
         Intent intent = getIntent();
-        id = intent.getStringExtra("id");
+        pf_id = intent.getStringExtra("id");
         type = intent.getStringExtra("type");//草稿 状态是 2 ，已发布状态是 1 ,从创建友记页面进入状态是0（也是未发布状态
         Log.d("sssssaaaaa ",""+type);
-        if(type.equals("0")){
+        if(type.equals("0")){  //创建活动进入只显示保存继续和立即发布按钮
             llBaoCun.setVisibility(View.GONE);
             llbtnsJiXu_FaBu.setVisibility(View.VISIBLE);
             Log.d("sssssaaaaa  ","创建友记进入");
         }
-        else {
+        else {//编辑活动进入只显示保存按钮
             llBaoCun.setVisibility(View.VISIBLE);
             llbtnsJiXu_FaBu.setVisibility(View.GONE);
             Log.d("sssssaaaaa  ","编辑友记进入");
@@ -195,16 +196,16 @@ public class XuXieHuoDongActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.btn_lijifabu:
-                complete(0,false);//发布
+                complete(1,false);//发布
                 break;
             case R.id.btn_jixuchaungzuo:
-                complete(1,true);//存草稿 并且再次打开创建续写页面进行创作
+                complete(0,true);//存草稿 并且再次打开创建续写页面进行创作
                 break;
             case R.id.btn_baocun:
                 if (type.equals("1")){
-                    complete(0,false);//发布
+                    complete(1,false);//发布
                 }else {
-                    complete(1,false);//存草稿
+                    complete(0,false);//存草稿
                 }
 //                if (mList.size()==0){
 //                    toToast(CreateIntercalationActivity.this,"请添加图片");
@@ -220,7 +221,7 @@ public class XuXieHuoDongActivity extends BaseActivity {
     }
     /**
      * 发布
-     * type 0 发布，1存草稿
+     * type 0草稿，1发布
      * openagain 发布并且再次打开创作页面
      */
     private void complete(final int stuas,boolean openagain) {
@@ -288,20 +289,23 @@ public class XuXieHuoDongActivity extends BaseActivity {
             public void onNext(Map<String, File> value) {
 
                 String describe = "";
+                String[] strs = new String[mList.size()];
                 for (int i = 0; i < mList.size(); i++) {
-                    describe = describe + mList.get(i).getDescribe() + "|";
+                    strs[i] = mList.get(i).getDescribe();
                 }
-                Log.e("222", describe);
+                Gson gson = new Gson();
+                describe = gson.toJson(strs);
+                Log.e("2200002",describe);
 
                 ViseHttp.UPLOAD(NetConfig.activityContent)
                         .addHeader("Content-Type", "multipart/form-data")
                         .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userRenewTheArticle))
                         .addParam("title", etTitle.getText().toString())
                         .addParam("content", etContent.getText().toString())
-                        .addParam("id", id)
+                        .addParam("pfID", pf_id)
                         .addParam("uid", uid)
-                        .addParam("type", stuas + "")
-                        .addParam("describe", describe)
+                        .addParam("status", stuas + "")
+                        .addParam("imgInfo", describe)
                         .addFiles(value)
                         .request(new ACallback<String>() {
                             @Override
@@ -314,7 +318,7 @@ public class XuXieHuoDongActivity extends BaseActivity {
                                         WeiboDialogUtils.closeDialog(dialog);
                                         if (openagain){
                                             Intent intent = new Intent();
-                                            intent.putExtra("id", id);
+                                            intent.putExtra("id", pf_id);
                                             intent.putExtra("type", type);//传0为当前友记为未发布状态
                                             intent.setClass(XuXieHuoDongActivity.this, XuXieHuoDongActivity.class);
                                             startActivity(intent);

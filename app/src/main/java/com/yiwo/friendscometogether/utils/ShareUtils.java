@@ -2,6 +2,7 @@ package com.yiwo.friendscometogether.utils;
 
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -12,8 +13,15 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 
 public class ShareUtils {
+    public static Dialog dialog;
+    public static void closeDialog(){
+        if (dialog!=null){
+            WeiboDialogUtils.closeDialog(dialog);
+        }
+    }
     /**
      * 分享链接
      */
@@ -30,20 +38,27 @@ public class ShareUtils {
                 .setPlatform(platform)
                 .withMedia(web)
                 .setCallback(new UMShareListener() {
+
                     @Override
                     public void onStart(SHARE_MEDIA share_media) {
-
+                        Log.d("微信分享","onStart");
+                        dialog = WeiboDialogUtils.createLoadingDialog(activity,"加载中...");
                     }
 
                     @Override
                     public void onResult(final SHARE_MEDIA share_media) {
+                        Log.d("微信分享","onResult");
+                        WeiboDialogUtils.closeDialog(dialog);
+                        if (activity==null) return;
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (share_media.name().equals("WEIXIN_FAVORITE")) {
-                                    Toast.makeText(activity, share_media + " 收藏成功", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(activity, share_media + " 分享成功", Toast.LENGTH_SHORT).show();
+                                if (share_media!=null){
+                                    if (share_media.name().equals("WEIXIN_FAVORITE")) {
+                                        Toast.makeText(activity, share_media + " 收藏成功", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(activity, share_media + " 分享成功", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
                         });
@@ -51,26 +66,36 @@ public class ShareUtils {
 
                     @Override
                     public void onError(final SHARE_MEDIA share_media, final Throwable throwable) {
+                        Log.d("微信分享","onError");
+                        WeiboDialogUtils.closeDialog(dialog);
+                        if (activity==null) return;
                         if (throwable != null) {
                             Log.d("throw", "throw:" + throwable.getMessage());
                         }
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(activity, share_media + " 分享失败", Toast.LENGTH_SHORT).show();
+                        if (share_media!=null){
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(activity, share_media + " 分享失败", Toast.LENGTH_SHORT).show();
 
-                            }
-                        });
+                                }
+                            });
+                        }
                     }
 
                     @Override
                     public void onCancel(final SHARE_MEDIA share_media) {
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(activity, share_media + " 分享取消", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        Log.d("微信分享","onCancel");
+                        WeiboDialogUtils.closeDialog(dialog);
+                        if (activity==null) return;
+                        if (share_media!=null){
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(activity, share_media + " 分享取消", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
                     }
                 })
                 .share();

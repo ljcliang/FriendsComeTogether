@@ -126,7 +126,7 @@
             android:text="2020年7月15日"
             android:id="@+id/tv_date"
             android:textSize="12sp"
-            android:textColor="@color/color_grey_999999"
+            android:textColor="@color/black_101010"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <LinearLayout
@@ -144,7 +144,7 @@
             <TextView
                 android:text="0"
                 android:textSize="12sp"
-                android:textColor="#272A2C"
+                android:textColor="@color/black_101010"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="12dp"
                 android:id="@+id/tv_look_num"
@@ -160,7 +160,7 @@
             <TextView
                 android:text="0"
                 android:textSize="12sp"
-                android:textColor="#272A2C"
+                android:textColor="@color/black_101010"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="5dp"
                 android:id="@+id/tv_pinglun_num"

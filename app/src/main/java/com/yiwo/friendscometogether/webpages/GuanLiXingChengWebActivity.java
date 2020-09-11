@@ -32,6 +32,8 @@ import com.yiwo.friendscometogether.newmodel.GoodShareModel;
 import com.yiwo.friendscometogether.newpage.FaBu_XiuGaiShangPinActivity;
 import com.yiwo.friendscometogether.newpage.FaBu_XiuGai_LuXianActivity;
 import com.yiwo.friendscometogether.newpage.PeiSongSettingActivity;
+import com.yiwo.friendscometogether.pages.EditorFriendRememberActivity;
+import com.yiwo.friendscometogether.pages.EditorLuXianActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.ShareUtils;
 
@@ -97,8 +99,16 @@ public class GuanLiXingChengWebActivity extends BaseSonicWebActivity {
 
     public class AndroidInterface extends Object {
         @JavascriptInterface
-        public void editactivity(String pfID ) {
-            FaBu_XiuGai_LuXianActivity.open(GuanLiXingChengWebActivity.this,pfID);
+        public void editactivity(String pfID,String draft ) {
+            Intent intent = new Intent();
+            intent.putExtra("id", pfID);
+            if (draft.equals("1")){
+                intent.putExtra("draft", "1");//已发布状态
+            }else {
+                intent.putExtra("draft", "0");//未发布状态
+            }
+            intent.setClass(GuanLiXingChengWebActivity.this, EditorLuXianActivity.class);
+            startActivity(intent);
         }
         @JavascriptInterface
         public void gotoactivity(String pfID){

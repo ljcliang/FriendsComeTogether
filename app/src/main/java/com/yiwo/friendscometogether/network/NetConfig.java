@@ -168,8 +168,9 @@ public class NetConfig {
     public static String userAgreementUrl = BaseUrl+"ac_public/userDeal";
     public static String userAgreementUrl1 = BaseUrl+"ac_public/userDeal2";
     public static String chongZhiXieYiUrl = BaseUrl+"action/ac_public/paydeal";
-//      报名协议
-    public static String joinDealUrl = BaseUrl+"action/ac_public/joinDeal";
+//      报名协议、、新 http://www.tongbanapp.com/dealHtml/joinparty.html
+//    public static String joinDealUrl = BaseUrl+"action/ac_public/joinDeal";
+    public static String joinDealUrl = BaseUrl+"dealHtml/joinparty.html";
     //获取用户的活动列表
     public static String userActiveListUrl = "action/ac_article/ActivityList";
     //显示实名认证信息
@@ -640,8 +641,77 @@ public static String homePageSkipGoods = "action/ac_newHome/homePageSkipGoods";
      */
     public static String activityUpdateInfo = "action/ac_activity/activityUpdateInfo";
     /**
-     * action/ac_activity/activityContent   添加续写     传uid用户id   title标题  content内容  file_img图片   imgInfo图片内容
+     * action/ac_activity/activityContent   添加续写     传uid用户id   title标题  content内容  file_img图片   imgInfo图片内容 status 发布1或草稿0状态
      */
     public static String activityContent = "action/ac_activity/activityContent";
+    /**
+     * action/ac_activity/activityEditor   获取编辑活动的信息    传 pfID活动id    返回
+     */
+     /**
+     *  {
+     * 	"code": 200,
+     * 	"message": "操作成功",
+     * 	"obj": {
+     * 		"FriendsList": {
+     * 			"pfID": "1",       								//活动id
+     * 			"pftitle": "二龙山爬山运动会", 		//活动名
+     * 			"pfpic": "http:\/\/localhost\/html\/uploads\/article\/2020\/15.jpg",  //多动图片
+     * 			"pfaddress": "二龙山",    			 //活动地址
+     * 			"gotime": "2020-08-22",			//时间
+     * 			"price": "12.00"						//价格
+     *                },
+     * 		"RenewList": [{					//续写列表
+     * 			"pfptitle": "运动更健康",	//续写标题
+     * 			"pfpcontent": "爬山比赛，看谁爬的快",//续写内容
+     * 			"pfpurl": "http:\/\/localhost\/html\/uploads\/article\/2020\/1.jpg"     //图片
+     *        }]* 	}
+     * }
+     */
+     public static String activityEditor = "action/ac_activity/activityEditor";
+    /**
+     * action/ac_activity/getActivityContent   获取   传editid 续写的id     返回
+     * */
+    /**
+     * {
+     *     "code":200,
+     *     "message":"获取成功!",
+     *     "obj":{
+     *         "id":"1",                            //续写的id
+     *         "title":"运动更健康",           标题
+     *         "content":"爬山比赛，看谁爬的快",        //内容
+     *         "imgList":[
+     *             {
+     *                 "pfpID":"1",         //图片id
+     *                 "imgUrl":"http://localhost/html/uploads/article/2020/1.jpg",    //图片
+     *                 "message":"一起来旅游吧"     内容
+     *             },
+     *             {
+     *                 "pfpID":"2",
+     *                 "imgUrl":"http://localhost/html/uploads/article/2020/2.jpg",
+     *                 "message":"哈哈哈这个好玩"
+     *             },
+     *             {
+     *                 "pfpID":"3",
+     *                 "imgUrl":"http://localhost/html/uploads/article/2020/3.jpg",
+     *                 "message":"看，这是什么"
+     *             }
+     *         ]
+     *     }
+     * }
+     */
+    public static String getActivityContent = "action/ac_activity/getActivityContent";
+    /**
+     * action/ac_activity/editActivityContent   修改续写
+     * title 标题          content 内容       editid要修改的id
+     * delID        要删除的id  逗号分隔
+     * file_img    新图片
+     * imgInfo   新图片描述：   ["第一张", "第二张","第三张"]
+     * imgInfoedit   没有删除的图片： [{"id":1,"message":"详情1"},{"id":2,"message":"详情2"}]
+     */
+    public static String editActivityContent = "action/ac_activity/editActivityContent";
+    /**
+     * action/ac_activity/delActivityContent  删除续写  传 delID  续写id
+     */
+    public static String delActivityContent = "action/ac_activity/delActivityContent";
 }
 

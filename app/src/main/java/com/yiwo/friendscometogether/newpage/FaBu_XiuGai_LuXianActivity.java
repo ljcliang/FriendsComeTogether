@@ -27,29 +27,26 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.custom.TitleMessageOkDialog;
+import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.UserLabelModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.FaBuLuXianLabelAdapter;
 import com.yiwo.friendscometogether.newadapter.FaBuLuXianQiShuAdapter;
-import com.yiwo.friendscometogether.newadapter.LabelAdapter;
-import com.yiwo.friendscometogether.newadapter.ShangPinLabelAdapter;
-import com.yiwo.friendscometogether.newmodel.FaBuLuXianQiShuModel;
+import com.yiwo.friendscometogether.newadapter.FaBuLuXianQiShuAdapter_1;
+import com.yiwo.friendscometogether.newmodel.FabuLuXianChooseDateWithWebModel;
 import com.yiwo.friendscometogether.newmodel.Fabu_Xiugai_LuXian_model;
-import com.yiwo.friendscometogether.pages.MyInformationActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.SolveEditTextScrollClash;
 import com.yiwo.friendscometogether.utils.StringUtils;
-import com.yiwo.friendscometogether.utils.TokenUtils;
+import com.yiwo.friendscometogether.webpages.ChooseLuXianDateWebLocalActivity;
 import com.yiwo.friendscometogether.widget.CustomDatePicker_ljc;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.sql.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -105,9 +102,8 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
     TextView btnJixuchaungzuo;
     @BindView(R.id.btn_lijifabu)
     TextView btnLijifabu;
-    @BindView(R.id.ll_bottom)
-    LinearLayout llBottom;
-
+    @BindView(R.id.rl_btn_add_price)
+    RelativeLayout rl_btn_add_price;
     public final static String PF_ID = "pf_id";
     public final static String DATE_PICKER_TYPE_KEY = "DATE_PICKER_TYPE_KEY";//0为开始时间，1为结束时间
     public final static String DATE_PICKER_POSITION__KEY = "DATE_PICKER_POSITION__KEY";//需要更改期数开始、结束时间的索引
@@ -129,9 +125,13 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
     RelativeLayout rlInputSingle;
     @BindView(R.id.edt_input_order_ask)
     EditText edtInputOrderAsk;
+    @BindView(R.id.ll_bottom2)
+    LinearLayout ll_bottom2;
+    @BindView(R.id.ll_bottom)
+    LinearLayout ll_bottom;
     private List<Fabu_Xiugai_LuXian_model.ObjBean.PhaseInfosBean> listQiShu = new ArrayList<>();
-    private FaBuLuXianQiShuAdapter faBuLuXianQiShuAdapter;
-    private FaBuLuXianQiShuAdapter.EventListenner fabuqishuListenner;
+    private FaBuLuXianQiShuAdapter_1 faBuLuXianQiShuAdapter;
+    private FaBuLuXianQiShuAdapter_1.EventListenner fabuqishuListenner;
     private List<UserLabelModel.ObjBean> listLabel = new ArrayList<>();//标签
     private FaBuLuXianLabelAdapter faBuLuXianLabelAdapter;
     private List<String> listChoosedLabel;
@@ -148,6 +148,9 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
     private boolean isFabu = false;
     private String pfId = "0";
     private Fabu_Xiugai_LuXian_model.ObjBean xiuGaiBean ;
+
+    private static final int CHOOSE_DATE_REQ_CODE = 2;
+    private Dialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -160,14 +163,18 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
         initLabelData();
         initDatePicker();
         if (getIntent().getStringExtra(PF_ID) == null || getIntent().getStringExtra(PF_ID).equals("")) {
-            tvTitle.setText("发布路线");
+            tvTitle.setText("发布行程");
 //            btnLijifabu.setText("发布");
             isFabu = true;
+            ll_bottom.setVisibility(View.VISIBLE);
+            ll_bottom2.setVisibility(View.GONE);
         } else {
-            tvTitle.setText("修改路线");
+            tvTitle.setText("修改行程");
 //            btnLijifabu.setText("修改");
             pfId = getIntent().getStringExtra(PF_ID);
             isFabu = false;
+            ll_bottom.setVisibility(View.GONE);
+            ll_bottom2.setVisibility(View.VISIBLE);
         }
     }
 
@@ -206,10 +213,12 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
 
     private void initRv() {
         //期数
-        if (listQiShu.size() == 0) {
-            listQiShu.add(new Fabu_Xiugai_LuXian_model.ObjBean.PhaseInfosBean());
+        if (listQiShu.size()<=0){
+            rl_btn_add_price.setVisibility(View.VISIBLE);
+        }else {
+            rl_btn_add_price.setVisibility(View.GONE);
         }
-        fabuqishuListenner = new FaBuLuXianQiShuAdapter.EventListenner() {
+        fabuqishuListenner = new FaBuLuXianQiShuAdapter_1.EventListenner() {
             @Override
             public void deleteItem(int pos) {
                 listQiShu.remove(pos);
@@ -259,15 +268,21 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
                 listQiShu.get(pos).setUserBonus(string);
 //                faBuLuXianQiShuAdapter.notifyDataSetChanged();
             }
+            @Override
+            public void onclick() {
+                FabuLuXianChooseDateWithWebModel model = new FabuLuXianChooseDateWithWebModel();
+                model.setDatearr(listQiShu);
+                ChooseLuXianDateWebLocalActivity.open(FaBu_XiuGai_LuXianActivity.this,CHOOSE_DATE_REQ_CODE,model);
+            }
         };
-        faBuLuXianQiShuAdapter = new FaBuLuXianQiShuAdapter(listQiShu,fabuqishuListenner);
+        faBuLuXianQiShuAdapter = new FaBuLuXianQiShuAdapter_1(listQiShu,fabuqishuListenner);
         LinearLayoutManager managerPh = new LinearLayoutManager(FaBu_XiuGai_LuXianActivity.this) {
             @Override
             public boolean canScrollVertically() {
                 return false;
             }
         };
-        managerPh.setOrientation(LinearLayoutManager.VERTICAL);
+        managerPh.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvPhase.setLayoutManager(managerPh);
         rvPhase.setAdapter(faBuLuXianQiShuAdapter);
         //标签
@@ -282,6 +297,7 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
                     }
                 }
                 if (choosed_num>=2&&!listLabel.get(pos).isChoose()){
+                    Toast.makeText(FaBu_XiuGai_LuXianActivity.this,"最多选择两个标签",Toast.LENGTH_SHORT).show();
                     return;
                 }else {
                     listLabel.get(pos).setChoose(!listLabel.get(pos).isChoose());
@@ -362,6 +378,11 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
                                 }
                                 listQiShu.clear();
                                 listQiShu.addAll(xiuGaiBean.getPhaseInfos());
+                                if (listQiShu.size()<=0){
+                                    rl_btn_add_price.setVisibility(View.VISIBLE);
+                                }else {
+                                    rl_btn_add_price.setVisibility(View.GONE);
+                                }
                                 faBuLuXianQiShuAdapter.notifyDataSetChanged();
                                 strChoosedLabels = xiuGaiBean.getActivityLabel();
                                 for (String s :strChoosedLabels.split(",")){
@@ -437,16 +458,19 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
         open(context, "");
     }
 
-    @OnClick({R.id.rl_back, R.id.rl_right,R.id.rl_choose_first_image, R.id.iv_tishi_guanjianci, R.id.rl_btn_add_price, R.id.btn_jixuchaungzuo, R.id.btn_lijifabu,R.id.rl_input_sex, R.id.rl_input_single})
+    @OnClick({R.id.rl_back, R.id.rl_right,R.id.rl_choose_first_image, R.id.iv_tishi_guanjianci, R.id.rl_btn_add_price, R.id.btn_jixuchaungzuo,
+            R.id.btn_save,R.id.btn_lijifabu,R.id.rl_input_sex, R.id.rl_input_single,R.id.rl_choose_date,R.id.rv_phase})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_back:
                 onBackPressed();
                 break;
             case R.id.rl_btn_add_price:
-                listQiShu.add(new Fabu_Xiugai_LuXian_model.ObjBean.PhaseInfosBean());
-                faBuLuXianQiShuAdapter = new FaBuLuXianQiShuAdapter(listQiShu,fabuqishuListenner);
-                rvPhase.setAdapter(faBuLuXianQiShuAdapter);
+            case R.id.rl_choose_date:
+            case R.id.rv_phase:
+                FabuLuXianChooseDateWithWebModel model = new FabuLuXianChooseDateWithWebModel();
+                model.setDatearr(listQiShu);
+                ChooseLuXianDateWebLocalActivity.open(FaBu_XiuGai_LuXianActivity.this,CHOOSE_DATE_REQ_CODE,model);
                 break;
             case R.id.rl_choose_first_image:
                 //限数量的多选(比喻最多9张)
@@ -460,7 +484,7 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
                 break;
             case R.id.iv_tishi_guanjianci:
                 TitleMessageOkDialog titleMessageOkDialog1 = new TitleMessageOkDialog(FaBu_XiuGai_LuXianActivity.this, "",
-                        "用于搜索查找时的“搜索内容”，请用“ | ”分割，如：云南|大理|东方瑞士...", "知道了", new TitleMessageOkDialog.OnBtnClickListenner() {
+                        "用于搜索查找时的“搜索内容”，请用“ ， ”分割，如：云南|大理|东方瑞士...", "知道了", new TitleMessageOkDialog.OnBtnClickListenner() {
                     @Override
                     public void onclick(Dialog dialog) {
                         dialog.dismiss();
@@ -469,7 +493,12 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
                 titleMessageOkDialog1.show();
                 break;
             case R.id.btn_jixuchaungzuo:
-                next();
+                if (checkInfo()) {
+                    Log.d("sssaaaasss", qiShuData2JSONString(listQiShu));
+                    if (isFabu){
+                        next();
+                    }
+                }
                 break;
             case R.id.btn_lijifabu:
             case R.id.rl_right:
@@ -481,7 +510,16 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
                         xiugai();
                     }
                 }
-                ;
+                break;
+            case R.id.btn_save:
+                if (checkInfo()) {
+                    Log.d("sssaaaasss", qiShuData2JSONString(listQiShu));
+                    if (isFabu){
+                        fabu();
+                    }else {
+                        xiugai();
+                    }
+                }
                 break;
             case R.id.rl_input_sex:
                 final String[] items = {"不限","男", "女"};
@@ -556,6 +594,7 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
     }
 
     private void xiugai() {
+        dialog = WeiboDialogUtils.createLoadingDialog(FaBu_XiuGai_LuXianActivity.this,"");
         if (TextUtils.isEmpty(firstImageUrl)){//没有修改首图
             ViseHttp.UPLOAD(NetConfig.activityUpdateInfo)
                     .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.activityUpdateInfo))
@@ -594,11 +633,13 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                            WeiboDialogUtils.closeDialog(dialog);
                         }
 
                         @Override
                         public void onFail(int errCode, String errMsg) {
                             Log.e("222", errCode+"::"+errMsg);
+                            WeiboDialogUtils.closeDialog(dialog);
                         }
                     });
         }else {
@@ -657,18 +698,19 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
+                                    WeiboDialogUtils.closeDialog(dialog);
                                 }
 
                                 @Override
                                 public void onFail(int errCode, String errMsg) {
-
+                                    WeiboDialogUtils.closeDialog(dialog);
                                 }
                             });
                 }
 
                 @Override
                 public void onError(Throwable e) {
-
+                    WeiboDialogUtils.closeDialog(dialog);
                 }
 
                 @Override
@@ -819,6 +861,7 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
         fabu(false);
     }
     private void fabu(boolean jixu) {
+        dialog = WeiboDialogUtils.createLoadingDialog(FaBu_XiuGai_LuXianActivity.this,"");
         Observable<File> observable = Observable.create(new ObservableOnSubscribe<File>() {
             @Override
             public void subscribe(ObservableEmitter<File> e) throws Exception {
@@ -857,6 +900,7 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
                         .addParam("wenXinTiShi", edtInputWenxintishi.getText().toString())//
                         .addParam("activityLabel",strChoosedLabels)
                         .addParam("phaseInfos",qiShuData2JSONString(listQiShu))
+                        .addParam("status",jixu? "0":"1")
                         .addFile("file_img", value)
                         .request(new ACallback<String>() {
                             @Override
@@ -866,7 +910,15 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
                                     JSONObject jsonObject = new JSONObject(data);
                                     if (jsonObject.getInt("code") == 200) {
                                         Toast.makeText(FaBu_XiuGai_LuXianActivity.this, "发布成功", Toast.LENGTH_SHORT).show();
+                                        Log.e("222pfId", pfId);
+                                        pfId = jsonObject.getJSONObject("obj").getString("pfID");
+                                        Log.e("222pfId", pfId);
                                         if (jixu){
+                                            Intent intent = new Intent();
+                                            intent.putExtra("id", pfId+"");
+                                            intent.putExtra("type", "0");
+                                            intent.setClass(FaBu_XiuGai_LuXianActivity.this, XuXieHuoDongActivity.class);
+                                            startActivity(intent);
 
                                         }
                                         finish();
@@ -877,18 +929,19 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+                                WeiboDialogUtils.closeDialog(dialog);
                             }
 
                             @Override
                             public void onFail(int errCode, String errMsg) {
-
+                                WeiboDialogUtils.closeDialog(dialog);
                             }
                         });
             }
 
             @Override
             public void onError(Throwable e) {
-
+                WeiboDialogUtils.closeDialog(dialog);
             }
 
             @Override
@@ -913,6 +966,18 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
             final List<String> list = data.getStringArrayListExtra(ImageSelector.SELECT_RESULT);
             firstImageUrl = list.get(0);
             Glide.with(FaBu_XiuGai_LuXianActivity.this).load(list.get(0)).into(ivFirstImage);
+        }
+        if (requestCode == CHOOSE_DATE_REQ_CODE &&resultCode == ChooseLuXianDateWebLocalActivity.CHOOSED_RESULT_CODE && data!=null){
+            FabuLuXianChooseDateWithWebModel model = (FabuLuXianChooseDateWithWebModel) data.getSerializableExtra(ChooseLuXianDateWebLocalActivity.CHOOSED_MODE_KEY);
+
+            listQiShu.clear();
+            listQiShu.addAll(model.getDatearr());
+            if (listQiShu.size()<=0){
+                rl_btn_add_price.setVisibility(View.VISIBLE);
+            }else {
+                rl_btn_add_price.setVisibility(View.GONE);
+            }
+            faBuLuXianQiShuAdapter.notifyDataSetChanged();
         }
     }
 }
