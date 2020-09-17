@@ -60,6 +60,7 @@ public class ChooseLuXianDateWebLocalActivity extends BaseSonicWebActivity {
                 if (newProgress == 100) {
                     if (chooseModel.getDatearr()!=null&&chooseModel.getDatearr().size()>0){
                         webView.loadUrl("javascript:getAndroidDatearr('"+gson.toJson(chooseModel)+"')");
+                        Log.d("saveseltime",gson.toJson(chooseModel));
                     }else {
                         webView.loadUrl("javascript:getAndroidDatearr('')");
                     }

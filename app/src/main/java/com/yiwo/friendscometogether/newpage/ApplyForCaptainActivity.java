@@ -61,7 +61,7 @@ public class ApplyForCaptainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply_for_captain);
-        ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
+//        ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
         ButterKnife.bind(this);
         spImp = new SpImp(this);
 
@@ -217,19 +217,9 @@ public class ApplyForCaptainActivity extends BaseActivity {
         if (requestCode == REQUEST_CODE && data != null) {
             //获取选择器返回的数据
             List<String> scList = data.getStringArrayListExtra(ImageSelector.SELECT_RESULT);
-//            Glide.with(ApplyForCaptainActivity.this).load("file://" + scList.get(0)).into(imageView);
             imageUrl = scList.get(0);
-            imageView.setImageBitmap(getLoacalBitmap("file://" + scList.get(0)));
-        }
-    }
-    public  Bitmap getLoacalBitmap(String url) {
-        try {
-            FileInputStream fis = new FileInputStream(url);
-            return BitmapFactory.decodeStream(fis);  ///把流转化为Bitmap图片
+            Glide.with(ApplyForCaptainActivity.this).load(imageUrl).into(imageView);
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
         }
     }
 

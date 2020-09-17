@@ -180,7 +180,7 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
                             Log.d("adsadasd--nzian：：",strr1);
                             String s = WebUntils.replaceStr(strr1);
                         Log.d("adsadasd：：\n",s+"\n"+strr2+"\n"+strr3);
-                        webView.loadUrl("javascript:getTongbanDataAndroid('"+s+"','"+strr2+"','"+strr3+"')");
+                            webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"','"+spImp.getUID()+"')");
                             /**
                              * 加载之后再次查询更新数据库
                              */
@@ -203,7 +203,7 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
                                                     String strr2 = "";
                                                     String strr3 = "0";
                                                     Log.d("数据库中没有此条数据：ID-",fmID+"\n"+strr1+""+strr2+""+strr3);
-                                                    webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+                                                    webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"','"+spImp.getUID()+"')");
                                                     YouJiWebInfoDbModel youJiWebInfoDbModel = new YouJiWebInfoDbModel();
                                                     youJiWebInfoDbModel.setWeb_info(mode.getObj().getStr());
                                                     youJiWebInfoDbModel.setFm_id(fmID);

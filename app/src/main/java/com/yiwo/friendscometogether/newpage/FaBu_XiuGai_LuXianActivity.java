@@ -618,6 +618,7 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
                     .addParam("wenXinTiShi", edtInputWenxintishi.getText().toString())//
                     .addParam("activityLabel",strChoosedLabels)
                     .addParam("phaseInfos",qiShuData2JSONString(listQiShu))
+//                    .addParam("status",jixu? "0":"1")
                     .request(new ACallback<String>() {
                         @Override
                         public void onSuccess(String data) {
@@ -757,11 +758,12 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
             return false;
         }
         if (listQiShu.size() > 0) {
-            for (int i = 0;i<listQiShu.size();i++) {
-                if (!checkQiShu(listQiShu.get(i))) {
-                    return false;
-                }
-            }
+            //此处注释掉，由web选择时判断检查输入格式
+//            for (int i = 0;i<listQiShu.size();i++) {
+//                if (!checkQiShu(listQiShu.get(i))) {
+//                    return false;
+//                }
+//            }
         } else {
             Toast.makeText(FaBu_XiuGai_LuXianActivity.this, "至少有一期！", Toast.LENGTH_SHORT).show();
             return false;

@@ -65,7 +65,6 @@ import com.yiwo.friendscometogether.newmodel.YouJuWebModel;
 import com.yiwo.friendscometogether.newpage.JuBaoActivity;
 import com.yiwo.friendscometogether.newpage.MoreCommentHuodongActivity;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
-import com.yiwo.friendscometogether.newpage.RenWuActivity;
 import com.yiwo.friendscometogether.pages.ApplyActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.RealNameActivity;
@@ -148,17 +147,12 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
                     progresss_bar.setVisibility(View.GONE);//加载完网页进度条消失
                     if (isFirst){
                         isFirst = false;
-//                        String strr1 = getIntent().getStringExtra("str");
-//                        String strr2 = "";
-//                        String strr3 = "0";
-//                        Log.d("adsadasd",strr1+""+strr2+""+strr3);
-//                        webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
                         if (webInfoOfDbUntils.hasThisId_HuoDong(pfID)){
                             String strr1 = webInfoOfDbUntils.queryYouJu(pfID).getWeb_info();
                             String strr2 = "";
                             String strr3 = "1";//0youji,1youju;2shangpin,5jingcailuxian;3canjiarenyuan;
                             Log.d("adsadasd：：\n",strr1+"\n"+strr2+"\n"+strr3);
-                            webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+                            webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"','"+spImp.getUID()+"')");
                             /**
                              * 加载之后再次查询更新数据库
                              */
@@ -182,7 +176,7 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
                                                     String strr3 = "1";
                                                     strr1 = WebUntils.replaceStr(strr1);
                                                     Log.d("数据库中没有此条数据：pfIDID-",pfID+"\n"+strr1+"\n"+strr2+"\n"+strr3);
-                                                    webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+                                                    webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"','"+spImp.getUID()+"')");
                                                     YouJuHuoDongWebInfoDbModel youJuHuoDongWebInfoDbModel = new YouJuHuoDongWebInfoDbModel();
                                                     youJuHuoDongWebInfoDbModel.setWeb_info(mode.getObj().getStr());
                                                     youJuHuoDongWebInfoDbModel.setPf_id(pfID);
@@ -291,6 +285,13 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
                                 youJuHuoDongWebInfoDbModel.setWeb_info(mode.getObj().getStr());
                                 youJuHuoDongWebInfoDbModel.setPf_id(pfID);
                                 webInfoOfDbUntils.insertYouJuHuoDongModel(youJuHuoDongWebInfoDbModel);
+                                //每次获取新数据，再次更新
+                                String strr1 = mode.getObj().getStr();
+                                String strr2 = "";
+                                String strr3 = "1";//0youji,1youju;2shangpin,5jingcailuxian;3canjiarenyuan;
+                                Log.d("adsadasd：：\n",strr1+"\n"+strr2+"\n"+strr3);
+                                webView.loadUrl("javascript:androidagain('"+strr1+"','"+strr2+"','"+strr3+"')");
+                                updateWebStaus(spImp.getUID(),"4","-1");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -658,11 +659,43 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
                     showstr, new EditNumContentDialog_L.OnReturnListener() {
                 @Override
                 public void onReturn(String content) {
-                    toToast(DetailsOfFriendTogetherWebLocalActivity.this,hid+"//"+qid);
+//                    toToast(DetailsOfFriendTogetherWebLocalActivity.this,content+"---"+hid+"//"+qid);
+                    addNoNameJoin(content,hid,qid);
                 }
             });
             dialogL.show();
         }
+    }
+
+    private void addNoNameJoin(String num, String hid, String qid) {
+        ViseHttp.POST(NetConfig.setNoNameJoin)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.setNoNameJoin))
+                .addParam("pfID", hid)
+                .addParam("phase_id",qid)
+                .addParam("num",num)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        try {
+                            Log.d("asdasdas",data);
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200){
+                                toToast(DetailsOfFriendTogetherWebLocalActivity.this,"添加成功");
+                                refreshCanJiaRenYuan(hid,qid);
+//                                String str = jsonObject.getJSONObject("obj").getString("str");
+//                                Log.d("asdasdas","str::"+str);
+//                                webView.loadUrl("javascript:loadnewjoin('"+str+"')");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
     }
 
     private void refreshCanJiaRenYuan(String youJuId, String qiShuId) {

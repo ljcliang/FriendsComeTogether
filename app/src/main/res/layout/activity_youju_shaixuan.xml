@@ -85,7 +85,7 @@
                     android:textStyle="bold"
                     android:textSize="28px"
                     android:textColor="@color/black_333333"
-                    android:text="商家名称"
+                    android:text="商家"
                     android:gravity="right"
                     android:layout_width="170px"
                     android:layout_height="wrap_content" />
@@ -110,6 +110,43 @@
 
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/rl_tianshu"
+                android:layout_below="@+id/rl_shang_jia"
+                android:layout_width="match_parent"
+                android:layout_height="120px">
+                <TextView
+                    android:layout_marginRight="30px"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/tv_tianshu"
+                    android:textStyle="bold"
+                    android:textSize="28px"
+                    android:textColor="@color/black_333333"
+                    android:text="天数"
+                    android:gravity="right"
+                    android:layout_width="170px"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:inputType="number"
+                    android:layout_marginRight="50px"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="20px"
+                    android:layout_toRightOf="@+id/tv_tianshu"
+                    android:id="@+id/et_tianshu"
+                    android:textColor="@color/black_333333"
+                    android:textColorHint="#676767"
+                    android:textSize="26px"
+                    android:hint="请输入天数"
+                    android:background="@drawable/bg_gray9a9a9a_border_5dp"
+                    android:layout_height="75px"
+                    android:layout_width="match_parent"/>
+                <View
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"/>
+
+            </RelativeLayout>
+            <RelativeLayout
                 android:id="@+id/rl_jiage"
                 android:layout_below="@+id/rl_shang_jia"
                 android:layout_width="match_parent"
@@ -122,7 +159,7 @@
                     android:textStyle="bold"
                     android:textSize="28px"
                     android:textColor="@color/black_333333"
-                    android:text="价格区间"
+                    android:text="价格"
                     android:gravity="right"
                     android:layout_width="170px"
                     android:layout_height="wrap_content" />
@@ -189,7 +226,7 @@
                     android:textStyle="bold"
                     android:textSize="28px"
                     android:textColor="@color/black_333333"
-                    android:text="城市"
+                    android:text="地点"
                     android:gravity="right"
                     android:layout_width="170px"
                     android:layout_height="wrap_content" />
@@ -206,10 +243,10 @@
                         android:textColor="@color/black_333333"
                         android:textColorHint="#676767"
                         android:textSize="26px"
-                        android:hint="请输入城市名称"
+                        android:hint="请输入要查询的地点"
                         android:background="@drawable/bg_gray9a9a9a_border_5dp"
                         android:layout_height="75px"
-                        android:layout_width="300px"/>
+                        android:layout_width="350px"/>
                     <TextView
                         android:id="@+id/tv_choose_city"
                         android:layout_marginLeft="50px"
@@ -279,7 +316,7 @@
                     android:textStyle="bold"
                     android:textColor="@color/black_333333"
                     android:textSize="28px"
-                    android:text="活动标签"
+                    android:text="选择标签"
                     android:gravity="right"
                     android:layout_width="170px"
                     android:layout_height="wrap_content" />

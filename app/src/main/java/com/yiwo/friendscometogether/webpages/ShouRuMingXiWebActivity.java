@@ -83,9 +83,9 @@ public class ShouRuMingXiWebActivity extends BaseWebActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
-                        Intent intent = new Intent();
-                        intent.setClass(ShouRuMingXiWebActivity.this, TiXianShuoMingActivity.class);
-                        startActivity(intent);
+//                        Intent intent = new Intent();
+//                        intent.setClass(ShouRuMingXiWebActivity.this, TiXianShuoMingActivity.class);
+//                        startActivity(intent);
                     }
                 }).show();
                 break;

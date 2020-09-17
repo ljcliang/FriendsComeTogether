@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,6 +18,9 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.shareboard.SnsPlatform;
@@ -26,6 +30,7 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseSonicWebActivity;
+import com.yiwo.friendscometogether.base.BaseWebActivity;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.model.ActiveShareModel;
 import com.yiwo.friendscometogether.network.NetConfig;
@@ -43,7 +48,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class GuanLiGoodsWebActivity extends BaseSonicWebActivity {
+public class GuanLiGoodsWebActivity extends BaseWebActivity {
 
     @BindView(R.id.rl_return)
     RelativeLayout rlReturn;
@@ -58,7 +63,8 @@ public class GuanLiGoodsWebActivity extends BaseSonicWebActivity {
     private String url;
     @BindView(R.id.rl_show_more)
     RelativeLayout rl_show_more;
-
+    @BindView(R.id.refresh_layout)
+    RefreshLayout refresh_layout;
     Dialog dialog;
     private SpImp spImp;
     @Override
@@ -67,9 +73,23 @@ public class GuanLiGoodsWebActivity extends BaseSonicWebActivity {
         setContentView(R.layout.activity_guan_li_goods_web);
         ButterKnife.bind(this);
         url = getIntent().getStringExtra("url");
-        initIntentSonic(url, webView);
+        initWebView(webView,url);
+        initRefresh();
         spImp = new SpImp(this);
         webView.addJavascriptInterface(new AndroidInterface(), "android");
+    }
+
+    private void initRefresh() {
+        refresh_layout.setEnableLoadMore(false);
+        refresh_layout.setRefreshHeader(new ClassicsHeader(GuanLiGoodsWebActivity.this));
+        refresh_layout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                webView.reload();
+                refreshLayout.finishRefresh(500);
+            }
+        });
+
     }
 
     public static void start(Context context, String url) {

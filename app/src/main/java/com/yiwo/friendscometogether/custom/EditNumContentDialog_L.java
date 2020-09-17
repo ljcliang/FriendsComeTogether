@@ -60,7 +60,7 @@ public class EditNumContentDialog_L extends Dialog {
 
         rlClose = view.findViewById(R.id.dialog_edit_content_rl_close);
         etContent = view.findViewById(R.id.dialog_edit_content_et_content);
-        etContent.setKeyListener(DigitsKeyListener.getInstance("123456789"));
+        etContent.setKeyListener(DigitsKeyListener.getInstance("0123456789"));
         tvTitle = view.findViewById(R.id.dialog_edit_content_tv);
         tvTitle.setText(strTitle);
         btnOk = view.findViewById(R.id.dialog_edit_content_btn_ok);

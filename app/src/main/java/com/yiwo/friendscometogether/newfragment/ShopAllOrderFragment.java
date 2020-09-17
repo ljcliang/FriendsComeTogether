@@ -35,6 +35,7 @@ import com.yiwo.friendscometogether.newmodel.SellerOrderModel;
 import com.yiwo.friendscometogether.pages.MyCommentActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.TokenUtils;
+import com.yiwo.friendscometogether.webpages.ShopGoodsPingJiaWebActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -103,7 +104,7 @@ public class ShopAllOrderFragment extends BaseFragment {
 
             @Override
             public void onYiPingJia(int postion) {
-//                MyCommentActivity.open(getContext(),false);
+                ShopGoodsPingJiaWebActivity.open(getContext());
             }
 
             @Override

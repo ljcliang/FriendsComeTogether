@@ -103,24 +103,24 @@ public class FaBuShangPinJiaGeAdapter extends RecyclerView.Adapter<FaBuShangPinJ
 
             @Override
             public void afterTextChanged(Editable s) {
-                if ((int)holder.edt_guige.getTag() == position) {///设置tag解决错乱问题
+                if ((int)(holder.edt_guige.getTag()) == position) {///设置tag解决错乱问题
                     data.get(position).setSpec(s.toString());
                 }
             }
         });
-        holder.edt_guige.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                EditText et=(EditText)view;
-                if (!b) {// 失去焦点
-                    et.setHint(et.getTag().toString());
-                } else {
-                    String hint=et.getHint().toString();
-                    et.setTag(hint);//保存预设字
-                    et.setHint(null);
-                }
-            }
-        });
+//        holder.edt_guige.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                EditText et=(EditText)view;
+//                if (!b) {// 失去焦点
+//                    et.setHint(et.getTag().toString());
+//                } else {
+//                    String hint=et.getHint().toString();
+//                    et.setTag(hint);//保存预设字
+//                    et.setHint(null);
+//                }
+//            }
+//        });
         holder.edt_jiage.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -134,7 +134,7 @@ public class FaBuShangPinJiaGeAdapter extends RecyclerView.Adapter<FaBuShangPinJ
 
             @Override
             public void afterTextChanged(Editable s) {
-                if ((int)holder.edt_guige.getTag() == position) {///设置tag解决错乱问题
+                if ((int)(holder.edt_guige.getTag()) == position) {///设置tag解决错乱问题
                     data.get(position).setNowPrice(s.toString());
                 }
             }
@@ -152,7 +152,7 @@ public class FaBuShangPinJiaGeAdapter extends RecyclerView.Adapter<FaBuShangPinJ
 
             @Override
             public void afterTextChanged(Editable s) {
-                if ((int)holder.edt_guige.getTag() == position) {///设置tag解决错乱问题
+                if ((int)(holder.edt_yuan_jiage.getTag()) == position) {///设置tag解决错乱问题
                     data.get(position).setOldPrice(s.toString());
                 }
             }
@@ -170,7 +170,7 @@ public class FaBuShangPinJiaGeAdapter extends RecyclerView.Adapter<FaBuShangPinJ
 
             @Override
             public void afterTextChanged(Editable s) {
-                if ((int)holder.edt_guige.getTag() == position) {///设置tag解决错乱问题
+                if ((int)(holder.edt_kucun.getTag()) == position) {///设置tag解决错乱问题
                     data.get(position).setAllNum(s.toString());
                 }
             }

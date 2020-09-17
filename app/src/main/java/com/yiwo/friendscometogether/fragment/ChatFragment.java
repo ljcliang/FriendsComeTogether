@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.netease.nim.uikit.business.recent.RecentContactsFragment;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseFragment;
 import com.yiwo.friendscometogether.pages.LoginActivity;
@@ -48,12 +49,13 @@ public class ChatFragment extends BaseFragment{
         ButterKnife.bind(this, rootView);
         spImp = new SpImp(getContext());
         refreshRecentContactsFragment();
-//        initRefresh();
+        initRefresh();
         return rootView;
     }
 //
-//    private void initRefresh() {
-//        refreshLayout.setEnableLoadMore(false);
+    private void initRefresh() {
+//        refreshLayout.setEnableLoadMore(true);
+//        refreshLayout.setEnableRefresh(true);
 //        refreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
 //        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
 //            @Override
@@ -62,7 +64,7 @@ public class ChatFragment extends BaseFragment{
 //                refreshLayout.finishRefresh(1000);
 //            }
 //        });
-//    }
+    }
 
     public void refreshRecentContactsFragment() {
         RecentContactsFragment fragment = new RecentContactsFragment();

@@ -63,6 +63,8 @@ public class YoujuShaixuanActivity extends BaseActivity {
     TextView tvChooseCity;
     @BindView(R.id.et_key_word)
     EditText etKeyWord;
+    @BindView(R.id.et_tianshu)
+    EditText et_tianshu;
     private Boolean bTuiJian = false;
     private LabelAdapter adapter;
     private List<UserLabelModel.ObjBean> mList;

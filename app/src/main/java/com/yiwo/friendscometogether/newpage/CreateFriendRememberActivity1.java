@@ -113,6 +113,8 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
     RelativeLayout rlSelectCity;
     @BindView(R.id.activity_create_friend_remember_tv_activity_city)
     EditText tvCity;
+    @BindView(R.id.activity_create_friend_remember_tv_activity_laiyuan)
+    EditText edtLaiYuan;
     @BindView(R.id.activity_create_friend_remember_rl_price)
     RelativeLayout rlPrice;
     @BindView(R.id.activity_create_friend_remember_rl_complete)
@@ -946,7 +948,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
         else if(mList.size()<1){
             Toast.makeText(CreateFriendRememberActivity1.this, "请至少上传1张照片", Toast.LENGTH_SHORT).show();
             return;
-        }else if (TextUtils.isEmpty(tvCity.getText().toString())){
+        }else if (TextUtils.isEmpty(tvCity.getText().toString()) && (!yourChoiceId.equals("65"))){//标签为资讯时 可以不填写地点
             Toast.makeText(CreateFriendRememberActivity1.this, "请填写地点", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -1036,6 +1038,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                         .addParam("gltype",gltype)
                         .addParam("insertatext", tvIsIntercalation.getText().toString().equals("是")?"0":"1")
                         .addParam("accesspassword", password)
+                        .addParam("comeFrom",edtLaiYuan.getText().toString())
                         .addParam("type", "0")
                         .addFiles(value)
                         .request(new ACallback<String>() {
@@ -1094,7 +1097,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
         else if(mList.size()<1){
             Toast.makeText(CreateFriendRememberActivity1.this, "请至少上传1张照片", Toast.LENGTH_SHORT).show();
             return;
-        }else if (TextUtils.isEmpty(tvCity.getText().toString())){
+        }else if (TextUtils.isEmpty(tvCity.getText().toString()) && (!yourChoiceId.equals("65"))){//标签为资讯时可以不填写 地点
             Toast.makeText(CreateFriendRememberActivity1.this, "请填写地点", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -1206,6 +1209,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                         .addParam("gltype",gltype)
                         .addParam("insertatext", tvIsIntercalation.getText().toString().equals("是")?"0":"1")
                         .addParam("accesspassword", password)
+                        .addParam("comeFrom",edtLaiYuan.getText().toString())
                         .addParam("type", "1")
                         .addFiles(value)
                         .request(new ACallback<String>() {
@@ -1356,6 +1360,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
                         .addParam("gltype",gltype)
                         .addParam("insertatext", tvIsIntercalation.getText().toString().equals("是")?"0":"1")
                         .addParam("accesspassword", password)
+                        .addParam("comeFrom",edtLaiYuan.getText().toString())
                         .addParam("type", "1")
                         .addFiles(value)
                         .request(new ACallback<String>() {

@@ -41,8 +41,9 @@ public class GoodsCartWebActivity extends BaseSonicWebActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        webView.reload();
         if (!isFirstLoad){
-            webView.reload();
+
         }
     }
 

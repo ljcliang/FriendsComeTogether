@@ -3,6 +3,7 @@ package com.yiwo.friendscometogether.newadapter.hometuijian_five_list;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ public class WenLvZiXunAdapter extends RecyclerView.Adapter<WenLvZiXunAdapter.Vi
         holder.ll_3.setVisibility(View.GONE);
         switch (position % 4){
             case 0:
-                if (data.get(position).getPicList().size()>2){
+                if (data.get(position).getPicList().size()>2&& !TextUtils.isEmpty(data.get(position).getPicList().get(1))&&!TextUtils.isEmpty(data.get(position).getPicList().get(2))){
                     holder.ll_1.setVisibility(View.VISIBLE);
                     holder.tv_title.setText(data.get(position).getFmtitle());
                     if (data.get(position).getPicList().size()>0){
@@ -61,7 +62,7 @@ public class WenLvZiXunAdapter extends RecyclerView.Adapter<WenLvZiXunAdapter.Vi
                 }
                 break;
             case 1:
-                if (data.get(position).getPicList().size()>2){
+                if (data.get(position).getPicList().size()>2&& !TextUtils.isEmpty(data.get(position).getPicList().get(1))&&!TextUtils.isEmpty(data.get(position).getPicList().get(2))){
                     holder.ll_1.setVisibility(View.VISIBLE);
                     holder.tv_title.setText(data.get(position).getFmtitle());
                     if (data.get(position).getPicList().size()>0){

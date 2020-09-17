@@ -198,7 +198,7 @@ public class SpImp {
 
     /**
      *
-     * @return 1为已认证
+     * @return 1 为已认证 微信商户认证
      */
     public String getIfSign(){
         return sp.getString(SpPublic.IF_SIGN,"");

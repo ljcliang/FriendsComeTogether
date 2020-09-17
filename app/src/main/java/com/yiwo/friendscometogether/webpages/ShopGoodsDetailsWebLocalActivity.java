@@ -21,6 +21,8 @@ import com.bumptech.glide.request.FutureTarget;
 import com.bumptech.glide.request.target.Target;
 import com.google.gson.Gson;
 import com.netease.nim.uikit.api.NimUIKit;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.shareboard.SnsPlatform;
@@ -35,6 +37,7 @@ import com.yiwo.friendscometogether.dbmodel.YouJuHuoDongWebInfoDbModel;
 import com.yiwo.friendscometogether.imagepreview.StatusBarUtils;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newmodel.LocalWebInfoModel;
+import com.yiwo.friendscometogether.newpage.ShopHomeActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.FileUtils;
@@ -85,17 +88,12 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
                 if(newProgress==100 && isFirst){
                     if (isFirst){
                         isFirst = false;
-//                        String strr1 = getIntent().getStringExtra("str");
-//                        String strr2 = "";
-//                        String strr3 = "0";
-//                        Log.d("adsadasd",strr1+""+strr2+""+strr3);
-//                        webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
                         if (webInfoOfDbUntils.hasThisId_Goods(goodId)){
                             String strr1 = webInfoOfDbUntils.queryGood(goodId).getWeb_info();
                             String strr2 = "";
                             String strr3 = "2";
                             Log.d("adsadasd：：\n",strr1+"\n"+strr2+"\n"+strr3);
-                            webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+                            webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"','"+spImp.getUID()+"')");
                             /**
                              * 加载之后再次查询更新数据库
                              */
@@ -116,6 +114,11 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
                                                     goodsWebInfoDbModel.setWeb_info(mode.getObj().getStr());
                                                     goodsWebInfoDbModel.setGood_id(goodId);
                                                     webInfoOfDbUntils.insertGoodModel(goodsWebInfoDbModel);
+                                                    String strr1 = mode.getObj().getStr();
+                                                    String strr2 = "";
+                                                    String strr3 = "2";
+                                                    Log.d("adsadasd：：\n",strr1+"\n"+strr2+"\n"+strr3);
+                                                    webView.loadUrl("javascript:androidagain('"+strr1+"','"+strr2+"','"+strr3+"')");
                                                 }
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
@@ -146,7 +149,7 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
                                                     String strr3 = "2";
                                                     strr1 = WebUntils.replaceStr(strr1);
                                                     Log.d("adsadasd数据库中没有此条数据ID-",goodId+"\n"+strr1+"\n"+strr2+"\n"+strr3);
-                                                    webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
+                                                    webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"','"+spImp.getUID()+"')");
                                                     GoodsWebInfoDbModel goodsWebInfoDbModel = new GoodsWebInfoDbModel();
                                                     goodsWebInfoDbModel.setWeb_info(mode.getObj().getStr());
                                                     goodsWebInfoDbModel.setGood_id(goodId);
@@ -311,7 +314,38 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
         public void  goodsfav(){
             shouCangShangPin();
         }
+        @JavascriptInterface
+        public void homego(){
+            quZhuYe();
+        }
     }
+
+    private void quZhuYe() {
+        ViseHttp.POST(NetConfig.getGoodsInfo)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.getGoodsInfo))
+                .addParam("goodsID",goodId)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        Log.d("ssssdddd",data);
+                        try {
+                            JSONObject jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200){
+                                JSONObject jsonObject1 = jsonObject.getJSONObject("obj");
+                                ShopHomeActivity.start(ShopGoodsDetailsWebLocalActivity.this,jsonObject1.getString("shopUserID"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+
+                    }
+                });
+    }
+
     /**
      *
      * @param id id:被关注人的id（当type=4时为当前登录人的ID），

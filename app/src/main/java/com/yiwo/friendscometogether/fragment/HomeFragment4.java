@@ -317,6 +317,7 @@ public class HomeFragment4 extends BaseFragment {
     public void onStart() {
         super.onStart();
         uid = spImp.getUID();
+        initDateMessage();
     }
 
     public void getLocation() {

@@ -661,7 +661,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="2px"/>
                 <RelativeLayout
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:id="@+id/activity_my_information_rl_duizhang_renzheng"
                     android:layout_width="match_parent"
                     android:layout_height="120px">

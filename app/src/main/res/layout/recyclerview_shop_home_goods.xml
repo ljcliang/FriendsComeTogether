@@ -32,6 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:layout_marginLeft="8dp"
             android:layout_centerVertical="true"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
@@ -39,7 +40,7 @@
             <TextView
                 android:layout_gravity="bottom"
                 android:text="¥"
-                android:textColor="@color/red_d84c37"
+                android:textColor="#FF6C06"
                 android:textSize="13sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -47,7 +48,7 @@
                 android:id="@+id/tv_price"
                 android:layout_gravity="bottom"
                 android:text="89"
-                android:textColor="@color/red_d84c37"
+                android:textColor="#FF6C06"
                 android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

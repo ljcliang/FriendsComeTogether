@@ -44,7 +44,7 @@ public class TiXianShuoMingActivity extends BaseActivity {
             //new ImageView并设置全屏和图片资源
             ImageView imageView = new ImageView(this);
             imageView.setLayoutParams(params);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             imageView.setImageResource(images[i]);
 
             //将ImageView加入到集合中

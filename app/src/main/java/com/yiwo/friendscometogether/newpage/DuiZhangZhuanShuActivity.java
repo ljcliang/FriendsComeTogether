@@ -466,9 +466,9 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                 final String wx_unionid ;
                 if (data!=null && data.size()>0){
                     wx_unionid = data.get("unionid");
-                    for (Map.Entry<String,String> entry : data.entrySet()){
-                        Log.d("weixindenglu::://KEY:",entry.getKey()+"||Value:"+entry.getValue());
-                    }
+//                    for (Map.Entry<String,String> entry : data.entrySet()){
+//                        Log.d("weixindenglu::://KEY:",entry.getKey()+"||Value:"+entry.getValue());
+//                    }
                     Log.d("weixindenglu:UNIONID",wx_unionid);
                     ViseHttp.POST(NetConfig.addWXUnionid)
                             .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.addWXUnionid))

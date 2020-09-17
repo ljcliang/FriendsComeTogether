@@ -312,6 +312,7 @@ public class MainActivity extends FragmentActivity {
                     selectButton(ibFriendTogether);
                     selectText(tvFriendTogether);
                     switchFragment(1);
+                    fragmentFriendTogether.reLoadData();
                     break;
                 case R.id.menu_friend_remember:
 //                    selectButton(ibFriendRemember);

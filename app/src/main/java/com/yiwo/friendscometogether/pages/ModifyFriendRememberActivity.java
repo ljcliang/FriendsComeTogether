@@ -134,6 +134,8 @@ public class ModifyFriendRememberActivity extends TakePhotoActivity {
     TextView tvLabel;
     @BindView(R.id.activity_create_friend_remember_et_price)
     EditText etPrice;
+    @BindView(R.id.activity_create_friend_remember_tv_activity_laiyuan)
+    EditText edtLaiYuan;
     @BindView(R.id.activity_create_friend_remember_tv_title_num)
     TextView tvTitleNum;
     @BindView(R.id.activity_create_friend_remember_tv_content_num)
@@ -615,7 +617,7 @@ public class ModifyFriendRememberActivity extends TakePhotoActivity {
                 //20190225 限制友记上传图片数量 1
                 else if(mList.size()<1){
                     Toast.makeText(ModifyFriendRememberActivity.this, "请至少上传1张照片", Toast.LENGTH_SHORT).show();
-                }else if (TextUtils.isEmpty(tvCity.getText().toString())){
+                }else if (TextUtils.isEmpty(tvCity.getText().toString())&& (!yourChoiceId.equals("65"))){//标签为资讯时 可以不填写地点
                     Toast.makeText(ModifyFriendRememberActivity.this, "请填写地点", Toast.LENGTH_SHORT).show();
                 }else {
                     //判断如果填写开始时间和结束时间   结束时间必须大于开始时间
@@ -947,6 +949,7 @@ public class ModifyFriendRememberActivity extends TakePhotoActivity {
                             .addParam("accesspassword", password)
                             .addParam("id", fmId)
                             .addParam("deleteid", deleteid)
+                            .addParam("comeFrom",edtLaiYuan.getText().toString())
                             .addParam("first",firstPicIndex+"")
                             .addFiles(value)
                             .request(new ACallback<String>() {
@@ -1007,6 +1010,7 @@ public class ModifyFriendRememberActivity extends TakePhotoActivity {
                     .addParam("accesspassword", password)
                     .addParam("id", fmId)
                     .addParam("deleteid", deleteid)
+                    .addParam("comeFrom",edtLaiYuan.getText().toString())
                     .addParam("first",firstPicIndex+"")
                     .request(new ACallback<String>() {
                         @Override

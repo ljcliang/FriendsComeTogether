@@ -2,7 +2,9 @@ package com.yiwo.friendscometogether.newpage;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +12,8 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -32,6 +36,8 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.base.BaseSonicWebActivity;
+import com.yiwo.friendscometogether.base.BaseWebActivity;
 import com.yiwo.friendscometogether.imagepreview.StatusBarUtils;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.ShopHomeGoods_Adapter;
@@ -40,7 +46,10 @@ import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.WelcomeActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.ShareUtils;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
 import com.yiwo.friendscometogether.webpages.DuiZhangShangPuWebActivity;
+import com.yiwo.friendscometogether.webpages.GuanLiGoodsWebActivity;
+import com.yiwo.friendscometogether.webpages.ShopGoodsDetailsWebLocalActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,7 +63,7 @@ import butterknife.OnClick;
 
 import static com.yiwo.friendscometogether.utils.TokenUtils.getToken;
 
-public class ShopHomeActivity extends BaseActivity {
+public class ShopHomeActivity extends BaseWebActivity {
 
     @BindView(R.id.iv_top_bg)
     ImageView iv_top_bg;
@@ -74,18 +83,17 @@ public class ShopHomeActivity extends BaseActivity {
     EditText edt_sousuo;
     @BindView(R.id.tv_sousuo)
     TextView tv_sousuo;
-    @BindView(R.id.rv)
-    RecyclerView rv;
-    @BindView(R.id.refresh_layout)
-    SmartRefreshLayout refreshLayout;
+    @BindView(R.id.web_view)
+    WebView webView;
     private SpImp spImp;
     private String shopUserID;
     public static final String SHOP_OWNNER_ID = "shopUserID";
-    private List<ShopHomeModel.ObjBean.GoodsListBean> dataGoods = new ArrayList<>();
-    private ShopHomeGoods_Adapter shopHomeGoodsAdapter;
+//    private List<ShopHomeModel.ObjBean.GoodsListBean> dataGoods = new ArrayList<>();
+//    private ShopHomeGoods_Adapter shopHomeGoodsAdapter;
     private int page = 1;
     private int isFollow = 0;
     private ShopHomeModel.ObjBean.UserInfoBean bean;
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,35 +104,28 @@ public class ShopHomeActivity extends BaseActivity {
         shopUserID = getIntent().getStringExtra(SHOP_OWNNER_ID);
         initRv();
         initData();
+        //uid=店铺id&myID=我的id
+        initWebView(webView,NetConfig.inMyShop+"uid="+shopUserID+"&myID="+spImp.getUID());
+        webView.addJavascriptInterface(new ShopHomeActivity.AndroidInterface(),"android");//交互
+        int webViewStartY = webView.getScrollY();
     }
-
+    public class AndroidInterface{
+        @JavascriptInterface
+        public void goodsweb(String gid){
+            ShopGoodsDetailsWebLocalActivity.open(ShopHomeActivity.this,gid);
+        }
+    }
     private void initRv() {
-        StaggeredGridLayoutManager mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL){
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        rv.setLayoutManager(mLayoutManager);
-        shopHomeGoodsAdapter = new ShopHomeGoods_Adapter(dataGoods);
-        rv.setAdapter(shopHomeGoodsAdapter);
+//        StaggeredGridLayoutManager mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL){
+//            @Override
+//            public boolean canScrollVertically() {
+//                return false;
+//            }
+//        };
+//        rv.setLayoutManager(mLayoutManager);
+//        shopHomeGoodsAdapter = new ShopHomeGoods_Adapter(dataGoods);
+//        rv.setAdapter(shopHomeGoodsAdapter);
 
-        refreshLayout.setRefreshHeader(new ClassicsHeader(this));
-        refreshLayout.setRefreshFooter(new ClassicsFooter(this));
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                initData();
-                refreshLayout.finishRefresh(1000);
-            }
-        });
-        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                loadMore();
-                refreshLayout.finishLoadMore(1000);
-            }
-        });
     }
 
     public static void start(Context context,String shopOwnnerId){
@@ -176,9 +177,9 @@ public class ShopHomeActivity extends BaseActivity {
                                 }
                                 isFollow = bean.getLikeUser().equals("1")? 1 : 0;
                                 iv_guanzhu.setImageResource(bean.getLikeUser().equals("1") ? R.mipmap.tarenzhuye_heartwhite:R.mipmap.tarenzhuye_heart );
-                                dataGoods.clear();
-                                dataGoods.addAll(model.getObj().getGoodsList());
-                                shopHomeGoodsAdapter.notifyDataSetChanged();
+//                                dataGoods.clear();
+//                                dataGoods.addAll(model.getObj().getGoodsList());
+//                                shopHomeGoodsAdapter.notifyDataSetChanged();
                                 page = 2 ;
                             }
                         } catch (JSONException e) {
@@ -208,8 +209,8 @@ public class ShopHomeActivity extends BaseActivity {
                             if (jsonObject.getInt("code") == 200){
                                 Gson gson = new Gson();
                                 ShopHomeModel model = gson.fromJson(data,ShopHomeModel.class);
-                                dataGoods.addAll(model.getObj().getGoodsList());
-                                shopHomeGoodsAdapter.notifyDataSetChanged();
+//                                dataGoods.addAll(model.getObj().getGoodsList());
+//                                shopHomeGoodsAdapter.notifyDataSetChanged();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -222,9 +223,12 @@ public class ShopHomeActivity extends BaseActivity {
                     }
                 });
     }
-    @OnClick({R.id.rl_guanzhu,R.id.rl_fenxiang,R.id.tv_sousuo})
+    @OnClick({R.id.rl_back,R.id.rl_guanzhu,R.id.rl_fenxiang,R.id.tv_sousuo})
     public void onClick(View view){
         switch (view.getId()){
+            case R.id.rl_back:
+                onBackPressed();
+                break;
             case R.id.rl_guanzhu:
                 guanzhu();
                 break;
@@ -232,7 +236,7 @@ public class ShopHomeActivity extends BaseActivity {
                 share();
                 break;
             case R.id.tv_sousuo:
-                initData();
+                webView.loadUrl("javascript:sousuo('" + edt_sousuo.getText().toString() + "')");
                 break;
         }
     }

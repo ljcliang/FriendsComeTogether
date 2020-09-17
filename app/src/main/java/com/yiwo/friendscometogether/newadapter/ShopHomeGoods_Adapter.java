@@ -17,6 +17,7 @@ import com.yiwo.friendscometogether.newmodel.HomeYouPuModel;
 import com.yiwo.friendscometogether.newmodel.ShopHomeModel;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.webpages.ShopGoodsDetailsWebLocalActivity;
 
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class ShopHomeGoods_Adapter extends RecyclerView.Adapter<ShopHomeGoods_Ad
         holder.ll_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ShopGoodsDetailsWebLocalActivity.open(context,data.get(position).getGid());
             }
         });
     }

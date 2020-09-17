@@ -166,7 +166,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="12px"
+                android:layout_height="5px"
                 android:background="@color/line" />
             <RelativeLayout
                 android:focusable="true"
@@ -208,7 +208,57 @@
                 android:textSize="28px" />
             <View
                 android:layout_width="match_parent"
-                android:layout_height="12px"
+                android:layout_height="5px"
+                android:background="@color/line" />
+            <RelativeLayout
+                android:id="@+id/activity_create_friend_remember_rl_activity_laiyuan"
+                android:layout_width="match_parent"
+                android:layout_height="88px">
+
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/activity_create_friend_remember_iv_activity_laiyuan"
+                    android:layout_width="45px"
+                    android:layout_height="45px"
+                    android:layout_marginLeft="40px"
+                    android:src="@mipmap/laiyuan" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12px"
+                    android:layout_toRightOf="@+id/activity_create_friend_remember_iv_activity_laiyuan"
+                    android:text="来源"
+                    android:textColor="@color/black_666666"
+                    android:textSize="28px" />
+
+                <!--<ImageView-->
+                <!--android:id="@+id/activity_create_friend_remember_iv_activity_city_right"-->
+                <!--android:layout_width="14px"-->
+                <!--android:layout_height="24px"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginRight="40px"-->
+                <!--android:src="@mipmap/right" />-->
+
+                <EditText
+                    android:layout_alignParentRight="true"
+                    android:text="原创"
+                    android:gravity="end"
+                    android:background="@null"
+                    android:id="@+id/activity_create_friend_remember_tv_activity_laiyuan"
+                    android:layout_width="260px"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="64px"
+                    android:textColor="@color/black_333333"
+                    android:textSize="28px" />
+
+            </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5px"
                 android:background="@color/line" />
             <RelativeLayout
                 android:id="@+id/activity_create_friend_remember_rl_activity_city"
@@ -273,7 +323,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="12px"
+                android:layout_height="5px"
                 android:background="@color/line" />
             <RelativeLayout
                 android:id="@+id/activity_create_friend_remember_rl_active_title"
@@ -321,7 +371,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="12px"
+                android:layout_height="5px"
                 android:background="@color/line" />
 
             <RelativeLayout
@@ -376,7 +426,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="12px"
+                android:layout_height="5px"
                 android:background="@color/line" />
 
             <RelativeLayout
@@ -425,7 +475,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="12px"
+                android:layout_height="5px"
                 android:background="@color/line" />
 
             <RelativeLayout
@@ -474,7 +524,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="12px"
+                android:layout_height="5px"
                 android:background="@color/line" />
 
             <RelativeLayout
@@ -525,7 +575,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="12px"
+                android:layout_height="5px"
                 android:background="@color/line" />
 
             <RelativeLayout
@@ -576,7 +626,7 @@
             <View
                 android:visibility="gone"
                 android:layout_width="match_parent"
-                android:layout_height="12px"
+                android:layout_height="5px"
                 android:background="@color/line" />
 
             <RelativeLayout

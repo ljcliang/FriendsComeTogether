@@ -2,6 +2,7 @@ package com.yiwo.friendscometogether.webpages;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -32,6 +33,7 @@ public class ApplyActivityAgreementWebActivity extends BaseWebActivity {
         setContentView(R.layout.activity_apply_agreement_web);
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
         unbinder = ButterKnife.bind(this);
+        Log.d("asdasd:::",NetConfig.joinDealUrl);
         initWebView(webView, NetConfig.joinDealUrl);
     }
     @OnClick({R.id.activity_apply_agreement__back,R.id.btn_agree,R.id.btn_cancel})

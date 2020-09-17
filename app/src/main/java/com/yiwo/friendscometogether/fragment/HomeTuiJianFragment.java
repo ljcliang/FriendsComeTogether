@@ -56,11 +56,13 @@ import com.yiwo.friendscometogether.newmodel.HomeTuiJianYouJiShiPinModel;
 import com.yiwo.friendscometogether.newmodel.LocalWebInfoModel;
 import com.yiwo.friendscometogether.newmodel.NewHomeTuiJian;
 import com.yiwo.friendscometogether.newmodel.ReMenZhaoMuTabModel;
+import com.yiwo.friendscometogether.newpage.ApplyForCaptainActivity;
 import com.yiwo.friendscometogether.newpage.HomeYouPuWithFragmentActivity;
 import com.yiwo.friendscometogether.newpage.MianShuiShangPinListActivity;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.newpage.ZiXunListActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
+import com.yiwo.friendscometogether.pages.MyInformationActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.ExStaggeredGridLayoutManager;
 import com.yiwo.friendscometogether.utils.TokenUtils;
@@ -71,6 +73,7 @@ import com.yiwo.friendscometogether.webpages.ChooseLuXianDateWebLocalActivity;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
 import com.yiwo.friendscometogether.webpages.DetailsOfFriendsWebLocalActivity;
 import com.yiwo.friendscometogether.webpages.NoTitleWebActivity;
+import com.yiwo.friendscometogether.webpages.ShopGoodsDetailsWebLocalActivity;
 import com.yiwo.friendscometogether.widget.FullyLinearLayoutManager;
 
 import org.json.JSONException;
@@ -303,6 +306,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                                 ziXunTouTiaoAdapter.notifyDataSetChanged();
 
                                 //广告
+                                //0跳友聚 1跳文章2跳商品3固定地址4队长申请5无点击    sid  游聚文章 商品的id
                                 listAD.clear();
                                 listAD.addAll(model.getObj().getAd());
                                 rl_iv_gg0.setVisibility(View.GONE);
@@ -909,88 +913,60 @@ public class HomeTuiJianFragment extends BaseFragment {
                 ZiXunListActivity.open(getContext(),"2");
                 break;
             case R.id.rl_iv_gg0:
-                if (listAD.size()>0){
-                    if (listAD.get(0).getJumpType().equals("0")){
-
-                        intent.setClass(getContext(), DetailsOfFriendTogetherWebLocalActivity.class);
-                        intent.putExtra("pfID", listAD.get(0).getSid());
-                        startActivity(intent);
-                    }else if (listAD.get(0).getJumpType().equals("1")){
-                        intent.setClass(getContext(), DetailsOfFriendsWebLocalActivity.class);
-                        intent.putExtra("fmid", listAD.get(0).getSid());
-                        startActivity(intent);
-                    }else if(listAD.get(0).getJumpType().equals("-1")){
-
-                    }else {
-                        intent.setClass(getContext(), NoTitleWebActivity.class);
-                        intent.putExtra("url",listAD.get(0).getJumpUrl());
-//                        intent.putExtra("url","http://www.tongbanapp.com/action/ac_goods/insertGoodsWeb");
-                        startActivity(intent);
-                    }
-                }
+                jumpAD(0);
                 break;
             case R.id.rl_iv_gg1:
-                if (listAD.size()>1){
-                    if (listAD.get(1).getJumpType().equals("0")){
-
-                        intent.setClass(getContext(), DetailsOfFriendTogetherWebLocalActivity.class);
-                        intent.putExtra("pfID", listAD.get(1).getSid());
-                        startActivity(intent);
-                    }else if (listAD.get(1).getJumpType().equals("1")){
-                        intent.setClass(getContext(), DetailsOfFriendsWebLocalActivity.class);
-                        intent.putExtra("fmid", listAD.get(1).getSid());
-                        startActivity(intent);
-                    }else if(listAD.get(0).getJumpType().equals("-1")){
-
-                    }else {
-                        intent.setClass(getContext(), NoTitleWebActivity.class);
-                        intent.putExtra("url",listAD.get(1).getJumpUrl());
-                        startActivity(intent);
-                    }
-                }
+                jumpAD(1);
                 break;
             case R.id.rl_iv_gg2:
-                if (listAD.size()>2){
-                    if (listAD.get(2).getJumpType().equals("0")){
-
-                        intent.setClass(getContext(), DetailsOfFriendTogetherWebLocalActivity.class);
-                        intent.putExtra("pfID", listAD.get(2).getSid());
-                        startActivity(intent);
-                    }else if (listAD.get(2).getJumpType().equals("1")){
-                        intent.setClass(getContext(), DetailsOfFriendsWebLocalActivity.class);
-                        intent.putExtra("fmid", listAD.get(2).getSid());
-                        startActivity(intent);
-                    }else if(listAD.get(0).getJumpType().equals("-1")){
-
-                    }else {
-                        intent.setClass(getContext(), NoTitleWebActivity.class);
-                        intent.putExtra("url",listAD.get(2).getJumpUrl());
-                        startActivity(intent);
-                    }
-                }
+                jumpAD(2);
                 break;
             case R.id.rl_iv_gg3:
-                if (listAD.size()>3){
-                    if (listAD.get(3).getJumpType().equals("0")){
-
-                        intent.setClass(getContext(), DetailsOfFriendTogetherWebLocalActivity.class);
-                        intent.putExtra("pfID", listAD.get(3).getSid());
-                        startActivity(intent);
-                    }else if (listAD.get(3).getJumpType().equals("1")){
-                        intent.setClass(getContext(), DetailsOfFriendsWebLocalActivity.class);
-                        intent.putExtra("fmid", listAD.get(3).getSid());
-                        startActivity(intent);
-                    }else if(listAD.get(0).getJumpType().equals("-1")){
-
-                    }else {
-                        intent.setClass(getContext(), NoTitleWebActivity.class);
-                        intent.putExtra("url",listAD.get(3).getJumpUrl());
-                        startActivity(intent);
-                    }
-                }
+                jumpAD(3);
                 break;
         }
     }
+
+    /**
+     *
+     * @param index 点击广告 跳转页面
+     */
+    private void jumpAD(int index) {
+        Intent intent = new Intent();
+        if (listAD.size()>index){
+            //0跳友聚 1跳文章2跳商品3固定地址4队长申请5无点击    sid  游聚文章 商品的id
+            if (listAD.get(index).getJumpType().equals("0")){//活动
+                intent.setClass(getContext(), DetailsOfFriendTogetherWebLocalActivity.class);
+                intent.putExtra("pfID", listAD.get(index).getSid());
+                startActivity(intent);
+            }else if (listAD.get(index).getJumpType().equals("1")){//友记
+                intent.setClass(getContext(), DetailsOfFriendsWebLocalActivity.class);
+                intent.putExtra("fmid", listAD.get(index).getSid());
+                startActivity(intent);
+            }else if (listAD.get(index).getJumpType().equals("2")){//跳商品
+                ShopGoodsDetailsWebLocalActivity.open(getContext(),listAD.get(index).getSid());
+            }else if (listAD.get(index).getJumpType().equals("3")){//3固定地址
+                intent.setClass(getContext(), NoTitleWebActivity.class);
+                intent.putExtra("url",listAD.get(index).getJumpUrl());
+                startActivity(intent);
+            }else if (listAD.get(index).getJumpType().equals("4")){//4队长申请
+                                if (!TextUtils.isEmpty(spImp.getUID()) && !spImp.getUID().equals("0")){
+                    intent.setClass(getContext(), ApplyForCaptainActivity.class);
+                    startActivity(intent);
+                }
+                intent.setClass(getContext(), ApplyForCaptainActivity.class);
+                startActivity(intent);
+            }else if(listAD.get(index).getJumpType().equals("5")){//无操作
+
+            }else {//其他都跳进当前urlweb
+//                intent.setClass(getContext(), NoTitleWebActivity.class);
+//                intent.putExtra("url",listAD.get(index).getJumpUrl());
+////                        intent.putExtra("url","http://www.tongbanapp.com/action/ac_goods/insertGoodsWeb");
+//                startActivity(intent);
+            }
+        }
+    }
+
     private void preZiXunTouTiao(List<NewHomeTuiJian.ObjBean.ZxBean> listZiXunTouTiao){
         for (NewHomeTuiJian.ObjBean.ZxBean bean : listZiXunTouTiao){
             insertWebList("0",bean.getFmID());

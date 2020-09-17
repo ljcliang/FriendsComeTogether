@@ -183,6 +183,10 @@ public class FriendsTogetherFragment3 extends BaseFragment {
         });
         return view;
     }
+    public void reLoadData(){
+        initLabelTop();
+        initData();
+    }
     private void initSwipe() {
         adapter = new SwipeFIingViewAdapter(getContext(),mList);
         initAdapterListen();

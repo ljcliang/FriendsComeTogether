@@ -170,7 +170,7 @@ public class NetConfig {
     public static String chongZhiXieYiUrl = BaseUrl+"action/ac_public/paydeal";
 //      报名协议、、新 http://www.tongbanapp.com/dealHtml/joinparty.html
 //    public static String joinDealUrl = BaseUrl+"action/ac_public/joinDeal";
-    public static String joinDealUrl = BaseUrl+"dealHtml/joinparty.html";
+    public static String joinDealUrl = "http://www.tongbanapp.com/dealHtml/joinparty.html";
     //获取用户的活动列表
     public static String userActiveListUrl = "action/ac_article/ActivityList";
     //显示实名认证信息
@@ -713,5 +713,16 @@ public static String homePageSkipGoods = "action/ac_newHome/homePageSkipGoods";
      * action/ac_activity/delActivityContent  删除续写  传 delID  续写id
      */
     public static String delActivityContent = "action/ac_activity/delActivityContent";
+    //店铺商品评论URL：
+    public static String GoodsCommentUrl = BaseUrl+"action/ac_goods/goodsComment?uid="; // +店铺id
+    //我的商品订单页 立即支付接口  action/ac_goods/myOrderPay 传orderID
+    public static String myOrderPay = BaseUrl + "action/ac_goods/myOrderPay";
+    //action/ac_activity/    setNoNameJoin   设置报名人数    传pfID活动id   phase_id期数id  num数量
+    public static String setNoNameJoin = BaseUrl + "action/ac_activity/setNoNameJoin";
+    /**
+     * 店铺主页
+     * http://www.tongbanapp.com/action/ac_goods/inMyShop?uid=店铺id&myID=我的id
+     */
+    public static String inMyShop = BaseUrl + "action/ac_goods/inMyShop?";
 }
 
