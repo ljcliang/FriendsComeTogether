@@ -673,10 +673,10 @@ public class PersonMainActivity1 extends BaseActivity {
                                                 page2++;
 
                                             }
-                                            refreshLayout.finishLoadMore(1000);
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
+                                        refreshLayout.finishLoadMore(1000);
                                     }
 
                                     @Override
@@ -706,10 +706,10 @@ public class PersonMainActivity1 extends BaseActivity {
                                                 youJuAdapter.notifyDataSetChanged();
                                                 page3++;
                                             }
-                                            refreshLayout.finishLoadMore(1000);
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
+                                        refreshLayout.finishLoadMore(1000);
                                     }
 
                                     @Override

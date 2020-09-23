@@ -34,6 +34,7 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
+import com.yiwo.friendscometogether.custom.BindWXGongZhongHaoDialog;
 import com.yiwo.friendscometogether.custom.TitleMessageOkDialog;
 import com.yiwo.friendscometogether.model.ActiveShareModel;
 import com.yiwo.friendscometogether.network.NetConfig;
@@ -191,7 +192,7 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                                 }
                                 tvShopName.setSelected(true);
                                 tvHuoDongTuanqi.setText(TextUtils.isEmpty(duiZhangZhuanShuModel.getObj().getPftitle())? "选择团期" : duiZhangZhuanShuModel.getObj().getPftitle());
-                                tv_jindu.setText("随机奖励金 最高188元   完成 "+duiZhangZhuanShuModel.getObj().getJindu());
+                                tv_jindu.setText("完    成 "+duiZhangZhuanShuModel.getObj().getJindu());
                                 if (duiZhangZhuanShuModel.getObj().getMission().size()>0){
                                     ll_jianglirenwu.setVisibility(View.VISIBLE);
                                     jiangLiRenWuAdapter = new JiangLiRenWuAdapter(duiZhangZhuanShuModel.getObj().getMission(), new JiangLiRenWuAdapter.SharePf() {
@@ -246,7 +247,25 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.ll_wodeshangpu:
-                if (!spImp.getIfSign().equals("1")) {
+                if (!spImp.getIsBDWX().equals("1")) {
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(DuiZhangZhuanShuActivity.this);
+                    builder1.setMessage("您还没有绑定微信零钱")
+                            .setPositiveButton("去绑定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    BindWXGongZhongHaoDialog dialog1 = new BindWXGongZhongHaoDialog(DuiZhangZhuanShuActivity.this);
+                                    dialog1.show();
+                                    dialog.dismiss();
+                                }
+                            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+                    break;
+//                    RenZheng0_BeginActivity.openActivity(getContext());
+                } else if (!spImp.getIfSign().equals("1")) {
                     RenZheng0_BeginActivity.openActivity(DuiZhangZhuanShuActivity.this);
                 } else {
                     GuanLiGoodsWebActivity.start(DuiZhangZhuanShuActivity.this,NetConfig.GuanLiGoodsUrl+spImp.getUID());
@@ -265,7 +284,20 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                 }
                 break;
             case R.id.rl_btn_bangding:
-                mShareAPI.getPlatformInfo(DuiZhangZhuanShuActivity.this, SHARE_MEDIA.WEIXIN, umAuthListener);//绑定微信
+//                mShareAPI.getPlatformInfo(DuiZhangZhuanShuActivity.this, SHARE_MEDIA.WEIXIN, umAuthListener);//绑定微信
+                if (spImp.getIsBDWX().equals("1")){
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(DuiZhangZhuanShuActivity.this);
+                    builder1.setMessage("您已经绑定微信零钱")
+                            .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
+                }else {
+                    BindWXGongZhongHaoDialog dialog1 = new BindWXGongZhongHaoDialog(DuiZhangZhuanShuActivity.this);
+                    dialog1.show();
+                }
                 break;
             case R.id.rl_liwu_mingxi:
                 LiWuMingXiWebActivity.open(DuiZhangZhuanShuActivity.this);
@@ -306,7 +338,7 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.rl_btn_game_start3://场地游戏
-                startWeb("http://www.tongbanapp.com/action/ac_coupon/gameInfo");//其它链接
+                startWeb("http://www.tongbanapp.com/action/ac_coupon/gameInfo");//
                 break;
             case R.id.rl_btn_game_start4://你画我猜
                 startWeb("http://www.tongbanapp.com/action/ac_coupon/gameInfo");//其它链接
@@ -448,6 +480,12 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
 
                     }
                 });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ShareUtils.closeDialog();
     }
 
     private void startWeb(String string){

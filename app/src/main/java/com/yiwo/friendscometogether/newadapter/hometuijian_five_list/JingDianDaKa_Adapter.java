@@ -148,7 +148,7 @@ public class JingDianDaKa_Adapter extends RecyclerView.Adapter<JingDianDaKa_Adap
                 }
             }
         });
-        if (TextUtils.isEmpty(data.get(position).getFmpartyID())){
+        if (TextUtils.isEmpty(data.get(position).getFmpartyID())||data.get(position).getFmpartyID().equals("0")){
             holder.rl_xiangguan_huodong.setVisibility(View.GONE);
         }else {
             holder.rl_xiangguan_huodong.setVisibility(View.VISIBLE);

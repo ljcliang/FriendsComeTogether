@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -85,6 +86,7 @@ public class ZiXunListActivity extends BaseActivity {
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
+                        Log.d("asdasda",data);
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             if (jsonObject.getInt("code") == 200) {

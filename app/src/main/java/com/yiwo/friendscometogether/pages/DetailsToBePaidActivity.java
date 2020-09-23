@@ -44,6 +44,7 @@ import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.network.UMConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.TokenUtils;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,8 +54,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.umeng.socialize.utils.DeviceConfig.context;
 
 public class DetailsToBePaidActivity extends BaseActivity {
 
@@ -128,6 +127,20 @@ public class DetailsToBePaidActivity extends BaseActivity {
 
     @BindView(R.id.activity_details_to_pay_tv_who_pay)
     TextView tv_who_pay;
+    @BindView(R.id.activity_details_to_pay_tv_pay_mode)
+    TextView tvPayMode;
+    @BindView(R.id.activity_details_to_pay_tv_pay_price)
+    TextView tvPayPrice;
+    @BindView(R.id.activity_details_to_pay_tv_baoming_ren)
+    TextView tvBaomingRen;
+    @BindView(R.id.activity_details_to_pay_tv_baoming_num)
+    TextView tvBaomingNum;
+    @BindView(R.id.activity_details_to_pay_tv_begin_time)
+    TextView tvBeginTime;
+    @BindView(R.id.activity_details_to_pay_tv_opayout_sn)
+    TextView tvOpayoutSn;
+    @BindView(R.id.activity_details_to_pay_tv_opayouttime)
+    TextView tvOpayouttime;
     private SpImp spImp;
     private String uid = "";
     private String orderId = "";
@@ -138,6 +151,7 @@ public class DetailsToBePaidActivity extends BaseActivity {
 
     private static final int SDK_PAY_FLAG = 1;
     private DetailsOrderModel model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,11 +170,11 @@ public class DetailsToBePaidActivity extends BaseActivity {
         uid = spImp.getUID();
         Intent intent = getIntent();
         orderId = intent.getStringExtra("order_id");
-        Log.d("asdsada",orderId);
+        Log.d("asdsada", orderId);
         ViseHttp.POST(NetConfig.detailsOrderUrl)
                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.detailsOrderUrl))
                 .addParam("order_id", orderId)
-                .addParam("userID",spImp.getUID())
+                .addParam("userID", spImp.getUID())
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -175,115 +189,194 @@ public class DetailsToBePaidActivity extends BaseActivity {
                                 if (!TextUtils.isEmpty(model.getObj().getPicture())) {
                                     Picasso.with(DetailsToBePaidActivity.this).load(model.getObj().getPicture()).into(ivTitle);
                                 }
-                                tvStartTime.setText("开始时间："+model.getObj().getBegin_time());
-                                tvEndTime.setText("结束时间："+model.getObj().getEnd_time());
+                                tvStartTime.setText("开始时间：" + model.getObj().getBegin_time());
+                                tvEndTime.setText("结束时间：" + model.getObj().getEnd_time());
                                 tvPeopleNum.setText("参加人数: " + model.getObj().getGo_num());
-                                tvNoName.setText("是否匿名："+(model.getObj().getNoname().equals("0")? "否":"是"));
+                                tvNoName.setText("是否匿名：" + (model.getObj().getNoname().equals("0") ? "否" : "是"));
 //                                tvPriceDetails.setText(model.getObj().getPrice_type());
-                                tvReturnKnows.setText("-"+model.getObj().getRefundInfo()+"-");
-                                tvReturnMoney.setText("退款金额："+model.getObj().getRefund_money());
+                                tvReturnKnows.setText("-" + model.getObj().getRefundInfo() + "-");
+                                tvReturnMoney.setText("退款金额：" + model.getObj().getRefund_money());
                                 tvReturnWhy.setText(model.getObj().getRefundWhy());
                                 //-----设置合计金额字体------------
-                                String str_money = "合计："+model.getObj().getPrice();
+                                String str_money = "合计：" + model.getObj().getPrice();
                                 //        String str_money = "合计："+"48.90";
                                 SpannableStringBuilder ssb_money = new SpannableStringBuilder(str_money);
-                                AbsoluteSizeSpan ab = new AbsoluteSizeSpan(12,true);
-                                ssb_money.setSpan(ab,0,str_money.indexOf("："), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                                AbsoluteSizeSpan ab0 = new AbsoluteSizeSpan(16,true);
-                                ssb_money.setSpan(ab0,str_money.indexOf("：")+1,str_money.indexOf("."), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-                                AbsoluteSizeSpan ab1 = new AbsoluteSizeSpan(12,true);
-                                ssb_money.setSpan(ab1,str_money.indexOf(".")+1,str_money.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                AbsoluteSizeSpan ab = new AbsoluteSizeSpan(12, true);
+                                ssb_money.setSpan(ab, 0, str_money.indexOf("："), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                AbsoluteSizeSpan ab0 = new AbsoluteSizeSpan(16, true);
+                                ssb_money.setSpan(ab0, str_money.indexOf("：") + 1, str_money.indexOf("."), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                AbsoluteSizeSpan ab1 = new AbsoluteSizeSpan(12, true);
+                                ssb_money.setSpan(ab1, str_money.indexOf(".") + 1, str_money.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                                 //----------------------------------------------------
                                 tvPrice.setText(ssb_money);
 
                                 tvOrderNumber.setText("订单编号: " + model.getObj().getOrder_sn());
+                                tvCreateTime.setText("创建时间: " + model.getObj().getCreate_time());
+
+                                tvPayTime.setText("支付时间: " + model.getObj().getPay_time());
+                                if (TextUtils.isEmpty(model.getObj().getPay_time())) {
+                                    tvPayTime.setVisibility(View.GONE);
+                                } else {
+                                    tvPayTime.setVisibility(View.VISIBLE);
+                                }
+
+                                tvPayMode.setText("支付方式："+model.getObj().getOpaymode());
+                                if (TextUtils.isEmpty(model.getObj().getPay_type())) {
+                                    tvPayMode.setVisibility(View.GONE);
+                                } else {
+                                    tvPayMode.setVisibility(View.VISIBLE);
+                                }
+
+                                tvPayPrice.setText("支付金额："+model.getObj().getPrice());
+                                if (TextUtils.isEmpty(model.getObj().getPrice())) {
+                                    tvPayPrice.setVisibility(View.GONE);
+                                } else {
+                                    tvPayPrice.setVisibility(View.VISIBLE);
+                                }
+
                                 if (model.getObj().getPay_type().equals("0")) {
                                     tvTradeNumber.setText("微信交易号: " + model.getObj().getPaycode());
-                                } else if(model.getObj().getPay_type().equals("1")){
+                                } else if (model.getObj().getPay_type().equals("1")) {
                                     tvTradeNumber.setText("支付宝交易号: " + model.getObj().getPaycode());
                                 }
-                                tvCreateTime.setText("创建时间: " + model.getObj().getCreate_time());
-                                tvPayTime.setText("付款时间: " + model.getObj().getPay_time());//隐藏
-                                tvOkTime.setText("成交时间: " + model.getObj().getOver_time());//隐藏
+                                if (!TextUtils.isEmpty(model.getObj().getPaycode())) {
+                                    tvTradeNumber.setVisibility(View.VISIBLE);
+                                } else {
+                                    tvTradeNumber.setVisibility(View.GONE);
+                                }
+
                                 //如果使用优惠券显示
-                                if (!TextUtils.isEmpty(model.getObj().getCouponPrice())){
+                                if (!TextUtils.isEmpty(model.getObj().getCouponPrice())) {
                                     tvYouHuiQuan.setVisibility(View.VISIBLE);
-                                    tvYouHuiQuan.setText("优惠券：优惠"+model.getObj().getCouponPrice()+"元");
-                                }else {
+                                    tvYouHuiQuan.setText("优惠券：优惠" + model.getObj().getCouponPrice() + "元");
+                                } else {
                                     tvYouHuiQuan.setVisibility(View.GONE);
                                 }
 //
-                                if (model.getObj().getOpaytype().equals("4")&&model.getObj().getOrderStatus().equals("1")){
+                                if (model.getObj().getOpaytype().equals("4") && model.getObj().getOrderStatus().equals("1")) {
                                     tv_who_pay.setVisibility(View.VISIBLE);
                                     tv_who_pay.setText("费用：邀请人已支付");
-                                }else {
+                                } else {
                                     tv_who_pay.setVisibility(View.GONE);
                                 }
+
+                                if (!TextUtils.isEmpty(model.getObj().getJoinUser())){
+                                    tvBaomingRen.setVisibility(View.VISIBLE);
+                                    tvBaomingRen.setText("报名人："+model.getObj().getJoinUser());
+                                }else {
+                                    tvBaomingRen.setVisibility(View.GONE);
+                                }
+
+                                if (!TextUtils.isEmpty(model.getObj().getNum())){
+                                    tvBaomingNum.setVisibility(View.VISIBLE);
+                                    tvBaomingNum.setText("报名人数："+model.getObj().getNum());
+                                }else {
+                                    tvBaomingNum.setVisibility(View.GONE);
+                                }
+
+                                if (!TextUtils.isEmpty(model.getObj().getBegin_time())){
+                                    tvBeginTime.setVisibility(View.VISIBLE);
+                                    tvBeginTime.setText("团期时间："+model.getObj().getBegin_time());
+                                }else {
+                                    tvBeginTime.setVisibility(View.GONE);
+                                }
+
+                                tvOpayoutSn.setVisibility(View.GONE);
+                                tvOpayouttime.setVisibility(View.GONE);
+                                tvReturnMoney.setVisibility(View.GONE);
                                 //不可点击按钮全部隐藏
-                                if(model.getObj().getOrder_type().equals("7")){
+                                if (model.getObj().getOrder_type().equals("7")) {
                                     tvDeleteTrip.setVisibility(View.VISIBLE);
-                                }else if(model.getObj().getOrder_type().equals("6")){
+                                } else if (model.getObj().getOrder_type().equals("6")) {
                                     tvTriping.setVisibility(View.GONE);
-                                }else if(model.getObj().getOrder_type().equals("5")){//显示退款原因及金额
-                                    if (TextUtils.isEmpty(model.getObj().getRefundWhy())){
+                                } else if (model.getObj().getOrder_type().equals("5")) {//显示退款原因及金额
+                                    if (TextUtils.isEmpty(model.getObj().getRefundWhy())) {
                                         llReturnWhy.setVisibility(View.GONE);
-                                    }else {
+                                    } else {
                                         llReturnWhy.setVisibility(View.VISIBLE);
                                     }
                                     tvReturnMoney.setVisibility(View.VISIBLE);
                                     tvDeleteTrip.setVisibility(View.VISIBLE);
                                     tvOkReturn.setVisibility(View.GONE);
-                                }else if(model.getObj().getOrder_type().equals("4")){//显示退款原因及金额
-                                    if (TextUtils.isEmpty(model.getObj().getRefundWhy())){
-                                        llReturnWhy.setVisibility(View.GONE);
+                                    if (!TextUtils.isEmpty(model.getObj().getOpayout_sn())){
+                                        tvOpayoutSn.setVisibility(View.VISIBLE);
+                                        tvOpayoutSn.setText("退款单号："+model.getObj().getOpayout_sn());
                                     }else {
+                                        tvOpayoutSn.setVisibility(View.GONE);
+                                    }
+
+                                    if (!TextUtils.isEmpty(model.getObj().getOpayouttime())){
+                                        tvOpayouttime.setVisibility(View.VISIBLE);
+                                        tvOpayouttime.setText("退款时间："+model.getObj().getOpayouttime());
+                                    }else {
+                                        tvOpayouttime.setVisibility(View.GONE);
+                                    }
+                                } else if (model.getObj().getOrder_type().equals("4")) {//显示退款原因及金额
+                                    if (TextUtils.isEmpty(model.getObj().getRefundWhy())) {
+                                        llReturnWhy.setVisibility(View.GONE);
+                                    } else {
                                         llReturnWhy.setVisibility(View.VISIBLE);
                                     }
                                     tvReturnMoney.setVisibility(View.VISIBLE);
                                     tvDeleteTrip.setVisibility(View.VISIBLE);
                                     tvReturning.setVisibility(View.GONE);
-                                }else if(model.getObj().getOrder_type().equals("3")){
+                                    if (!TextUtils.isEmpty(model.getObj().getOpayout_sn())){
+                                        tvOpayoutSn.setVisibility(View.VISIBLE);
+                                        tvOpayoutSn.setText("退款单号："+model.getObj().getOpayout_sn());
+                                    }else {
+                                        tvOpayoutSn.setVisibility(View.GONE);
+                                    }
+
+                                    if (!TextUtils.isEmpty(model.getObj().getOpayouttime())){
+                                        tvOpayouttime.setVisibility(View.VISIBLE);
+                                        tvOpayouttime.setText("退款时间："+model.getObj().getOpayouttime());
+                                    }else {
+                                        tvOpayouttime.setVisibility(View.GONE);
+                                    }
+                                } else if (model.getObj().getOrder_type().equals("3")) {
                                     tvDeleteTrip.setVisibility(View.VISIBLE);
                                     tvComment.setVisibility(View.VISIBLE);
-                                }else if(model.getObj().getOrder_type().equals("2")){
+                                } else if (model.getObj().getOrder_type().equals("2")) {
                                     tvCancelTrip.setVisibility(View.VISIBLE);
                                     tvToTrip.setVisibility(View.GONE);
-                                }else if(model.getObj().getOrder_type().equals("1")){//待支付
+                                } else if (model.getObj().getOrder_type().equals("1")) {//待支付
+                                    tvPayMode.setVisibility(View.GONE);
                                     tvDeleteTrip.setVisibility(View.VISIBLE);
                                     tvPay.setVisibility(View.VISIBLE);
-                                    if (model.getObj().getOrderStatus().equals("1")){//被邀请的订单
-                                        if (model.getObj().getDel_type().equals("1")){//邀请人未付款,删除订单
+                                    if (model.getObj().getOrderStatus().equals("1")) {//被邀请的订单
+                                        if (model.getObj().getDel_type().equals("1")) {//邀请人未付款,删除订单
                                             tv_niming_staus.setVisibility(View.GONE);//底部提示隐藏
                                             tvDeleteTrip.setVisibility(View.VISIBLE);//删除按钮显示
                                             tvPay.setVisibility(View.GONE);//不显示付款按钮
-                                        }else {//邀请人未付款,未删除订单，
+                                        } else {//邀请人未付款,未删除订单，
                                             tv_niming_staus.setVisibility(View.VISIBLE);
                                             tv_niming_staus.setText("待邀请人支付");//底部提示
                                             rl_btns.setVisibility(View.GONE);//不显示任何按钮
                                         }
                                     }
                                 }
-                                if (model.getObj().getOrderStatus().equals("1")){  //我被邀请
+                                if (model.getObj().getOrderStatus().equals("1")) {  //我被邀请
                                     tvPriceDetails.setVisibility(View.VISIBLE);
-                                    tvPriceDetails.setText("邀请人："+model.getObj().getUser());
-                                    if (model.getObj().getDel_type().equals("1")){//邀请人未付款,删除订单
-                                        String str ="邀请人："+model.getObj().getUser()+"<font color='#d84c37'>（已取消邀请）</font>" ;
+                                    tvPriceDetails.setText("邀请人：" + model.getObj().getUser());
+                                    if (model.getObj().getDel_type().equals("1")) {//邀请人未付款,删除订单
+                                        String str = "邀请人：" + model.getObj().getUser() + "<font color='#d84c37'>（已取消邀请）</font>";
                                         tvPriceDetails.setText(Html.fromHtml(str));
-                                    }else {
-                                        tvPriceDetails.setText("邀请人："+model.getObj().getUser());
+                                    } else {
+                                        tvPriceDetails.setText("邀请人：" + model.getObj().getUser());
                                     }
 
-                                }else if (model.getObj().getOrderStatus().equals("2")){//邀请他人
+                                } else if (model.getObj().getOrderStatus().equals("2")) {//邀请他人
                                     tvPriceDetails.setVisibility(View.VISIBLE);
-                                    if (model.getObj().getOrder_type().equals("4")||model.getObj().getOrder_type().equals("5")){
-                                        String str ="邀请："+model.getObj().getBUser()+"<font color='#d84c37'>（已取消）</font>" ;
+                                    if (model.getObj().getOrder_type().equals("4") || model.getObj().getOrder_type().equals("5")) {
+                                        String str = "邀请：" + model.getObj().getBUser() + "<font color='#d84c37'>（已取消）</font>";
                                         tvPriceDetails.setText(Html.fromHtml(str));
-                                    }else {
-                                        tvPriceDetails.setText("邀请："+model.getObj().getBUser());
+                                    } else {
+                                        tvPriceDetails.setText("邀请：" + model.getObj().getBUser());
                                     }
-                                }else {
+                                } else {
                                     tvPriceDetails.setVisibility(View.GONE);// 邀请：***、邀请人：***
                                 }
+                                tvOkTime.setText("成交时间: " + model.getObj().getOver_time());//隐藏
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -299,7 +392,7 @@ public class DetailsToBePaidActivity extends BaseActivity {
     }
 
     @OnClick({R.id.activity_details_to_pay_rl_back, R.id.details_to_pay_rv_tv_cancle_trip, R.id.details_to_pay_rv_tv_delete_trip, R.id.details_to_pay_rv_tv_payment,
-            R.id.details_to_pay_rv_tv_comment})
+            R.id.details_to_pay_rv_tv_comment, R.id.ll_content})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -308,7 +401,7 @@ public class DetailsToBePaidActivity extends BaseActivity {
                 break;
             case R.id.details_to_pay_rv_tv_cancle_trip:
 
-                if (model.getObj().getOrderStatus().equals("2")){//邀请他人
+                if (model.getObj().getOrderStatus().equals("2")) {//邀请他人
                     AlertDialog.Builder builder = new AlertDialog.Builder(DetailsToBePaidActivity.this);
                     builder.setMessage("需被邀请人取消订单，方可退款")
                             .setNegativeButton("确定", new DialogInterface.OnClickListener() {
@@ -316,8 +409,8 @@ public class DetailsToBePaidActivity extends BaseActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                 }
                             }).show();
-                }else {
-                    if (model.getObj().getAllow_refund().equals("1")){
+                } else {
+                    if (model.getObj().getAllow_refund().equals("1")) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(DetailsToBePaidActivity.this);
                         builder.setMessage("此订单不允许退款,无法取消活动！")
                                 .setNegativeButton("确定", new DialogInterface.OnClickListener() {
@@ -377,20 +470,20 @@ public class DetailsToBePaidActivity extends BaseActivity {
 //
 //                                }
 //                            }).show();
-                    }else {
+                    } else {
                         EditContentDialog dialog = new EditContentDialog(DetailsToBePaidActivity.this, new EditContentDialog.OnReturnListener() {
                             @Override
                             public void onReturn(final String content) {
                                 ViseHttp.POST(NetConfig.cancelOrderTripUrl)
-                                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.cancelOrderTripUrl))
+                                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.cancelOrderTripUrl))
                                         .addParam("order_id", orderId)
-                                        .addParam("info",content)
+                                        .addParam("info", content)
                                         .request(new ACallback<String>() {
                                             @Override
                                             public void onSuccess(String data) {
                                                 try {
                                                     JSONObject jsonObject1 = new JSONObject(data);
-                                                    if(jsonObject1.getInt("code") == 200){
+                                                    if (jsonObject1.getInt("code") == 200) {
                                                         Toast.makeText(DetailsToBePaidActivity.this, "取消活动成功", Toast.LENGTH_SHORT).show();
                                                         finish();
                                                     }
@@ -409,8 +502,6 @@ public class DetailsToBePaidActivity extends BaseActivity {
                         dialog.show();
                     }
                 }
-
-
                 break;
             case R.id.details_to_pay_rv_tv_delete_trip:
                 AlertDialog.Builder normalDialog1 = new AlertDialog.Builder(DetailsToBePaidActivity.this);
@@ -421,15 +512,15 @@ public class DetailsToBePaidActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         ViseHttp.POST(NetConfig.deleteOrderTripUrl)
-                                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.deleteOrderTripUrl))
-                                .addParam("userID",uid)
+                                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.deleteOrderTripUrl))
+                                .addParam("userID", uid)
                                 .addParam("order_id", orderId)
                                 .request(new ACallback<String>() {
                                     @Override
                                     public void onSuccess(String data) {
                                         try {
                                             JSONObject jsonObject1 = new JSONObject(data);
-                                            if(jsonObject1.getInt("code") == 200){
+                                            if (jsonObject1.getInt("code") == 200) {
                                                 Toast.makeText(DetailsToBePaidActivity.this, "删除活动成功", Toast.LENGTH_SHORT).show();
                                                 finish();
                                             }
@@ -463,6 +554,11 @@ public class DetailsToBePaidActivity extends BaseActivity {
                 intent.putExtra("orderid", orderId);
                 startActivity(intent);
                 break;
+            case R.id.ll_content:
+                intent.setClass(DetailsToBePaidActivity.this, DetailsOfFriendTogetherWebLocalActivity.class);
+                intent.putExtra("pfID", model.getObj().getPfID());
+                startActivity(intent);
+                break;
         }
     }
 
@@ -472,14 +568,14 @@ public class DetailsToBePaidActivity extends BaseActivity {
         DetailsToBePaidActivity.this.finish();
     }
 
-    public void wxPay(OrderToPayModel.ObjBean model){
+    public void wxPay(OrderToPayModel.ObjBean model) {
         api.registerApp(UMConfig.WECHAT_APPID);
         PayReq req = new PayReq();
         req.appId = model.getAppId();
         req.partnerId = model.getPartnerId();
         req.prepayId = model.getPrepayId();
         req.nonceStr = model.getNonceStr();
-        req.timeStamp = model.getTimestamp()+"";
+        req.timeStamp = model.getTimestamp() + "";
         req.packageValue = model.getPackageX();
         req.sign = model.getSign();
         req.extData = "app data";
@@ -494,7 +590,7 @@ public class DetailsToBePaidActivity extends BaseActivity {
             @Override
             public void run() {
                 PayTask alipay = new PayTask(DetailsToBePaidActivity.this);
-                Map<String, String> result = alipay.payV2(orderInfo,true);
+                Map<String, String> result = alipay.payV2(orderInfo, true);
                 Log.e("123123", result.toString());
                 Message msg = new Message();
                 msg.what = SDK_PAY_FLAG;
@@ -514,7 +610,7 @@ public class DetailsToBePaidActivity extends BaseActivity {
             switch (msg.what) {
                 case SDK_PAY_FLAG:
                     Map<String, String> result = (Map<String, String>) msg.obj;
-                    if(result.get("resultStatus").equals("9000")){
+                    if (result.get("resultStatus").equals("9000")) {
                         Toast.makeText(DetailsToBePaidActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
                         finish();
                     }

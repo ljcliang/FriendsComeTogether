@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.custom.EditContentDialog_L;
 import com.yiwo.friendscometogether.newmodel.SellerOrderModel;
+import com.yiwo.friendscometogether.webpages.HasTitleWebActivity;
+import com.yiwo.friendscometogether.webpages.NoTitleWebActivity;
 import com.yiwo.friendscometogether.webpages.ShopOrderInfoWebActivity;
 
 import java.util.List;
@@ -76,6 +79,7 @@ public class FragmentShopAllOrderAdapter extends RecyclerView.Adapter<FragmentSh
         holder.tv_btn_yipingjia.setVisibility(View.GONE);
         holder.tv_btn_tuikuan.setVisibility(View.GONE);
         holder.tv_btn_querenshouhuo.setVisibility(View.GONE);
+        holder.tv_btn_chakanwuliu.setVisibility(View.GONE);
 //         1出单  拒绝接单       2 确认收货     3删除     4删除   已评价   5确认退款   6、7删除
         switch (data.get(position).getStatus()){
 
@@ -88,6 +92,7 @@ public class FragmentShopAllOrderAdapter extends RecyclerView.Adapter<FragmentSh
                 break;
             case "2":
                 holder.tv_btn_querenshouhuo.setVisibility(View.VISIBLE);
+                holder.tv_btn_chakanwuliu.setVisibility(View.VISIBLE);
                 break;
             case "3":
                 holder.tv_btn_delete.setVisibility(View.VISIBLE);
@@ -118,19 +123,20 @@ public class FragmentShopAllOrderAdapter extends RecyclerView.Adapter<FragmentSh
         holder.tv_btn_chudan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("确定出单？")
-                        .setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                btnsOnCLickListenner.onChuLiDan(position,1,"");
-                            }
-                        }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                }).show();
+                ShopOrderInfoWebActivity.start(context,data.get(position).getOrderMes());//销售订单，出单按钮跳网页，不能直接出单，没填物流，
+//                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//                builder.setMessage("确定出单？")
+//                        .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                btnsOnCLickListenner.onChuLiDan(position,1,"");
+//                            }
+//                        }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//                        dialogInterface.dismiss();
+//                    }
+//                }).show();
             }
         });
         holder.tv_btn_jujuejiedan.setOnClickListener(new View.OnClickListener() {
@@ -213,6 +219,13 @@ public class FragmentShopAllOrderAdapter extends RecyclerView.Adapter<FragmentSh
 //                }).show();
             }
         });
+        holder.tv_btn_chakanwuliu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("物流url",data.get(position).getKdUrl());
+                HasTitleWebActivity.open(context,data.get(position).getKdUrl(),"查看物流");
+            }
+        });
     }
 
     @Override
@@ -224,7 +237,7 @@ public class FragmentShopAllOrderAdapter extends RecyclerView.Adapter<FragmentSh
         private RelativeLayout rlDetails;
         private ImageView iv_userhead,fragment_all_order_rv_iv;
         private TextView tv_username,tv_staus,tv_goods_name,tv_goods_info,tv_goods_price,tv_goods_num,tv_all_price,tv_order_sn,
-                tv_btn_delete,tv_btn_yipingjia,tv_btn_tuikuan,tv_btn_chudan,tv_btn_jujuejiedan,tv_btn_querenshouhuo;
+                tv_btn_delete,tv_btn_yipingjia,tv_btn_tuikuan,tv_btn_chudan,tv_btn_jujuejiedan,tv_btn_querenshouhuo,tv_btn_chakanwuliu;
         private LinearLayout ll_price;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -248,6 +261,7 @@ public class FragmentShopAllOrderAdapter extends RecyclerView.Adapter<FragmentSh
             tv_btn_chudan = itemView.findViewById(R.id.tv_btn_chudan);
             tv_btn_jujuejiedan = itemView.findViewById(R.id.tv_btn_jujuejiedan);
             tv_btn_querenshouhuo = itemView.findViewById(R.id.tv_btn_querenshouhuo);
+            tv_btn_chakanwuliu = itemView.findViewById(R.id.tv_btn_chakanwuliu);
             ll_price = itemView.findViewById(R.id.ll_price);
         }
     }

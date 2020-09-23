@@ -149,7 +149,7 @@
             android:layout_height="40px"
             android:layout_centerVertical="true"
             android:layout_marginLeft="40px"
-            android:src="@mipmap/guanlian" />
+            android:src="@mipmap/guanlian_round" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -157,7 +157,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="12px"
             android:layout_toRightOf="@+id/activity_create_friend_remember_iv_active_title"
-            android:text="相关活动或商品"
+            android:text="关联相关活动或商品"
             android:textColor="@color/color_black_333333"
             android:textSize="28px" />
 

@@ -213,6 +213,7 @@ public class YoujuShaixuanActivity extends BaseActivity {
                     }
                 }
                 mode.setShangJiaName(shangJiaNAme);
+                mode.setSearchday(et_tianshu.getText().toString());
                 mode.setKeyWord(keyWord);
                 if (bTuiJian){
                     mode.setShangJiaTuiJian("1");

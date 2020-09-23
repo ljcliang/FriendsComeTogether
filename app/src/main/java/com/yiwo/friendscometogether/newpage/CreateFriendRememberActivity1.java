@@ -556,7 +556,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
             case R.id.activity_create_friend_remember_rl_active_title:
                 AlertDialog.Builder builder1 =
                             new AlertDialog.Builder(CreateFriendRememberActivity1.this)
-                             .setTitle("关联活动或商品")
+                             .setTitle("关联相关活动或商品")
                              .setItems(new String[]{"选择活动","选择商品"},
                                new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,

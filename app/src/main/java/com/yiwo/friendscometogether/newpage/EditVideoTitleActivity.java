@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -95,7 +96,7 @@ public class EditVideoTitleActivity extends BaseActivity {
             case R.id.activity_create_friend_remember_rl_active_title:
                 AlertDialog.Builder builder1 =
                         new AlertDialog.Builder(EditVideoTitleActivity.this)
-                                .setTitle("关联活动或商品")
+                                .setTitle("关联相关活动或商品")
                                 .setItems(new String[]{"选择活动","选择商品"},
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog,
@@ -117,6 +118,7 @@ public class EditVideoTitleActivity extends BaseActivity {
                 builder1.show();
                 break;
             case R.id.activity_up_load_video_rl_complete:
+                Log.d("asdsada","gltype:"+gltype+"///ID"+yourChoiceActiveId);
                 ViseHttp.POST(NetConfig.videoEdit)
                         .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.videoEdit))
                         .addParam("vID",videoItem.getVID())

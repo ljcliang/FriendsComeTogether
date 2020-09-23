@@ -181,6 +181,7 @@ public class LoginActivity extends BaseActivity {
                                     spImp.setIfSign(js.getString("if_sign"));
                                     spImp.setIsShop(js.getString("share_power"));
                                     spImp.setIsCaptain(js.getString("if_captain"));
+                                    spImp.setIsBDWX(js.getString("bdwx"));
                                     account = js.optString("wy_accid");
                                     //清除vas_sonic缓存
                                     SonicEngine.getInstance().cleanCache();

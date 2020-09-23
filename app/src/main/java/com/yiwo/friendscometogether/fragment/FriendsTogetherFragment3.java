@@ -633,6 +633,7 @@ public class FriendsTogetherFragment3 extends BaseFragment {
     public void onStart() {
         super.onStart();
         uid = spImp.getUID();
+        ShareUtils.closeDialog();
     }
 
     private void initData() {
@@ -934,6 +935,7 @@ public class FriendsTogetherFragment3 extends BaseFragment {
                     .addParam("shop_recommend",mode.getShangJiaTuiJian())
                     .addParam("city",mode.getCity())
                     .addParam("activity_name",mode.getKeyWord())//关键字
+                    .addParam("searchday",mode.getSearchday())
                     .request(new ACallback<String>() {
                         @Override
                         public void onSuccess(String data) {

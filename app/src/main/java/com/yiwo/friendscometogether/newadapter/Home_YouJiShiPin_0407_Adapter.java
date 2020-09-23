@@ -140,7 +140,7 @@ public class Home_YouJiShiPin_0407_Adapter extends RecyclerView.Adapter<Home_You
                 }
             }
         });
-        if (TextUtils.isEmpty(data.get(position).getFmpartyID())){
+        if (TextUtils.isEmpty(data.get(position).getFmpartyID())||data.get(position).getFmpartyID().equals("0")){
             holder.rl_xiangguan_huodong.setVisibility(View.GONE);
         }else {
             holder.rl_xiangguan_huodong.setVisibility(View.VISIBLE);

@@ -1,180 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:test="http://schemas.android.com/apk/res-auto"
-    android:layout_width="176dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
+        android:layout_centerHorizontal="true"
         android:layout_width="176dp"
         android:layout_height="wrap_content">
-        <View
-            android:elevation="2dp"
+        <RelativeLayout
+            android:layout_width="176dp"
+            android:layout_height="wrap_content">
+            <View
+                android:elevation="2dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="3dp"
+                android:background="@drawable/bg_white_5dp"
+                android:layout_width="170dp"
+                android:layout_height="250dp"/>
+        </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/ll_all"
+            android:orientation="vertical"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="22dp"
             android:layout_marginBottom="3dp"
-            android:background="@drawable/bg_white_5dp"
             android:layout_width="170dp"
-            android:layout_height="250dp"/>
-    </RelativeLayout>
-    <LinearLayout
-        android:id="@+id/ll_all"
-        android:orientation="vertical"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginBottom="3dp"
-        android:layout_width="170dp"
-        android:layout_height="250dp">
-        <LinearLayout
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="60dp"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:gravity="right"
-                android:id="@+id/tv_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text=""
-                android:textColor="@color/black_101010"
-                android:textSize="12sp" />
+            android:layout_height="250dp">
             <LinearLayout
-                android:gravity="right"
-                android:layout_marginTop="1dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="60dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:gravity="right"
+                    android:id="@+id/tv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text=""
+                    android:textColor="@color/black_101010"
+                    android:textSize="12sp" />
+                <LinearLayout
+                    android:gravity="right"
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/iv_level"
+                        android:layout_marginRight="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/level_qingtong"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp" />
+                    <RelativeLayout
+                        android:layout_marginRight="1dp"
+                        android:layout_gravity="center_vertical"
+                        android:id="@+id/rl_level"
+                        android:layout_alignLeft="@+id/iv_icon"
+                        android:layout_below="@+id/iv_icon"
+                        android:background="@drawable/bg_ffac27_10px"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_level"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:lines="1"
+                            android:text="Lv.1"
+                            android:textColor="@color/black_101010"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_shangpin_name"
+                android:layout_marginTop="10dp"
+                android:text=""
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="16sp"
+                android:textColor="@color/black_101010"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginRight="2dp"
+                    android:layout_gravity="bottom"
+                    android:textColor="@color/red_d84c37"
+                    android:text="¥"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_gravity="bottom"
+                    android:textColor="@color/red_d84c37"
+                    android:text=""
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/iv_level"
-                    android:layout_marginRight="5dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@mipmap/level_qingtong"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp" />
-                <RelativeLayout
-                    android:layout_marginRight="1dp"
-                    android:layout_gravity="center_vertical"
-                    android:id="@+id/rl_level"
-                    android:layout_alignLeft="@+id/iv_icon"
-                    android:layout_below="@+id/iv_icon"
-                    android:background="@drawable/bg_ffac27_10px"
+                <com.yiwo.friendscometogether.widget.CustomRoundAngleImageView
+                    android:id="@+id/iv_big"
+                    android:src="@mipmap/zanwutupian"
+                    test:right_top_radius1="10dp"
+                    test:right_bottom_radius1="10dp"
+                    android:scaleType="centerCrop"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp" />
+                <LinearLayout
+                    android:layout_gravity="bottom"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tv_level"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:lines="1"
-                        android:text="Lv.1"
-                        android:textColor="@color/black_101010"
-                        android:textSize="12sp" />
-                </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/iv_star1"
+                        android:layout_marginBottom="2dp"
+                        android:src="@mipmap/pingxing"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp" />
+                    <ImageView
+                        android:id="@+id/iv_star2"
+                        android:layout_marginBottom="2dp"
+                        android:src="@mipmap/pingxing"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp" />
+                    <ImageView
+                        android:id="@+id/iv_star3"
+                        android:layout_marginBottom="2dp"
+                        android:src="@mipmap/pingxing"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp" />
+                    <ImageView
+                        android:id="@+id/iv_star4"
+                        android:layout_marginBottom="2dp"
+                        android:src="@mipmap/pingxing"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp" />
+                    <ImageView
+                        android:id="@+id/iv_star5"
+                        android:layout_marginBottom="2dp"
+                        android:src="@mipmap/pingxing"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-        <TextView
-            android:id="@+id/tv_shangpin_name"
-            android:layout_marginTop="10dp"
-            android:text=""
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_head"
+            android:elevation="3dp"
+            android:src="@mipmap/my_head"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="13dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textSize="16sp"
-            android:textColor="@color/black_101010"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_marginRight="2dp"
-                android:layout_gravity="bottom"
-                android:textColor="@color/red_d84c37"
-                android:text="¥"
-                android:textSize="12sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/tv_price"
-                android:layout_gravity="bottom"
-                android:textColor="@color/red_d84c37"
-                android:text=""
-                android:textSize="16sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <com.yiwo.friendscometogether.widget.CustomRoundAngleImageView
-                android:id="@+id/iv_big"
-                android:src="@mipmap/zanwutupian"
-                test:right_top_radius1="10dp"
-                test:right_bottom_radius1="10dp"
-                android:scaleType="centerCrop"
-                android:layout_width="150dp"
-                android:layout_height="150dp" />
-            <LinearLayout
-                android:layout_gravity="bottom"
-                android:orientation="vertical"
-                android:layout_marginLeft="2dp"
-                android:layout_marginBottom="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/iv_star1"
-                    android:layout_marginBottom="2dp"
-                    android:src="@mipmap/pingxing"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp" />
-                <ImageView
-                    android:id="@+id/iv_star2"
-                    android:layout_marginBottom="2dp"
-                    android:src="@mipmap/pingxing"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp" />
-                <ImageView
-                    android:id="@+id/iv_star3"
-                    android:layout_marginBottom="2dp"
-                    android:src="@mipmap/pingxing"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp" />
-                <ImageView
-                    android:id="@+id/iv_star4"
-                    android:layout_marginBottom="2dp"
-                    android:src="@mipmap/pingxing"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp" />
-                <ImageView
-                    android:id="@+id/iv_star5"
-                    android:layout_marginBottom="2dp"
-                    android:src="@mipmap/pingxing"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/iv_head"
-        android:elevation="3dp"
-        android:src="@mipmap/my_head"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="13dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="5dp"
-        android:layout_width="48dp"
-        android:layout_height="48dp"/>
+            android:layout_marginBottom="5dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"/>
+    </RelativeLayout>
 </RelativeLayout>

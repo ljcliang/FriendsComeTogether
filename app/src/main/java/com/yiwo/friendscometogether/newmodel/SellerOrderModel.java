@@ -51,6 +51,7 @@ public class SellerOrderModel {
          * username : 花生
          * userpic : https://fzd.91yiwo.com/uploads/header/2020/05/22/d842f5833a37096daac2e826a4adcce5159013397917.png
          * orderMes : https://fzd.91yiwo.com/index.php/action/ac_goods/sellerOrderMessage?uid=3&oid=17
+         * kdUrl ：http://www.tongbanapp.com/kuaidi.php?name=物流名称&code=物流单号&time=发货时间&bianhao=物流名称编号
          * statusMes : 待处理
          * gList : [{"goodsID":"2","goodsName":"一个键盘","goodsImg":"https://fzd.91yiwo.com/uploads/goods/20200513/a68ec93a18f30d086ce44c5fc800de8a3322.jpg","goodsSpec":"1","price":"0.01","priceBuy":"0.01","buyNum":"1","specID":"3"}]
          */
@@ -68,6 +69,7 @@ public class SellerOrderModel {
         private String userpic;
         private String orderMes;
         private String statusMes;
+        private String kdUrl;
         private List<GListBean> gList;
 
         public String getId() {
@@ -180,6 +182,14 @@ public class SellerOrderModel {
 
         public void setGList(List<GListBean> gList) {
             this.gList = gList;
+        }
+
+        public String getKdUrl() {
+            return kdUrl;
+        }
+
+        public void setKdUrl(String kdUrl) {
+            this.kdUrl = kdUrl;
         }
 
         public static class GListBean {

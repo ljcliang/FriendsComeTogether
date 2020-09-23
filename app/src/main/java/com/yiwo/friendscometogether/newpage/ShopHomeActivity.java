@@ -259,6 +259,12 @@ public class ShopHomeActivity extends BaseWebActivity {
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ShareUtils.closeDialog();
+    }
+
     private void guanzhu() {
         if (TextUtils.isEmpty(spImp.getUID()) || spImp.getUID().equals("0")) {
             Intent intent = new Intent();

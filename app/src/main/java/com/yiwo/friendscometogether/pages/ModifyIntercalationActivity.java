@@ -226,7 +226,7 @@ public class ModifyIntercalationActivity extends BaseActivity {
 //                                                        });
                                                 break;
                                             case 2:
-                                                PicDescribeDialog dialog = new PicDescribeDialog(ModifyIntercalationActivity.this);
+                                                PicDescribeDialog dialog = new PicDescribeDialog(ModifyIntercalationActivity.this,mList1.get(position).getFfptitle());
                                                 dialog.show();
                                                 dialog.setOnReturnListener(new PicDescribeDialog.OnReturnListener() {
                                                     @Override

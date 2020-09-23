@@ -228,7 +228,7 @@ public class ModifyLuXianXuXieActivity extends BaseActivity {
 //                                                        });
                                                 break;
                                             case 2:
-                                                PicDescribeDialog dialog = new PicDescribeDialog(ModifyLuXianXuXieActivity.this);
+                                                PicDescribeDialog dialog = new PicDescribeDialog(ModifyLuXianXuXieActivity.this,mList1.get(position).getMessage());
                                                 dialog.show();
                                                 dialog.setOnReturnListener(new PicDescribeDialog.OnReturnListener() {
                                                     @Override

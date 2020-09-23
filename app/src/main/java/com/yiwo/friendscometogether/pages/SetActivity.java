@@ -116,6 +116,7 @@ public class SetActivity extends BaseActivity {
                                 spImp.setIsCaptain("");
                                 spImp.setIsShop("");
                                 spImp.setIfSign("");
+                                spImp.setIsBDWX("");
                                 spCache.clear();
                                 NimUIKit.logout();
                                 //清除vas_sonic缓存

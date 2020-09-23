@@ -150,7 +150,7 @@ public class Home_TuiJian_YouJiShiPin_Adapter extends RecyclerView.Adapter<Home_
                 }
             }
         });
-        if (TextUtils.isEmpty(data.get(position).getFmpartyID())){
+        if (TextUtils.isEmpty(data.get(position).getFmpartyID())||data.get(position).getFmpartyID().equals("0")){
             holder.rl_xiangguan_huodong.setVisibility(View.GONE);
         }else {
             holder.rl_xiangguan_huodong.setVisibility(View.VISIBLE);

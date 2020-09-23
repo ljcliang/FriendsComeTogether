@@ -113,7 +113,7 @@
                     android:id="@+id/tv_canyuxiezuo_num"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/tv_team_chawen"
-                    android:text="团友共有 0 人参与写作"
+                    android:text="共有 0 人参与写作"
                     android:textSize="12sp"
                     android:textColor="#888888"
                     android:lines="1"

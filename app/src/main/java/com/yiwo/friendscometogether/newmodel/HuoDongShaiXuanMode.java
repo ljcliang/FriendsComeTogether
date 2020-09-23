@@ -13,6 +13,7 @@ public class HuoDongShaiXuanMode implements Serializable {
     private String jiaGe;
     private String city;
     private String keyWord;
+    private String searchday;
     public String getShangJiaName() {
         return shangJiaName;
     }
@@ -59,5 +60,13 @@ public class HuoDongShaiXuanMode implements Serializable {
 
     public void setKeyWord(String keyWord) {
         this.keyWord = keyWord;
+    }
+
+    public String getSearchday() {
+        return searchday;
+    }
+
+    public void setSearchday(String searchday) {
+        this.searchday = searchday;
     }
 }

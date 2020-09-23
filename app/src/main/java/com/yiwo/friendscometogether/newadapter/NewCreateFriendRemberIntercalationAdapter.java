@@ -119,7 +119,7 @@ public class NewCreateFriendRemberIntercalationAdapter extends RecyclerView.Adap
         holder.tvContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PicDescribeDialog dialog = new PicDescribeDialog(context);
+                PicDescribeDialog dialog = new PicDescribeDialog(context,data.get(position).getDescribe());
                 dialog.show();
                 dialog.setOnReturnListener(new PicDescribeDialog.OnReturnListener() {
                     @Override

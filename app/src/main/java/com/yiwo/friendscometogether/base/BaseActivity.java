@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.yiwo.friendscometogether.MyApplication;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.custom.GlideImageLoader;
+import com.yiwo.friendscometogether.utils.ShareUtils;
 import com.yiwo.friendscometogether.utils.StringUtils;
 import com.yiwo.friendscometogether.wangyiyunshipin.DemoCache;
 import com.youth.banner.Banner;
@@ -36,6 +37,11 @@ public class BaseActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ShareUtils.closeDialog();
+    }
 
     @Override
     protected void onResume() {

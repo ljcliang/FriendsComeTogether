@@ -151,7 +151,7 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
                             String strr1 = webInfoOfDbUntils.queryYouJu(pfID).getWeb_info();
                             String strr2 = "";
                             String strr3 = "1";//0youji,1youju;2shangpin,5jingcailuxian;3canjiarenyuan;
-                            Log.d("adsadasd：：\n",strr1+"\n"+strr2+"\n"+strr3);
+                            strr1 = WebUntils.replaceStr(strr1);
                             webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"','"+spImp.getUID()+"')");
                             /**
                              * 加载之后再次查询更新数据库
@@ -175,7 +175,6 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
                                                     String strr2 = "";
                                                     String strr3 = "1";
                                                     strr1 = WebUntils.replaceStr(strr1);
-                                                    Log.d("数据库中没有此条数据：pfIDID-",pfID+"\n"+strr1+"\n"+strr2+"\n"+strr3);
                                                     webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"','"+spImp.getUID()+"')");
                                                     YouJuHuoDongWebInfoDbModel youJuHuoDongWebInfoDbModel = new YouJuHuoDongWebInfoDbModel();
                                                     youJuHuoDongWebInfoDbModel.setWeb_info(mode.getObj().getStr());
@@ -276,11 +275,6 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
                             if (jsonObject.getInt("code") == 200){
                                 Gson gson = new Gson();
                                 LocalWebInfoModel mode =  gson.fromJson(data,LocalWebInfoModel.class);
-//                                                    String strr1 = mode.getObj().getStr();
-//                                                    String strr2 = "";
-//                                                    String strr3 = "0";
-//                                                    Log.d("adsadasd",strr1+""+strr2+""+strr3);
-//                                                    webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
                                 YouJuHuoDongWebInfoDbModel youJuHuoDongWebInfoDbModel = new YouJuHuoDongWebInfoDbModel();
                                 youJuHuoDongWebInfoDbModel.setWeb_info(mode.getObj().getStr());
                                 youJuHuoDongWebInfoDbModel.setPf_id(pfID);
@@ -289,7 +283,7 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
                                 String strr1 = mode.getObj().getStr();
                                 String strr2 = "";
                                 String strr3 = "1";//0youji,1youju;2shangpin,5jingcailuxian;3canjiarenyuan;
-                                Log.d("adsadasd：：\n",strr1+"\n"+strr2+"\n"+strr3);
+                                strr1 = WebUntils.replaceStr(strr1);
                                 webView.loadUrl("javascript:androidagain('"+strr1+"','"+strr2+"','"+strr3+"')");
                                 updateWebStaus(spImp.getUID(),"4","-1");
                             }

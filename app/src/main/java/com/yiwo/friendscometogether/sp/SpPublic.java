@@ -42,5 +42,7 @@ public class SpPublic {
     public static String IS_SHOP = "is_shop";
     //是否为队长
     public static String IF_DUIZHANG = "is_duizhang";
+    //是否绑定微信
+    public static String BDWX = "is_bangdingweixin";
 
 }

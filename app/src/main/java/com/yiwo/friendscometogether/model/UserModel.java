@@ -11,7 +11,7 @@ public class UserModel {
     /**
      * code : 200
      * message : 获取成功!
-     * obj : {"headeimg":"http://www.tongbanapp.com/uploads/header/2019/12/31/ab17a31d0c6d8acc7fa5d64847390bee157776891312.png","username":"花生的瞳伴店铺","sex":"0","useraddress":"黑龙江省-哈尔滨市","userautograph":"嗷呜～","userbirthday":"1995-02-05","usertime":"2019-04-11 14:12:32","usercodeok":"已认证","usermarry":"1","usergrade":"1","sign":"1","vip":"0","news":"0","Friendnote":"13","Focusonnews":"37","Activitymessage":"0","type":"0","levelName":"0","message":["青铜：获得开启商铺，发布行程功能。","白银：累计发布50篇友记，15个视频，获得100个赞、50个评论，完成带队任务5次，获得平台线路带队功能。","黄金：累计发布100篇友记，20个视频，获得200个赞、100个评论，完成带队任务10次，获得直播功能。","铂金：累计发布200篇友记，30个视频，获得500个赞、200个评论，完成带队任务15次。","钻石：累计发布300篇友记，50个视频，获得800个赞、300个评论，完成带队任务30次。","王冠：累计发布500篇友记，80个视频，获得1000个赞、500个评论，完成带队任务50次。"]}
+     * obj : {"headeimg":"http://www.tongbanapp.com/uploads/header/2019/12/31/ab17a31d0c6d8acc7fa5d64847390bee157776891312.png","username":"花生","sex":"0","useraddress":"黑龙江省-哈尔滨市","userautograph":"嗷呜～","userbirthday":"1995-02-05","usertime":"2019-04-11 14:12:32","usercodeok":"已认证","usermarry":"1","usergrade":"1","sign":"1","vip":"0","news":"0","Friendnote":"20","Focusonnews":"36","Activitymessage":"1","type":"0","levelName":"0","kefu":"0","shopUrl":"http://www.tongbanapp.com/index.php/action/ac_goods/myGoods?uid=4","share_power":"1","isAdmin":"1","if_captain":"0","if_sign":"1","bdwx":"0","message":["青铜：获得开启商铺，发布行程功能。","白银：累计发布50篇友记，15个视频，获得100个赞、50个评论，完成带队任务5次，获得平台线路带队功能。","黄金：累计发布100篇友记，20个视频，获得200个赞、100个评论，完成带队任务10次，获得直播功能。","铂金：累计发布200篇友记，30个视频，获得500个赞、200个评论，完成带队任务15次。","钻石：累计发布300篇友记，50个视频，获得800个赞、300个评论，完成带队任务30次。","王冠：累计发布500篇友记，80个视频，获得1000个赞、500个评论，完成带队任务50次。"]}
      */
 
     private int code;
@@ -45,7 +45,7 @@ public class UserModel {
     public static class ObjBean {
         /**
          * headeimg : http://www.tongbanapp.com/uploads/header/2019/12/31/ab17a31d0c6d8acc7fa5d64847390bee157776891312.png
-         * username : 花生的瞳伴店铺
+         * username : 花生
          * sex : 0
          * useraddress : 黑龙江省-哈尔滨市
          * userautograph : 嗷呜～
@@ -57,11 +57,18 @@ public class UserModel {
          * sign : 1
          * vip : 0
          * news : 0
-         * Friendnote : 13
-         * Focusonnews : 37
-         * Activitymessage : 0
+         * Friendnote : 20
+         * Focusonnews : 36
+         * Activitymessage : 1
          * type : 0
          * levelName : 0
+         * kefu : 0
+         * shopUrl : http://www.tongbanapp.com/index.php/action/ac_goods/myGoods?uid=4
+         * share_power : 1
+         * isAdmin : 1
+         * if_captain : 0
+         * if_sign : 1
+         * bdwx : 0
          * message : ["青铜：获得开启商铺，发布行程功能。","白银：累计发布50篇友记，15个视频，获得100个赞、50个评论，完成带队任务5次，获得平台线路带队功能。","黄金：累计发布100篇友记，20个视频，获得200个赞、100个评论，完成带队任务10次，获得直播功能。","铂金：累计发布200篇友记，30个视频，获得500个赞、200个评论，完成带队任务15次。","钻石：累计发布300篇友记，50个视频，获得800个赞、300个评论，完成带队任务30次。","王冠：累计发布500篇友记，80个视频，获得1000个赞、500个评论，完成带队任务50次。"]
          */
 
@@ -83,6 +90,13 @@ public class UserModel {
         private String Activitymessage;
         private String type;
         private String levelName;
+        private String kefu;
+        private String shopUrl;
+        private String share_power;
+        private String isAdmin;
+        private String if_captain;
+        private String if_sign;
+        private String bdwx;
         private List<String> message;
 
         public String getHeadeimg() {
@@ -227,6 +241,62 @@ public class UserModel {
 
         public void setLevelName(String levelName) {
             this.levelName = levelName;
+        }
+
+        public String getKefu() {
+            return kefu;
+        }
+
+        public void setKefu(String kefu) {
+            this.kefu = kefu;
+        }
+
+        public String getShopUrl() {
+            return shopUrl;
+        }
+
+        public void setShopUrl(String shopUrl) {
+            this.shopUrl = shopUrl;
+        }
+
+        public String getShare_power() {
+            return share_power;
+        }
+
+        public void setShare_power(String share_power) {
+            this.share_power = share_power;
+        }
+
+        public String getIsAdmin() {
+            return isAdmin;
+        }
+
+        public void setIsAdmin(String isAdmin) {
+            this.isAdmin = isAdmin;
+        }
+
+        public String getIf_captain() {
+            return if_captain;
+        }
+
+        public void setIf_captain(String if_captain) {
+            this.if_captain = if_captain;
+        }
+
+        public String getIf_sign() {
+            return if_sign;
+        }
+
+        public void setIf_sign(String if_sign) {
+            this.if_sign = if_sign;
+        }
+
+        public String getBdwx() {
+            return bdwx;
+        }
+
+        public void setBdwx(String bdwx) {
+            this.bdwx = bdwx;
         }
 
         public List<String> getMessage() {

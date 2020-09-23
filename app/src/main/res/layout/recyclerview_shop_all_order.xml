@@ -254,6 +254,18 @@
                 android:layout_height="22dp"
                 android:text="待签收"
                 />
+            <TextView
+                android:id="@+id/tv_btn_chakanwuliu"
+                android:gravity="center"
+                android:layout_marginRight="5dp"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/red_d84c37"
+                android:background="@drawable/bg_red_border_27px"
+                android:textSize="11sp"
+                android:layout_width="62dp"
+                android:layout_height="22dp"
+                android:text="查看物流"
+                />
         </LinearLayout>
 
     </RelativeLayout>

@@ -227,6 +227,18 @@ public class SpImp {
     public String getIsCaptain(){
         return sp.getString(SpPublic.IF_DUIZHANG,"");
     }
+
+    /**
+     *
+     * @return bdwx  0未绑定微信  1已绑定微信
+     */
+    public String getIsBDWX(){
+        return sp.getString(SpPublic.BDWX,"");
+    }
+    public void setIsBDWX(String s){
+        editor.putString(SpPublic.BDWX, s).toString();
+        editor.commit();
+    }
     public void clear(){
         editor.clear().commit();
     }

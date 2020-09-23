@@ -57,7 +57,7 @@ public class GuanZhuDuiZhangListActivity extends BaseActivity {
     private void initData() {
         //关注
         ViseHttp.POST(NetConfig.gzCaptainList)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.homePageGz))
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.gzCaptainList))
                 .addParam("uid", spImp.getUID())
                 .addParam("page","1")
                 .request(new ACallback<String>() {
@@ -87,7 +87,7 @@ public class GuanZhuDuiZhangListActivity extends BaseActivity {
     }
     private void loadMore(){
         ViseHttp.POST(NetConfig.gzCaptainList)
-                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.homePageGz))
+                .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.gzCaptainList))
                 .addParam("uid", spImp.getUID())
                 .addParam("page",page+"")
                 .request(new ACallback<String>() {

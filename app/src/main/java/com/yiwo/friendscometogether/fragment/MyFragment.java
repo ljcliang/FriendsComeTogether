@@ -1,5 +1,9 @@
 package com.yiwo.friendscometogether.fragment;
 
+import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +25,7 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseFragment;
+import com.yiwo.friendscometogether.custom.BindWXGongZhongHaoDialog;
 import com.yiwo.friendscometogether.custom.DuiZhangShowLVDialog;
 import com.yiwo.friendscometogether.imagepreview.StatusBarUtils;
 import com.yiwo.friendscometogether.model.UserModel;
@@ -86,8 +91,8 @@ public class MyFragment extends BaseFragment {
     TextView tvNum4;
     @BindView(R.id.iv_find_super_like)
     ImageView iv_find_super_like;
-    @BindView(R.id.iv_renwu)
-    ImageView iv_renwu;
+//    @BindView(R.id.iv_renwu)
+//    ImageView iv_renwu;
     @BindView(R.id.tv_level)
     TextView tvLevel;
     @BindView(R.id.rl_level)
@@ -135,10 +140,10 @@ public class MyFragment extends BaseFragment {
         //在这个判断，根据需要做处理
         if (netMobile == 1) {
             Log.e("2222", "inspectNet:连接wifi");
-            onStart();
+            refreshData();
         } else if (netMobile == 0) {
             Log.e("2222", "inspectNet:连接移动数据");
-            onStart();
+            refreshData();
         } else if (netMobile == -1) {
             Log.e("2222", "inspectNet:当前没有网络");
         }
@@ -147,24 +152,14 @@ public class MyFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
+        refreshData();
+    }
+
+    private void refreshData() {
         uid = spImp.getUID();
         Log.e("222", uid);
         if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
-            rl_cart.setVisibility(View.VISIBLE);
-            if ( spImp.getIsCaptain().equals("1") || spImp.getIsShop().equals("1")){
-                ll_xiaoshou_order.setVisibility(View.VISIBLE);
-                ll_xingcheng_order.setVisibility(View.GONE);
-                ll_xingcheng_dingdan.setVisibility(View.VISIBLE);
-            }else {
-                ll_xiaoshou_order.setVisibility(View.GONE);
-                ll_xingcheng_order.setVisibility(View.VISIBLE);
-                ll_xingcheng_dingdan.setVisibility(View.GONE);
-            }
-            if (spImp.getIsShop().equals("1")){
-                ll_right_shop.setVisibility(View.VISIBLE);
-            }else {
-                ll_right_shop.setVisibility(View.GONE);
-            }
+
 //            tvNotLogin.setVisibility(View.GONE);
 //            rlContent.setVisibility(View.VISIBLE);
             ViseHttp.POST(NetConfig.userInformation)
@@ -178,17 +173,35 @@ public class MyFragment extends BaseFragment {
                                 JSONObject jsonObject = new JSONObject(data);
                                 if (jsonObject.getInt("code") == 200) {
                                     Gson gson = new Gson();
-                                     userModel = gson.fromJson(data, UserModel.class);
+                                    userModel = gson.fromJson(data, UserModel.class);
                                     Glide.with(getContext()).load(userModel.getObj().getHeadeimg()).apply(new RequestOptions()
-                                                                                                            .placeholder(R.mipmap.my_head)
-                                                                                                            .error(R.mipmap.my_head)).into(ivAvatar);
+                                            .placeholder(R.mipmap.my_head)
+                                            .error(R.mipmap.my_head)).into(ivAvatar);
 //                                    if (TextUtils.isEmpty(userModel.getObj().getHeadeimg())) {
 //                                        Picasso.with(getContext()).load(R.mipmap.my_head).into(ivAvatar);
 //                                    } else {
 //                                        Picasso.with(getContext()).load(userModel.getObj().getHeadeimg()).into(ivAvatar);
 //                                    }
+                                    spImp.setIsCaptain(userModel.getObj().getIf_captain());
+                                    spImp.setIsShop(userModel.getObj().getShare_power());
+                                    spImp.setIsBDWX(userModel.getObj().getBdwx());
+
+                                    rl_cart.setVisibility(View.VISIBLE);
+                                    if ( spImp.getIsCaptain().equals("1") || spImp.getIsShop().equals("1")){
+                                        ll_xiaoshou_order.setVisibility(View.VISIBLE);
+                                        ll_xingcheng_order.setVisibility(View.GONE);
+                                        ll_xingcheng_dingdan.setVisibility(View.VISIBLE);
+                                    }else {
+                                        ll_xiaoshou_order.setVisibility(View.GONE);
+                                        ll_xingcheng_order.setVisibility(View.VISIBLE);
+                                        ll_xingcheng_dingdan.setVisibility(View.GONE);
+                                    }
+                                    if (spImp.getIsShop().equals("1")){
+                                        ll_right_shop.setVisibility(View.VISIBLE);
+                                    }else {
+                                        ll_right_shop.setVisibility(View.GONE);
+                                    }
                                     if (userModel.getObj().getSign().equals("1")){
-                                        iv_renwu.setVisibility(View.VISIBLE);
                                         rl_duizhang_set.setVisibility(View.VISIBLE);
                                         iv_duizhang_level.setVisibility(View.VISIBLE);
                                         switch (userModel.getObj().getLevelName()){
@@ -212,7 +225,6 @@ public class MyFragment extends BaseFragment {
                                                 break;
                                         }
                                     }else {
-                                        iv_renwu.setVisibility(View.GONE);
                                         rl_duizhang_set.setVisibility(View.GONE);
                                         iv_duizhang_level.setVisibility(View.GONE);
                                     }
@@ -383,6 +395,21 @@ public class MyFragment extends BaseFragment {
                 }
                 break;
             case R.id.rl_cart:
+//                AlertDialog.Builder builder_ = new AlertDialog.Builder(getContext());
+//                builder_.setMessage("您还没有绑定微信零钱")
+//                        .setPositiveButton("去绑定", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                BindWXGongZhongHaoDialog dialog1 = new BindWXGongZhongHaoDialog(getContext());
+//                                dialog1.show();
+//                                dialog.dismiss();
+//                            }
+//                        }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.dismiss();
+//                    }
+//                }).show();
                 GoodsCartWebActivity.open(getContext(),NetConfig.BaseUrl+NetConfig.myCartWebUrl+spImp.getUID());
                 break;
             case R.id.rl_my_xingcheng_order:
@@ -533,9 +560,11 @@ public class MyFragment extends BaseFragment {
                 if (TextUtils.isEmpty(spImp.getUID()) || spImp.getUID().equals("0")) {
                     intent.setClass(getContext(), LoginActivity.class);
                     startActivity(intent);
-                } else if (!spImp.getIfSign().equals("1")) {
-                    RenZheng0_BeginActivity.openActivity(getContext());
-                } else {
+                }
+//                else if (!spImp.getIfSign().equals("1")) {
+//                    RenZheng0_BeginActivity.openActivity(getContext());
+//                }
+                else {
                     intent.setClass(getContext(), ShouRuMingXiWebActivity.class);
                     intent.putExtra("url",NetConfig.comeInInfo+spImp.getUID());
                     startActivity(intent);
@@ -545,8 +574,23 @@ public class MyFragment extends BaseFragment {
                 if (TextUtils.isEmpty(spImp.getUID()) || spImp.getUID().equals("0")) {
                     intent.setClass(getContext(), LoginActivity.class);
                     startActivity(intent);
-                } else if (!spImp.getIfSign().equals("1")) {
-                    RenZheng0_BeginActivity.openActivity(getContext());
+                } else if (!spImp.getIsBDWX().equals("1")) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage("您还没有绑定微信零钱")
+                            .setPositiveButton("去绑定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    BindWXGongZhongHaoDialog dialog1 = new BindWXGongZhongHaoDialog(getContext());
+                                    dialog1.show();
+                                    dialog.dismiss();
+                                }
+                            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
+//                    RenZheng0_BeginActivity.openActivity(getContext());
                 } else {
                     GuanLiGoodsWebActivity.start(getContext(),NetConfig.GuanLiGoodsUrl+spImp.getUID());
                 }

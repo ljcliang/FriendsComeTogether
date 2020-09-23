@@ -46,6 +46,7 @@ public class YouJiWebModel {
         /**
          * add : 1
          * collect : 1
+         * userID : //友记所属人的ID
          * title : [{"ffID":"299","fftitle":"1231231"}]
          * "share_pic": "http://39.104.102.152/uploads/article/20190410/0-0be57cc6a725b202da556d340c902ac93770.jpeg",
          "share_url": "http://39.104.102.152/index.php/action/ac_article/youJiWebShare?id=476",
@@ -59,6 +60,7 @@ public class YouJiWebModel {
         private String share_url;
         private String share_info;
         private String who;
+        private String userID;
         public String getAdd() {
             return add;
         }
@@ -113,6 +115,14 @@ public class YouJiWebModel {
 
         public void setWho(String who) {
             this.who = who;
+        }
+
+        public String getUserID() {
+            return userID;
+        }
+
+        public void setUserID(String userID) {
+            this.userID = userID;
         }
 
         public static class TitleBean {

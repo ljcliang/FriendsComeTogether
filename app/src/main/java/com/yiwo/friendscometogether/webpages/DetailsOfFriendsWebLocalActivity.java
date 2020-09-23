@@ -63,9 +63,11 @@ import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.MuLuItemYouJiAdapter;
 import com.yiwo.friendscometogether.newmodel.LocalWebInfoModel;
 import com.yiwo.friendscometogether.newmodel.YouJiWebModel;
+import com.yiwo.friendscometogether.newpage.CreateFriendRememberActivity1;
 import com.yiwo.friendscometogether.newpage.JuBaoActivity;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.pages.ArticleCommentActivity;
+import com.yiwo.friendscometogether.pages.CreateIntercalationActivity;
 import com.yiwo.friendscometogether.pages.InsertIntercalationActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.VideoActivity;
@@ -177,9 +179,7 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
                             }else {
                                 strr3 = "0";
                             }
-                            Log.d("adsadasd--nzian：：",strr1);
-                            String s = WebUntils.replaceStr(strr1);
-                        Log.d("adsadasd：：\n",s+"\n"+strr2+"\n"+strr3);
+                            strr1= WebUntils.replaceStr(strr1);
                             webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"','"+spImp.getUID()+"')");
                             /**
                              * 加载之后再次查询更新数据库
@@ -202,7 +202,7 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
                                                     String strr1 = mode.getObj().getStr();
                                                     String strr2 = "";
                                                     String strr3 = "0";
-                                                    Log.d("数据库中没有此条数据：ID-",fmID+"\n"+strr1+""+strr2+""+strr3);
+                                                    strr1 = WebUntils.replaceStr(strr1);
                                                     webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"','"+spImp.getUID()+"')");
                                                     YouJiWebInfoDbModel youJiWebInfoDbModel = new YouJiWebInfoDbModel();
                                                     youJiWebInfoDbModel.setWeb_info(mode.getObj().getStr());
@@ -290,11 +290,6 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
                             if (jsonObject.getInt("code") == 200){
                                 Gson gson = new Gson();
                                 LocalWebInfoModel mode =  gson.fromJson(data,LocalWebInfoModel.class);
-//                                                    String strr1 = mode.getObj().getStr();
-//                                                    String strr2 = "";
-//                                                    String strr3 = "0";
-//                                                    Log.d("adsadasd",strr1+""+strr2+""+strr3);
-//                                                    webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"')");
                                 YouJiWebInfoDbModel youJiWebInfoDbModel = new YouJiWebInfoDbModel();
                                 youJiWebInfoDbModel.setWeb_info(mode.getObj().getStr());
                                 youJiWebInfoDbModel.setFm_id(id);
@@ -613,9 +608,15 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
                 }
                 break;
             case R.id.activity_details_of_friends_ll_intercalation://插文
-                intent.setClass(DetailsOfFriendsWebLocalActivity.this, InsertIntercalationActivity.class);
-                intent.putExtra("id", fmID);
-                startActivity(intent);
+                if (model.getObj().getUserID().equals(spImp.getUID())){
+                    intent.putExtra("id", fmID);
+                    intent.putExtra("type", "0");//传0为当前友记为未发布状态
+                    intent.setClass(DetailsOfFriendsWebLocalActivity.this, CreateIntercalationActivity.class);
+                }else {
+                    intent.setClass(DetailsOfFriendsWebLocalActivity.this, InsertIntercalationActivity.class);
+                    intent.putExtra("id", fmID);
+                    startActivity(intent);
+                }
                 break;
             case R.id.activity_details_of_friends_ll_comment://评论
                 if (TextUtils.isEmpty(uid) || uid.equals("0")) {

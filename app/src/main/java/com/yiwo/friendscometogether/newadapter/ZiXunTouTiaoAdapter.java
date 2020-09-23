@@ -36,14 +36,21 @@ public class ZiXunTouTiaoAdapter extends RecyclerView.Adapter<ZiXunTouTiaoAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tv_title.setText(data.get(position).getFmtitle());
+
         if (data.get(position).getPic().size()>0){
             Glide.with(context).load(data.get(position).getPic().get(0)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv0);
+        }else {
+            Glide.with(context).load("").apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv0);
         }
         if (data.get(position).getPic().size()>1){
             Glide.with(context).load(data.get(position).getPic().get(1)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv1);
+        }else {
+            Glide.with(context).load("").apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv1);
         }
         if (data.get(position).getPic().size()>2){
             Glide.with(context).load(data.get(position).getPic().get(2)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv2);
+        }else {
+            Glide.with(context).load("").apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv2);
         }
         holder.tv_look_num.setText(data.get(position).getFmlook());
         holder.tv_pinglun_num.setText(data.get(position).getFmcomment());

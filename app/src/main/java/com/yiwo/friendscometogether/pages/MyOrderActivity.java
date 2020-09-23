@@ -47,7 +47,7 @@ public class MyOrderActivity extends BaseActivity {
         ScreenAdapterTools.getInstance().loadView(getWindow().getDecorView());
 
         ButterKnife.bind(this);
-        tvTopTitle.setText("我的订单");
+        tvTopTitle.setText("行程订单");
         init();
 
     }

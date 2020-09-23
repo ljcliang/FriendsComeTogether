@@ -92,7 +92,7 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
                             String strr1 = webInfoOfDbUntils.queryGood(goodId).getWeb_info();
                             String strr2 = "";
                             String strr3 = "2";
-                            Log.d("adsadasd：：\n",strr1+"\n"+strr2+"\n"+strr3);
+                            strr1 = WebUntils.replaceStr(strr1);
                             webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"','"+spImp.getUID()+"')");
                             /**
                              * 加载之后再次查询更新数据库
@@ -117,7 +117,7 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
                                                     String strr1 = mode.getObj().getStr();
                                                     String strr2 = "";
                                                     String strr3 = "2";
-                                                    Log.d("adsadasd：：\n",strr1+"\n"+strr2+"\n"+strr3);
+                                                    strr1 = WebUntils.replaceStr(strr1);
                                                     webView.loadUrl("javascript:androidagain('"+strr1+"','"+strr2+"','"+strr3+"')");
                                                 }
                                             } catch (JSONException e) {
@@ -148,7 +148,6 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
                                                     String strr2 = "";
                                                     String strr3 = "2";
                                                     strr1 = WebUntils.replaceStr(strr1);
-                                                    Log.d("adsadasd数据库中没有此条数据ID-",goodId+"\n"+strr1+"\n"+strr2+"\n"+strr3);
                                                     webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"','"+spImp.getUID()+"')");
                                                     GoodsWebInfoDbModel goodsWebInfoDbModel = new GoodsWebInfoDbModel();
                                                     goodsWebInfoDbModel.setWeb_info(mode.getObj().getStr());

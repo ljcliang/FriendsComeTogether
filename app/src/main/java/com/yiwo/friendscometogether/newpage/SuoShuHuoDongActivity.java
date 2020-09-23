@@ -39,6 +39,8 @@ public class SuoShuHuoDongActivity extends BaseActivity {
     EditText editText;
     @BindView(R.id.tv_sousuo)
     TextView btn_sousuo;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
     /**
      * type  0 友聚  1商品
      */
@@ -55,6 +57,11 @@ public class SuoShuHuoDongActivity extends BaseActivity {
         ButterKnife.bind(this);
         spImp = new SpImp(this);
         type = getIntent().getStringExtra(TYPE_KEY);
+        if (type.equals("0")){
+            tv_title.setText("选择活动");
+        }else {
+            tv_title.setText("选择商品");
+        }
         initRv();
         initData();
     }

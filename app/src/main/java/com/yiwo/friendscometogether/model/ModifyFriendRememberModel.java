@@ -58,6 +58,7 @@ public class ModifyFriendRememberModel {
          * insertatext : 1
          * fmlable : 6
          * fmlableName : 蹦极
+         * comeFrom : 来源
          */
 
         private String fmID;
@@ -73,6 +74,7 @@ public class ModifyFriendRememberModel {
         private String insertatext;
         private String fmlable;
         private String fmlableName;
+        private String comeFrom;
         private List<FmpicBean> fmpic;
 
         public String getFmID() {
@@ -185,6 +187,14 @@ public class ModifyFriendRememberModel {
 
         public void setFmpic(List<FmpicBean> fmpic) {
             this.fmpic = fmpic;
+        }
+
+        public String getComeFrom() {
+            return comeFrom;
+        }
+
+        public void setComeFrom(String comeFrom) {
+            this.comeFrom = comeFrom;
         }
 
         public static class FmpicBean {

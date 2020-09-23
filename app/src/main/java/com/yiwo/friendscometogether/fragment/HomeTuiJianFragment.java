@@ -932,31 +932,34 @@ public class HomeTuiJianFragment extends BaseFragment {
      * @param index 点击广告 跳转页面
      */
     private void jumpAD(int index) {
+        String type = listAD.get(index).getJumpType();
+        Log.d("typetypetype",type);
         Intent intent = new Intent();
         if (listAD.size()>index){
             //0跳友聚 1跳文章2跳商品3固定地址4队长申请5无点击    sid  游聚文章 商品的id
-            if (listAD.get(index).getJumpType().equals("0")){//活动
+            if (type.equals("0")){//活动
                 intent.setClass(getContext(), DetailsOfFriendTogetherWebLocalActivity.class);
                 intent.putExtra("pfID", listAD.get(index).getSid());
                 startActivity(intent);
-            }else if (listAD.get(index).getJumpType().equals("1")){//友记
+            }else if (type.equals("1")){//友记
                 intent.setClass(getContext(), DetailsOfFriendsWebLocalActivity.class);
                 intent.putExtra("fmid", listAD.get(index).getSid());
                 startActivity(intent);
-            }else if (listAD.get(index).getJumpType().equals("2")){//跳商品
+            }else if (type.equals("2")){//跳商品
                 ShopGoodsDetailsWebLocalActivity.open(getContext(),listAD.get(index).getSid());
-            }else if (listAD.get(index).getJumpType().equals("3")){//3固定地址
+            }else if (type.equals("3")){//3固定地址
                 intent.setClass(getContext(), NoTitleWebActivity.class);
                 intent.putExtra("url",listAD.get(index).getJumpUrl());
                 startActivity(intent);
-            }else if (listAD.get(index).getJumpType().equals("4")){//4队长申请
-                                if (!TextUtils.isEmpty(spImp.getUID()) && !spImp.getUID().equals("0")){
+            }else if (type.equals("4")){//4队长申请
+                if (!TextUtils.isEmpty(spImp.getUID()) && !spImp.getUID().equals("0")){
                     intent.setClass(getContext(), ApplyForCaptainActivity.class);
                     startActivity(intent);
+                }else {
+                    intent.setClass(getContext(), LoginActivity.class);
+                    startActivity(intent);
                 }
-                intent.setClass(getContext(), ApplyForCaptainActivity.class);
-                startActivity(intent);
-            }else if(listAD.get(index).getJumpType().equals("5")){//无操作
+            }else if(type.equals("5")){//无操作
 
             }else {//其他都跳进当前urlweb
 //                intent.setClass(getContext(), NoTitleWebActivity.class);

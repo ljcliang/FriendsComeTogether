@@ -52,7 +52,7 @@ import top.zibin.luban.CompressionPredicate;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
-//创建续写页面
+//作者自己续写页面
 public class CreateIntercalationActivity extends BaseActivity {
 
     @BindView(R.id.activity_create_intercalation_rl_back)

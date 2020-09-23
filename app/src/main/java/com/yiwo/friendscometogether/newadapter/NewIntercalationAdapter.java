@@ -120,14 +120,14 @@ public class NewIntercalationAdapter extends RecyclerView.Adapter<NewIntercalati
         holder.tvContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PicDescribeDialog dialog = new PicDescribeDialog(context);
-                dialog.show();
-                dialog.setOnReturnListener(new PicDescribeDialog.OnReturnListener() {
-                    @Override
-                    public void onReturn(String title) {
-                        describeListener.onAddDescribe(position, title);
-                    }
-                });
+//                PicDescribeDialog dialog = new PicDescribeDialog(context,data.get(position).getDescribe());
+//                dialog.show();
+//                dialog.setOnReturnListener(new PicDescribeDialog.OnReturnListener() {
+//                    @Override
+//                    public void onReturn(String title) {
+//                        describeListener.onAddDescribe(position, title);
+//                    }
+//                });
             }
         });
     }

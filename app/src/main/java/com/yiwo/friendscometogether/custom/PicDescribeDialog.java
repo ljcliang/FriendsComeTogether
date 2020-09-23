@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -26,14 +27,16 @@ public class PicDescribeDialog extends Dialog {
     private EditText etTitle;
     private RelativeLayout rlClose;
     private Button btnOk;
+    private String strContent ="";
 
     public void setOnReturnListener(OnReturnListener listener){
         this.listener = listener;
     }
 
-    public PicDescribeDialog(@NonNull Context context) {
+    public PicDescribeDialog(@NonNull Context context,String content) {
         super(context);
         this.context = context;
+        this.strContent = content;
     }
 
     @Override
@@ -54,7 +57,9 @@ public class PicDescribeDialog extends Dialog {
         etTitle = view.findViewById(R.id.dialog_pic_describe_et_content);
         rlClose = view.findViewById(R.id.dialog_pic_describe_rl_close);
         btnOk = view.findViewById(R.id.dialog_pic_describe_btn_ok);
-
+        if (!TextUtils.isEmpty(strContent)){
+            etTitle.setText(strContent);
+        }
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

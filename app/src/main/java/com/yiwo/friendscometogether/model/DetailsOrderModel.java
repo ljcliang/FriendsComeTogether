@@ -3,13 +3,13 @@ package com.yiwo.friendscometogether.model;
 /**
  * Created by Administrator on 2018/8/6.
  */
-
+//1.我自己的订单,未付款 2.我自己的订单,已付款 3.邀请人未付款 4.邀请人已付款 5.未付款取消订单
 public class DetailsOrderModel {
 
     /**
      * code : 200
      * message : 获取成功
-     * obj : {"title":"活动不可退款，只限男性 且单身","content":"","picture":"http://39.104.102.152/uploads/xingcheng/20190321/917bbe3500b9249b14184868591d6d92.jpg","time":"2019.03.28-2019.03.31","go_num":"1","price":"0.01","order_sn":"20190325151424550072","paycode":"2019032522001464860551910963","create_time":"","pay_time":"2019-03-25 15:14:24","over_time":"","status":"活动结束","pay_type":"1","order_type":"3","price_type":"自费","begin_time":"2019.03.28","end_time":"2019.03.31","noname":"0","allow_refund":"1","phase":"1","comment":"啊啊啊啊啊啊啊啊啊啊啊啊啊啊","if_comment":true}
+     * obj : {"joinUser":"刘继昌","joinTel":"15754633415","opaymode":"微信","num":"1","pfID":"206","title":"1231","content":"","picture":"http://www.tongbanapp.com/uploads/xingcheng/20200916/a94127d0854f180513712b3fd0018b4e3380.jpg","time":"2020.09.25-2020.10.05","go_num":"1","price":"100.00","order_sn":"2020092110020025034","paycode":"","create_time":"2020-09-21 10:02:00","pay_time":"2020-09-21 10:02:00","over_time":"","status":"待支付","pay_type":"3","order_type":"1","price_type":"自费","begin_time":"2020.09.25","end_time":"2020.10.05","noname":"0","allow_refund":"0","phase":"1","comment":"","if_comment":false,"comment_ID":"","refundInfo":"请于商家或发起人协商处理","refundWhy":"","refund_money":"0.00","orderStatus":"0","User":"花生","BUser":"","del_type":"0","opaytype":"1","couponPrice":"","opayout":"0","opayout_sn":"","opayouttime":"1970-01-01 08:00"}
      */
 
     private int code;
@@ -42,38 +42,53 @@ public class DetailsOrderModel {
 
     public static class ObjBean {
         /**
-         * title : 活动不可退款，只限男性 且单身
+         * joinUser : 刘继昌
+         * joinTel : 15754633415
+         * opaymode : 微信
+         * num : 1
+         * pfID : 206
+         * title : 1231
          * content :
-         * picture : http://39.104.102.152/uploads/xingcheng/20190321/917bbe3500b9249b14184868591d6d92.jpg
-         * time : 2019.03.28-2019.03.31
+         * picture : http://www.tongbanapp.com/uploads/xingcheng/20200916/a94127d0854f180513712b3fd0018b4e3380.jpg
+         * time : 2020.09.25-2020.10.05
          * go_num : 1
-         * price : 0.01
-         * order_sn : 20190325151424550072
-         * paycode : 2019032522001464860551910963
-         * create_time :
-         * pay_time : 2019-03-25 15:14:24
+         * price : 100.00
+         * order_sn : 2020092110020025034
+         * paycode :
+         * create_time : 2020-09-21 10:02:00
+         * pay_time : 2020-09-21 10:02:00
          * over_time :
-         * status : 活动结束
-         * pay_type : 1
-         * order_type : 3
+         * status : 待支付
+         * pay_type : 3
+         * order_type : 1
          * price_type : 自费
-         * begin_time : 2019.03.28
-         * end_time : 2019.03.31
+         * begin_time : 2020.09.25
+         * end_time : 2020.10.05
          * noname : 0
-         * allow_refund : 1
+         * allow_refund : 0
          * phase : 1
-         * comment : 啊啊啊啊啊啊啊啊啊啊啊啊啊啊
-         * if_comment : true
-         * 订单详情 refundInfo 退款说明
-         * refundWhy 退款原因
-         *  refund_money 退款金额
-         "orderStatus": "1",
-         "User": "神秘人",
-         "BUser": "花生"
-         opaytype: 1.我自己的订单,未付款 2.我自己的订单,已付款 3.邀请人未付款 4.邀请人已付款 5.未付款取消订单
-         couponPrice:
+         * comment :
+         * if_comment : false
+         * comment_ID :
+         * refundInfo : 请于商家或发起人协商处理
+         * refundWhy :
+         * refund_money : 0.00
+         * orderStatus : 0
+         * User : 花生
+         * BUser :
+         * del_type : 0
+         * opaytype : 1
+         * couponPrice :
+         * opayout : 0
+         * opayout_sn :
+         * opayouttime : 1970-01-01 08:00
          */
 
+        private String joinUser;
+        private String joinTel;
+        private String opaymode;
+        private String num;
+        private String pfID;
         private String title;
         private String content;
         private String picture;
@@ -95,22 +110,60 @@ public class DetailsOrderModel {
         private String allow_refund;
         private String phase;
         private String comment;
-        private String comment_ID;
         private boolean if_comment;
+        private String comment_ID;
         private String refundInfo;
         private String refundWhy;
         private String refund_money;
-        private String opaytype;
-
-        private String couponPrice;
-
         private String orderStatus;
         private String User;
         private String BUser;
+        private String del_type;
+        private String opaytype;
+        private String couponPrice;
+        private String opayout;
+        private String opayout_sn;
+        private String opayouttime;
 
-        private String del_type;//0未删除 1邀请人已删除
+        public String getJoinUser() {
+            return joinUser;
+        }
 
+        public void setJoinUser(String joinUser) {
+            this.joinUser = joinUser;
+        }
 
+        public String getJoinTel() {
+            return joinTel;
+        }
+
+        public void setJoinTel(String joinTel) {
+            this.joinTel = joinTel;
+        }
+
+        public String getOpaymode() {
+            return opaymode;
+        }
+
+        public void setOpaymode(String opaymode) {
+            this.opaymode = opaymode;
+        }
+
+        public String getNum() {
+            return num;
+        }
+
+        public void setNum(String num) {
+            this.num = num;
+        }
+
+        public String getPfID() {
+            return pfID;
+        }
+
+        public void setPfID(String pfID) {
+            this.pfID = pfID;
+        }
 
         public String getTitle() {
             return title;
@@ -332,8 +385,8 @@ public class DetailsOrderModel {
             return User;
         }
 
-        public void setUser(String user) {
-            User = user;
+        public void setUser(String User) {
+            this.User = User;
         }
 
         public String getBUser() {
@@ -366,6 +419,30 @@ public class DetailsOrderModel {
 
         public void setCouponPrice(String couponPrice) {
             this.couponPrice = couponPrice;
+        }
+
+        public String getOpayout() {
+            return opayout;
+        }
+
+        public void setOpayout(String opayout) {
+            this.opayout = opayout;
+        }
+
+        public String getOpayout_sn() {
+            return opayout_sn;
+        }
+
+        public void setOpayout_sn(String opayout_sn) {
+            this.opayout_sn = opayout_sn;
+        }
+
+        public String getOpayouttime() {
+            return opayouttime;
+        }
+
+        public void setOpayouttime(String opayouttime) {
+            this.opayouttime = opayouttime;
         }
     }
 }

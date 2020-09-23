@@ -53,6 +53,9 @@ import top.zibin.luban.CompressionPredicate;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
+/**
+ * 其他人参与写作
+ */
 public class InsertIntercalationActivity extends BaseActivity {
 
     @BindView(R.id.activity_insert_intercalation_rl_back)
@@ -237,7 +240,7 @@ public class InsertIntercalationActivity extends BaseActivity {
                 } else {
                     AlertDialog.Builder singleChoiceDialog =
                             new AlertDialog.Builder(InsertIntercalationActivity.this);
-                    singleChoiceDialog.setTitle("请选择标签");
+                    singleChoiceDialog.setTitle("请选择");
                     // 第二个参数是默认选项，此处设置为0
                     singleChoiceDialog.setSingleChoiceItems(itemName, 0,
                             new DialogInterface.OnClickListener() {

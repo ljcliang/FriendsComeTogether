@@ -29,6 +29,7 @@
 
     </RelativeLayout>
     <ScrollView
+        android:layout_marginBottom="10px"
         android:layout_above="@+id/ll_bottom"
         android:layout_below="@+id/activity_details_to_pay_rl_top"
         android:layout_width="match_parent"
@@ -39,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
+                android:id="@+id/ll_content"
                 android:layout_marginLeft="25px"
                 android:layout_marginRight="25px"
                 android:layout_marginBottom="10px"
@@ -201,18 +203,6 @@
                     android:text="订单编号："
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-
-                <TextView
-                    android:visibility="gone"
-                    android:textSize="26px"
-                    android:layout_marginLeft="38px"
-                    android:layout_marginTop="18px"
-                    android:textColor="@color/gray_999999"
-                    android:id="@+id/activity_details_to_pay_tv_trade_number"
-                    android:text="交易号："
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
                 <TextView
                     android:visibility="visible"
                     android:textSize="26px"
@@ -229,33 +219,50 @@
                     android:layout_marginLeft="38px"
                     android:layout_marginTop="18px"
                     android:textColor="@color/gray_999999"
+                    android:id="@+id/activity_details_to_pay_tv_pay_time"
+                    android:text="支付时间："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/activity_details_to_pay_tv_pay_mode"
+                    android:layout_marginLeft="38px"
+                    android:layout_marginTop="22px"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="26px"
+                    android:text="支付方式："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/activity_details_to_pay_tv_pay_price"
+                    android:layout_marginLeft="38px"
+                    android:layout_marginTop="22px"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="26px"
+                    android:text="支付金额："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:visibility="visible"
+                    android:textSize="26px"
+                    android:layout_marginLeft="38px"
+                    android:layout_marginTop="18px"
+                    android:textColor="@color/gray_999999"
+                    android:id="@+id/activity_details_to_pay_tv_trade_number"
+                    android:text="交易号："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:visibility="visible"
+                    android:textSize="26px"
+                    android:layout_marginLeft="38px"
+                    android:layout_marginTop="18px"
+                    android:textColor="@color/gray_999999"
                     android:id="@+id/activity_details_to_pay_tv_youhuiquan"
                     android:text="优惠券："
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
-                    android:visibility="gone"
-                    android:textSize="26px"
-                    android:layout_marginLeft="38px"
-                    android:layout_marginTop="18px"
-                    android:textColor="@color/gray_999999"
-                    android:id="@+id/activity_details_to_pay_tv_pay_time"
-                    android:text="付款时间："
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:visibility="gone"
-                    android:textSize="26px"
-                    android:layout_marginLeft="38px"
-                    android:layout_marginTop="18px"
-                    android:textColor="@color/gray_999999"
-                    android:id="@+id/activity_details_to_pay_tv_pay_ok_time"
-                    android:text="成交时间：2018-04-02 12：12：31"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:textSize="26px"
                     android:layout_marginLeft="38px"
                     android:layout_marginTop="18px"
@@ -265,15 +272,61 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
-                    android:visibility="gone"
+                    android:id="@+id/activity_details_to_pay_tv_baoming_ren"
+                    android:layout_marginLeft="38px"
+                    android:layout_marginTop="22px"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="26px"
+                    android:text="报名人："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/activity_details_to_pay_tv_baoming_num"
+                    android:layout_marginLeft="38px"
+                    android:layout_marginTop="22px"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="26px"
+                    android:text="报名人数："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/activity_details_to_pay_tv_begin_time"
+                    android:layout_marginLeft="38px"
+                    android:layout_marginTop="22px"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="26px"
+                    android:text="团期时间："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/activity_details_to_pay_tv_opayout_sn"
+                    android:layout_marginLeft="38px"
+                    android:layout_marginTop="22px"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="26px"
+                    android:text="退款单号："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/activity_details_to_pay_tv_opayouttime"
+                    android:layout_marginLeft="38px"
+                    android:layout_marginTop="22px"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="26px"
+                    android:text="退款时间："
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:visibility="visible"
                     android:textSize="26px"
                     android:layout_marginLeft="38px"
                     android:layout_marginTop="18px"
                     android:textColor="@color/gray_999999"
                     android:id="@+id/tv_return_money"
-                    android:text="退款金额：0.00"
+                    android:text="退款金额："
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
                 <LinearLayout
                     android:visibility="gone"
                     android:id="@+id/ll_return_why"
@@ -285,19 +338,31 @@
                     android:layout_height="wrap_content">
                     <TextView
                         android:textSize="26px"
-                        android:text="活动取消原因："
+                        android:text="订单取消原因："
                         android:textColor="@color/gray_999999"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
                         android:id="@+id/tv_return_why"
                         android:textSize="26px"
-                        android:text="退款原因退款原因退款原因退款原因退款原因退款原因"
+                        android:text=""
                         android:textColor="@color/gray_999999"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
+                <!--                以下隐藏-->
+                <TextView
+                    android:visibility="gone"
+                    android:textSize="26px"
+                    android:layout_marginLeft="38px"
+                    android:layout_marginTop="18px"
+                    android:textColor="@color/gray_999999"
+                    android:id="@+id/activity_details_to_pay_tv_pay_ok_time"
+                    android:text="成交时间：2018-04-02 12：12：31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
+<!--            ************************************************** -->
             <TextView
                 android:textStyle="bold"
                 android:lines="1"
@@ -334,7 +399,7 @@
                 <TextView
                     android:visibility="gone"
                     android:id="@+id/details_to_pay_rv_tv_cancle_trip"
-                    android:text="取消活动"
+                    android:text="取消订单"
                     android:layout_marginRight="20px"
                     android:gravity="center"
                     android:textSize="26px"
@@ -351,7 +416,7 @@
                     android:gravity="center"
                     android:textSize="26px"
                     android:textColor="#686868"
-                    android:text="删除活动"
+                    android:text="删除订单"
                     android:layout_width="150px"
                     android:layout_height="54px" />
 

@@ -6,7 +6,7 @@ package com.yiwo.friendscometogether.model;
 
 public class UserIntercalationPicModel {
     private String pic;
-    private String describe;
+    private String describe = "";
 
     public UserIntercalationPicModel() {
     }

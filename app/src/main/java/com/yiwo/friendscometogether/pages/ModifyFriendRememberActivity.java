@@ -339,6 +339,7 @@ public class ModifyFriendRememberActivity extends TakePhotoActivity {
                                 etPrice.setText(model.getObj().getPercapitacost());
                                 yourChoiceId = model.getObj().getFmlable();
                                 tvLabel.setText(model.getObj().getFmlableName());
+                                edtLaiYuan.setText(model.getObj().getComeFrom());
                                 if(!TextUtils.isEmpty(model.getObj().getAccesspassword())){
                                     tvPassword.setText("已添加密码("+model.getObj().getAccesspassword()+")");
                                     password = model.getObj().getAccesspassword();
@@ -738,7 +739,7 @@ public class ModifyFriendRememberActivity extends TakePhotoActivity {
             case R.id.activity_create_friend_remember_rl_active_title:
                 AlertDialog.Builder builder1 =
                         new AlertDialog.Builder(ModifyFriendRememberActivity.this)
-                                .setTitle("关联活动或商品")
+                                .setTitle("关联相关活动或商品")
                                 .setItems(new String[]{"选择活动","选择商品"},
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog,

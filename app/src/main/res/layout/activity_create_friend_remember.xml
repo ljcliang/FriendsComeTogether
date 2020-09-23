@@ -401,7 +401,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="12px"
                     android:layout_toRightOf="@+id/activity_create_friend_remember_iv_active_title"
-                    android:text="关联活动或商品"
+                    android:text="关联相关活动或商品"
 
                     android:textColor="@color/black_666666"
                     android:textSize="28px" />

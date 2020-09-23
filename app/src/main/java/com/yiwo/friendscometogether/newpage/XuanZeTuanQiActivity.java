@@ -43,6 +43,8 @@ public class XuanZeTuanQiActivity extends BaseActivity {
     @BindView(R.id.rv)
     RecyclerView rv;
     DuiZhangXuanZeHuoDongModel.ObjBean yiXuanHuoDong; // 返回选择的活动 model,
+    private String prev_pfID = "";
+    private String prev_phase_id =  "" ;//prev_pfID 活动id   prev_phase_id期数id
     private List<XuanZeTuanQiModel.ObjBean> list = new ArrayList<>();
     private XuanZeTuanQiAdapter adapter;
     private SpImp spImp;
@@ -61,6 +63,8 @@ public class XuanZeTuanQiActivity extends BaseActivity {
         ButterKnife.bind(this);
         yiXuanHuoDong = (DuiZhangXuanZeHuoDongModel.ObjBean) getIntent().getSerializableExtra("xuanzehuodong");
         dangQianJinDu =getIntent().getStringExtra("dangQianJinDu");
+        prev_pfID = yiXuanHuoDong.getPfID();
+        prev_phase_id = yiXuanHuoDong.getPhase_id();
         spImp = new SpImp(this);
         initData();
     }
@@ -135,6 +139,8 @@ public class XuanZeTuanQiActivity extends BaseActivity {
                 .addParam("uid",spImp.getUID())
                 .addParam("pfID",yiXuanHuoDong.getPfID())
                 .addParam("phase_id",yiXuanHuoDong.getPhase_id())
+                .addParam("prev_pfID",prev_pfID)
+                .addParam("prev_phase_id",prev_phase_id)//prev_pfID 活动id   prev_phase_id期数id
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -142,7 +148,8 @@ public class XuanZeTuanQiActivity extends BaseActivity {
                             JSONObject jsonObject = new JSONObject(data);
                             if (jsonObject.getInt("code") == 200){
                                 toToast(XuanZeTuanQiActivity.this,"选择成功！");
-                                onBackPressed();
+//                                onBackPressed();
+                                finish();
                             }else {
                                 toToast(XuanZeTuanQiActivity.this,"选择失败！");
                             }
@@ -163,37 +170,28 @@ public class XuanZeTuanQiActivity extends BaseActivity {
     public void onClick(View v){
         switch (v.getId()){
             case R.id.rl_back:
-                onBackPressed();
+                finish();
                 break;
             case R.id.btn_sure:
-                if (dangQianJinDu.equals("1")){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(XuanZeTuanQiActivity.this);
-                    builder.setMessage("当前任务未完成,重新选择团期当前任务会被重置，是否继续？")
-                            .setPositiveButton("取消", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            }).setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    saveChoosedPfPhase();
-                                    Intent intent = new Intent();
-                                    intent.putExtra("xuanzehuodong",yiXuanHuoDong);
-                                    setResult(1,intent);
-                                    finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(XuanZeTuanQiActivity.this);
+                builder.setMessage("当前任务未完成,重新选择团期当前任务会被重置，是否继续？")
+                        .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        saveChoosedPfPhase();
+                        Intent intent = new Intent();
+                        intent.putExtra("xuanzehuodong",yiXuanHuoDong);
+                        setResult(1,intent);
+                        finish();
 
-                                }
-                            }).show();
-                    break;
-                }else {
-                    saveChoosedPfPhase();
-                    Intent intent = new Intent();
-                    intent.putExtra("xuanzehuodong",yiXuanHuoDong);
-                    setResult(1,intent);
-                    finish();
-                    break;
-                }
+                    }
+                }).show();
+                break;
             case R.id.tv_search:
                 callData();
                 break;

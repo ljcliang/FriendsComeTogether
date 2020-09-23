@@ -3,6 +3,7 @@ package com.yiwo.friendscometogether.newfragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,11 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseFragment;
+import com.yiwo.friendscometogether.model.UserRememberModel;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.WoDeChawenAdapter;
 import com.yiwo.friendscometogether.newmodel.WoDeChaWenModel;
@@ -41,13 +48,14 @@ public class AllChawenFragment extends BaseFragment {
 
     @BindView(R.id.rv1)
     RecyclerView rv1;
-
+    @BindView(R.id.refresh_layout)
+    RefreshLayout refreshLayout;
     private WoDeChawenAdapter adapter;
     private List<WoDeChaWenModel.ObjBean> mList = new ArrayList<>();
 
     private SpImp spImp;
     private String uid = "";
-
+    private int page = 1;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -106,11 +114,55 @@ public class AllChawenFragment extends BaseFragment {
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         rv1.setLayoutManager(manager);
         rv1.setAdapter(adapter);
+        initRefresh();
         initData();
 
         return view;
     }
+    private void initRefresh() {
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
+        refreshLayout.setRefreshFooter(new ClassicsFooter(getContext()));
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                initData();
+                refreshLayout.finishRefresh(500);
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                ViseHttp.POST(NetConfig.userIntercalationListUrl)
+                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userIntercalationListUrl))
+                        .addParam("uid", uid)
+                        .addParam("page",page+"")
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                Log.e("222", data);
+                                try {
+                                    JSONObject jsonObject = new JSONObject(data);
+                                    if(jsonObject.getInt("code") == 200){
+                                        Gson gson = new Gson();
+                                        WoDeChaWenModel model = gson.fromJson(data, WoDeChaWenModel.class);
+                                        mList.addAll(model.getObj());
+                                        adapter.notifyDataSetChanged();
+                                        page++;
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
 
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+
+                            }
+                        });
+                refreshLayout.finishLoadMore(500);
+            }
+        });
+    }
     private void initData() {
 
         uid = spImp.getUID();
@@ -129,6 +181,7 @@ public class AllChawenFragment extends BaseFragment {
                                 mList.clear();
                                 mList.addAll(model.getObj());
                                 adapter.notifyDataSetChanged();
+                                page = 2;
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

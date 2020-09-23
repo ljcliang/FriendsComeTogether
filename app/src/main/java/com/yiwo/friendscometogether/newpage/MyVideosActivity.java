@@ -61,6 +61,25 @@ public class MyVideosActivity extends BaseActivity {
         initData();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case EditVideoTitleActivity.REQUEST_CODE:
+                switch (resultCode){
+                    case EditVideoTitleActivity.RESULT_CODE:
+                        MyVideosModel.ObjBean videoItem = (MyVideosModel.ObjBean) data.getSerializableExtra(EditVideoTitleActivity.RESULT_CHANGE_DATA);
+                        int pos = data.getIntExtra(EditVideoTitleActivity.RESULT_CHANGE_POSITION_KEY,-1);
+                        if (pos>-1){
+                            list.set(pos,videoItem);
+                            adapter.notifyDataSetChanged();
+                        }
+                        break;
+                }
+                break;
+        }
+    }
+
     private void initData() {
         // /设置布局管理器为2列，纵向
         StaggeredGridLayoutManager mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL){

@@ -165,8 +165,8 @@ public class NetConfig {
     public static String editorFriendTogetherSubtitleContentUrl = "action/ac_activity/update_activity_info";
     //用户协议地址
 //    public static String userAgreementUrl = "http://47.92.136.19/index.php/action/ac_public/user_agreement";
-    public static String userAgreementUrl = BaseUrl+"ac_public/userDeal";
-    public static String userAgreementUrl1 = BaseUrl+"ac_public/userDeal2";
+    public static String userAgreementUrl = BaseUrl+"action/ac_public/userDeal";
+    public static String userAgreementUrl1 = BaseUrl+"action/ac_public/userDeal2";
     public static String chongZhiXieYiUrl = BaseUrl+"action/ac_public/paydeal";
 //      报名协议、、新 http://www.tongbanapp.com/dealHtml/joinparty.html
 //    public static String joinDealUrl = BaseUrl+"action/ac_public/joinDeal";
@@ -478,7 +478,7 @@ public class NetConfig {
     public static String keepShop = "action/ac_captainMission/keepShop";
 //    action/ac_captainMission/pfList   获取活动接口  传uid 用户id   keyWord 关键词
     public static String pfListDuizhangZhuanShu = "action/ac_captainMission/pfList";
-//action/ac_captainMission/getMission       传uid 用户id   pfID活动id  phase_id期数id
+//action/ac_captainMission/getMission       传uid 用户id   pfID活动id  phase_id期数id prev_pfID 旧活动id   prev_phase_id旧期数id
     public static String getMission = "action/ac_captainMission/getMission";
 //    action/ac_captainMission/shareMission  去分享接口      传uid 用户id  pfID活动iD
     public static String shareMission = "action/ac_captainMission/shareMission";
@@ -724,5 +724,9 @@ public static String homePageSkipGoods = "action/ac_newHome/homePageSkipGoods";
      * http://www.tongbanapp.com/action/ac_goods/inMyShop?uid=店铺id&myID=我的id
      */
     public static String inMyShop = BaseUrl + "action/ac_goods/inMyShop?";
+    /**
+     * action/ac_user/getUserAuthInfo    传uid      返回 status  1已是队长  2审核中  3未通过  4未实名认证 5已实名认证
+     */
+    public static String getUserAuthInfo = BaseUrl + "action/ac_user/getUserAuthInfo";
 }
 

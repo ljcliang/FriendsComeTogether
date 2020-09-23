@@ -151,6 +151,7 @@ public class WelcomeActivity extends BaseActivity {
                                 spImp.setIsCaptain("");
                                 spImp.setIsShop("");
                                 spImp.setIfSign("");
+                                spImp.setIsBDWX("");
                                 spCache.clear();
                                 intent.setClass(WelcomeActivity.this, MainActivity.class);
                                 startActivity(intent);

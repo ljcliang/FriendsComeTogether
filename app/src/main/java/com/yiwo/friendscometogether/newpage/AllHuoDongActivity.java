@@ -66,13 +66,13 @@ public class AllHuoDongActivity extends BaseActivity {
 
         fragmentList = new ArrayList<>();
         fragmentList.add(new HuoDongApplyFragment());
-        fragmentList.add(new HuoDongHistoryFragment());
+//        fragmentList.add(new HuoDongHistoryFragment());
         mViewPagerFragmentAdapter = new AllRememberViewpagerAdapter(mFragmentManager, fragmentList);
         mViewPager.setAdapter(mViewPagerFragmentAdapter);
 
         mTitleDataList = new ArrayList<>();
         mTitleDataList.add("报名活动");
-        mTitleDataList.add("往期活动");
+//        mTitleDataList.add("往期活动");
 
         CommonNavigator commonNavigator = new CommonNavigator(this);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
@@ -101,7 +101,8 @@ public class AllHuoDongActivity extends BaseActivity {
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setColors(Color.parseColor("#d84c37"));
+//                indicator.setColors(Color.parseColor("#d84c37"));
+                indicator.setColors(Color.parseColor("#f6f6f6"));
                 indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
                 indicator.setLineWidth(100);
                 indicator.setRoundRadius(5);

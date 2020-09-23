@@ -1,7 +1,9 @@
 package com.yiwo.friendscometogether.webpages;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -38,6 +40,7 @@ import com.yiwo.friendscometogether.newmodel.GoodShareModel;
 import com.yiwo.friendscometogether.newpage.FaBu_XiuGaiShangPinActivity;
 import com.yiwo.friendscometogether.newpage.JuBaoActivity;
 import com.yiwo.friendscometogether.newpage.PeiSongSettingActivity;
+import com.yiwo.friendscometogether.newpage.renzheng.RenZheng0_BeginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.ShareUtils;
 
@@ -111,12 +114,28 @@ public class GuanLiGoodsWebActivity extends BaseWebActivity {
                 onBackPressed();
                 break;
             case R.id.rl_share:
-
+                share();
                 break;
             case R.id.rl_fabu:
-                Intent intent = new Intent();
-                intent.setClass(GuanLiGoodsWebActivity.this, FaBu_XiuGaiShangPinActivity.class);
-                startActivity(intent);
+                if (spImp.getIfSign().equals("1")){
+                    Intent intent = new Intent();
+                    intent.setClass(GuanLiGoodsWebActivity.this, FaBu_XiuGaiShangPinActivity.class);
+                    startActivity(intent);
+                }else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(GuanLiGoodsWebActivity.this);
+                    builder.setMessage("您还没有认证并绑定微信商户号")
+                            .setNegativeButton("去认证", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    RenZheng0_BeginActivity.openActivity(GuanLiGoodsWebActivity.this);
+                                }
+                            }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+                }
                 break;
             case R.id.ll_btn_serch:
                 webView.loadUrl("javascript:sousuo('" + mEdtSearch.getText().toString() + "')");

@@ -472,6 +472,13 @@ public class VideoActivity extends FragmentActivity {
                 break;
         }
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ShareUtils.closeDialog();
+    }
+
     private void toZan() {
         dialog = WeiboDialogUtils.createLoadingDialog(VideoActivity.this,"");
         ViseHttp.POST(NetConfig.videoPraise)
