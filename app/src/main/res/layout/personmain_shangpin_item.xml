@@ -47,7 +47,7 @@
                 android:gravity="bottom"
                 android:text="¥"
                 android:textSize="12sp"
-                android:textColor="@color/red_d84c37"
+                android:textColor="#FF6C06"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <TextView
@@ -57,7 +57,7 @@
                 android:gravity="bottom"
                 android:text="89"
                 android:textSize="16sp"
-                android:textColor="@color/red_d84c37"
+                android:textColor="#FF6C06"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <RelativeLayout
@@ -69,13 +69,13 @@
                     android:paddingRight="2dp"
                     android:layout_centerInParent="true"
                     android:id="@+id/tv_old_price"
-                    android:textColor="@color/black_666666"
+                    android:textColor="@color/color_888888"
                     android:textSize="12sp"
                     android:text="¥ 109"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <View
-                    android:background="@color/black_666666"
+                    android:background="@color/color_888888"
                     android:layout_alignRight="@+id/tv_old_price"
                     android:layout_alignLeft="@+id/tv_old_price"
                     android:layout_centerInParent="true"

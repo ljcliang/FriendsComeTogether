@@ -36,7 +36,7 @@
                         android:layout_height="wrap_content">
                         <ImageView
                             android:layout_margin="6dp"
-                            android:src="@mipmap/clip_ic_back"
+                            android:src="@mipmap/shop_home_back"
                             android:layout_width="25dp"
                             android:layout_height="25dp"/>
                     </RelativeLayout>
@@ -50,7 +50,7 @@
                         <ImageView
                             android:id="@+id/iv_guanzhu"
                             android:layout_margin="6dp"
-                            android:src="@mipmap/heart_white"
+                            android:src="@mipmap/shop_home_guanzhu_true"
                             android:layout_width="25dp"
                             android:layout_height="25dp"/>
                     </RelativeLayout>
@@ -64,7 +64,7 @@
                         <ImageView
                             android:id="@+id/iv_fenxiang"
                             android:layout_margin="6dp"
-                            android:src="@mipmap/share_white"
+                            android:src="@mipmap/shop_home_share"
                             android:layout_width="25dp"
                             android:layout_height="25dp"/>
                     </RelativeLayout>

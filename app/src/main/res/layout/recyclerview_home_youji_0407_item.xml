@@ -8,8 +8,8 @@
         android:id="@+id/rl_all"
         android:elevation="1dp"
         android:background="@drawable/bg_white_5dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="3dp"
         android:paddingBottom="7dp"
@@ -43,8 +43,11 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"/>
                 <TextView
+                    android:lines="1"
+                    android:ellipsize="end"
                     android:id="@+id/tv_name"
                     android:layout_marginTop="12dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_toLeftOf="@+id/iv_head"
                     android:text="旅游达人哈哈"
                     android:textSize="14sp"

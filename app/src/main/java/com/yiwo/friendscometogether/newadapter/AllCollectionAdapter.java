@@ -3,6 +3,7 @@ package com.yiwo.friendscometogether.newadapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,7 +79,7 @@ public class AllCollectionAdapter extends RecyclerView.Adapter<AllCollectionAdap
         }else {
             holder.iv_level.setVisibility(View.GONE);
         }
-        if (data.get(position).getInsertatext().equals("1")){
+        if (data.get(position).getInsertatext().equals("1")||TextUtils.isEmpty(data.get(position).getInNum())){
             holder.rl_canyuxiezuo.setVisibility(View.GONE);
         }else {
             holder.rl_canyuxiezuo.setVisibility(View.VISIBLE);

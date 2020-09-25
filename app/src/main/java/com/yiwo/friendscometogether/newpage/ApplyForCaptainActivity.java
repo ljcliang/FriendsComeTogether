@@ -197,7 +197,7 @@ public class ApplyForCaptainActivity extends BaseActivity {
                     toToast(ApplyForCaptainActivity.this,"请输入所属旅行社");
                     break;
                 }
-//                upLoad();
+                upLoad();
                 break;
             case R.id.btn_upload_again:
                 llShenqingShow.setVisibility(View.VISIBLE);
@@ -266,12 +266,14 @@ public class ApplyForCaptainActivity extends BaseActivity {
                         .addHeader("Content-Type", "multipart/form-data")
                         .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.pleaseCaptain))
                         .addParam("uid", spImp.getUID())
-                        .addFile("captainImg", value.get(0))
+                        .addParam("username",edtName.getText().toString())
+                        .addParam("tel",edtPhoneNum.getText().toString())
+                        .addParam("numCode",edtPersonNum.getText().toString())
+                        .addParam("shopName",edtShopName.getText().toString())
+                        .addFile("userimg", value.get(0))
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
-                                Log.e("22222", data + "::::");
-                                Log.e("22222::", data + "");
                                 try {
                                     JSONObject jsonObject = new JSONObject();
                                     if (!TextUtils.isEmpty(data)) {

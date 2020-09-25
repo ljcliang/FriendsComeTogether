@@ -81,6 +81,7 @@ public class EditorFriendRememberModel {
              * fmtime : 2020-04-22 15:33
              * fmpartyID : 0
              * pftitle : 无
+             * lable_name: 资讯
              */
 
             private String fmID;
@@ -95,6 +96,7 @@ public class EditorFriendRememberModel {
             private String fmtime;
             private String fmpartyID;
             private String pftitle;
+            private String lable_name;
 
             public String getFmID() {
                 return fmID;
@@ -190,6 +192,14 @@ public class EditorFriendRememberModel {
 
             public void setPftitle(String pftitle) {
                 this.pftitle = pftitle;
+            }
+
+            public String getLable_name() {
+                return lable_name;
+            }
+
+            public void setLable_name(String lable_name) {
+                this.lable_name = lable_name;
             }
         }
 

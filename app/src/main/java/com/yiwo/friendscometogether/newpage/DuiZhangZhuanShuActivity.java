@@ -273,6 +273,7 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                 break;
             case R.id.ll_tuanlv_xingcheng:
                 GuanLiXingChengWebActivity.start(DuiZhangZhuanShuActivity.this,NetConfig.myActivity+spImp.getUID());
+//                GuanLiXingChengWebActivity.start(DuiZhangZhuanShuActivity.this, NetConfig.myActivity_order+spImp.getUID());
                 break;
             case R.id.ll_shourumingxi:
                 if (!spImp.getIfSign().equals("1")) {

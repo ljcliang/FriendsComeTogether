@@ -60,6 +60,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 import static com.yiwo.friendscometogether.utils.TokenUtils.getToken;
 
@@ -154,7 +155,8 @@ public class ShopHomeActivity extends BaseWebActivity {
                                 tv_name.setText(bean.getUsername());
                                 tv_level.setText("Lv."+bean.getUsergrade());
                                 Glide.with(ShopHomeActivity.this).load(bean.getUserpic()).apply(new RequestOptions().error(R.mipmap.my_head).placeholder(R.mipmap.my_head)).into(ivHead);
-                                Glide.with(ShopHomeActivity.this).load(bean.getUserpic()).apply(new RequestOptions().error(R.mipmap.zanwutupian).placeholder(R.mipmap.zanwutupian)).into(iv_top_bg);
+                                Glide.with(ShopHomeActivity.this).load(bean.getUserpic())
+                                        .apply(new RequestOptions().error(R.mipmap.zanwutupian).placeholder(R.mipmap.zanwutupian).transforms(new BlurTransformation(25))).into(iv_top_bg);
                                 switch (bean.getLevelName()){
                                     case "0":
                                         iv_level.setImageResource(R.mipmap.level_qingtong);
@@ -176,7 +178,7 @@ public class ShopHomeActivity extends BaseWebActivity {
                                         break;
                                 }
                                 isFollow = bean.getLikeUser().equals("1")? 1 : 0;
-                                iv_guanzhu.setImageResource(bean.getLikeUser().equals("1") ? R.mipmap.tarenzhuye_heartwhite:R.mipmap.tarenzhuye_heart );
+                                iv_guanzhu.setImageResource(bean.getLikeUser().equals("1") ? R.mipmap.shop_home_guanzhu_true:R.mipmap.shop_home_guanzhu_false );
 //                                dataGoods.clear();
 //                                dataGoods.addAll(model.getObj().getGoodsList());
 //                                shopHomeGoodsAdapter.notifyDataSetChanged();
@@ -223,7 +225,7 @@ public class ShopHomeActivity extends BaseWebActivity {
                     }
                 });
     }
-    @OnClick({R.id.rl_back,R.id.rl_guanzhu,R.id.rl_fenxiang,R.id.tv_sousuo})
+    @OnClick({R.id.rl_back,R.id.rl_guanzhu,R.id.rl_fenxiang,R.id.tv_sousuo,R.id.tv_all_goods})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.rl_back:
@@ -237,6 +239,9 @@ public class ShopHomeActivity extends BaseWebActivity {
                 break;
             case R.id.tv_sousuo:
                 webView.loadUrl("javascript:sousuo('" + edt_sousuo.getText().toString() + "')");
+                break;
+            case R.id.tv_all_goods:
+                webView.reload();
                 break;
         }
     }
@@ -283,7 +288,7 @@ public class ShopHomeActivity extends BaseWebActivity {
                                     JSONObject jsonObject = new JSONObject(data);
                                     if (jsonObject.getInt("code") == 200) {
                                         toToast(ShopHomeActivity.this, "关注成功");
-                                        Glide.with(ShopHomeActivity.this).load(R.mipmap.tarenzhuye_heartwhite).into(iv_guanzhu);
+                                        Glide.with(ShopHomeActivity.this).load(R.mipmap.shop_home_guanzhu_true).into(iv_guanzhu);
                                         isFollow = 1;
                                     } else {
                                         toToast(ShopHomeActivity.this, jsonObject.getString("message"));
@@ -309,7 +314,7 @@ public class ShopHomeActivity extends BaseWebActivity {
                                     JSONObject jsonObject = new JSONObject(data);
                                     if (jsonObject.getInt("code") == 200) {
                                         toToast(ShopHomeActivity.this, "取消关注成功");
-                                        Glide.with(ShopHomeActivity.this).load(R.mipmap.tarenzhuye_heart).into(iv_guanzhu);
+                                        Glide.with(ShopHomeActivity.this).load(R.mipmap.shop_home_guanzhu_false).into(iv_guanzhu);
                                         isFollow = 0;
                                     } else {
                                         toToast(ShopHomeActivity.this, jsonObject.getString("message"));

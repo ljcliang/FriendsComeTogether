@@ -962,7 +962,7 @@ public class PersonMainActivity1 extends BaseActivity {
     }
     @OnClick({R.id.rl_back,R.id.rl_label_text,R.id.iv_images,
             R.id.rl_algin_right_wode, R.id.rl_add_friend, R.id.rl_guanzhu,R.id.iv_heart,R.id.ll_huozan,R.id.ll_guanzhu,R.id.ll_fans,R.id.iv_person_icon,
-            R.id.rl_tab_2,R.id.rl_tab_3,R.id.rl_tab_4,R.id.rl_level})
+            R.id.rl_tab_2,R.id.rl_tab_3,R.id.rl_tab_4,R.id.rl_level,R.id.iv_level})
     public void onClick(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -1161,7 +1161,7 @@ public class PersonMainActivity1 extends BaseActivity {
                 rl_videos.setVisibility(View.VISIBLE);
                 show_tab = 4;
                 break;
-
+            case R.id.iv_level:
             case R.id.rl_level:
                 showDialogLvIcon();
                 break;

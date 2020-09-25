@@ -86,55 +86,59 @@ public class MyRememberAdapter extends RecyclerView.Adapter<MyRememberAdapter.Vi
             holder.tvFaBuStatus.setText("未发布");
             holder.tvFaBuStatus.setTextColor(Color.parseColor("#d84c37"));
             holder.tvFaBuStatus.setBackgroundResource(R.drawable.bg_d84c37_border_3dp);
-            holder.tvFaBuStatus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setMessage("确定发布？")
-                            .setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    ViseHttp.POST(NetConfig.releaseDraftUrl)
-                                            .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.releaseDraftUrl))
-                                            .addParam("id", data.get(position).getFmID())
-                                            .request(new ACallback<String>() {
-                                                @Override
-                                                public void onSuccess(String data1) {
-                                                    Log.d("asaasas",data1);
-                                                    try {
-                                                        JSONObject jsonObject = new JSONObject(data1);
-                                                        if(jsonObject.getInt("code") == 200){
-                                                            Toast.makeText(context, jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
-                                                            data.get(position).setType("0");
-                                                            notifyDataSetChanged();
-                                                        }else {
-                                                            Intent intent = new Intent();
-                                                            Toast.makeText(context, jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
-                                                            intent.setClass(context, ModifyFriendRememberActivity.class);
-                                                            intent.putExtra("id", data.get(position).getFmID());
-                                                            context.startActivity(intent);
-                                                        }
-                                                    } catch (JSONException e) {
-                                                        e.printStackTrace();
-                                                    }
-                                                }
-
-                                                @Override
-                                                public void onFail(int errCode, String errMsg) {
-
-                                                }
-                                            });
-                                }
-                            })
-                            .setPositiveButton("取消", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            }).show();
-                }
-            });
         }
+        holder.tvFaBuStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage(data.get(position).getType().equals("0") ? "确定修改为未发布状态？":"确定发布？");
+                builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ViseHttp.POST(NetConfig.releaseDraftUrl)
+                                        .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.releaseDraftUrl))
+                                        .addParam("id", data.get(position).getFmID())
+                                        .request(new ACallback<String>() {
+                                            @Override
+                                            public void onSuccess(String data1) {
+                                                Log.d("asaasas",data1);
+                                                try {
+                                                    JSONObject jsonObject = new JSONObject(data1);
+                                                    if(jsonObject.getInt("code") == 200){
+                                                        Toast.makeText(context, jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
+                                                        if (data.get(position).getType().equals("0")){
+                                                            data.get(position).setType("1");
+                                                        }else {
+                                                            data.get(position).setType("0");
+                                                        }
+                                                        notifyDataSetChanged();
+                                                    }else {
+                                                        Intent intent = new Intent();
+                                                        Toast.makeText(context, jsonObject.getString("message"),Toast.LENGTH_SHORT).show();
+                                                        intent.setClass(context, ModifyFriendRememberActivity.class);
+                                                        intent.putExtra("id", data.get(position).getFmID());
+                                                        context.startActivity(intent);
+                                                    }
+                                                } catch (JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFail(int errCode, String errMsg) {
+
+                                            }
+                                        });
+                            }
+                        })
+                        .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+            }
+        });
         holder.tvEditor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

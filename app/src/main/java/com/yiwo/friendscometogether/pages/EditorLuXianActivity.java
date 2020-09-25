@@ -91,7 +91,7 @@ public class EditorLuXianActivity extends BaseActivity {
     private void initData() {
         Log.d("idididid",id);
         ViseHttp.POST(NetConfig.activityEditor)
-                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.editorFriendRememberUrl))
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.activityEditor))
                 .addParam("pfID", id)
                 .request(new ACallback<String>() {
                     @Override

@@ -452,7 +452,11 @@ public class NetConfig {
     //action/ac_zhibo/    sendList 送礼物列表    传uid用户id   page分页   返回userID送给人的ID    presentName礼物名称   presentImg礼物图片   integral花费的积分    num送的数量    username送给人的名字   addTime送礼物的时间
     public static String sendList = "action/ac_zhibo/sendList";
     //action/ac_user/pleaseCaptain 申请成为队长  传uid用户id   captainImg图片
-    public static String pleaseCaptain = "action/ac_user/pleaseCaptain";
+//    public static String pleaseCaptain = "action/ac_user/pleaseCaptain";
+    /**
+     * action/ac_user/userPleaseCaptain   用户申请队长    传 uid用户id   username姓名    tel电话   numCode身份证号    shopName所属旅行社    userimg 导游证图片
+     */
+    public static String pleaseCaptain = "action/ac_user/userPleaseCaptain";
 
     ///新首页
     //action/ac_newHome/tuijian   传uid用户id home推荐接口 city 城市
@@ -617,6 +621,10 @@ public static String homePageSkipGoods = "action/ac_newHome/homePageSkipGoods";
      * 团旅行程链接：   www.tongbanapp.com/action/ac_activity/myActivity?uid=用户id
      */
     public static String myActivity = BaseUrl + "action/ac_activity/myActivity?uid=";
+    /**
+     * http://www.tongbanapp.com/action/ac_captainMission/comeInInfoActivity?typeShow=1&uid=用户id
+     */
+    public static String myActivity_order = BaseUrl + "action/ac_captainMission/comeInInfoActivity?typeShow=1&uid=";
     /**
      * http://www.tongbanapp.com/action/ac_captainMission/presentComeInInfo?uid=用户id
      */

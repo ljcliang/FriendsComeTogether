@@ -8,9 +8,9 @@
     <RelativeLayout
         android:background="@drawable/bg_white_30px"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200px"
-        android:layout_width="600px"
-        android:layout_height="800px">
+        android:layout_marginTop="300px"
+        android:layout_width="450px"
+        android:layout_height="600px">
         <ImageView
             android:layout_centerInParent="true"
             android:src="@mipmap/show_duizhang_lv_all"

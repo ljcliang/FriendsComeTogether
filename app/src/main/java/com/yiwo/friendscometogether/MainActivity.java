@@ -28,6 +28,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.maps2d.MapFragment;
+import com.google.gson.Gson;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.api.model.session.SessionEventListener;
 import com.netease.nimlib.sdk.NIMClient;
@@ -50,8 +52,10 @@ import com.yiwo.friendscometogether.fragment.HomeFragment3;
 import com.yiwo.friendscometogether.fragment.HomeFragment4;
 import com.yiwo.friendscometogether.fragment.MyFragment;
 import com.yiwo.friendscometogether.imagepreview.StatusBarUtils;
+import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newfragment.YouJiFragment;
 import com.yiwo.friendscometogether.newpage.CreateFriendRememberActivityChoosePicOrVideos;
+import com.yiwo.friendscometogether.newpage.DuiZhangZhuanShuActivity;
 import com.yiwo.friendscometogether.newpage.MessageActivity;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.newpage.ShopOrdersActivity;
@@ -59,9 +63,12 @@ import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.wangyiyunshipin.upload.constant.UploadType;
 import com.yiwo.friendscometogether.wangyiyunshipin.upload.controller.UploadController;
+import com.yiwo.friendscometogether.webpages.GuanLiXingChengWebActivity;
+import com.yiwo.friendscometogether.webpages.MyGoodsOrdersActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -582,17 +589,40 @@ public class MainActivity extends FragmentActivity {
 
             @Override
             public void onMsgTextClicked(Context context, IMMessage message) {
-                if (message.getSessionId().equals("tongbanxiaozhushou")&&message.getMsgType()== MsgTypeEnum.text){//瞳伴小助手消息
-                    Intent intent = new Intent();
-                    if (message.getContent().indexOf("您有新订单了")!=-1
-                            ||message.getContent().indexOf("您有新的订单退款信息")!=-1
-                            ||message.getContent().indexOf("提醒发货")!=-1){
-                        ShopOrdersActivity.open(context,0);
-                    }else {
-                        intent.setClass(context, MessageActivity.class);
-                        startActivity(intent);
+                Gson gson = new Gson();
+                if (message.getRemoteExtension()!=null && !message.getRemoteExtension().isEmpty()){
+                    switch (message.getRemoteExtension().get("type").toString()){//1销售商品订单  2销售行程订单   3消息 4购买商品订单  5购买行程订单
+                        case "1":
+                            ShopOrdersActivity.open(context,0);
+                            break;
+                        case "2":
+                            GuanLiXingChengWebActivity.start(context, NetConfig.myActivity_order+spImp.getUID());
+                            break;
+                        case "3":
+                            Intent intent = new Intent();
+                            intent.setClass(context, MessageActivity.class);
+                            startActivity(intent);
+                            break;
+                        case "4":
+                            MyGoodsOrdersActivity.open(context);
+                            break;
+                        case "5":
+                            break;
                     }
                 }
+//                if (message.getSessionId().equals("tongbanxiaozhushou")&&message.getMsgType()== MsgTypeEnum.text){//瞳伴小助手消息
+//                    Intent intent = new Intent();
+//                    if (message.getContent().indexOf("您有新订单了")!=-1
+//                            ||message.getContent().indexOf("您有新的订单退款信息")!=-1
+//                            ||message.getContent().indexOf("提醒发货")!=-1){
+//                        ShopOrdersActivity.open(context,0);
+//                    }else if (message.getContent().indexOf("报名了您的活动")!=-1){
+//                        GuanLiXingChengWebActivity.start(context, NetConfig.myActivity_order+spImp.getUID());
+//                    }else {
+//                        intent.setClass(context, MessageActivity.class);
+//                        startActivity(intent);
+//                    }
+//                }
             }
 
         });
