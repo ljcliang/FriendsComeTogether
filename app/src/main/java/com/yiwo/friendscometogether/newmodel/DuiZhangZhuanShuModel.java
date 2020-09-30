@@ -67,6 +67,7 @@ public class DuiZhangZhuanShuModel {
          * zbTime : 2025-01-01 00:00
          * jindu : 0%
          * ifover : 0
+         * "aliStatus": "1" 1显示  0隐藏
          * mission : [{"valname":"0/1","name":"完成带队出团","type":"0","button":"","status":""},{"valname":"0/5","name":"发布相应图文","type":"1","button":"去完成","status":"0"},{"valname":"0/2","name":"发布相应视频","type":"2","button":"去完成","status":"0"},{"valname":"0/20分钟","name":"完成一次直播","type":"3","button":"去完成","status":"0"},{"valname":"0/1","name":"分享带队活动","type":"4","button":"去分享","status":"0"}]
          */
 
@@ -96,6 +97,8 @@ public class DuiZhangZhuanShuModel {
         private String zbTime;
         private String jindu;
         private String ifover;
+        private String aliStatus;
+        private String if_bdali;
         private List<ShopNameBean> shopName;
         private List<MissionBean> mission;
 
@@ -321,6 +324,22 @@ public class DuiZhangZhuanShuModel {
 
         public void setShopWx(String shopWx) {
             this.shopWx = shopWx;
+        }
+
+        public String getAliStatus() {
+            return aliStatus;
+        }
+
+        public void setAliStatus(String aliStatus) {
+            this.aliStatus = aliStatus;
+        }
+
+        public String getIf_bdali() {
+            return if_bdali;
+        }
+
+        public void setIf_bdali(String if_bdali) {
+            this.if_bdali = if_bdali;
         }
 
         public static class ShopNameBean {

@@ -677,7 +677,7 @@
                         android:layout_toRightOf="@+id/activity_create_friend_remember_iv_is_intercalation"
                         android:textSize="28px"
                         android:textColor="@color/black_666666"
-                        android:text="团队参写"
+                        android:text="团友参写"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <ImageView

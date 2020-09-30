@@ -110,14 +110,14 @@
                                     <ImageView
                                         android:layout_marginTop="30px"
                                         android:layout_gravity="center_horizontal"
-                                        android:src="@mipmap/home_tuijian_mianshuishangpin"
+                                        android:src="@mipmap/home_tuijian_tejiashangpin"
                                         android:layout_width="55px"
                                         android:layout_height="55px"/>
                                     <TextView
                                         android:layout_marginTop="22px"
                                         android:textColor="@color/black_101010"
                                         android:textSize="25px"
-                                        android:text="免税商品"
+                                        android:text="特价商品"
                                         android:layout_gravity="center_horizontal"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"/>
@@ -131,14 +131,14 @@
                                     <ImageView
                                         android:layout_marginTop="30px"
                                         android:layout_gravity="center_horizontal"
-                                        android:src="@mipmap/home_tuijian_tejiabuwei"
+                                        android:src="@mipmap/home_tuijian_duizhangdaihuo"
                                         android:layout_width="55px"
                                         android:layout_height="55px"/>
                                     <TextView
                                         android:layout_marginTop="22px"
                                         android:textColor="@color/black_101010"
                                         android:textSize="25px"
-                                        android:text="特价补位"
+                                        android:text="队长带货"
                                         android:layout_gravity="center_horizontal"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"/>

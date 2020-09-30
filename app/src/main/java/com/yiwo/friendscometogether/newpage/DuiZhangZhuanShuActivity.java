@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -44,11 +45,9 @@ import com.yiwo.friendscometogether.newmodel.DuiZhangXuanZeHuoDongModel;
 import com.yiwo.friendscometogether.newmodel.DuiZhangZhuanShuModel;
 import com.yiwo.friendscometogether.newmodel.LiShuGongSiSearchModel;
 import com.yiwo.friendscometogether.newpage.renzheng.RenZheng0_BeginActivity;
-import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.ShareUtils;
 import com.yiwo.friendscometogether.wangyiyunshipin.wangyiyunlive.EnterLiveActivity;
-import com.yiwo.friendscometogether.webpages.DuiZhangShangPuWebActivity;
 import com.yiwo.friendscometogether.webpages.GuanLiGoodsWebActivity;
 import com.yiwo.friendscometogether.webpages.GuanLiXingChengWebActivity;
 import com.yiwo.friendscometogether.webpages.LiWuMingXiWebActivity;
@@ -107,6 +106,8 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
     ImageView ivGameTiShi4;
     @BindView(R.id.iv_game_tishi5)
     ImageView ivGameTiShi5;
+    @BindView(R.id.rl_bind_aLi)
+    RelativeLayout rl_bind_aLi;
 
     private JiangLiRenWuAdapter jiangLiRenWuAdapter;
     private CustomDatePicker customDatePicker;
@@ -222,6 +223,11 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                                 yiXuanHuoDongModel.setPhase_id(duiZhangZhuanShuModel.getObj().getPhase_id());
                                 yiXuanHuoDongModel.setPhase_begin_time(duiZhangZhuanShuModel.getObj().getBeginTime());
                                 yiXuanHuoDongModel.setPhase_num(duiZhangZhuanShuModel.getObj().getBeginTime());
+                                if (duiZhangZhuanShuModel.getObj().getAliStatus().equals("1")){
+                                    rl_bind_aLi.setVisibility(View.VISIBLE);
+                                }else {
+                                    rl_bind_aLi.setVisibility(View.GONE);
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -238,7 +244,7 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
     @OnClick({R.id.rl_btn_bangding,R.id.rl_btn_startlive,R.id.rl_btn_setlive,R.id.rl_btn_xuanzehuodong,R.id.rl_back,R.id.ll_wodeshangpu,R.id.ll_tuanlv_xingcheng,R.id.ll_shourumingxi,R.id.rl_liwu_mingxi,
             R.id.iv_message_xuanzehuodong,R.id.iv_game_tishi1,R.id.iv_game_tishi2,R.id.iv_game_tishi3,R.id.iv_game_tishi4,R.id.iv_game_tishi5,R.id.iv_zhanghu_tishi1,R.id.iv_zhanghu_tishi2,
             R.id.rl_btn_game_start1,R.id.rl_btn_game_start2,R.id.rl_btn_game_start3,R.id.rl_btn_game_start4,R.id.rl_btn_game_start5,
-            R.id.tv_shop_name,R.id.tv_jindu,R.id.rl_btn_bangding_shanghu})
+            R.id.tv_shop_name,R.id.tv_jindu,R.id.rl_btn_bangding_shanghu,R.id.rl_btn_bangding_ALi})
     public void onClick(View v){
         Intent intent = new Intent();
         AlertDialog.Builder builder = new AlertDialog.Builder(DuiZhangZhuanShuActivity.this);
@@ -323,6 +329,25 @@ public class DuiZhangZhuanShuActivity extends BaseActivity {
                 break;
             case R.id.rl_btn_xuanzehuodong:
                 XuanZeTuanQiActivity.startActivity(DuiZhangZhuanShuActivity.this,yiXuanHuoDongModel,duiZhangZhuanShuModel.getObj().getIfover());
+                break;
+            case R.id.rl_btn_bangding_ALi:
+                if (duiZhangZhuanShuModel.getObj().getIf_bdali().equals("1")){
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(DuiZhangZhuanShuActivity.this);
+                    builder1.setMessage("您已绑定支付宝，是否修改？")
+                            .setNegativeButton("修改", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    BindALiActivity.open(DuiZhangZhuanShuActivity.this);
+                                }
+                            }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+                }else {
+                    BindALiActivity.open(DuiZhangZhuanShuActivity.this);
+                }
                 break;
             case R.id.tv_jindu:
                 if (duiZhangZhuanShuModel.getObj().getIfover().equals("1")){

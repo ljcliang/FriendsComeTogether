@@ -3,12 +3,8 @@ package com.yiwo.friendscometogether.newpage;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -16,18 +12,11 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.shareboard.SnsPlatform;
@@ -35,34 +24,22 @@ import com.umeng.socialize.utils.ShareBoardlistener;
 import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.base.BaseActivity;
-import com.yiwo.friendscometogether.base.BaseSonicWebActivity;
 import com.yiwo.friendscometogether.base.BaseWebActivity;
 import com.yiwo.friendscometogether.imagepreview.StatusBarUtils;
 import com.yiwo.friendscometogether.network.NetConfig;
-import com.yiwo.friendscometogether.newadapter.ShopHomeGoods_Adapter;
 import com.yiwo.friendscometogether.newmodel.ShopHomeModel;
 import com.yiwo.friendscometogether.pages.LoginActivity;
-import com.yiwo.friendscometogether.pages.WelcomeActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.ShareUtils;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
-import com.yiwo.friendscometogether.webpages.DuiZhangShangPuWebActivity;
-import com.yiwo.friendscometogether.webpages.GuanLiGoodsWebActivity;
 import com.yiwo.friendscometogether.webpages.ShopGoodsDetailsWebLocalActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.BlurTransformation;
-
-import static com.yiwo.friendscometogether.utils.TokenUtils.getToken;
 
 public class ShopHomeActivity extends BaseWebActivity {
 
@@ -112,8 +89,9 @@ public class ShopHomeActivity extends BaseWebActivity {
     }
     public class AndroidInterface{
         @JavascriptInterface
-        public void goodsweb(String gid){
-            ShopGoodsDetailsWebLocalActivity.open(ShopHomeActivity.this,gid);
+        public void goodsweb(String gid,String shopUid){
+            Log.d("asdasd",gid+"///"+shopUid);
+            ShopGoodsDetailsWebLocalActivity.open(ShopHomeActivity.this,gid,shopUid);
         }
     }
     private void initRv() {

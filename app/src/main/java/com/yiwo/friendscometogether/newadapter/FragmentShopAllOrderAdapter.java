@@ -78,40 +78,48 @@ public class FragmentShopAllOrderAdapter extends RecyclerView.Adapter<FragmentSh
         holder.tv_btn_delete.setVisibility(View.GONE);
         holder.tv_btn_yipingjia.setVisibility(View.GONE);
         holder.tv_btn_tuikuan.setVisibility(View.GONE);
+        holder.tv_btn_jujue_tuikuan.setVisibility(View.GONE);
         holder.tv_btn_querenshouhuo.setVisibility(View.GONE);
         holder.tv_btn_chakanwuliu.setVisibility(View.GONE);
+        holder.tv_btn_fenxiaosahngpin.setVisibility(View.GONE);
 //         1出单  拒绝接单       2 确认收货     3删除     4删除   已评价   5确认退款   6、7删除
-        switch (data.get(position).getStatus()){
+        if (!data.get(position).getIf_fx().equals("1")){
+            switch (data.get(position).getStatus()){
 
-            case "0":
+                case "0":
 
-                break;
-            case "1":
-                holder.tv_btn_chudan.setVisibility(View.VISIBLE);
-                holder.tv_btn_jujuejiedan.setVisibility(View.VISIBLE);
-                break;
-            case "2":
-                holder.tv_btn_querenshouhuo.setVisibility(View.VISIBLE);
-                holder.tv_btn_chakanwuliu.setVisibility(View.VISIBLE);
-                break;
-            case "3":
-                holder.tv_btn_delete.setVisibility(View.VISIBLE);
-                break;
-            case "4":
-                holder.tv_btn_delete.setVisibility(View.VISIBLE);
-                holder.tv_btn_yipingjia.setVisibility(View.VISIBLE);
-                break;
-            case "5":
-                holder.tv_btn_tuikuan.setVisibility(View.VISIBLE);
-                break;
-            case "6":
-                holder.tv_btn_delete.setVisibility(View.VISIBLE);
-                break;
-            case "7":
+                    break;
+                case "1":
+                    holder.tv_btn_chudan.setVisibility(View.VISIBLE);
+                    holder.tv_btn_jujuejiedan.setVisibility(View.VISIBLE);
+                    break;
+                case "2":
+                    holder.tv_btn_querenshouhuo.setVisibility(View.VISIBLE);
+                    holder.tv_btn_chakanwuliu.setVisibility(View.VISIBLE);
+                    break;
+                case "3":
+                    holder.tv_btn_delete.setVisibility(View.VISIBLE);
+                    break;
+                case "4":
+                    holder.tv_btn_delete.setVisibility(View.VISIBLE);
+                    holder.tv_btn_yipingjia.setVisibility(View.VISIBLE);
+                    break;
+                case "5":
+                    holder.tv_btn_tuikuan.setVisibility(View.VISIBLE);
+                    holder.tv_btn_jujue_tuikuan.setVisibility(View.VISIBLE);
+                    break;
+                case "6":
+                    holder.tv_btn_delete.setVisibility(View.VISIBLE);
+                    break;
+                case "7":
 //                holder.tv_btn_delete.setVisibility(View.VISIBLE);
-                break;
-            default:
-                break;
+                    break;
+                default:
+                    break;
+            }
+        }else {
+            holder.tv_btn_fenxiaosahngpin.setVisibility(View.VISIBLE);
+            holder.tv_btn_fenxiaosahngpin.setText("分销提成：¥"+data.get(position).getShareBonus());
         }
         holder.tv_all_price.setText(data.get(position).getAllMoney());
         holder.rlDetails.setOnClickListener(new View.OnClickListener() {
@@ -193,6 +201,29 @@ public class FragmentShopAllOrderAdapter extends RecyclerView.Adapter<FragmentSh
                         }).show();
             }
         });
+        holder.tv_btn_jujue_tuikuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent();
+//                intent.setClass(context, OrderCommentActivity.class);
+//                intent.putExtra("orderid", data.get(position).getOID());
+//                intent.putExtra("type","0");
+//                context.startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("拒绝退款？")
+                        .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                btnsOnCLickListenner.onJuJueTuiKuan(position);
+                            }
+                        }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).show();
+            }
+        });
         holder.tv_btn_yipingjia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -237,7 +268,7 @@ public class FragmentShopAllOrderAdapter extends RecyclerView.Adapter<FragmentSh
         private RelativeLayout rlDetails;
         private ImageView iv_userhead,fragment_all_order_rv_iv;
         private TextView tv_username,tv_staus,tv_goods_name,tv_goods_info,tv_goods_price,tv_goods_num,tv_all_price,tv_order_sn,
-                tv_btn_delete,tv_btn_yipingjia,tv_btn_tuikuan,tv_btn_chudan,tv_btn_jujuejiedan,tv_btn_querenshouhuo,tv_btn_chakanwuliu;
+                tv_btn_delete,tv_btn_yipingjia,tv_btn_tuikuan,tv_btn_jujue_tuikuan,tv_btn_chudan,tv_btn_jujuejiedan,tv_btn_querenshouhuo,tv_btn_chakanwuliu,tv_btn_fenxiaosahngpin;
         private LinearLayout ll_price;
         public ViewHolder(View itemView) {
             super(itemView);
@@ -258,11 +289,13 @@ public class FragmentShopAllOrderAdapter extends RecyclerView.Adapter<FragmentSh
             tv_btn_delete = itemView.findViewById(R.id.tv_btn_delete);
             tv_btn_yipingjia = itemView.findViewById(R.id.tv_btn_yipingjia);
             tv_btn_tuikuan = itemView.findViewById(R.id.tv_btn_tuikuan);
+            tv_btn_jujue_tuikuan = itemView.findViewById(R.id.tv_btn_jujue_tuikuan);
             tv_btn_chudan = itemView.findViewById(R.id.tv_btn_chudan);
             tv_btn_jujuejiedan = itemView.findViewById(R.id.tv_btn_jujuejiedan);
             tv_btn_querenshouhuo = itemView.findViewById(R.id.tv_btn_querenshouhuo);
             tv_btn_chakanwuliu = itemView.findViewById(R.id.tv_btn_chakanwuliu);
             ll_price = itemView.findViewById(R.id.ll_price);
+            tv_btn_fenxiaosahngpin = itemView.findViewById(R.id.tv_btn_fenxiaosahngpin);
         }
     }
     public interface BtnsOnCLickListenner{
@@ -274,5 +307,6 @@ public class FragmentShopAllOrderAdapter extends RecyclerView.Adapter<FragmentSh
         void onChuLiDan(int postion, int type, String juJueYuanYin);//type 操作类型  0拒绝接单  1出单  2删除
         void onYiPingJia(int postion);
         void onTuiKuan(int postion);
+        void onJuJueTuiKuan(int postion);
     }
 }

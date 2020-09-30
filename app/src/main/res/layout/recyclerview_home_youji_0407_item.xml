@@ -43,13 +43,11 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"/>
                 <TextView
-                    android:lines="1"
-                    android:ellipsize="end"
                     android:id="@+id/tv_name"
                     android:layout_marginTop="12dp"
                     android:layout_marginLeft="10dp"
                     android:layout_toLeftOf="@+id/iv_head"
-                    android:text="旅游达人哈哈"
+                    android:text="旅游达人"
                     android:textSize="14sp"
                     android:textColor="@color/black_101010"
                     android:layout_width="wrap_content"

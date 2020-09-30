@@ -10,6 +10,7 @@ import com.netease.nim.uikit.business.session.module.MsgForwardFilter;
 import com.netease.nim.uikit.business.session.module.MsgRevokeFilter;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.StatusCode;
 import com.netease.nimlib.sdk.auth.AuthService;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
@@ -17,6 +18,8 @@ import com.vise.xsnow.cache.SpCache;
 import com.yiwo.friendscometogether.MainActivity;
 import com.yiwo.friendscometogether.MyApplication;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.app_status_manger.AppStatusConstant;
+import com.yiwo.friendscometogether.app_status_manger.AppStatusManager;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.XieYiDialog;
 import com.yiwo.friendscometogether.imagepreview.StatusBarUtils;
@@ -36,6 +39,7 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppStatusManager.getInstance().setAppStatus(AppStatusConstant.STATUS_NORMAL);//进入应用初始化设置成未登录状态
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
@@ -100,7 +104,6 @@ public class WelcomeActivity extends BaseActivity {
                 return;
             }
             LoginInfo info = new LoginInfo(account, token);
-//            LoginInfo info = new LoginInfo(account, "1112");
             RequestCallback<LoginInfo> callback =
                     new RequestCallback<LoginInfo>() {
 
@@ -174,9 +177,14 @@ public class WelcomeActivity extends BaseActivity {
                         }
                         // 可以在此保存LoginInfo到本地，下次启动APP做自动登录用
                     };
-            NimUIKit.login(info,callback);
-////            NIMClient.getService(AuthService.class).login(info)
-////                    .setCallback(callback);
+            Log.d("网易云信登录状态，",""+NIMClient.getStatus());
+            if (NIMClient.getStatus() != StatusCode.LOGINED){
+                NimUIKit.login(info,callback);
+            }else {
+                Intent intent = new Intent();
+                intent.setClass(WelcomeActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
         }
     }
 

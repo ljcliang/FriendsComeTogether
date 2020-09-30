@@ -49,7 +49,12 @@ public class JingDianDaKa_Adapter extends RecyclerView.Adapter<JingDianDaKa_Adap
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Intent intent = new Intent();
-        holder.tv_name.setText(data.get(position).getUsername());
+        String str_name = data.get(position).getUsername();
+        if (str_name.length()>6){
+            str_name = str_name.substring(0, 6)+"...";
+        }
+        holder.tv_name.setText(str_name);
+
         holder.tv_level.setText("Lv."+data.get(position).getUsergrade());
         holder.tv_address.setText(data.get(position).getFmaddress());
         holder.tv_content.setText("    "+data.get(position).getFmaddress()+" · "+data.get(position).getFmtitle());

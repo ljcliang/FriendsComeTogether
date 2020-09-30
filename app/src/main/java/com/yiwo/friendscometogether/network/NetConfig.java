@@ -588,6 +588,10 @@ public static String homePageSkipGoods = "action/ac_newHome/homePageSkipGoods";
     public static String sellerDoOrder = "action/ac_goods/sellerDoOrder";
     //    action/ac_goods/orderRefund   确认退款   传 uid 用户id   orderID 订单id
     public static String orderRefund = "action/ac_goods/orderRefund";
+    /**
+     * action/ac_goods    /   noRefund    拒绝退款  传 oid 订单id   mes拒绝原因
+     */
+    public static String noRefund = BaseUrl + "action/ac_goods/noRefund";
     /**(
      * action/ac_goods/getSureTime 收货时间       传 orderID 订单id
      */
@@ -615,8 +619,10 @@ public static String homePageSkipGoods = "action/ac_newHome/homePageSkipGoods";
     public static String shareMyShop = "action/ac_user/shareMyShop";
     /**
      * http://www.tongbanapp.com/action/ac_goods/orderList?uid=用户id     我的订单列表web页
+     * http://www.tongbanapp.com/index.php/wxweb/wx_goods/goodsList?uid=4
      */
     public static String orderList = BaseUrl + "action/ac_goods/orderList?uid=";
+    public static String WX_Shop_Home_Url = BaseUrl+"wxweb/wx_goods/goodsList?uid=";//+userId
     /**
      * 团旅行程链接：   www.tongbanapp.com/action/ac_activity/myActivity?uid=用户id
      */
@@ -736,5 +742,9 @@ public static String homePageSkipGoods = "action/ac_newHome/homePageSkipGoods";
      * action/ac_user/getUserAuthInfo    传uid      返回 status  1已是队长  2审核中  3未通过  4未实名认证 5已实名认证
      */
     public static String getUserAuthInfo = BaseUrl + "action/ac_user/getUserAuthInfo";
+    /**
+     * action/ac_user/updateUserAliInfo  提交支付宝账号     uid用户id   ali支付宝账号   ali_name用户名
+     */
+    public static String updateUserAliInfo = BaseUrl + "action/ac_user/updateUserAliInfo";
 }
 

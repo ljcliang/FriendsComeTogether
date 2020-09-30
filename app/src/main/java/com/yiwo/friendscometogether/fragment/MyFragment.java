@@ -1,8 +1,6 @@
 package com.yiwo.friendscometogether.fragment;
 
 import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -44,7 +42,6 @@ import com.yiwo.friendscometogether.newpage.PeiSongSettingActivity;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.newpage.ShopOrdersActivity;
 import com.yiwo.friendscometogether.newpage.SuperLikeActivity;
-import com.yiwo.friendscometogether.newpage.renzheng.RenZheng0_BeginActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.pages.LookHistoryActivity;
 import com.yiwo.friendscometogether.pages.MyCommentActivity;
@@ -57,7 +54,6 @@ import com.yiwo.friendscometogether.wangyiyunshipin.VideoUpLoadListActivity;
 import com.yiwo.friendscometogether.webpages.GoodsCartWebActivity;
 import com.yiwo.friendscometogether.webpages.GuanLiGoodsWebActivity;
 import com.yiwo.friendscometogether.webpages.MyGoodsOrdersActivity;
-import com.yiwo.friendscometogether.webpages.ShopGoodsDetailsWebLocalActivity;
 import com.yiwo.friendscometogether.webpages.ShouRuMingXiWebActivity;
 
 import org.json.JSONException;

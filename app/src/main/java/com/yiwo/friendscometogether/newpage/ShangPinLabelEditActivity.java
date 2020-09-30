@@ -99,8 +99,8 @@ public class ShangPinLabelEditActivity extends BaseActivity {
         managerLabel.setOrientation(LinearLayoutManager.VERTICAL);
         rvLabel.setLayoutManager(managerLabel);
         rvLabel.setAdapter(shangPinLabelAdapter);
-        ViseHttp.POST(NetConfig.getMyTag)
-                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.getMyTag))
+        ViseHttp.POST(NetConfig.tagList)
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.tagList))
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {

@@ -31,6 +31,7 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseSonicWebActivity;
+import com.yiwo.friendscometogether.base.BaseWebActivity;
 import com.yiwo.friendscometogether.dbmodel.GoodsWebInfoDbModel;
 import com.yiwo.friendscometogether.dbmodel.WebInfoOfDbUntils;
 import com.yiwo.friendscometogether.dbmodel.YouJuHuoDongWebInfoDbModel;
@@ -62,9 +63,11 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
     private Unbinder unbinder;
     private SpImp spImp;
     public static final String GOOD_ID_KEY = "goodId";
+    public static final String SHOP_ID_KEY = "shopUid";
     private boolean isFirst = true;
     WebInfoOfDbUntils webInfoOfDbUntils;
     private String goodId;
+    private String shopUid;
     private String shop_wy_Id = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +77,13 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
         unbinder = ButterKnife.bind(this);
         StatusBarUtils.setStatusBarTransparent(ShopGoodsDetailsWebLocalActivity.this);
         goodId = getIntent().getStringExtra(GOOD_ID_KEY);
+        shopUid = getIntent().getStringExtra(SHOP_ID_KEY);
 //        url = "http://www.tongbanapp.com/index.php/action/ac_goods/goodsInfo?goodsID="+getIntent().getStringExtra(GOOD_ID_KEY)+"&uid="+spImp.getUID();
         url = "file:///android_asset/htmlfile/demoG.html";
         Log.d("asdasd",url);
 //        url = getIntent().getStringExtra("url");
         initIntentSonic(url,webView);
+        initWebView(webView,url);
         getWYID();
         webInfoOfDbUntils = new WebInfoOfDbUntils(this);
         webView.setWebChromeClient(new WebChromeClient(){
@@ -176,12 +181,15 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
     private void getWYID() {
 
     }
-
-    public static void open(Context context,String goodId){
+    public static void open(Context context,String goodId,String shopUid){
         Intent intent = new Intent();
         intent.putExtra(GOOD_ID_KEY,goodId);
+        intent.putExtra(SHOP_ID_KEY,shopUid);
         intent.setClass(context, ShopGoodsDetailsWebLocalActivity.class);
         context.startActivity(intent);
+    }
+    public static void open(Context context,String goodId){
+        open(context,goodId,"0");
     }
     public class AndroidInterface extends Object{
 
@@ -202,7 +210,7 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
          */
         @JavascriptInterface
         public void gotoapp(){
-            toToast(ShopGoodsDetailsWebLocalActivity.this,"sadasd");
+            toToast(ShopGoodsDetailsWebLocalActivity.this,"gotoapp");
 //            onBackPressed();
 //            MyApplication.getInstance().exitOneActivity(DuiZhangZhuanShuActivity.class);
 //            MyApplication.getInstance().getMainActivity().switchFragment(0);
@@ -226,18 +234,18 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
          */
         @JavascriptInterface
         public void tonowbuy(String url){
-            Log.d("asdasdasda",url);
-            String uid = spImp.getUID();
-            if (TextUtils.isEmpty(uid) || uid.equals("0")) {
-                Intent intent = new Intent();
-                intent.setClass(ShopGoodsDetailsWebLocalActivity.this, LoginActivity.class);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent();
-                intent.setClass(ShopGoodsDetailsWebLocalActivity.this, ShopGoodsBuyWebActivity.class);
-                intent.putExtra("url",url);
-                startActivity(intent);
-            }
+//            Log.d("asdasdasda",url);
+//            String uid = spImp.getUID();
+//            if (TextUtils.isEmpty(uid) || uid.equals("0")) {
+//                Intent intent = new Intent();
+//                intent.setClass(ShopGoodsDetailsWebLocalActivity.this, LoginActivity.class);
+//                startActivity(intent);
+//            } else {
+//                Intent intent = new Intent();
+//                intent.setClass(ShopGoodsDetailsWebLocalActivity.this, ShopGoodsBuyWebActivity.class);
+//                intent.putExtra("url",url);
+//                startActivity(intent);
+//            }
 
         }
         @JavascriptInterface
@@ -271,7 +279,7 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
             } else {
                 addGoodsCar(goodId,guiGeId,num);
             }
-            Log.d("ssssdddd",goodId+"///"+guiGeId+".////"+num);
+            Log.d("ssssdddd",goodId+"///"+guiGeId+".////"+num+"///"+shopUid);
 
         }
         @JavascriptInterface
@@ -285,6 +293,7 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
             }
             Log.d("ssssdddd","openCar");
         }
+        //立即购买
         @JavascriptInterface
         public void addBuy(String goodId,String guiGeId,String num){
             if (TextUtils.isEmpty(spImp.getUID()) || spImp.getUID().equals("0")) {
@@ -294,7 +303,7 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
             } else {
                 Intent intent = new Intent();
                 intent.setClass(ShopGoodsDetailsWebLocalActivity.this, ShopGoodsBuyWebActivity.class);
-                String url = NetConfig.BaseUrl+NetConfig.nowBuy+"uid="+spImp.getUID()+"&goodsID="+goodId+"&specID="+guiGeId+"&num="+num;
+                String url = NetConfig.BaseUrl+NetConfig.nowBuy+"uid="+spImp.getUID()+"&goodsID="+goodId+"&specID="+guiGeId+"&num="+num+"&shopUid="+shopUid;
                 Log.d("ssssddddbuy_url",url);
                 intent.putExtra("url",url);
                 startActivity(intent);
@@ -487,6 +496,7 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
                 .addParam("goodsID", goodId)
                 .addParam("specID",guiGeId)
                 .addParam("num",num)
+                .addParam("shopUid",shopUid)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {

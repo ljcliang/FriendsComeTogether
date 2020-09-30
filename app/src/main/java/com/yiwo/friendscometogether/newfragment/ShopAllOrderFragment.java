@@ -28,6 +28,7 @@ import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.adapter.FragmentAllOrderAdapter;
 import com.yiwo.friendscometogether.base.BaseFragment;
+import com.yiwo.friendscometogether.custom.EditContentDialog_L;
 import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.FragmentShopAllOrderAdapter;
@@ -110,6 +111,17 @@ public class ShopAllOrderFragment extends BaseFragment {
             @Override
             public void onTuiKuan(int postion) {
                 tuikuan(mList.get(postion));
+            }
+
+            @Override
+            public void onJuJueTuiKuan(int postion) {
+                EditContentDialog_L contentDialog = new EditContentDialog_L(getContext(), "请输入拒绝退款原因", new EditContentDialog_L.OnReturnListener() {
+                    @Override
+                    public void onReturn(String content) {
+                        juJueTuikuan(mList.get(postion),content);
+                    }
+                });
+                contentDialog.show();
             }
         });
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
@@ -259,7 +271,39 @@ public class ShopAllOrderFragment extends BaseFragment {
                     }
                 });
     }
+    private void juJueTuikuan(SellerOrderModel.ObjBean bean,String reMes) {
+        ViseHttp.POST(NetConfig.noRefund)
+                .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl + NetConfig.noRefund))
+                .addParam("uid", spImp.getUID())
+                .addParam("oid",bean.getId())
+                .addParam("mes",reMes)
+                .request(new ACallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        JSONObject jsonObject = null;
+                        try {
+                            jsonObject = new JSONObject(data);
+                            if (jsonObject.getInt("code") == 200){
+                                toToast(getContext(),jsonObject.getString("message"));
+                                refresh();
+                                if (listenner!=null){
+                                    listenner.onDataChange(-1);
+                                }
+                            }else {
+                                toToast(getContext(),"操作失败："+jsonObject.getString("message"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
+                    }
+
+                    @Override
+                    public void onFail(int errCode, String errMsg) {
+                        toToast(getContext(),errCode+":"+errMsg);
+                    }
+                });
+    }
     private void chuLiDingDan(SellerOrderModel.ObjBean bean, final int type,String juJueYuanYin) {
         String quxiaoyuanyin = "";
         if (type ==0){//拒绝接单时

@@ -108,10 +108,10 @@ public class MianShuiShangPinListActivity extends BaseActivity {
     private void initView() {
         switch (getIntent().getStringExtra(LIST_TYPE)){
             case "0":
-                tvTitle.setText("免税商品");
+                tvTitle.setText("特价商品");
                 break;
             case "1":
-                tvTitle.setText("特价补位");
+                tvTitle.setText("队长带货");
                 break;
         }
         // /设置布局管理器为2列，纵向

@@ -5,14 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.app.FragmentTransaction;
@@ -28,7 +26,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amap.api.maps2d.MapFragment;
 import com.google.gson.Gson;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.api.model.session.SessionEventListener;
@@ -38,28 +35,27 @@ import com.netease.nimlib.sdk.auth.AuthServiceObserver;
 import com.netease.nimlib.sdk.auth.constant.LoginSyncStatus;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
-import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.vise.xsnow.cache.SpCache;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
+import com.yiwo.friendscometogether.app_status_manger.AppStatusConstant;
+import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.broadcastreceiver.MyGoPersonMainBroadcastReceiver;
 import com.yiwo.friendscometogether.broadcastreceiver.MyShenQingJinQunBroadcastReceiver;
 import com.yiwo.friendscometogether.broadcastreceiver.MyYaoQingJinQunBroadcastReceiver;
 import com.yiwo.friendscometogether.custom.OnDoubleClickListener;
 import com.yiwo.friendscometogether.fragment.ChatFragment;
 import com.yiwo.friendscometogether.fragment.FriendsTogetherFragment3;
-import com.yiwo.friendscometogether.fragment.HomeFragment3;
 import com.yiwo.friendscometogether.fragment.HomeFragment4;
 import com.yiwo.friendscometogether.fragment.MyFragment;
-import com.yiwo.friendscometogether.imagepreview.StatusBarUtils;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newfragment.YouJiFragment;
 import com.yiwo.friendscometogether.newpage.CreateFriendRememberActivityChoosePicOrVideos;
-import com.yiwo.friendscometogether.newpage.DuiZhangZhuanShuActivity;
 import com.yiwo.friendscometogether.newpage.MessageActivity;
 import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.newpage.ShopOrdersActivity;
 import com.yiwo.friendscometogether.pages.LoginActivity;
+import com.yiwo.friendscometogether.pages.WelcomeActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.wangyiyunshipin.upload.constant.UploadType;
 import com.yiwo.friendscometogether.wangyiyunshipin.upload.controller.UploadController;
@@ -68,17 +64,15 @@ import com.yiwo.friendscometogether.webpages.MyGoodsOrdersActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseActivity {
 
     private Context context = MainActivity.this;
-
     public static FragmentTabHost tabHost;
     // Tab选项卡的文字
     private String mTextviewArray[] = {"首页", "友聚", "友记", "聊天", "我的"};
@@ -534,7 +528,22 @@ public class MainActivity extends FragmentActivity {
             }
         }
     }
-
+    @Override
+    protected void restartApp() {
+        Log.d("应用被回收重启","应用被回收重启");
+        startActivity(new Intent(this, WelcomeActivity.class));
+        finish();
+    }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        int action = intent.getIntExtra(AppStatusConstant.KEY_HOME_ACTION,AppStatusConstant.ACTION_BACK_TO_HOME);
+        switch(action) {
+            case AppStatusConstant.ACTION_RESTART_APP:
+            restartApp();
+            break;
+        }
+    }
     /**
      * 退出销毁所有activity
      */
@@ -568,7 +577,7 @@ public class MainActivity extends FragmentActivity {
         NimUIKit.setSessionListener(new SessionEventListener() {
             @Override
             public void onAvatarClicked(Context context, IMMessage message) {//设置头像点击监听
-                if (!message.getFromAccount().equals("tongbanxiaozhushou")){
+                if ((!message.getFromAccount().equals("tongbanxiaozhushou")) && (message.getFromAccount().indexOf("fzd")== -1) ){
                     Intent intent = new Intent();
                     intent.putExtra("person_id",message.getFromAccount());
                     intent.putExtra("status","1");

@@ -327,7 +327,7 @@ public class FaBu_XiuGai_LuXianActivity extends TakePhotoActivity {
 
     private void initData() {
         ViseHttp.POST(NetConfig.getActivityEditInfo)
-                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.shareMyShop))
+                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.getActivityEditInfo))
                 .addParam("uid",spImp.getUID())
                 .addParam("pfID",pfId)
                 .request(new ACallback<String>() {

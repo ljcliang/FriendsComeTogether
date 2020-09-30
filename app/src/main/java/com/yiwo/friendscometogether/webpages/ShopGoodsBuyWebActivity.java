@@ -63,7 +63,7 @@ public class ShopGoodsBuyWebActivity extends BaseSonicWebActivity {
          * 传参：getAddress收货地址、getPerson收货人、getTel收货电话、goodsID商品id、specID规格id、uid用户id、num购买数量、beizhu备注、payType支付类型
          */
         @JavascriptInterface
-        public void gopaygoods(String getAddress,String getPerson,String getTel,String goodsID,String specID,String uid,String num,String beizhu,String payType){
+        public void gopaygoods(String getAddress,String getPerson,String getTel,String goodsID,String specID,String uid,String num,String beizhu,String payType,String fx_uid){
             Log.d("22222",getAddress+"\n"+getPerson);
             ViseHttp.POST(NetConfig.insertGoodsOrder)
                     .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.insertGoodsOrder))
@@ -76,6 +76,7 @@ public class ShopGoodsBuyWebActivity extends BaseSonicWebActivity {
                     .addParam("num", num)
                     .addParam("beizhu",beizhu)
                     .addParam("payType",payType)
+                    .addParam("fx_uid",fx_uid)
                     .request(new ACallback<String>() {
                         @Override
                         public void onFail(int errCode, String errMsg) {

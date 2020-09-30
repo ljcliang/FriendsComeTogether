@@ -16,7 +16,7 @@
         </RelativeLayout>
         <TextView
             android:id="@+id/tv_title"
-            android:text="免税商品"
+            android:text="队长带货"
             style="@style/tv_top_title_dp"/>
     </RelativeLayout>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout

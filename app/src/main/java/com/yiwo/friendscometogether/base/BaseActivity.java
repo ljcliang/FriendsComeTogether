@@ -3,6 +3,7 @@ package com.yiwo.friendscometogether.base;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -14,8 +15,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.yiwo.friendscometogether.MainActivity;
 import com.yiwo.friendscometogether.MyApplication;
 import com.yiwo.friendscometogether.R;
+import com.yiwo.friendscometogether.app_status_manger.AppStatusConstant;
+import com.yiwo.friendscometogether.app_status_manger.AppStatusManager;
 import com.yiwo.friendscometogether.custom.GlideImageLoader;
 import com.yiwo.friendscometogether.utils.ShareUtils;
 import com.yiwo.friendscometogether.utils.StringUtils;
@@ -35,8 +39,19 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_base);
         MyApplication.getInstance().addActivity(this);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        switch(AppStatusManager.getInstance().getAppStatus()) {
+            case AppStatusConstant.STATUS_FORCE_KILLED:
+            restartApp();
+            break;
+            case AppStatusConstant.STATUS_NORMAL:
+            break;
+        }
     }
-
+    protected void restartApp() {
+        Intent intent =new Intent(this, MainActivity.class);
+        intent.putExtra(AppStatusConstant.KEY_HOME_ACTION,AppStatusConstant.ACTION_RESTART_APP);
+        startActivity(intent);
+    }
     @Override
     protected void onStart() {
         super.onStart();

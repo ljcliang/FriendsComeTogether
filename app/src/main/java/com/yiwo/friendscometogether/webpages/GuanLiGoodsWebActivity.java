@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -20,6 +21,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
+import com.netease.nim.uikit.api.NimUIKit;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -31,14 +33,11 @@ import com.vise.xsnow.http.ViseHttp;
 import com.vise.xsnow.http.callback.ACallback;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.base.BaseSonicWebActivity;
 import com.yiwo.friendscometogether.base.BaseWebActivity;
-import com.yiwo.friendscometogether.custom.WeiboDialogUtils;
-import com.yiwo.friendscometogether.model.ActiveShareModel;
+import com.yiwo.friendscometogether.custom.MyErWeiMaDialog;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newmodel.GoodShareModel;
 import com.yiwo.friendscometogether.newpage.FaBu_XiuGaiShangPinActivity;
-import com.yiwo.friendscometogether.newpage.JuBaoActivity;
 import com.yiwo.friendscometogether.newpage.PeiSongSettingActivity;
 import com.yiwo.friendscometogether.newpage.renzheng.RenZheng0_BeginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
@@ -153,10 +152,22 @@ public class GuanLiGoodsWebActivity extends BaseWebActivity {
             startActivity(intent);
         }
         @JavascriptInterface
-        public void goodsweb(String gid){
-            ShopGoodsDetailsWebLocalActivity.open(GuanLiGoodsWebActivity.this,gid);
+        public void goodsweb(String gid,String shopUid){
+            ShopGoodsDetailsWebLocalActivity.open(GuanLiGoodsWebActivity.this,gid,shopUid);
+        }
+        @JavascriptInterface
+        public void totalkfzd(String wy_id){
+            Log.d("asdasdas",wy_id);
+            liaotian(wy_id);
         }
     }
+
+    private void liaotian(String wy_id) {
+        String account = spImp.getYXID();
+        NimUIKit.setAccount(account);
+        NimUIKit.startP2PSession(GuanLiGoodsWebActivity.this, wy_id);
+    }
+
     private void showMore(final View view_p) {
 
         View view = LayoutInflater.from(GuanLiGoodsWebActivity.this).inflate(R.layout.popupwindow_goods_manger_web_activity_show_more, null);
@@ -184,13 +195,36 @@ public class GuanLiGoodsWebActivity extends BaseWebActivity {
         ll_add_goods.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(GuanLiGoodsWebActivity.this, FaBu_XiuGaiShangPinActivity.class);
-                startActivity(intent);
+                if (spImp.getIfSign().equals("1")){
+                    Intent intent = new Intent();
+                    intent.setClass(GuanLiGoodsWebActivity.this, FaBu_XiuGaiShangPinActivity.class);
+                    startActivity(intent);
+                }else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(GuanLiGoodsWebActivity.this);
+                    builder.setMessage("您还没有认证并绑定微信商户号")
+                            .setNegativeButton("去认证", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    RenZheng0_BeginActivity.openActivity(GuanLiGoodsWebActivity.this);
+                                }
+                            }).setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+                }
                 popupWindow.dismiss();
+            };
+        });
+        LinearLayout ll_er_wei_ma = view.findViewById(R.id.ll_er_wei_ma);
+        ll_er_wei_ma.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyErWeiMaDialog dialog = new MyErWeiMaDialog(GuanLiGoodsWebActivity.this, NetConfig.WX_Shop_Home_Url+spImp.getUID());
+                dialog.show();
             }
         });
-
         popupWindow.setTouchable(true);
         popupWindow.setFocusable(true);
         // 设置点击窗口外边窗口消失

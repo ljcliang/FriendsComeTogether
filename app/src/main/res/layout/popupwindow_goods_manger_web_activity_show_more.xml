@@ -139,5 +139,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+        <LinearLayout
+            android:background="@color/white_ffffff"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_width="match_parent"
+            android:layout_height="2px"></LinearLayout>
+        <LinearLayout
+            android:paddingRight="22px"
+            android:paddingLeft="22px"
+            android:paddingBottom="10px"
+            android:paddingTop="10px"
+            android:orientation="horizontal"
+            android:id="@+id/ll_er_wei_ma"
+            android:layout_width="match_parent"
+            android:layout_height="75px">
+            <ImageView
+                android:src="@mipmap/erweima"
+                android:layout_gravity="center_vertical"
+                android:layout_width="45px"
+                android:layout_height="45px" />
+            <TextView
+                android:layout_marginLeft="10px"
+                android:layout_gravity="center_vertical"
+                android:textSize="30px"
+                android:textColor="@color/black_101010"
+                android:text="二  维  码"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

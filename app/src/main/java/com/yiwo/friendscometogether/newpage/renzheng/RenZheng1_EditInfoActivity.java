@@ -47,14 +47,8 @@ import top.zibin.luban.OnCompressListener;
 
 public class RenZheng1_EditInfoActivity extends BaseActivity {
 
-    @BindView(R.id.edt_shop_name)
-    EditText edtShopName;
     @BindView(R.id.edt_shop_tel)
     EditText edtShopTel;
-    @BindView(R.id.iv_yingyezhizhao)
-    ImageView ivYingyezhizhao;
-    @BindView(R.id.rl_up_yingyezhizhao)
-    RelativeLayout rlUpYingyezhizhao;
     @BindView(R.id.iv_dianmianzhaopian)
     ImageView ivDianmianzhaopian;
 //    @BindView(R.id.rl_up_dianmianzhaopian)
@@ -69,8 +63,6 @@ public class RenZheng1_EditInfoActivity extends BaseActivity {
     RelativeLayout rlUpShenfenzhengGuohui;
     @BindView(R.id.tv_next)
     TextView tvNext;
-    @BindView(R.id.tv_yingyezhizhao)
-    TextView tvYingyezhizhao;
     @BindView(R.id.tv_dianmianpic)
     TextView tvDianmianpic;
     @BindView(R.id.tv_shenfenzheng_renxiang)
@@ -119,17 +111,11 @@ public class RenZheng1_EditInfoActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    @OnClick({R.id.rl_up_yingyezhizhao, R.id.rl_up_dianmianzhaopian, R.id.rl_up_shenfenzheng_renxiang, R.id.rl_up_shenfenzheng_guohui, R.id.tv_next,R.id.ll_check_email,R.id.rl_back})
+    @OnClick({ R.id.rl_up_dianmianzhaopian, R.id.rl_up_shenfenzheng_renxiang, R.id.rl_up_shenfenzheng_guohui, R.id.tv_next,R.id.ll_check_email,R.id.rl_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_back:
                 onBackPressed();
-                break;
-            case R.id.rl_up_yingyezhizhao:
-                ImageSelector.builder()
-                        .useCamera(true) // 设置是否使用拍照
-                        .setSingle(true)  //设置是否单选
-                        .start(this, REQUEST_CODE_YINGYEZHIZHAO); // 打开相册
                 break;
             case R.id.ll_check_email:
                 useDefault = !useDefault;
@@ -177,24 +163,12 @@ public class RenZheng1_EditInfoActivity extends BaseActivity {
     }
 
     private void next() {
-        if (TextUtils.isEmpty(yingyezhizhao)) {
-            toToast(this, "请上传营业执照");
-            return;
-        }
-//        if (TextUtils.isEmpty(dianmianzhaopian)) {
-//            toToast(this, "请上传店面照片");
-//            return;
-//        }
         if (TextUtils.isEmpty(shenfenzheng_renxiang)) {
             toToast(this, "请上传身份证正面");
             return;
         }
         if (TextUtils.isEmpty(shenfenzheng_guohui)) {
             toToast(this, "请上传身份证反面");
-            return;
-        }
-        if (TextUtils.isEmpty(edtShopName.getText().toString())) {
-            toToast(this, "请输入店铺名称");
             return;
         }
         if (TextUtils.isEmpty(edtShopTel.getText().toString())) {
@@ -280,16 +254,16 @@ public class RenZheng1_EditInfoActivity extends BaseActivity {
                         .addHeader("Content-Type", "multipart/form-data")
                         .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.userVerify))
                         .addParam("uid", spImp.getUID())
-                        .addParam("store_name", edtShopName.getText().toString())
+//                        .addParam("store_name", edtShopName.getText().toString())
                         .addParam("tel", edtShopTel.getText().toString())
-                        .addParam("merchant_shortname", edtShopName.getText().toString())
+//                        .addParam("merchant_shortname", edtShopName.getText().toString())
                         .addParam("email", edtShopEmail.getText().toString())
                         .addParam("id_card_name", edtPersonName.getText().toString())
                         .addParam("id_card_number", edtPersonNum.getText().toString())
-                        .addFile("businessLicense", value.get(0))
+//                        .addFile("businessLicense", value.get(0))
 //                        .addFile("shopImg", value.get(1))
-                        .addFile("idCardCopy", value.get(1))
-                        .addFile("idCardNational", value.get(2))
+                        .addFile("idCardCopy", value.get(0))
+                        .addFile("idCardNational", value.get(1))
                         .request(new ACallback<String>() {
                             @Override
                             public void onSuccess(String data) {
@@ -344,13 +318,13 @@ public class RenZheng1_EditInfoActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_YINGYEZHIZHAO && data != null) {
-            //获取选择器返回的数据
-            List<String> scList = data.getStringArrayListExtra(ImageSelector.SELECT_RESULT);
-            Glide.with(this).load("file://" + scList.get(0)).into(ivYingyezhizhao);
-            tvYingyezhizhao.setVisibility(View.GONE);
-            yingyezhizhao = scList.get(0);
-        }
+//        if (requestCode == REQUEST_CODE_YINGYEZHIZHAO && data != null) {
+//            //获取选择器返回的数据
+//            List<String> scList = data.getStringArrayListExtra(ImageSelector.SELECT_RESULT);
+//            Glide.with(this).load("file://" + scList.get(0)).into(ivYingyezhizhao);
+//            tvYingyezhizhao.setVisibility(View.GONE);
+//            yingyezhizhao = scList.get(0);
+//        }
 //        if (requestCode == REQUEST_CODE_DIANMIANPIC && data != null) {
 //            //获取选择器返回的数据
 //            List<String> scList = data.getStringArrayListExtra(ImageSelector.SELECT_RESULT);

@@ -123,8 +123,8 @@ public class PersonMainActivity1 extends BaseActivity {
     ImageView iv_image_guanzhu;
     @BindView(R.id.iv_heart)
     ImageView iv_image_heart;
-    @BindView(R.id.iv_kefu)
-    ImageView iv_kefu;
+//    @BindView(R.id.iv_kefu)
+//    ImageView iv_kefu;
     @BindView(R.id.rl_label_text)
     RelativeLayout rl_label_text;
 //    @BindView(R.id.rl_tab_1)
@@ -546,11 +546,11 @@ public class PersonMainActivity1 extends BaseActivity {
                                             isFollow = 1 ;
                                             Glide.with(PersonMainActivity1.this).load(R.mipmap.tarenzhuye_heartwhite).into(iv_image_guanzhu);
                                         }
-                                        if (model.getObj().getInfo().getIf_kefu().equals("0")){
-                                            iv_kefu.setVisibility(View.GONE);
-                                        }else if(model.getObj().getInfo().getIf_kefu().equals("1")){
-                                            iv_kefu.setVisibility(View.VISIBLE);
-                                        }
+//                                        if (model.getObj().getInfo().getIf_kefu().equals("0")){
+//                                            iv_kefu.setVisibility(View.GONE);
+//                                        }else if(model.getObj().getInfo().getIf_kefu().equals("1")){
+//                                            iv_kefu.setVisibility(View.VISIBLE);
+//                                        }
                                         //------------他的所有标签----------------
                                         NewPersonMainMode_part1.ObjBean.UsertagBean usertagBean = model.getObj().getUsertag();
 
@@ -824,11 +824,11 @@ public class PersonMainActivity1 extends BaseActivity {
                                     isFollow = 1 ;
                                     Glide.with(PersonMainActivity1.this).load(R.mipmap.tarenzhuye_heartwhite).into(iv_image_guanzhu);
                                 }
-                                if (model.getObj().getInfo().getIf_kefu().equals("0")){
-                                    iv_kefu.setVisibility(View.GONE);
-                                }else if(model.getObj().getInfo().getIf_kefu().equals("1")){
-                                    iv_kefu.setVisibility(View.VISIBLE);
-                                }
+//                                if (model.getObj().getInfo().getIf_kefu().equals("0")){
+//                                    iv_kefu.setVisibility(View.GONE);
+//                                }else if(model.getObj().getInfo().getIf_kefu().equals("1")){
+//                                    iv_kefu.setVisibility(View.VISIBLE);
+//                                }
                                 iv_level.setVisibility(View.GONE);
                                 tv_level.setText("LV"+model.getObj().getInfo().getUsergrade());
                                 if (model.getObj().getInfo().getCaptain().equals("1")){

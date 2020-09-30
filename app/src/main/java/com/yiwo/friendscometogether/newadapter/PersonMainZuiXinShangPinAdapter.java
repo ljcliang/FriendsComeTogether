@@ -43,7 +43,7 @@ public class PersonMainZuiXinShangPinAdapter extends RecyclerView.Adapter<Person
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.tvName.setText(data.get(position).getGoodsName());
         holder.tv_now_price.setText(data.get(position).getPreferential());
-        holder.tv_old_price.setText(data.get(position).getPrice());
+        holder.tv_old_price.setText("¥"+data.get(position).getPrice());
         Glide.with(context).load(data.get(position).getGoodsImg()).apply(new RequestOptions().error(R.mipmap.zanwutupian).placeholder(R.mipmap.zanwutupian)).into(holder.iv);
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override

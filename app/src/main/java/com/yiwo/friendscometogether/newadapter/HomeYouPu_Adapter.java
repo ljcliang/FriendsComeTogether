@@ -3,36 +3,20 @@ package com.yiwo.friendscometogether.newadapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.vise.xsnow.http.ViseHttp;
-import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
-import com.yiwo.friendscometogether.network.NetConfig;
-import com.yiwo.friendscometogether.newmodel.HomeGuanZhuModel;
 import com.yiwo.friendscometogether.newmodel.HomeYouPuModel;
-import com.yiwo.friendscometogether.newpage.DuiZhangZhuanShuActivity;
-import com.yiwo.friendscometogether.newpage.PersonMainActivity1;
 import com.yiwo.friendscometogether.newpage.ShopHomeActivity;
-import com.yiwo.friendscometogether.pages.LoginActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
-import com.yiwo.friendscometogether.utils.TokenUtils;
-import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
-import com.yiwo.friendscometogether.webpages.DuiZhangShangPuWebActivity;
 import com.yiwo.friendscometogether.webpages.ShopGoodsDetailsWebLocalActivity;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
