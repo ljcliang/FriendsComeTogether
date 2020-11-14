@@ -125,7 +125,7 @@ public class ZiXunListActivity extends BaseActivity {
                 LinearLayoutManager manager1 = new LinearLayoutManager(this);
                 manager1.setOrientation(LinearLayoutManager.VERTICAL);
                 adapter = new WenLvZiXunAdapter(list);
-                tvTitle.setText("文旅资讯");
+                tvTitle.setText("新闻资讯");
                 rv.setLayoutManager(manager1);
                 break;
             case "2"://2经典打卡

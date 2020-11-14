@@ -216,7 +216,7 @@ public class ShopHomeActivity extends BaseWebActivity {
                 share();
                 break;
             case R.id.tv_sousuo:
-                webView.loadUrl("javascript:sousuo('" + edt_sousuo.getText().toString() + "')");
+                webView.loadUrl("javascript:showdiv('" + edt_sousuo.getText().toString() + "')");
                 break;
             case R.id.tv_all_goods:
                 webView.reload();

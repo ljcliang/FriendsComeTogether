@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
@@ -66,6 +67,10 @@ public class HomeGuanZhuFragment extends BaseFragment {
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.rl_duizhangdaiduizhong)
     RelativeLayout rl_duizhangdaiduizhong;
+    @BindView(R.id.iv_daodui_empty)
+    ImageView iv_daodui_empty;
+    @BindView(R.id.iv_guanzhu_empty)
+    ImageView iv_guanzhu_empty;
     private View view;
     private Unbinder unbinder;
     private SpImp spImp;
@@ -141,11 +146,23 @@ public class HomeGuanZhuFragment extends BaseFragment {
                                 mListGuanzhu.addAll(model.getObj().getYj_video());
                                 if (mListGuanzhu.size()>0){
                                     preGuanZhuYouJi(mListGuanzhu);
+                                    rvGuanZhuYoujishipin.setVisibility(View.VISIBLE);
+                                    iv_guanzhu_empty.setVisibility(View.GONE);
+                                }else {
+                                    rvGuanZhuYoujishipin.setVisibility(View.GONE);
+                                    iv_guanzhu_empty.setVisibility(View.VISIBLE);
                                 }
                                 adapterGuanzhuYouJi.notifyDataSetChanged();
                                 mlistDuiZhangDaiDui.clear();
                                 mlistDuiZhangDaiDui.addAll(model.getObj().getCaptainPf());
-                                preGuanZhuYouJu(mlistDuiZhangDaiDui);
+                                if (mlistDuiZhangDaiDui.size()>0){
+                                    preGuanZhuYouJu(mlistDuiZhangDaiDui);
+                                    rvGuanZhuDuiZhangDaiDui.setVisibility(View.VISIBLE);
+                                    iv_daodui_empty.setVisibility(View.GONE);
+                                }else {
+                                    rvGuanZhuDuiZhangDaiDui.setVisibility(View.GONE);
+                                    iv_daodui_empty.setVisibility(View.VISIBLE);
+                                }
                                 adapterGuanZhuDuiZhangDaiDui.notifyDataSetChanged();
                             }else {
 
@@ -226,12 +243,26 @@ public class HomeGuanZhuFragment extends BaseFragment {
                                         page2 = 2;
                                         mListGuanzhu.clear();
                                         mListGuanzhu.addAll( model.getObj().getYj_video());
-                                        preGuanZhuYouJi(mListGuanzhu);
+                                        if (mListGuanzhu.size()>0){
+                                            preGuanZhuYouJi(mListGuanzhu);
+                                            rvGuanZhuYoujishipin.setVisibility(View.VISIBLE);
+                                            iv_guanzhu_empty.setVisibility(View.GONE);
+                                        }else {
+                                            rvGuanZhuYoujishipin.setVisibility(View.GONE);
+                                            iv_guanzhu_empty.setVisibility(View.VISIBLE);
+                                        }
                                         adapterGuanzhuYouJi.notifyDataSetChanged();
 //                                        WeiboDialogUtils.closeDialog(dialog_loading);
                                         mlistDuiZhangDaiDui.clear();
                                         mlistDuiZhangDaiDui.addAll(model.getObj().getCaptainPf());
-                                        preGuanZhuYouJu(mlistDuiZhangDaiDui);
+                                        if (mlistDuiZhangDaiDui.size()>0){
+                                            preGuanZhuYouJu(mlistDuiZhangDaiDui);
+                                            rvGuanZhuDuiZhangDaiDui.setVisibility(View.VISIBLE);
+                                            iv_daodui_empty.setVisibility(View.GONE);
+                                        }else {
+                                            rvGuanZhuDuiZhangDaiDui.setVisibility(View.GONE);
+                                            iv_daodui_empty.setVisibility(View.VISIBLE);
+                                        }
                                         adapterGuanZhuDuiZhangDaiDui.notifyDataSetChanged();
                                     }
                                 } catch (JSONException e) {

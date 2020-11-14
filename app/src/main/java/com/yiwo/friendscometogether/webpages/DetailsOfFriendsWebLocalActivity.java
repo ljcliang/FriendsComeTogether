@@ -512,39 +512,39 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
         Log.d("SessionmDaoSession11",mDaoSession.getUserGiveModelDao().toString());
     }
 
-    private void shareHD(){
-        ViseHttp.POST(NetConfig.activeShareUrl)
-                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.activeShareUrl))
-                .addParam("id", "85")
-                .addParam("type", "0")
-                .request(new ACallback<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(data);
-                            if (jsonObject.getInt("code") == 200) {
-                                Gson gson = new Gson();
-                                final ActiveShareModel shareModel = gson.fromJson(data, ActiveShareModel.class);
-                                new ShareAction(DetailsOfFriendsWebLocalActivity.this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
-                                        .setShareboardclickCallback(new ShareBoardlistener() {
-                                            @Override
-                                            public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
-                                                ShareUtils.shareWeb(DetailsOfFriendsWebLocalActivity.this, shareModel.getObj().getUrl()+"&uid="+spImp.getUID(), shareModel.getObj().getTitle(),
-                                                        shareModel.getObj().getDesc(), shareModel.getObj().getImages(), share_media);
-                                            }
-                                        }).open();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onFail(int errCode, String errMsg) {
-
-                    }
-                });
-    }
+//    private void shareHD(){
+//        ViseHttp.POST(NetConfig.activeShareUrl)
+//                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.activeShareUrl))
+//                .addParam("id", "85")
+//                .addParam("type", "0")
+//                .request(new ACallback<String>() {
+//                    @Override
+//                    public void onSuccess(String data) {
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(data);
+//                            if (jsonObject.getInt("code") == 200) {
+//                                Gson gson = new Gson();
+//                                final ActiveShareModel shareModel = gson.fromJson(data, ActiveShareModel.class);
+//                                new ShareAction(DetailsOfFriendsWebLocalActivity.this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+//                                        .setShareboardclickCallback(new ShareBoardlistener() {
+//                                            @Override
+//                                            public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+//                                                ShareUtils.shareWeb(DetailsOfFriendsWebLocalActivity.this, shareModel.getObj().getUrl()+"&uid="+spImp.getUID(), shareModel.getObj().getTitle(),
+//                                                        shareModel.getObj().getDesc(), shareModel.getObj().getImages(), share_media);
+//                                            }
+//                                        }).open();
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFail(int errCode, String errMsg) {
+//
+//                    }
+//                });
+//    }
     private void share(){
         ViseHttp.POST(NetConfig.activeShareUrl)
                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.activeShareUrl))
@@ -887,7 +887,6 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
         public void sharego(){//分享
             Log.d("交互方法","sharego");
             share();
-//            shareHD();
         }
         @JavascriptInterface
         public void reportuser(String uId,String pId){//举报  评论人 的ID，评论ID
@@ -1093,7 +1092,7 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
             public void onClick(View v) {
                 Log.d("分享，，，","asdsdas");
                 popupWindow.dismiss();
-                shareHD();
+                share();
             }
         });
         LinearLayout llJuBao = view.findViewById(R.id.ll_jubao);

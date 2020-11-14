@@ -740,7 +740,13 @@ public class ModifyFriendRememberActivity extends TakePhotoActivity {
                 AlertDialog.Builder builder1 =
                         new AlertDialog.Builder(ModifyFriendRememberActivity.this)
                                 .setTitle("关联相关活动或商品")
-                                .setItems(new String[]{"选择活动","选择商品"},
+//                                .setPositiveButton("不选择", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        dialog.dismiss();
+//                                    }
+//                                })
+                                .setItems(new String[]{"选择活动","选择商品","不选择"},
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog,
                                                                 int which) {
@@ -754,6 +760,10 @@ public class ModifyFriendRememberActivity extends TakePhotoActivity {
                                                     Intent it_suoshu = new Intent(ModifyFriendRememberActivity.this, SuoShuHuoDongActivity.class);
                                                     it_suoshu.putExtra(SuoShuHuoDongActivity.TYPE_KEY,"1");
                                                     startActivityForResult(it_suoshu, REQUEST_CODE_SUO_SHU_HUO_DONG);
+                                                }else if (which ==2){
+                                                    yourChoiceActiveName = "";
+                                                    yourChoiceActiveId = "";
+                                                    tvActiveTitle.setText("");
                                                 }
                                                 dialog.dismiss();
                                             }

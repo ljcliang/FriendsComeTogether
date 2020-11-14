@@ -2,8 +2,10 @@ package com.yiwo.friendscometogether.fragment;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -65,6 +67,7 @@ import com.yiwo.friendscometogether.swipecard.SwipeFlingView;
 import com.yiwo.friendscometogether.utils.ShareUtils;
 import com.yiwo.friendscometogether.utils.TokenUtils;
 import com.yiwo.friendscometogether.vas_sonic.TBSonicRuntime;
+import com.yiwo.friendscometogether.webpages.DetailsOfFriendTogetherWebLocalActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -788,7 +791,14 @@ public class FriendsTogetherFragment3 extends BaseFragment {
                                                         }
                                                     });
                                         } else if (models.getObj().getOk().equals("1")) {
-                                            toToast(getContext(), "请于身份审核通过后报名");
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                            builder.setMessage("请于身份审核通过后报名")
+                                                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    }).show();
                                         } else {
                                             startActivity(new Intent(getContext(), RealNameActivity.class));
                                         }

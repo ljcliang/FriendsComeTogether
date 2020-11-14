@@ -56,6 +56,15 @@ public class AllChawenFragment extends BaseFragment {
     private SpImp spImp;
     private String uid = "";
     private int page = 1;
+
+    public String keyWord = "";
+
+    public void setKeyWord(String keyWord) {
+        this.keyWord = keyWord;
+    }
+    public void searchData(){
+        initData();
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -135,6 +144,7 @@ public class AllChawenFragment extends BaseFragment {
                 ViseHttp.POST(NetConfig.userIntercalationListUrl)
                         .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userIntercalationListUrl))
                         .addParam("uid", uid)
+                        .addParam("searchedityouji",keyWord)
                         .addParam("page",page+"")
                         .request(new ACallback<String>() {
                             @Override
@@ -166,9 +176,11 @@ public class AllChawenFragment extends BaseFragment {
     private void initData() {
 
         uid = spImp.getUID();
+        Log.d("asddsadascanxie","key"+keyWord);
         ViseHttp.POST(NetConfig.userIntercalationListUrl)
                 .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userIntercalationListUrl))
                 .addParam("uid", uid)
+                .addParam("searchedityouji",keyWord)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {

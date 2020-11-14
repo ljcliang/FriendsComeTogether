@@ -84,11 +84,11 @@ public class MyHuoDongApplyAdapter extends RecyclerView.Adapter<MyHuoDongApplyAd
                                     .addParam("user_id", spImp.getUID())
                                     .addParam("pfID", bean.getPfID())
                                     .addParam("info", content)
-                                    .addParam("phase",bean.getPhase())
+                                    .addParam("phase_id",bean.getPhase_id())
                                     .request(new ACallback<String>() {
                                         @Override
                                         public void onSuccess(String obj) {
-                                            Log.e("222", obj+"uid"+spImp.getUID()+"pfid"+data.get(position).getPfID());
+                                            Log.e("222", obj+"uid"+spImp.getUID()+"pfid"+data.get(position).getPfID()+"phaseid"+bean.getPhase());
                                             try {
                                                 JSONObject jsonObject = new JSONObject(obj);
                                                 if (jsonObject.getInt("code") == 200) {
@@ -99,7 +99,7 @@ public class MyHuoDongApplyAdapter extends RecyclerView.Adapter<MyHuoDongApplyAd
                                                     Toast.makeText(context, "活动取消成功", Toast.LENGTH_SHORT).show();
                                                 }else {
                                                     Toast.makeText(context, "取消失败", Toast.LENGTH_SHORT).show();
-                                                    Toast.makeText(context, jsonObject.get("messages")+"", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(context, jsonObject.get("message")+"", Toast.LENGTH_SHORT).show();
                                                 }
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
@@ -108,7 +108,7 @@ public class MyHuoDongApplyAdapter extends RecyclerView.Adapter<MyHuoDongApplyAd
 
                                         @Override
                                         public void onFail(int errCode, String errMsg) {
-
+                                            Log.d("222err",errCode+"///"+errMsg);
                                         }
                                     });
                         }

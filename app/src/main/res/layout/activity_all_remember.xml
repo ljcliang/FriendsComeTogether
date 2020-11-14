@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.yiwo.friendscometogether.newpage.AllRememberActivity">
 
     <RelativeLayout
@@ -37,13 +39,95 @@
         </RelativeLayout>
 
         <net.lucode.hackware.magicindicator.MagicIndicator
+            android:visibility="gone"
             android:layout_centerInParent="true"
             android:id="@+id/magic_indicator"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
-
+        <TextView
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_search"
+            android:gravity="center"
+            android:text="搜索"
+            android:textSize="30px"
+            android:textColor="@color/black_101010"
+            android:layout_marginRight="10px"
+            android:layout_weight="5"
+            android:layout_width="120px"
+            android:layout_height="80px" />
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:id="@+id/ll_search"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/rl_back"
+            android:layout_toLeftOf="@+id/tv_search"
+            android:background="@drawable/bg_search_edt"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="40px"
+                android:src="@mipmap/sousuo_red"
+                android:layout_width="30px"
+                android:layout_height="30px"/>
+            <EditText
+                android:background="@null"
+                android:lines="1"
+                android:id="@+id/edt_search"
+                android:layout_marginRight="10px"
+                android:layout_marginLeft="10px"
+                android:textSize="28px"
+                android:hint="搜索友记"
+                android:paddingLeft="20px"
+                android:paddingRight="50px"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </RelativeLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="80px">
 
+        <RelativeLayout
+            android:id="@+id/rl_wodeyouji"
+            android:layout_weight="1"
+            android:layout_width="0px"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/tv_wodeyouji"
+                android:layout_centerInParent="true"
+                android:textSize="28px"
+                android:textColor="#D84C37"
+                android:text="我的友记"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_canxieyouji"
+            android:layout_weight="1"
+            android:layout_width="0px"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/tv_canxieyouji"
+                android:layout_centerInParent="true"
+                android:textSize="28px"
+                android:textColor="@color/black_333333"
+                android:text="参写友记"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+    </LinearLayout>
     <android.support.v4.view.ViewPager
         android:layout_marginTop="5px"
         android:layout_below="@+id/rl_top"
@@ -53,4 +137,4 @@
 
     </android.support.v4.view.ViewPager>
 
-</RelativeLayout>
+</LinearLayout>

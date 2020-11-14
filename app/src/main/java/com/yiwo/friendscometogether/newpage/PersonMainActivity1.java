@@ -483,7 +483,7 @@ public class PersonMainActivity1 extends BaseActivity {
                                         }
                                         tv_person_name.setText(model.getObj().getInfo().getUsername());
 
-                                        tv_level.setText("LV"+model.getObj().getInfo().getUsergrade());
+                                        tv_level.setText("Lv."+model.getObj().getInfo().getUsergrade());
                                         iv_level.setVisibility(View.GONE);
                                         if (model.getObj().getInfo().getCaptain().equals("1")){
                                             tv_level.setText("领队");
@@ -830,7 +830,7 @@ public class PersonMainActivity1 extends BaseActivity {
 //                                    iv_kefu.setVisibility(View.VISIBLE);
 //                                }
                                 iv_level.setVisibility(View.GONE);
-                                tv_level.setText("LV"+model.getObj().getInfo().getUsergrade());
+                                tv_level.setText("Lv."+model.getObj().getInfo().getUsergrade());
                                 if (model.getObj().getInfo().getCaptain().equals("1")){
                                     tv_level.setText("领队");
                                     iv_level.setVisibility(View.VISIBLE);

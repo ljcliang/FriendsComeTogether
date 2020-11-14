@@ -137,6 +137,7 @@ public class WenLvZiXunAdapter extends RecyclerView.Adapter<WenLvZiXunAdapter.Vi
                 context.startActivity(intent);
             }
         });
+        holder.tv_date.setText(data.get(position).getFmtime());
         holder.tv_look_num.setText(data.get(position).getFmlook());
         holder.tv_pinglun_num.setText(data.get(position).getCNum());
     }
@@ -147,12 +148,13 @@ public class WenLvZiXunAdapter extends RecyclerView.Adapter<WenLvZiXunAdapter.Vi
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tv_title,tv_title2,tv_title3,tv_look_num,tv_pinglun_num;
+        TextView tv_title,tv_title2,tv_title3,tv_look_num,tv_pinglun_num,tv_date;
         ImageView iv0,iv1,iv2,iv2_0,iv3_0;
         LinearLayout ll_1,ll_2,ll_3,ll_all;
         public ViewHolder(View itemView) {
             super(itemView);
             tv_title =  itemView.findViewById(R.id.tv_title);
+            tv_date = itemView.findViewById(R.id.tv_date);
             tv_look_num =  itemView.findViewById(R.id.tv_look_num);
             tv_pinglun_num =  itemView.findViewById(R.id.tv_pinglun_num);
             iv0 =  itemView.findViewById(R.id.iv0);

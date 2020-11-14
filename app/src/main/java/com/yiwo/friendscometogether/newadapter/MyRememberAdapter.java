@@ -45,12 +45,8 @@ public class MyRememberAdapter extends RecyclerView.Adapter<MyRememberAdapter.Vi
     private Context context;
     private List<UserRememberModel.ObjBean> data;
     private OnDeleteListener listener;
-
-    public void setListener(OnDeleteListener listener) {
+    public MyRememberAdapter(List<UserRememberModel.ObjBean> data,OnDeleteListener listener) {
         this.listener = listener;
-    }
-
-    public MyRememberAdapter(List<UserRememberModel.ObjBean> data) {
         this.data = data;
     }
 
@@ -157,7 +153,12 @@ public class MyRememberAdapter extends RecyclerView.Adapter<MyRememberAdapter.Vi
         holder.tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onDelete(position);
+                if (listener!=null){
+                    listener.onDelete(position);
+                }else {
+                    Log.d("isnull","listenner");
+                }
+
             }
         });
 

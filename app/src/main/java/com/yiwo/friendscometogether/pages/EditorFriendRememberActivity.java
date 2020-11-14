@@ -101,7 +101,7 @@ public class EditorFriendRememberActivity extends BaseActivity {
                                 Glide.with(EditorFriendRememberActivity.this).load(model.getObj().getFriendsList().getFmpic()).apply(new RequestOptions().error(R.mipmap.zanwutupian).placeholder(R.mipmap.zanwutupian)).into(ivTitle);
                                 tvPrice.setText("所属标签：" + model.getObj().getFriendsList().getLable_name());
                                 tvFabuTime.setText("发表时间："+ model.getObj().getFriendsList().getFmtime());
-                                tvXiangGuanHuoDong.setText("相关活动：" + model.getObj().getFriendsList().getPftitle());
+                                tvXiangGuanHuoDong.setText("相关关联：" + model.getObj().getFriendsList().getPftitle());
                                 LinearLayoutManager manager = new LinearLayoutManager(EditorFriendRememberActivity.this){
                                     @Override
                                     public boolean canScrollVertically() {

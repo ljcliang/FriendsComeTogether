@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,14 @@ public class MyRememberFragment extends BaseFragment {
     private MyRememberAdapter adapter;
     private List<UserRememberModel.ObjBean> mList;
 
+    public String keyWord = "";
+
+    public void setKeyWord(String keyWord) {
+        this.keyWord = keyWord;
+    }
+    public void searchData(){
+        initData();
+    }
     private SpImp spImp;
     private String uid = "";
     private int page = 1;
@@ -86,6 +95,7 @@ public class MyRememberFragment extends BaseFragment {
                 ViseHttp.POST(NetConfig.userRemember)
                         .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userRemember))
                         .addParam("uid", uid)
+                        .addParam("searchedityouji",keyWord)
                         .addParam("page",page+"")
                         .request(new ACallback<String>() {
                             @Override
@@ -119,20 +129,61 @@ public class MyRememberFragment extends BaseFragment {
     private void initData() {
 
         uid = spImp.getUID();
+        Log.d("asddsadasyouji","key"+keyWord);
         ViseHttp.POST(NetConfig.userRemember)
                 .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.userRemember))
                 .addParam("uid", uid)
+                .addParam("searchedityouji",keyWord)
 //                .addParam("type", "0")
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
+                        Log.d("asddsadasyouji","key"+keyWord);
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             if(jsonObject.getInt("code") == 200){
                                 Gson gson = new Gson();
                                 UserRememberModel userRememberModel = gson.fromJson(data, UserRememberModel.class);
                                 mList = userRememberModel.getObj();
-                                adapter = new MyRememberAdapter(mList);
+                                adapter = new MyRememberAdapter(mList,new MyRememberAdapter.OnDeleteListener() {
+                                    @Override
+                                    public void onDelete(final int i) {
+                                        toDialog(getContext(), "提示", "是否删除友记", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(final DialogInterface dialogInterface, int which) {
+                                                ViseHttp.POST(NetConfig.deleteFriendRememberUrl)
+                                                        .addParam("app_key", TokenUtils.getToken(NetConfig.BaseUrl+NetConfig.deleteFriendRememberUrl))
+                                                        .addParam("id", mList.get(i).getFmID())
+                                                        .request(new ACallback<String>() {
+                                                            @Override
+                                                            public void onSuccess(String data) {
+                                                                try {
+                                                                    JSONObject jsonObject = new JSONObject(data);
+                                                                    if(jsonObject.getInt("code") == 200){
+                                                                        toToast(getContext(), jsonObject.getString("message"));
+                                                                        mList.remove(i);
+                                                                        adapter.notifyDataSetChanged();
+                                                                        dialogInterface.dismiss();
+                                                                    }
+                                                                } catch (JSONException e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                            }
+
+                                                            @Override
+                                                            public void onFail(int errCode, String errMsg) {
+
+                                                            }
+                                                        });
+                                            }
+                                        }, new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int which) {
+                                                dialogInterface.dismiss();
+                                            }
+                                        });
+                                    }
+                                });
                                 LinearLayoutManager manager = new LinearLayoutManager(getContext());
                                 rv1.setLayoutManager(manager);
                                 rv1.setAdapter(adapter);

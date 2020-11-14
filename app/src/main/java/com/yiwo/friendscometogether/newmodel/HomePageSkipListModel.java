@@ -56,6 +56,7 @@ public class HomePageSkipListModel {
              * fmID : 2600
              * fmlook : 252
              * fmtitle : 高考加油
+             * fmtime : 2020-08-17
              * fmaddress : 北京
              * fmcontent :
              * username : 花生
@@ -81,6 +82,7 @@ public class HomePageSkipListModel {
             private String fmID;
             private String fmlook;
             private String fmtitle;
+            private String fmtime;
             private String fmaddress;
             private String fmcontent;
             private String username;
@@ -282,6 +284,14 @@ public class HomePageSkipListModel {
 
             public void setInPerson(List<InPersonBean> inPerson) {
                 this.inPerson = inPerson;
+            }
+
+            public String getFmtime() {
+                return fmtime;
+            }
+
+            public void setFmtime(String fmtime) {
+                this.fmtime = fmtime;
             }
 
             public static class PlListBean {

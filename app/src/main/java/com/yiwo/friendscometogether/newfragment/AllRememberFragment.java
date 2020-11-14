@@ -87,11 +87,7 @@ public class AllRememberFragment extends BaseFragment {
                                 Gson gson = new Gson();
                                 UserRememberModel userRememberModel = gson.fromJson(data, UserRememberModel.class);
                                 mList = userRememberModel.getObj();
-                                adapter = new MyRememberAdapter(mList);
-                                LinearLayoutManager manager = new LinearLayoutManager(getContext());
-                                rv1.setLayoutManager(manager);
-                                rv1.setAdapter(adapter);
-                                adapter.setListener(new MyRememberAdapter.OnDeleteListener() {
+                                adapter = new MyRememberAdapter(mList,new MyRememberAdapter.OnDeleteListener() {
                                     @Override
                                     public void onDelete(final int i) {
                                         toDialog(getContext(), "提示", "是否删除友记", new DialogInterface.OnClickListener() {
@@ -130,6 +126,9 @@ public class AllRememberFragment extends BaseFragment {
                                         });
                                     }
                                 });
+                                LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                                rv1.setLayoutManager(manager);
+                                rv1.setAdapter(adapter);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

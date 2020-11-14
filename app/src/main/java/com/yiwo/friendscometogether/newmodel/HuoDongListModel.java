@@ -77,6 +77,7 @@ public class HuoDongListModel {
         private String userpic;
         private String activities_data;
 
+        private String phase_id;
         public String getPhase() {
             return phase;
         }
@@ -195,6 +196,14 @@ public class HuoDongListModel {
 
         public void setActivities_data(String activities_data) {
             this.activities_data = activities_data;
+        }
+
+        public String getPhase_id() {
+            return phase_id;
+        }
+
+        public void setPhase_id(String phase_id) {
+            this.phase_id = phase_id;
         }
     }
 }

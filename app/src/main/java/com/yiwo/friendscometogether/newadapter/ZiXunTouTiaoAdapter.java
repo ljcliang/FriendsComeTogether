@@ -36,7 +36,7 @@ public class ZiXunTouTiaoAdapter extends RecyclerView.Adapter<ZiXunTouTiaoAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tv_title.setText(data.get(position).getFmtitle());
-
+        holder.tv_date.setText(data.get(position).getFmtime());
         if (data.get(position).getPic().size()>0){
             Glide.with(context).load(data.get(position).getPic().get(0)).apply(new RequestOptions().placeholder(R.mipmap.zanwutupian).error(R.mipmap.zanwutupian)).into(holder.iv0);
         }else {
@@ -72,7 +72,7 @@ public class ZiXunTouTiaoAdapter extends RecyclerView.Adapter<ZiXunTouTiaoAdapte
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tv_title,tv_look_num,tv_pinglun_num;
+        TextView tv_title,tv_look_num,tv_pinglun_num,tv_date;
         ImageView iv0,iv1,iv2;
         LinearLayout ll_all;
         public ViewHolder(View itemView) {
@@ -80,6 +80,7 @@ public class ZiXunTouTiaoAdapter extends RecyclerView.Adapter<ZiXunTouTiaoAdapte
             tv_title =  itemView.findViewById(R.id.tv_title);
             tv_look_num =  itemView.findViewById(R.id.tv_look_num);
             tv_pinglun_num =  itemView.findViewById(R.id.tv_pinglun_num);
+            tv_date = itemView.findViewById(R.id.tv_date);
             iv0 =  itemView.findViewById(R.id.iv0);
             iv1 =  itemView.findViewById(R.id.iv1);
             iv2 =  itemView.findViewById(R.id.iv2);

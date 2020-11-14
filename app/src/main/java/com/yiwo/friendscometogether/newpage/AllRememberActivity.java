@@ -7,7 +7,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.R;
@@ -35,6 +39,18 @@ import butterknife.OnClick;
 
 public class AllRememberActivity extends BaseActivity {
 
+    @BindView(R.id.tv_search)
+    TextView tvSearch;
+    @BindView(R.id.edt_search)
+    EditText edtSearch;
+    @BindView(R.id.tv_wodeyouji)
+    TextView tvWodeyouji;
+    @BindView(R.id.rl_wodeyouji)
+    RelativeLayout rlWodeyouji;
+    @BindView(R.id.tv_canxieyouji)
+    TextView tvCanxieyouji;
+    @BindView(R.id.rl_canxieyouji)
+    RelativeLayout rlCanxieyouji;
     private Context context = AllRememberActivity.this;
 
     @BindView(R.id.magic_indicator)
@@ -45,7 +61,8 @@ public class AllRememberActivity extends BaseActivity {
     private FragmentManager mFragmentManager;
     private AllRememberViewpagerAdapter mViewPagerFragmentAdapter;
     private List<Fragment> fragmentList;
-
+    private MyRememberFragment myRememberFragment;
+    private AllChawenFragment allChawenFragment;
     private ArrayList<String> mTitleDataList;
 
     @Override
@@ -65,11 +82,41 @@ public class AllRememberActivity extends BaseActivity {
     private void initData() {
 
         fragmentList = new ArrayList<>();
-        fragmentList.add(new MyRememberFragment());
-        fragmentList.add(new AllChawenFragment());
+        myRememberFragment = new MyRememberFragment();
+        allChawenFragment = new AllChawenFragment();
+        fragmentList.add(myRememberFragment);
+        fragmentList.add(allChawenFragment);
         mViewPagerFragmentAdapter = new AllRememberViewpagerAdapter(mFragmentManager, fragmentList);
         mViewPager.setAdapter(mViewPagerFragmentAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0:
+                        tvWodeyouji.setTextColor(Color.parseColor("#D84C37"));
+                        tvCanxieyouji.setTextColor(Color.parseColor("#333333"));
+                        myRememberFragment.setKeyWord(edtSearch.getText().toString());
+                        allChawenFragment.setKeyWord("");
+                        break;
+                    case 1:
+                        tvWodeyouji.setTextColor(Color.parseColor("#333333"));
+                        tvCanxieyouji.setTextColor(Color.parseColor("#D84C37"));
+                        allChawenFragment.setKeyWord(edtSearch.getText().toString());
+                        myRememberFragment.setKeyWord("");
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         mTitleDataList = new ArrayList<>();
         mTitleDataList.add(" 我的友记 ");
         mTitleDataList.add(" 参写友记 ");
@@ -117,12 +164,31 @@ public class AllRememberActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_back})
-    public void onClick(View view){
+    @OnClick({R.id.rl_back,R.id.tv_search,R.id.rl_wodeyouji, R.id.rl_canxieyouji})
+    public void onClick(View view) {
         Intent intent = new Intent();
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.rl_back:
                 finish();
+                break;
+            case R.id.rl_wodeyouji:
+                mViewPager.setCurrentItem(0);
+                break;
+            case R.id.rl_canxieyouji:
+                mViewPager.setCurrentItem(1);
+                break;
+            case R.id.tv_search:
+                Log.d("asddsada",mViewPager.getCurrentItem()+"");
+                switch (mViewPager.getCurrentItem()){
+                    case 0:
+                        myRememberFragment.setKeyWord(edtSearch.getText().toString());
+                        myRememberFragment.searchData();
+                        break;
+                    case 1:
+                        allChawenFragment.setKeyWord(edtSearch.getText().toString());
+                        allChawenFragment.searchData();
+                        break;
+                }
                 break;
         }
     }

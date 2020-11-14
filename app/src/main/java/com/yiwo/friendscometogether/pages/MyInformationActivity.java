@@ -47,15 +47,19 @@ import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.GetJsonDataUtil;
 import com.yiwo.friendscometogether.utils.StringUtils;
 import com.yiwo.friendscometogether.utils.TokenUtils;
+import com.yiwo.friendscometogether.widget.CustomDatePicker;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -132,15 +136,14 @@ public class MyInformationActivity extends TakePhotoActivity {
     private ArrayList<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
-
-    private int mYear;
-    private int mMonth;
-    private int mDay;
-
     private SpImp spImp;
     private String uid = "";
 
     private static final int REQUEST_CODE = 0x00000011;
+
+
+    private CustomDatePicker customDatePicker1;
+    private String shouDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,9 +154,6 @@ public class MyInformationActivity extends TakePhotoActivity {
         ButterKnife.bind(this);
 
         Calendar ca = Calendar.getInstance();
-        mYear = ca.get(Calendar.YEAR);
-        mMonth = ca.get(Calendar.MONTH);
-        mDay = ca.get(Calendar.DAY_OF_MONTH);
 
         spImp = new SpImp(MyInformationActivity.this);
         ll.setOnTouchListener(new View.OnTouchListener() {
@@ -169,9 +169,20 @@ public class MyInformationActivity extends TakePhotoActivity {
             }
         });
         initData();
-
+        initDatePicker();
     }
-
+    private void initDatePicker() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
+        shouDate = sdf.format(new Date());
+        customDatePicker1 = new CustomDatePicker(this, new CustomDatePicker.ResultHandler() {
+            @Override
+            public void handle(String time) { // 回调接口，获得选中的时间
+                tvBirthday.setText(time.substring(0,10));
+            }
+        }, "1900-01-01 00:00", "2100-01-01 00:00"); // 初始化日期格式请用：yyyy-MM-dd HH:mm，否则不能正常运行
+        customDatePicker1.showSpecificTime(false); // 不显示时和分
+        customDatePicker1.setIsLoop(false); // 不允许循环滚动
+    }
     private void initData() {
 
         Observable.just("").subscribeOn(Schedulers.newThread()).subscribe(new Observer<String>() {
@@ -322,8 +333,8 @@ public class MyInformationActivity extends TakePhotoActivity {
                 pvOptions.show();
                 break;
             case R.id.activity_my_information_rl_birthday:
+                customDatePicker1.show(shouDate);
                 //用户生日
-                new DatePickerDialog(MyInformationActivity.this, onDateSetListener, mYear, mMonth, mDay).show();
                 break;
             case R.id.activity_my_information_rl_register_time:
 //                new DatePickerDialog(MyInformationActivity.this, onRegisterDateSetListener, mYear, mMonth, mDay).show();
@@ -678,73 +689,7 @@ public class MyInformationActivity extends TakePhotoActivity {
 
     }
 
-    /**
-     * 注册日期选择器对话框监听
-     */
-    private DatePickerDialog.OnDateSetListener onRegisterDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            mYear = year;
-            mMonth = monthOfYear;
-            mDay = dayOfMonth;
-            String days;
-            if (mMonth + 1 < 10) {
-                if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("-").append("0").
-                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
-                } else {
-                    days = new StringBuffer().append(mYear).append("-").append("0").
-                            append(mMonth + 1).append("-").append(mDay).append("").toString();
-                }
-
-            } else {
-                if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("-").
-                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
-                } else {
-                    days = new StringBuffer().append(mYear).append("-").
-                            append(mMonth + 1).append("-").append(mDay).append("").toString();
-                }
-
-            }
-            tvRegister.setText(days);
-        }
-    };
-
-    /**
-     * 出生日期选择器对话框监听
-     */
-    private DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            mYear = year;
-            mMonth = monthOfYear;
-            mDay = dayOfMonth;
-            String days;
-            if (mMonth + 1 < 10) {
-                if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("-").append("0").
-                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
-                } else {
-                    days = new StringBuffer().append(mYear).append("-").append("0").
-                            append(mMonth + 1).append("-").append(mDay).append("").toString();
-                }
-
-            } else {
-                if (mDay < 10) {
-                    days = new StringBuffer().append(mYear).append("-").
-                            append(mMonth + 1).append("-").append("0").append(mDay).append("").toString();
-                } else {
-                    days = new StringBuffer().append(mYear).append("-").
-                            append(mMonth + 1).append("-").append(mDay).append("").toString();
-                }
-
-            }
-            tvBirthday.setText(days);
-        }
-    };
 
     @Override
     public void onBackPressed() {

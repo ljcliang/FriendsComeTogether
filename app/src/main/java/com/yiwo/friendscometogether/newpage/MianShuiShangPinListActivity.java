@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -47,6 +49,8 @@ public class MianShuiShangPinListActivity extends BaseActivity {
     RecyclerView rv;
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
+    @BindView(R.id.iv_zanwu)
+    ImageView ivZanwu;
     private SpImp spImp;
     private List<HomePageSkipGoodsModel.ObjBean> list = new ArrayList<>();
     MianShuiShangPin_Adapter adapter;
@@ -77,6 +81,13 @@ public class MianShuiShangPinListActivity extends BaseActivity {
                                 HomePageSkipGoodsModel model = gson.fromJson(data, HomePageSkipGoodsModel.class);
                                 list.clear();
                                 list.addAll(model.getObj());
+                                if (list.size()==0){
+                                    rv.setVisibility(View.GONE);
+                                    ivZanwu.setVisibility(View.VISIBLE);
+                                }else {
+                                    rv.setVisibility(View.VISIBLE);
+                                    ivZanwu.setVisibility(View.GONE);
+                                }
                                 adapter.notifyDataSetChanged();
                                 page = 2;
                             }

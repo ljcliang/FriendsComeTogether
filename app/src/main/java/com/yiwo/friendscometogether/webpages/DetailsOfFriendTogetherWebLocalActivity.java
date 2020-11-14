@@ -135,6 +135,7 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
         uid = spImp.getUID();
         webInfoOfDbUntils = new WebInfoOfDbUntils(this);
         pfID = getIntent().getStringExtra("pfID");
+        Log.d("sdaasdsad",pfID);
         url = "file:///android_asset/htmlfile/demoU.html";
         setDatabase();
         lookHistoryDbModelDao = mDaoSession.getLookHistoryDbModelDao();
@@ -152,11 +153,12 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
                             String strr2 = "";
                             String strr3 = "1";//0youji,1youju;2shangpin,5jingcailuxian;3canjiarenyuan;
                             strr1 = WebUntils.replaceStr(strr1);
+                            Log.d("sdaasdsad000",strr1);
                             webView.loadUrl("javascript:getTongbanDataAndroid('"+strr1+"','"+strr2+"','"+strr3+"','"+spImp.getUID()+"')");
                             /**
                              * 加载之后再次查询更新数据库
                              */
-                            saveNewWebInFo();
+                            saveNewWebInFo(pfID);
                         }else {
                             ViseHttp.POST(NetConfig.articleInfo)
                                     .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
@@ -171,6 +173,7 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
                                                 if (jsonObject.getInt("code") == 200){
                                                     Gson gson = new Gson();
                                                     LocalWebInfoModel mode =  gson.fromJson(data,LocalWebInfoModel.class);
+                                                    Log.d("sdaasdsad",mode.getObj().getStr());
                                                     String strr1 = mode.getObj().getStr();
                                                     String strr2 = "";
                                                     String strr3 = "1";
@@ -261,11 +264,11 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
 
         webView.loadUrl("javascript:supplement('"+id+"','"+type+"','"+ staus+"')");
     }
-    private void saveNewWebInFo() {
+    private void saveNewWebInFo(String id) {
         ViseHttp.POST(NetConfig.articleInfo)
                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.articleInfo))
                 .addParam("uid", spImp.getUID())
-                .addParam("fmID",pfID)
+                .addParam("fmID",id)
                 .addParam("type","1")
                 .request(new ACallback<String>() {
                     @Override
@@ -415,7 +418,14 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
                                     it.putExtra("Pfexplain",model.getObj().getInfo().getOthers());
                                     startActivity(it);
                                 } else if (models.getObj().getOk().equals("1")) {
-                                    toToast(DetailsOfFriendTogetherWebLocalActivity.this, "请于身份审核通过后报名");
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(DetailsOfFriendTogetherWebLocalActivity.this);
+                                    builder.setMessage("请于身份审核通过后报名")
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            }).show();
                                 } else {
                                     startActivity(new Intent(DetailsOfFriendTogetherWebLocalActivity.this, RealNameActivity.class));
                                 }
@@ -658,6 +668,21 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
                 }
             });
             dialogL.show();
+        }
+        /**
+         *
+         * @param youjiIds youjiId 逗号分割
+         */
+        @JavascriptInterface
+        public void loadmore(String youjiIds){
+            Log.d("交互方法","loadmore");
+            Log.d("sssss",youjiIds);
+            String[] strings = youjiIds.split(",");
+            for (String s : strings){
+                if (!webInfoOfDbUntils.hasThisId_YouJi(s)){
+                    saveNewWebInFo(s);
+                }
+            }
         }
     }
 

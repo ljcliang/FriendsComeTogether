@@ -290,7 +290,7 @@
                                 android:layout_marginLeft="15px"
                                 android:layout_marginRight="15px"
                                 android:lines="1"
-                                android:text="Lv.1"
+                                android:text=""
                                 android:textColor="@color/black_101010"
                                 android:textSize="24px" />
 

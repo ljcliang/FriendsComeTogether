@@ -185,6 +185,7 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
         Intent intent = new Intent();
         intent.putExtra(GOOD_ID_KEY,goodId);
         intent.putExtra(SHOP_ID_KEY,shopUid);
+        Log.d("dsadasdas",shopUid);
         intent.setClass(context, ShopGoodsDetailsWebLocalActivity.class);
         context.startActivity(intent);
     }
@@ -203,7 +204,13 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
          */
         @JavascriptInterface
         public void tosharegoods(String shangpinId,String shangpinName,String shangpinInfo,String shangpinImage,String shareUrl){
-            sharegoods( shangpinId, shangpinName, shangpinInfo, shangpinImage, shareUrl);
+            if (shopUid.equals("0")){
+                share(goodId);
+                Log.d("shopuid==0",shopUid);
+            }else {
+                sharegoods( shangpinId, shangpinName, shangpinInfo, shangpinImage, shareUrl+"&fx_uid="+shopUid);
+                Log.d("shopuid！=0",shopUid);
+            }
         }
         /**
          * gotoapp()  跳到app首页的交互方法
@@ -312,6 +319,7 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
         }
         @JavascriptInterface
         public void sharego(){//分享
+
             share(goodId);
         }
         @JavascriptInterface
@@ -480,11 +488,16 @@ public class ShopGoodsDetailsWebLocalActivity extends BaseSonicWebActivity {
     }
 
     public void sharegoods(String shangpinId,String shangpinName,String shangpinInfo,String shangpinImage,String shareUrl){
+        if (shopUid.equals("0")){
+        }else {
+            shareUrl = shareUrl+"&fx_uid="+shopUid;
+        }
+        String finalShareUrl = shareUrl;
         new ShareAction(ShopGoodsDetailsWebLocalActivity.this).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
                 .setShareboardclickCallback(new ShareBoardlistener() {
                     @Override
                     public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
-                        ShareUtils.shareWeb(ShopGoodsDetailsWebLocalActivity.this, shareUrl, shangpinName,
+                        ShareUtils.shareWeb(ShopGoodsDetailsWebLocalActivity.this, finalShareUrl, shangpinName,
                                 shangpinInfo, shangpinImage, share_media);
                     }
                 }).open();
