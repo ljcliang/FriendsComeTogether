@@ -182,7 +182,7 @@ public class MyRememberAdapter extends RecyclerView.Adapter<MyRememberAdapter.Vi
             holder.tvCanYuXieZuo.setText("团友共有"+data.get(position).getInNum()+"人参与写作");
         }
         holder.tvFaBuShiJian.setText("发表时间： "+data.get(position).getFmtime());
-        holder.tvGuanLianHuoDong.setText("关联活动： "+data.get(position).getPftitle());
+        holder.tvGuanLianHuoDong.setText("相关关联： "+data.get(position).getPftitle());
     }
 
     @Override

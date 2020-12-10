@@ -90,7 +90,7 @@ public class HomeShopGoodsFragment extends BaseFragment {
     private SpImp spImp;
     private int page4 = 1;
     private WebInfoOfDbUntils webInfoOfDbUntils;
-
+    public String search_key_word = "";
     //友铺
     RecyclerView rv_youpu;//小视频
     private HomeYouPu_Adapter youPuAdapter;//视频列表适配器
@@ -212,11 +212,13 @@ public class HomeShopGoodsFragment extends BaseFragment {
                     });
         }
     }
-    private void initData() {
+    public void initData() {
+        Log.d("asdasdas",search_key_word);
         //友铺
         ViseHttp.POST(NetConfig.homeGoodsList)
                 .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.homeGoodsList))
                 .addParam("uid", spImp.getUID())
+                .addParam("search_key_word",search_key_word)
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
@@ -269,6 +271,7 @@ public class HomeShopGoodsFragment extends BaseFragment {
                 ViseHttp.POST(NetConfig.homeGoodsList)
                         .addParam("app_key", getToken(NetConfig.BaseUrl+NetConfig.homeGoodsList))
                         .addParam("uid", spImp.getUID())
+                        .addParam("search_key_word",search_key_word)
                         .addParam("page",page4+"")
                         .request(new ACallback<String>() {
                             @Override

@@ -7,18 +7,66 @@
     android:layout_height="match_parent"
     tools:context=".newpage.ZiXunListActivity">
     <RelativeLayout
+        android:id="@+id/rl_top"
         style="@style/rl_top_bar_dp">
         <RelativeLayout
             android:id="@+id/rl_back"
-            style="@style/rl_return">
+            style="@style/rl_return_dp">
             <ImageView
                 style="@style/iv_return_dp"/>
         </RelativeLayout>
         <TextView
-            android:id="@+id/tv_title"
-            android:text="新闻资讯"
-            style="@style/tv_top_title_dp"/>
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_search"
+            android:gravity="center"
+            android:text="搜索"
+            android:textSize="14sp"
+            android:textColor="@color/black_101010"
+            android:layout_marginRight="5dp"
+            android:layout_weight="5"
+            android:layout_width="60dp"
+            android:layout_height="40dp" />
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:id="@+id/ll_search"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/rl_back"
+            android:layout_toLeftOf="@+id/tv_search"
+            android:background="@drawable/bg_search_edt"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/sousuo_red"
+                android:layout_width="15dp"
+                android:layout_height="15dp"/>
+            <EditText
+                android:background="@null"
+                android:lines="1"
+                android:id="@+id/edt_search"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:textSize="14sp"
+                android:hint="搜索关键词"
+                android:paddingLeft="10dp"
+                android:paddingRight="25dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </RelativeLayout>
+<!--    <RelativeLayout-->
+<!--        style="@style/rl_top_bar_dp">-->
+<!--        -->
+<!--        <TextView-->
+<!--            android:id="@+id/tv_title"-->
+<!--            android:text="新闻资讯"-->
+<!--            style="@style/tv_top_title_dp"/>-->
+<!--    </RelativeLayout>-->
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"

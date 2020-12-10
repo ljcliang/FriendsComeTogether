@@ -121,7 +121,16 @@ public class MyFriendFragment  extends BaseFragment{
                                 MyFriendModel model = gson.fromJson(data, MyFriendModel.class);
                                 //set adapter
                                 mDatas = model.getObj();
-                                adapter = new MyFriendAdapter(getContext(), mDatas);
+                                adapter = new MyFriendAdapter(getContext(), mDatas, new MyFriendAdapter.Listenner() {
+                                    @Override
+                                    public void onHeadClick(int pos) {
+                                        //进主页
+                                        Intent intent = new Intent();
+                                        intent.putExtra("person_id", mDatas.get(pos).getUid());
+                                        intent.setClass(getContext(), PersonMainActivity1.class);
+                                        startActivity(intent);
+                                    }
+                                });
                                 listView.setAdapter(adapter);
 
                                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

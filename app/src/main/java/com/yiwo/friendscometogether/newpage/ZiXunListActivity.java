@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,8 +25,8 @@ import com.vise.xsnow.http.callback.ACallback;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.network.NetConfig;
-import com.yiwo.friendscometogether.newadapter.hometuijian_five_list.WenLvZiXunAdapter;
 import com.yiwo.friendscometogether.newadapter.hometuijian_five_list.JingDianDaKa_Adapter;
+import com.yiwo.friendscometogether.newadapter.hometuijian_five_list.WenLvZiXunAdapter;
 import com.yiwo.friendscometogether.newadapter.hometuijian_five_list.ZuiXinZhaoMu_Adapter;
 import com.yiwo.friendscometogether.newmodel.HomePageSkipListModel;
 import com.yiwo.friendscometogether.sp.SpImp;
@@ -50,8 +51,12 @@ public class ZiXunListActivity extends BaseActivity {
     RecyclerView rv;
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
+    @BindView(R.id.tv_search)
+    TextView tvSearch;
+    @BindView(R.id.edt_search)
+    EditText edtSearch;
+    //    @BindView(R.id.tv_title)
+//    TextView tvTitle;
     private SpImp spImp;
     private List<HomePageSkipListModel.ObjBean.InfoListBean> list = new ArrayList<>();
     RecyclerView.Adapter adapter;
@@ -83,16 +88,18 @@ public class ZiXunListActivity extends BaseActivity {
                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.homePageSkipList))
                 .addParam("uid", spImp.getUID())
                 .addParam("type", getIntent().getStringExtra(LIST_TYPE))
+                .addParam("search_key_word",edtSearch.getText().toString())
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
-                        Log.d("asdasda",data);
+                        Log.d("asdasda", data);
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             if (jsonObject.getInt("code") == 200) {
                                 Gson gson = new Gson();
                                 HomePageSkipListModel model = gson.fromJson(data, HomePageSkipListModel.class);
                                 list.clear();
+                                adapter.notifyDataSetChanged();
                                 list.addAll(model.getObj().getInfoList());
                                 adapter.notifyDataSetChanged();
                                 page = 2;
@@ -118,14 +125,14 @@ public class ZiXunListActivity extends BaseActivity {
                 LinearLayoutManager manager0 = new LinearLayoutManager(this);
                 manager0.setOrientation(LinearLayoutManager.VERTICAL);
                 adapter = new ZuiXinZhaoMu_Adapter(list);
-                tvTitle.setText("最新招募");
+//                tvTitle.setText("最新招募");
                 rv.setLayoutManager(manager0);
                 break;
             case "1"://1文旅资讯
                 LinearLayoutManager manager1 = new LinearLayoutManager(this);
                 manager1.setOrientation(LinearLayoutManager.VERTICAL);
                 adapter = new WenLvZiXunAdapter(list);
-                tvTitle.setText("新闻资讯");
+//                tvTitle.setText("新闻资讯");
                 rv.setLayoutManager(manager1);
                 break;
             case "2"://2经典打卡
@@ -136,7 +143,7 @@ public class ZiXunListActivity extends BaseActivity {
                     }
                 };
                 adapter = new JingDianDaKa_Adapter(list);
-                tvTitle.setText("经典打卡");
+//                tvTitle.setText("经典打卡");
                 rv.setLayoutManager(manager2);
                 break;
         }
@@ -157,6 +164,7 @@ public class ZiXunListActivity extends BaseActivity {
                         .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.homePageSkipList))
                         .addParam("uid", spImp.getUID())
                         .addParam("type", getIntent().getStringExtra(LIST_TYPE))
+                        .addParam("search_key_word",edtSearch.getText().toString())
                         .addParam("page", page + "")
                         .request(new ACallback<String>() {
                             @Override
@@ -187,11 +195,14 @@ public class ZiXunListActivity extends BaseActivity {
         });
     }
 
-    @OnClick(R.id.rl_back)
+    @OnClick({R.id.rl_back,R.id.tv_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_back:
                 onBackPressed();
+                break;
+            case R.id.tv_search:
+                initData();
                 break;
         }
     }

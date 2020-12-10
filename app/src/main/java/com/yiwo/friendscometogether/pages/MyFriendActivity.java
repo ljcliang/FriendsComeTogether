@@ -131,7 +131,15 @@ public class MyFriendActivity extends BaseActivity {
                                 MyFriendModel model = gson.fromJson(data, MyFriendModel.class);
                                 //set adapter
                                 mDatas = model.getObj();
-                                adapter = new MyFriendAdapter(MyFriendActivity.this, mDatas);
+                                adapter = new MyFriendAdapter(MyFriendActivity.this, mDatas, new MyFriendAdapter.Listenner() {
+                                    @Override
+                                    public void onHeadClick(int pos) {
+                                        Intent intent = new Intent();
+                                        intent.putExtra("person_id", mDatas.get(pos).getUid());
+                                        intent.setClass(MyFriendActivity.this, PersonMainActivity1.class);
+                                        startActivity(intent);
+                                    }
+                                });
                                 listView.setAdapter(adapter);
 
                                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -22,11 +22,12 @@ public class MyFriendAdapter extends BaseSortListViewAdapter<MyFriendModel.ObjBe
 
     private Context context;
     private List<MyFriendModel.ObjBean> data;
-
-    public MyFriendAdapter(Context ctx, List<MyFriendModel.ObjBean> datas) {
+    private Listenner listenner;
+    public MyFriendAdapter(Context ctx, List<MyFriendModel.ObjBean> datas,Listenner listenner) {
         super(ctx, datas);
         this.context = ctx;
         this.data = datas;
+        this.listenner = listenner;
     }
 
     @Override
@@ -46,11 +47,19 @@ public class MyFriendAdapter extends BaseSortListViewAdapter<MyFriendModel.ObjBe
     public void bindValues(ViewHolder viewHolder, int position) {
         Glide.with(context).load(data.get(position).getUserpic()).into(viewHolder.iv);
         viewHolder.tvName.setText(data.get(position).getUsername());
+        viewHolder.iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listenner.onHeadClick(position);
+            }
+        });
     }
 
     public static class ViewHolder extends BaseViewHolder {
         protected ImageView iv;
         protected TextView tvName;
     }
-
+    public interface Listenner{
+        void onHeadClick(int pos);
+    }
 }

@@ -4,10 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,7 +27,6 @@ import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.newadapter.hometuijian_five_list.MianShuiShangPin_Adapter;
 import com.yiwo.friendscometogether.newmodel.HomePageSkipGoodsModel;
 import com.yiwo.friendscometogether.sp.SpImp;
-import com.yiwo.friendscometogether.widget.FullyLinearLayoutManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,19 +42,22 @@ public class MianShuiShangPinListActivity extends BaseActivity {
 
     @BindView(R.id.rl_back)
     RelativeLayout rlBack;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
+//    @BindView(R.id.tv_title)
+//    TextView tvTitle;
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.iv_zanwu)
     ImageView ivZanwu;
+    @BindView(R.id.edt_search)
+    EditText edtSearch;
     private SpImp spImp;
     private List<HomePageSkipGoodsModel.ObjBean> list = new ArrayList<>();
     MianShuiShangPin_Adapter adapter;
     public static final String LIST_TYPE = "list_type";
     private int page = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +72,7 @@ public class MianShuiShangPinListActivity extends BaseActivity {
         ViseHttp.POST(NetConfig.homePageSkipGoods)
                 .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.homePageSkipGoods))
                 .addParam("uid", spImp.getUID())
+                .addParam("search_key_word",edtSearch.getText().toString())
                 .addParam("type", getIntent().getStringExtra(LIST_TYPE))
                 .request(new ACallback<String>() {
                     @Override
@@ -80,11 +83,12 @@ public class MianShuiShangPinListActivity extends BaseActivity {
                                 Gson gson = new Gson();
                                 HomePageSkipGoodsModel model = gson.fromJson(data, HomePageSkipGoodsModel.class);
                                 list.clear();
+                                adapter.notifyDataSetChanged();
                                 list.addAll(model.getObj());
-                                if (list.size()==0){
+                                if (list.size() == 0) {
                                     rv.setVisibility(View.GONE);
                                     ivZanwu.setVisibility(View.VISIBLE);
-                                }else {
+                                } else {
                                     rv.setVisibility(View.VISIBLE);
                                     ivZanwu.setVisibility(View.GONE);
                                 }
@@ -106,9 +110,8 @@ public class MianShuiShangPinListActivity extends BaseActivity {
     }
 
     /**
-     *
      * @param context
-     * @param type  type  0免税商品  1特价商品
+     * @param type    type  0免税商品  1特价商品
      */
     public static void open(Context context, String type) {
         Intent intent = new Intent();
@@ -116,17 +119,18 @@ public class MianShuiShangPinListActivity extends BaseActivity {
         intent.setClass(context, MianShuiShangPinListActivity.class);
         context.startActivity(intent);
     }
+
     private void initView() {
-        switch (getIntent().getStringExtra(LIST_TYPE)){
+        switch (getIntent().getStringExtra(LIST_TYPE)) {
             case "0":
-                tvTitle.setText("特价商品");
+//                tvTitle.setText("特价商品");
                 break;
             case "1":
-                tvTitle.setText("队长带货");
+//                tvTitle.setText("队长带货");
                 break;
         }
         // /设置布局管理器为2列，纵向
-        StaggeredGridLayoutManager managerDuiZhangPuZi = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL){
+        StaggeredGridLayoutManager managerDuiZhangPuZi = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL) {
             @Override
             public boolean canScrollVertically() {
                 return true;
@@ -151,6 +155,7 @@ public class MianShuiShangPinListActivity extends BaseActivity {
                         .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.homePageSkipGoods))
                         .addParam("uid", spImp.getUID())
                         .addParam("type", getIntent().getStringExtra(LIST_TYPE))
+                        .addParam("search_key_word",edtSearch.getText().toString())
                         .addParam("page", page + "")
                         .request(new ACallback<String>() {
                             @Override
@@ -181,8 +186,15 @@ public class MianShuiShangPinListActivity extends BaseActivity {
         });
     }
 
-    @OnClick(R.id.rl_back)
-    public void onViewClicked() {
-        onBackPressed();
+    @OnClick({R.id.rl_back, R.id.tv_search})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.rl_back:
+                onBackPressed();
+                break;
+            case R.id.tv_search:
+                initData();
+                break;
+        }
     }
 }
