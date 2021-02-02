@@ -285,6 +285,7 @@ public class HomeTuiJianFragment extends BaseFragment {
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(final String data) {
+                        Log.d("asdasdasd",data);
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             if (jsonObject.getInt("code") == 200) {
@@ -812,10 +813,17 @@ public class HomeTuiJianFragment extends BaseFragment {
         banner.setOnItemClickListener(new XBanner.OnItemClickListener() {
             @Override
             public void onItemClick(XBanner banner, Object model, View view, int position) {
-                Intent intent = new Intent();
-                intent.setClass(getContext(), DetailsOfFriendTogetherWebLocalActivity.class);
-                intent.putExtra("pfID", listBanner.get(position).getSid());
-                startActivity(intent);
+                if (listBanner.get(position).getJumpType().equals("2")){
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(), DetailsOfFriendsWebLocalActivity.class);
+                    intent.putExtra("fmid", listBanner.get(position).getSid());
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(), DetailsOfFriendTogetherWebLocalActivity.class);
+                    intent.putExtra("pfID", listBanner.get(position).getSid());
+                    startActivity(intent);
+                }
             }
         });
         banner.setBannerData(R.layout.lay_banner_img, listBanner);

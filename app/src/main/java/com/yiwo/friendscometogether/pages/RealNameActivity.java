@@ -92,7 +92,7 @@ public class RealNameActivity extends BaseActivity {
         initData();
 
     }
-
+    public UserRealNameInfoModel modelData;
     private void initData() {
 
         uid = spImp.getUID();
@@ -108,23 +108,26 @@ public class RealNameActivity extends BaseActivity {
                             if (jsonObject.getInt("code") == 200) {
                                 Log.d("dadad",data);
                                 Gson gson = new Gson();
-                                UserRealNameInfoModel model = gson.fromJson(data, UserRealNameInfoModel.class);
-                                status = model.getObj().getUsercodeok();
-                                if (model.getObj().getUsercodeok().equals("0") || model.getObj().getUsercodeok().equals("3")) {
+                                modelData = gson.fromJson(data, UserRealNameInfoModel.class);
+                                status = modelData.getObj().getUsercodeok();
+                                if (modelData.getObj().getUsercodeok().equals("0") || modelData.getObj().getUsercodeok().equals("3")) {
 
-                                } else if (model.getObj().getUsercodeok().equals("2")) {
+                                } else if (modelData.getObj().getUsercodeok().equals("2")) {
                                     rlComplete.setVisibility(View.GONE);
-                                    etName.setText(model.getObj().getUsertruename());
-                                    etIdNum.setText(model.getObj().getUsercodenum());
-                                    Picasso.with(RealNameActivity.this).load(model.getObj().getUsercode()).into(ivId1);
-                                    Picasso.with(RealNameActivity.this).load(model.getObj().getUsercodeback()).into(ivId2);
+                                    etName.setText(modelData.getObj().getUsertruename());
+                                    etIdNum.setText(modelData.getObj().getUsercodenum());
+                                    Picasso.with(RealNameActivity.this).load(modelData.getObj().getUsercode()).into(ivId1);
+                                    Picasso.with(RealNameActivity.this).load(modelData.getObj().getUsercodeback()).into(ivId2);
                                     ivId1.setVisibility(View.VISIBLE);
                                     ivId2.setVisibility(View.VISIBLE);
-                                } else {
-                                    etName.setText(model.getObj().getUsertruename());
-                                    etIdNum.setText(model.getObj().getUsercodenum());
-                                    Picasso.with(RealNameActivity.this).load(model.getObj().getUsercode()).into(ivId1);
-                                    Picasso.with(RealNameActivity.this).load(model.getObj().getUsercodeback()).into(ivId2);
+                                } else if (modelData.getObj().getUsercodeok().equals("4")) {
+                                    etName.setText(modelData.getObj().getUsertruename());
+                                    etIdNum.setText(modelData.getObj().getUsercodenum());
+                                }else  {
+                                    etName.setText(modelData.getObj().getUsertruename());
+                                    etIdNum.setText(modelData.getObj().getUsercodenum());
+                                    Picasso.with(RealNameActivity.this).load(modelData.getObj().getUsercode()).into(ivId1);
+                                    Picasso.with(RealNameActivity.this).load(modelData.getObj().getUsercodeback()).into(ivId2);
                                     ivId1.setVisibility(View.VISIBLE);
                                     ivId2.setVisibility(View.VISIBLE);
                                 }
@@ -167,7 +170,8 @@ public class RealNameActivity extends BaseActivity {
                         .start(RealNameActivity.this, REQUEST_CODE1); // 打开相册
                 break;
             case R.id.activity_real_name_rl_complete:
-                if (status.equals("0") || status.equals("3")) {
+
+                if (status.equals("0") || status.equals("3")||status.equals("4")) {
                     onComplete();
                 } else if (status.equals("1")) {
                     toToast(RealNameActivity.this, "审核中");
@@ -180,110 +184,150 @@ public class RealNameActivity extends BaseActivity {
 
     private void onComplete() {
 
-        if (TextUtils.isEmpty(etName.getText().toString()) || TextUtils.isEmpty(etIdNum.getText().toString()) ||
-                TextUtils.isEmpty(userImg) || TextUtils.isEmpty(userImgBack)) {
+        if (TextUtils.isEmpty(etName.getText().toString()) || TextUtils.isEmpty(etIdNum.getText().toString())
+//                ||TextUtils.isEmpty(userImg) || TextUtils.isEmpty(userImgBack)
+        ) {
             toToast(RealNameActivity.this, "请完善信息");
         } else {
-            Observable<List<File>> observable = Observable.create(new ObservableOnSubscribe<List<File>>() {
-                @Override
-                public void subscribe(final ObservableEmitter<List<File>> e) throws Exception {
-                    dialog = WeiboDialogUtils.createLoadingDialog(RealNameActivity.this, "请等待...");
-                    List<String> list = new ArrayList<>();
-                    list.add(userImg);
-                    list.add(userImgBack);
-                    final List<File> files = new ArrayList<>();
-                    Luban.with(RealNameActivity.this)
-                            .load(list)
-                            .ignoreBy(100)
-                            .filter(new CompressionPredicate() {
-                                @Override
-                                public boolean apply(String path) {
-                                    return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
-                                }
-                            })
-                            .setCompressListener(new OnCompressListener() {
-                                @Override
-                                public void onStart() {
-                                    // TODO 压缩开始前调用，可以在方法内启动 loading UI
-                                }
-
-                                @Override
-                                public void onSuccess(File file) {
-                                    // TODO 压缩成功后调用，返回压缩后的图片文件
-                                    files.add(file);
-                                    if (files.size() == 2) {
-                                        e.onNext(files);
+            if (TextUtils.isEmpty(userImg) || TextUtils.isEmpty(userImgBack)){
+                ViseHttp.UPLOAD(NetConfig.realNameUrl)
+                        .addHeader("Content-Type", "multipart/form-data")
+                        .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.realNameUrl))
+                        .addParam("uid", uid)
+                        .addParam("name", etName.getText().toString())
+                        .addParam("code", etIdNum.getText().toString())
+                        .request(new ACallback<String>() {
+                            @Override
+                            public void onSuccess(String data) {
+                                Log.e("22222", data + "::::");
+                                Log.e("22222::", data +"");
+                                try {
+                                    JSONObject jsonObject = new JSONObject();
+                                    if (!TextUtils.isEmpty(data)) {
+                                        jsonObject = new JSONObject(data);
                                     }
-                                }
-
-                                @Override
-                                public void onError(Throwable e) {
-                                    // TODO 当压缩过程出现问题时调用
-                                }
-                            }).launch();
-                }
-            });
-            Observer<List<File>> observer = new Observer<List<File>>() {
-                @Override
-                public void onSubscribe(Disposable d) {
-
-                }
-
-                @Override
-                public void onNext(List<File> value) {
-                    ViseHttp.UPLOAD(NetConfig.realNameUrl)
-                            .addHeader("Content-Type", "multipart/form-data")
-                            .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.realNameUrl))
-                            .addParam("uid", uid)
-                            .addParam("name", etName.getText().toString())
-                            .addParam("code", etIdNum.getText().toString())
-                            .addFile("usercode", value.get(0))
-                            .addFile("usercodeback", value.get(1))
-                            .request(new ACallback<String>() {
-                                @Override
-                                public void onSuccess(String data) {
-                                    Log.e("22222", data + "::::");
-                                    Log.e("22222::", data +"");
-                                    try {
-                                        JSONObject jsonObject = new JSONObject();
-                                        if (!TextUtils.isEmpty(data)) {
-                                            jsonObject = new JSONObject(data);
-                                        }
-                                        if (jsonObject.getInt("code") == 200) {
-                                            toToast(RealNameActivity.this, "已提交审核");
-                                        }
-                                        if (jsonObject.getInt("code") == 400) {
-                                            toToast(RealNameActivity.this, jsonObject.getString("message"));
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
+                                    if (jsonObject.getInt("code") == 200) {
+                                        toToast(RealNameActivity.this, "已提交审核");
                                     }
-                                    onBackPressed();
-                                    WeiboDialogUtils.closeDialog(dialog);
+                                    if (jsonObject.getInt("code") == 400) {
+                                        toToast(RealNameActivity.this, jsonObject.getString("message"));
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
+                                onBackPressed();
+                                WeiboDialogUtils.closeDialog(dialog);
+                            }
 
-                                @Override
-                                public void onFail(int errCode, String errMsg) {
-                                    Log.e("22222", errMsg);
-                                    WeiboDialogUtils.closeDialog(dialog);
-                                    toToast(RealNameActivity.this,"验证失败："+errMsg);
-                                }
-                            });
-                }
+                            @Override
+                            public void onFail(int errCode, String errMsg) {
+                                Log.e("22222", errMsg);
+                                WeiboDialogUtils.closeDialog(dialog);
+                                toToast(RealNameActivity.this,"验证失败："+errMsg);
+                            }
+                        });
+            }else {
+                Observable<List<File>> observable = Observable.create(new ObservableOnSubscribe<List<File>>() {
+                    @Override
+                    public void subscribe(final ObservableEmitter<List<File>> e) throws Exception {
+                        dialog = WeiboDialogUtils.createLoadingDialog(RealNameActivity.this, "请等待...");
+                        List<String> list = new ArrayList<>();
+                        list.add(userImg);
+                        list.add(userImgBack);
+                        final List<File> files = new ArrayList<>();
+                        Luban.with(RealNameActivity.this)
+                                .load(list)
+                                .ignoreBy(100)
+                                .filter(new CompressionPredicate() {
+                                    @Override
+                                    public boolean apply(String path) {
+                                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                                    }
+                                })
+                                .setCompressListener(new OnCompressListener() {
+                                    @Override
+                                    public void onStart() {
+                                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                                    }
 
-                @Override
-                public void onError(Throwable e) {
+                                    @Override
+                                    public void onSuccess(File file) {
+                                        // TODO 压缩成功后调用，返回压缩后的图片文件
+                                        files.add(file);
+                                        if (files.size() == 2) {
+                                            e.onNext(files);
+                                        }
+                                    }
 
-                }
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        // TODO 当压缩过程出现问题时调用
+                                    }
+                                }).launch();
+                    }
+                });
+                Observer<List<File>> observer = new Observer<List<File>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-                @Override
-                public void onComplete() {
+                    }
 
-                }
-            };
-            observable.observeOn(Schedulers.newThread())
-                    .subscribeOn(AndroidSchedulers.mainThread())
-                    .subscribe(observer);
+                    @Override
+                    public void onNext(List<File> value) {
+                        ViseHttp.UPLOAD(NetConfig.realNameUrl)
+                                .addHeader("Content-Type", "multipart/form-data")
+                                .addParam("app_key", getToken(NetConfig.BaseUrl + NetConfig.realNameUrl))
+                                .addParam("uid", uid)
+                                .addParam("name", etName.getText().toString())
+                                .addParam("code", etIdNum.getText().toString())
+                                .addFile("usercode", value.get(0))
+                                .addFile("usercodeback", value.get(1))
+                                .request(new ACallback<String>() {
+                                    @Override
+                                    public void onSuccess(String data) {
+                                        Log.e("22222", data + "::::");
+                                        Log.e("22222::", data +"");
+                                        try {
+                                            JSONObject jsonObject = new JSONObject();
+                                            if (!TextUtils.isEmpty(data)) {
+                                                jsonObject = new JSONObject(data);
+                                            }
+                                            if (jsonObject.getInt("code") == 200) {
+                                                toToast(RealNameActivity.this, "已提交审核");
+                                            }
+                                            if (jsonObject.getInt("code") == 400) {
+                                                toToast(RealNameActivity.this, jsonObject.getString("message"));
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                        onBackPressed();
+                                        WeiboDialogUtils.closeDialog(dialog);
+                                    }
+
+                                    @Override
+                                    public void onFail(int errCode, String errMsg) {
+                                        Log.e("22222", errMsg);
+                                        WeiboDialogUtils.closeDialog(dialog);
+                                        toToast(RealNameActivity.this,"验证失败："+errMsg);
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                };
+                observable.observeOn(Schedulers.newThread())
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .subscribe(observer);
+            }
         }
 
     }

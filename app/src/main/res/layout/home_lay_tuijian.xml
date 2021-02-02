@@ -51,6 +51,7 @@
                             app:pointsPosition="LEFT"
                             android:layout_height="420px" />
                         <RelativeLayout
+                            android:visibility="gone"
                             android:background="@drawable/bg_f6f6f6_top_8dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -167,7 +168,7 @@
                             </LinearLayout>
                         </RelativeLayout>
                         <LinearLayout
-                            android:background="@color/white_ffffff"
+                            android:background="@drawable/bg_white_30px_top"
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
