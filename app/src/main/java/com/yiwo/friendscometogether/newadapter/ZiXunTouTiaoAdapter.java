@@ -64,6 +64,11 @@ public class ZiXunTouTiaoAdapter extends RecyclerView.Adapter<ZiXunTouTiaoAdapte
                 context.startActivity(intent);
             }
         });
+        if (data.size()>=1 && position == data.size()-1){
+            holder.v_line.setVisibility(View.GONE);
+        }else {
+            holder.v_line.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -75,6 +80,7 @@ public class ZiXunTouTiaoAdapter extends RecyclerView.Adapter<ZiXunTouTiaoAdapte
         TextView tv_title,tv_look_num,tv_pinglun_num,tv_date;
         ImageView iv0,iv1,iv2;
         LinearLayout ll_all;
+        View v_line;
         public ViewHolder(View itemView) {
             super(itemView);
             tv_title =  itemView.findViewById(R.id.tv_title);
@@ -85,6 +91,7 @@ public class ZiXunTouTiaoAdapter extends RecyclerView.Adapter<ZiXunTouTiaoAdapte
             iv1 =  itemView.findViewById(R.id.iv1);
             iv2 =  itemView.findViewById(R.id.iv2);
             ll_all =  itemView.findViewById(R.id.ll_all);
+            v_line = itemView.findViewById(R.id.v_line);
         }
     }
 }
