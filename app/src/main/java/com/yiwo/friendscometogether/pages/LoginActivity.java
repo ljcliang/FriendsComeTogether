@@ -63,6 +63,8 @@ public class LoginActivity extends BaseActivity {
     TextView tv_XY_TK;
     @BindView(R.id.iv_show_pwd)
     ImageView iv_show_pwd;
+    @BindView(R.id.iv_agree)
+    ImageView iv_agree;
 //    @BindView(R.id.login_wechatIv)
 //    ImageView login_wechatIv;
     Context c;
@@ -70,7 +72,7 @@ public class LoginActivity extends BaseActivity {
     UMShareAPI api;
     private boolean isShowPwd = false;
     private String account;
-
+    private boolean isAgree = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +84,7 @@ public class LoginActivity extends BaseActivity {
         api = UMShareAPI.get(this);
     }
 
-    @OnClick({R.id.rl_set_return, R.id.login_btn, R.id.login_registerTv, R.id.login_forgetPwTv,R.id.tv_XY_TK,R.id.tv_TK,R.id.iv_show_pwd})
+    @OnClick({R.id.rl_set_return, R.id.rl_btn_agree,R.id.login_btn, R.id.login_registerTv, R.id.login_forgetPwTv,R.id.tv_XY_TK,R.id.tv_TK,R.id.iv_show_pwd})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_set_return:
@@ -90,6 +92,10 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.login_btn:
                 login(login_phoneEt.getText().toString(), login_pwEt.getText().toString());
+                break;
+            case  R.id.rl_btn_agree:
+                isAgree = !isAgree;
+                iv_agree.setImageResource(isAgree? R.mipmap.apply_true:R.mipmap.apply_false);
                 break;
             case R.id.login_registerTv:
                 Intent it = new Intent(c, RegisterActivity.class);
@@ -156,7 +162,9 @@ public class LoginActivity extends BaseActivity {
         if (!StringUtils.isPhoneNumberValid(phone)) {
 //        if (false) {
             toToast(this, "请输入正确的手机号");
-        } else {
+        } else if (!isAgree){
+            toToast(this, "请阅读并同意用户协议和隐私政策后使用");
+        }else {
             String token = getToken(NetConfig.BaseUrl + NetConfig.loginUrl);
             ViseHttp.POST(NetConfig.loginUrl)
                     .addParam("app_key", token)

@@ -108,13 +108,13 @@ public class MyApplication extends Application {
         NIMClient.init(this, loginInfo(), options(xm_config));
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
-        UMShareAPI.get(this);
-        UMConfigure.setLogEnabled(true);
-        UMConfigure.init(this, "5b5579fbb27b0a608200000d"
-                , "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
-        {
-            PlatformConfig.setWeixin(UMConfig.WECHAT_APPID, UMConfig.WECHAT_APPSECRET);
-        }
+//        UMShareAPI.get(this);
+//        UMConfigure.setLogEnabled(true);
+//        UMConfigure.init(this, "5b5579fbb27b0a608200000d"
+//                , "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+//        {
+//            PlatformConfig.setWeixin(UMConfig.WECHAT_APPID, UMConfig.WECHAT_APPSECRET);
+//        }
         ViseHttp.init(this);
         ViseHttp.CONFIG()
                 //配置请求主机地址
@@ -123,8 +123,8 @@ public class MyApplication extends Application {
         //oncreate方法中写
         timecount = new TimeCount(60000, 1000);
         ftptimecount = new FTPTimeCount(60000, 1000);
-        CrashReport.initCrashReport(getApplicationContext(), "20d02c310e", false);
-
+//        CrashReport.initCrashReport(getApplicationContext(), "20d02c310e", false);
+//
         if (NIMUtil.isMainProcess(this)) {
             // 注意：以下操作必须在主进程中进行
             // 注册自定义消息附件解析器

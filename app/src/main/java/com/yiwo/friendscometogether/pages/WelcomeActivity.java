@@ -1,6 +1,8 @@
 package com.yiwo.friendscometogether.pages;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -10,10 +12,22 @@ import com.netease.nim.uikit.business.session.module.MsgForwardFilter;
 import com.netease.nim.uikit.business.session.module.MsgRevokeFilter;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.SDKOptions;
+import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.netease.nimlib.sdk.StatusCode;
 import com.netease.nimlib.sdk.auth.AuthService;
 import com.netease.nimlib.sdk.auth.LoginInfo;
+import com.netease.nimlib.sdk.mixpush.MixPushConfig;
+import com.netease.nimlib.sdk.msg.MsgService;
+import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
+import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
+import com.netease.nimlib.sdk.uinfo.model.UserInfo;
+import com.netease.nimlib.sdk.util.NIMUtil;
+import com.tencent.bugly.crashreport.CrashReport;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
 import com.vise.xsnow.cache.SpCache;
 import com.yiwo.friendscometogether.MainActivity;
 import com.yiwo.friendscometogether.MyApplication;
@@ -23,13 +37,19 @@ import com.yiwo.friendscometogether.app_status_manger.AppStatusManager;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.XieYiDialog;
 import com.yiwo.friendscometogether.imagepreview.StatusBarUtils;
+import com.yiwo.friendscometogether.location.NimDemoLocationProvider;
 import com.yiwo.friendscometogether.network.NetConfig;
+import com.yiwo.friendscometogether.network.UMConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
+import com.yiwo.friendscometogether.wangyiyunshipin.DemoCache;
 import com.yiwo.friendscometogether.wangyiyunshipin.utils.AssetCopyer;
+import com.yiwo.friendscometogether.wangyiyunshipin.wangyiyunlive.fragment.CustomAttachParser;
 
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import cn.jpush.android.api.JPushInterface;
 
 public class WelcomeActivity extends BaseActivity {
 
@@ -49,6 +69,7 @@ public class WelcomeActivity extends BaseActivity {
         if (!spImp.isAgree()){
             showAgreeDialog();
         }else {
+            initSDK();
             initAsset();
             initData();
         }
@@ -61,6 +82,21 @@ public class WelcomeActivity extends BaseActivity {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 初始化第三方的SDK
+     */
+    private void initSDK(){
+        UMShareAPI.get(getApplication());
+        UMConfigure.setLogEnabled(true);
+        UMConfigure.init(getApplication(), "5b5579fbb27b0a608200000d"
+                , "umeng", UMConfigure.DEVICE_TYPE_PHONE, "");
+        {
+            PlatformConfig.setWeixin(UMConfig.WECHAT_APPID, UMConfig.WECHAT_APPSECRET);
+        }
+        CrashReport.initCrashReport(getApplicationContext(), "20d02c310e", false);
+    }
+
     private void initData() {
         account = spImp.getYXID();
         String token = spImp.getYXTOKEN();
@@ -187,12 +223,76 @@ public class WelcomeActivity extends BaseActivity {
             }
         }
     }
+    // 如果已经存在用户登录信息，返回LoginInfo，否则返回null即可
+    private LoginInfo loginInfo() {
+        Log.d("getgetwangyitoken", "aaaa|||" + spImp.getYXID() + "|||" + spImp.getYXTOKEN());
+        // 从本地读取上次登录成功时保存的用户登录信息
+        String account = spImp.getYXID();
+        String token = spImp.getYXTOKEN();
 
+        if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(token)) {
+            DemoCache.setAccount(account);
+            return new LoginInfo(account, token);
+        } else {
+            return null;
+        }
+    }
+    // 如果返回值为 null，则全部使用默认参数。xn_config为小米
+    private SDKOptions options(MixPushConfig xm_config) {
+        SDKOptions options = new SDKOptions();
+
+        // 如果将新消息通知提醒托管给 SDK 完成，需要添加以下配置。否则无需设置。
+        StatusBarNotificationConfig config = new StatusBarNotificationConfig();
+        config.notificationEntrance = MainActivity.class; // 点击通知栏跳转到该Activity
+        config.notificationSmallIconId = R.mipmap.logo_gray;
+        // 呼吸灯配置
+        config.ledARGB = Color.GREEN;
+        config.ledOnMs = 1000;
+        config.ledOffMs = 1500;
+        // 通知铃声的uri字符串
+        config.notificationSound = "android.resource://com.netease.nim.demo/raw/msg";
+        options.statusBarNotificationConfig = config;
+        options.mixPushConfig = xm_config;
+        // 配置保存图片，文件，log 等数据的目录
+        // 如果 options 中没有设置这个值，SDK 会使用采用默认路径作为 SDK 的数据目录。
+        // 该目录目前包含 log, file, image, audio, video, thumb 这6个目录。
+//        String sdkPath = getAppCacheDir(context) + "/nim"; // 可以不设置，那么将采用默认路径
+        // 如果第三方 APP 需要缓存清理功能， 清理这个目录下面个子目录的内容即可。
+//        options.sdkStorageRootPath = sdkPath;
+
+        // 配置是否需要预下载附件缩略图，默认为 true
+        options.preloadAttach = true;
+
+        // 配置附件缩略图的尺寸大小。表示向服务器请求缩略图文件的大小
+        // 该值一般应根据屏幕尺寸来确定， 默认值为 Screen.width / 2
+//        options.thumbnailSize = ${Screen.width} / 2;
+
+        // 用户资料提供者, 目前主要用于提供用户资料，用于新消息通知栏中显示消息来源的头像和昵称
+        options.userInfoProvider = new UserInfoProvider() {
+            @Override
+            public UserInfo getUserInfo(String account) {
+                return null;
+            }
+
+            @Override
+            public String getDisplayNameForMessageNotifier(String account, String sessionId,
+                                                           SessionTypeEnum sessionType) {
+                return null;
+            }
+
+            @Override
+            public Bitmap getAvatarForMessageNotifier(SessionTypeEnum sessionTypeEnum, String s) {
+                return null;
+            }
+        };
+        return options;
+    }
     private void showAgreeDialog() {
         XieYiDialog dialog = new XieYiDialog(WelcomeActivity.this, new XieYiDialog.XieYiDialogListener() {
             @Override
             public void agreeBtnListen() {
                 spImp.setIsAgreeXieYi(true);
+                initSDK();
                 initAsset();
                 initData();
             }

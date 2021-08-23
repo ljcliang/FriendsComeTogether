@@ -21,6 +21,7 @@ import com.yiwo.friendscometogether.sp.SpImp;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,7 +36,7 @@ public class PinglunAtActivity extends BaseActivity {
     RecyclerView recyclerView;
 
     private PinglunAtAdapter adapter;
-    private List<PinglunAtModel.ObjBean> mList;
+    private List<PinglunAtModel.ObjBean> mList = new ArrayList<>();
 
     private SpImp spImp;
     private String uid = "";

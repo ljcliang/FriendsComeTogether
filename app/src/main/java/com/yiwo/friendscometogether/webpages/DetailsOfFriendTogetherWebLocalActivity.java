@@ -450,6 +450,7 @@ public class DetailsOfFriendTogetherWebLocalActivity extends BaseSonicWebActivit
                 .request(new ACallback<String>() {
                     @Override
                     public void onSuccess(String data) {
+                        Log.d("ASDASD",data);
                         try {
                             JSONObject jsonObject = new JSONObject(data);
                             if (jsonObject.getInt("code") == 200) {

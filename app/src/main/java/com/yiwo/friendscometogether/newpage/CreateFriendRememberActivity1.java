@@ -162,7 +162,7 @@ public class CreateFriendRememberActivity1 extends TakePhotoActivity {
 
     private NewCreateFriendRemberIntercalationAdapter adapter;
     private LabelChooseOneAdapter labelAdapter;
-    private List<NewUserIntercalationPicModel> mList;
+    private List<NewUserIntercalationPicModel> mList = new ArrayList<>();
 
     private int mYear;
     private int mMonth;

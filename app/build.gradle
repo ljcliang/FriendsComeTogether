@@ -16,8 +16,8 @@ android {
         applicationId "com.yiwo.friendscometogether"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 50
-        versionName "5.0"
+        versionCode 51
+        versionName "5.1"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {

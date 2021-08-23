@@ -1,6 +1,7 @@
 package com.yiwo.friendscometogether.pages;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -40,11 +41,17 @@ public class SetActivity extends BaseActivity {
 
     @OnClick({R.id.activity_set_rl_back, R.id.activity_set_rl_upload, R.id.activity_set_rl_feedback,
             R.id.activity_set_rl_clear_cache, R.id.activity_set_rl_user_agreement, R.id.activity_set_rl_user_agreement_1,
-            R.id.activity_set_exit_login_bt,R.id.activity_set_rl_check_verson})
+            R.id.activity_set_exit_login_bt,R.id.activity_set_rl_check_verson,R.id.activity_set_rl_lianxi})
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.activity_set_rl_back:
                 finish();
+                break;
+            case R.id.activity_set_rl_lianxi:
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                Uri data = Uri.parse("tel:" + "0451-51920930");
+                intent.setData(data);
+                startActivity(intent);
                 break;
             case R.id.activity_set_rl_upload:
 //                toToast(this,"检查更新");
