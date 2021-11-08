@@ -1,16 +1,24 @@
 package com.yiwo.friendscometogether.newpage;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
+import com.yiwo.friendscometogether.MainActivity;
 import com.yiwo.friendscometogether.R;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.imagepreview.StatusBarUtils;
@@ -34,6 +42,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.disposables.Disposable;
 
 public class CreateFriendRememberActivityChoosePicOrVideos extends BaseActivity {
 
@@ -51,7 +60,7 @@ public class CreateFriendRememberActivityChoosePicOrVideos extends BaseActivity 
     private ArrayList<String> mTitleDataList;
     private SimplePagerTitleView simplePagerTitleView;
     private boolean onlyShowAddVideo = false;
-
+    RxPermissions rxPermissions ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +70,61 @@ public class CreateFriendRememberActivityChoosePicOrVideos extends BaseActivity 
         StatusBarUtils.setStatusBarTransparent(CreateFriendRememberActivityChoosePicOrVideos.this);
         onlyShowAddVideo = getIntent().getBooleanExtra(ONLY_ADD_VIDEO,false);
         mFragmentManager = getSupportFragmentManager();
-        initData();
+        rxPermissions = new RxPermissions(CreateFriendRememberActivityChoosePicOrVideos.this);
+        rxPermissions
+                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO
+                        , Manifest.permission.CAMERA)
+                .subscribe(new io.reactivex.Observer<Boolean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        subscribe(d);
+                    }
+
+                    @Override
+                    public void onNext(Boolean value) {
+                        if (value) {
+                            // 用户已经同意该权限
+                            initData();
+                        } else {
+                            // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
+                            AlertDialog.Builder builder = new AlertDialog.Builder(CreateFriendRememberActivityChoosePicOrVideos.this);
+                            builder.setMessage("请开启相关权限后才可使用")
+                                    .setCancelable(false)
+                                    .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                            Uri uri = Uri.fromParts("package", CreateFriendRememberActivityChoosePicOrVideos.this.getPackageName(), null);
+                                            intent.setData(uri);
+                                            try {
+                                                startActivity(intent);
+                                                finish();
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    })
+                                    .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            finish();
+                                        }
+                                    }).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override

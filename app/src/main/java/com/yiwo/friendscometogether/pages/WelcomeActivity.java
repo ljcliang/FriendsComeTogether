@@ -15,15 +15,12 @@ import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.SDKOptions;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.netease.nimlib.sdk.StatusCode;
-import com.netease.nimlib.sdk.auth.AuthService;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.mixpush.MixPushConfig;
-import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
 import com.netease.nimlib.sdk.uinfo.model.UserInfo;
-import com.netease.nimlib.sdk.util.NIMUtil;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
@@ -37,19 +34,15 @@ import com.yiwo.friendscometogether.app_status_manger.AppStatusManager;
 import com.yiwo.friendscometogether.base.BaseActivity;
 import com.yiwo.friendscometogether.custom.XieYiDialog;
 import com.yiwo.friendscometogether.imagepreview.StatusBarUtils;
-import com.yiwo.friendscometogether.location.NimDemoLocationProvider;
 import com.yiwo.friendscometogether.network.NetConfig;
 import com.yiwo.friendscometogether.network.UMConfig;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.wangyiyunshipin.DemoCache;
 import com.yiwo.friendscometogether.wangyiyunshipin.utils.AssetCopyer;
-import com.yiwo.friendscometogether.wangyiyunshipin.wangyiyunlive.fragment.CustomAttachParser;
 
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import cn.jpush.android.api.JPushInterface;
 
 public class WelcomeActivity extends BaseActivity {
 

@@ -30,9 +30,23 @@ import com.youth.banner.Transformer;
 
 import java.util.List;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+
 
 public class BaseActivity extends AppCompatActivity {
 ;
+    private CompositeDisposable mDisposables = new CompositeDisposable();
+    public void subscribe(Disposable disposable) {
+        mDisposables.add(disposable);
+    }
+
+    public void unsubscribe() {
+        if (mDisposables != null && !mDisposables.isDisposed()) {
+            mDisposables.dispose();
+            mDisposables.clear();
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

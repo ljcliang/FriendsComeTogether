@@ -1,20 +1,21 @@
 package com.yiwo.friendscometogether;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,7 +26,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.api.model.session.SessionEventListener;
@@ -36,6 +36,7 @@ import com.netease.nimlib.sdk.auth.constant.LoginSyncStatus;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.vise.xsnow.cache.SpCache;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.app_status_manger.AppStatusConstant;
@@ -69,6 +70,7 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.disposables.Disposable;
 
 public class MainActivity extends BaseActivity {
 
@@ -81,13 +83,6 @@ public class MainActivity extends BaseActivity {
     // 定义数组来存放按钮图片
     private int mImageViewArray[] = {R.drawable.select_index,
             R.drawable.select_friends_together, R.drawable.select_friends_remember, R.drawable.select_chat, R.drawable.select_my};
-    //安卓6.0动态获取权限
-    String[] permissions = new String[]{Manifest.permission.CALL_PHONE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.RECORD_AUDIO
-    , Manifest.permission.CAMERA};
-
-    List<String> mPermissionList = new ArrayList<>();
-    boolean mShowRequestPermission = true;//用户是否禁止权限
 
     private List<Fragment> fragmentList = new ArrayList<>();
     private MenuOnClickListener listener = new MenuOnClickListener();
@@ -138,6 +133,7 @@ public class MainActivity extends BaseActivity {
     private String uid = "";
     private SpCache spCache;
     private String account = "";
+    RxPermissions rxPermissions ;
 
     private ChatFragment fragmentChat;
     private FriendsTogetherFragment3 fragmentFriendTogether;
@@ -156,8 +152,9 @@ public class MainActivity extends BaseActivity {
         spCache = new SpCache(MainActivity.this);
 //        account = spImp.getYXID();
 //        NimUIKit.loginSuccess(account);
-        getPermissions();
+//        getPermissions();
 //        initView();
+        rxPermissions = new RxPermissions(MainActivity.this);
         init();
         initUpLoadController();
         initSessionListener();
@@ -173,8 +170,16 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initUpLoadController() {
-        UploadController.getInstance().init(MainActivity.this);
-        UploadController.getInstance().loadVideoDataFromLocal(UploadType.SHORT_VIDEO);
+        PackageManager pm = getPackageManager();
+        boolean permission = (PackageManager.PERMISSION_GRANTED ==
+                pm.checkPermission("android.permission.WRITE_EXTERNAL_STORAGE", "packageName")
+                );
+        if (permission) {
+            UploadController.getInstance().init(MainActivity.this);
+            UploadController.getInstance().loadVideoDataFromLocal(UploadType.SHORT_VIDEO);
+        }else {
+        }
+
 //        UploadController.getInstance().attachUi(VideoUpLoadListActivity.this);
     }
 
@@ -316,13 +321,60 @@ public class MainActivity extends BaseActivity {
                     fragmentFriendTogether.reLoadData();
                     break;
                 case R.id.menu_friend_remember:
-//                    selectButton(ibFriendRemember);
-//                    selectText(tvFriendRemember);
-//                    switchFragment(2);
                     if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
-//                        intent.setClass(context, CreateFriendRememberActivity.class);
-                        intent.setClass(context, CreateFriendRememberActivityChoosePicOrVideos.class);
-                        startActivity(intent);
+                        rxPermissions
+                                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO
+                                        , Manifest.permission.CAMERA)
+                                .subscribe(new io.reactivex.Observer<Boolean>() {
+                                    @Override
+                                    public void onSubscribe(Disposable d) {
+                                        subscribe(d);
+                                    }
+
+                                    @Override
+                                    public void onNext(Boolean value) {
+                                        if (value) {
+                                            // 用户已经同意该权限
+                                            intent.setClass(context, CreateFriendRememberActivityChoosePicOrVideos.class);
+                                            startActivity(intent);
+                                        } else {
+                                            // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                            builder.setMessage("请开启相关权限后才可使用")
+                                                    .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                                            Uri uri = Uri.fromParts("package", context.getPackageName(), null);
+                                                            intent.setData(uri);
+                                                            try {
+                                                                context.startActivity(intent);
+                                                            } catch (Exception e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                        }
+                                                    })
+                                                    .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog, int which) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    }).show();
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable e) {
+
+                                    }
+
+                                    @Override
+                                    public void onComplete() {
+
+                                    }
+                                });
                     } else {
                         intent.setClass(context, LoginActivity.class);
                         startActivity(intent);
@@ -357,14 +409,33 @@ public class MainActivity extends BaseActivity {
 //                    selectButton(ibFriendRemember);
 //                    selectText(tvFriendRemember);
 //                    switchFragment(2);
-                    if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
-//                        intent.setClass(context, CreateFriendRememberActivity.class);
-                        intent.setClass(context, CreateFriendRememberActivityChoosePicOrVideos.class);
-                        startActivity(intent);
-                    } else {
-                        intent.setClass(context, LoginActivity.class);
-                        startActivity(intent);
-                    }
+//                    if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
+////                        intent.setClass(context, CreateFriendRememberActivity.class);
+//                        rxPermissions.requestEach(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO
+//                                , Manifest.permission.CAMERA})
+//                                .subscribe(new Consumer<Permission>() {
+//                                    @Override
+//                                    public void accept(Permission permission) throws Exception {
+//                                        if (permission.granted) {
+//                                            // 用户已经同意该权限
+//                                            intent.setClass(context, CreateFriendRememberActivityChoosePicOrVideos.class);
+//                                            startActivity(intent);
+//                                        } else if (permission.shouldShowRequestPermissionRationale) {
+//                                            // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
+//                                            Toast.makeText(context,"请开启权限之后使用！",Toast.LENGTH_SHORT).show();
+//                                        } else {
+//                                            // 用户拒绝了该权限，并且选中『不再询问』，提醒用户手动打开权限
+//                                            Toast.makeText(context,"请开启权限之后使用！",Toast.LENGTH_SHORT).show();
+//                                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+//                                            Uri uri = Uri.fromParts("package", getPackageName(), null);
+//                                            intent.setData(uri);
+//                                        }
+//                                    }
+//                                });
+//                    } else {
+//                        intent.setClass(context, LoginActivity.class);
+//                        startActivity(intent);
+//                    }
                     break;
                 case R.id.menu4:
                     if (!TextUtils.isEmpty(uid) && !uid.equals("0")) {
@@ -483,28 +554,6 @@ public class MainActivity extends BaseActivity {
     public void setmTabHost(int i) {
         tabHost.setCurrentTab(i);
     }
-
-    public void getPermissions() {
-        /**
-         * 判断哪些权限未授予
-         */
-        mPermissionList.clear();
-        for (int i = 0; i < permissions.length; i++) {
-            if (ContextCompat.checkSelfPermission(this, permissions[i]) != PackageManager.PERMISSION_GRANTED) {
-                mPermissionList.add(permissions[i]);
-            }
-        }
-        /**
-         * 判断是否为空
-         */
-        if (mPermissionList.isEmpty()) {//未授予的权限为空，表示都授予了
-//            init();
-        } else {//请求权限方法
-            String[] permissions = mPermissionList.toArray(new String[mPermissionList.size()]);//将List转为数组
-            ActivityCompat.requestPermissions(this, permissions, 1);
-        }
-    }
-
     @Override
     public void onBackPressed() {
         // TODO 自动生成的方法存根
@@ -516,18 +565,6 @@ public class MainActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-        if (fragments != null) {
-            for (Fragment fragment : fragments) {
-                if (fragment != null) {
-                    fragment.onRequestPermissionsResult(requestCode,permissions,grantResults);
-                }
-            }
-        }
-    }
     @Override
     protected void restartApp() {
         Log.d("应用被回收重启","应用被回收重启");

@@ -175,6 +175,7 @@ public class FileUtil {
      */
     public static String getThumbPath(String name, String ext, StorageType storageType) {
         String path = StorageUtil.getWritePath(name + ext, storageType);
+        Log.d("pathpathpath","aaa::"+path);
         File file = new File(path);
         if (!file.exists()) {
             try {

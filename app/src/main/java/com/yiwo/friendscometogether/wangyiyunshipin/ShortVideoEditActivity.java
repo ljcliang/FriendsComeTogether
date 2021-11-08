@@ -1254,12 +1254,16 @@ public class ShortVideoEditActivity extends BaseActivity implements View.OnClick
         }
         FileOutputStream fOut = null;
         try {
+            Log.d("pathpathpathdirFile",dirFile+"");
+            Log.d("pathpathpathdirbitmap",bitmap+"");
             fOut = new FileOutputStream(dirFile);
+            Log.d("pathpathpathfout000",fOut+"");
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         try {
+            Log.d("pathpathpathfout",fOut+"");
             fOut.flush();
         } catch (IOException e) {
             e.printStackTrace();

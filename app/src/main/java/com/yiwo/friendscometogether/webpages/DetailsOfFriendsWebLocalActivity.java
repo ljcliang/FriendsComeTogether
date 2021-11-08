@@ -608,14 +608,16 @@ public class DetailsOfFriendsWebLocalActivity extends BaseSonicWebActivity {
                 }
                 break;
             case R.id.activity_details_of_friends_ll_intercalation://插文
-                if (model.getObj().getUserID().equals(spImp.getUID())){
-                    intent.putExtra("id", fmID);
-                    intent.putExtra("type", "0");//传0为当前友记为未发布状态
-                    intent.setClass(DetailsOfFriendsWebLocalActivity.this, CreateIntercalationActivity.class);
-                }else {
-                    intent.setClass(DetailsOfFriendsWebLocalActivity.this, InsertIntercalationActivity.class);
-                    intent.putExtra("id", fmID);
-                    startActivity(intent);
+                if (model!=null &&  model.getObj()!=null){
+                    if (model.getObj().getUserID().equals(spImp.getUID())){
+                        intent.putExtra("id", fmID);
+                        intent.putExtra("type", "0");//传0为当前友记为未发布状态
+                        intent.setClass(DetailsOfFriendsWebLocalActivity.this, CreateIntercalationActivity.class);
+                    }else {
+                        intent.setClass(DetailsOfFriendsWebLocalActivity.this, InsertIntercalationActivity.class);
+                        intent.putExtra("id", fmID);
+                        startActivity(intent);
+                    }
                 }
                 break;
             case R.id.activity_details_of_friends_ll_comment://评论

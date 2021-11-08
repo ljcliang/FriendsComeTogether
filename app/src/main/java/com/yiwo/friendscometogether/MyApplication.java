@@ -23,7 +23,6 @@ import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.SDKOptions;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
-import com.netease.nimlib.sdk.auth.AuthService;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.mixpush.MixPushConfig;
 import com.netease.nimlib.sdk.msg.MsgService;
@@ -31,29 +30,23 @@ import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.uinfo.UserInfoProvider;
 import com.netease.nimlib.sdk.uinfo.model.UserInfo;
 import com.netease.nimlib.sdk.util.NIMUtil;
-import com.tencent.bugly.crashreport.CrashReport;
-import com.umeng.commonsdk.UMConfigure;
-import com.umeng.socialize.PlatformConfig;
-import com.umeng.socialize.UMShareAPI;
 import com.vise.xsnow.cache.SpCache;
 import com.vise.xsnow.http.ViseHttp;
 import com.yatoooon.screenadaptation.ScreenAdapterTools;
 import com.yiwo.friendscometogether.greendao.gen.DaoMaster;
 import com.yiwo.friendscometogether.greendao.gen.DaoSession;
+import com.yiwo.friendscometogether.location.NimDemoLocationProvider;
 import com.yiwo.friendscometogether.network.NetConfig;
-import com.yiwo.friendscometogether.network.UMConfig;
-import com.yiwo.friendscometogether.pages.WelcomeActivity;
 import com.yiwo.friendscometogether.sp.SpImp;
 import com.yiwo.friendscometogether.utils.FTPTimeCount;
 import com.yiwo.friendscometogether.utils.TimeCount;
+import com.yiwo.friendscometogether.wangyiyunshipin.DemoCache;
+import com.yiwo.friendscometogether.wangyiyunshipin.wangyiyunlive.fragment.CustomAttachParser;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
-import com.yiwo.friendscometogether.location.NimDemoLocationProvider;
-import com.yiwo.friendscometogether.wangyiyunshipin.DemoCache;
-import com.yiwo.friendscometogether.wangyiyunshipin.wangyiyunlive.fragment.CustomAttachParser;
 
 
 public class MyApplication extends Application {

@@ -997,7 +997,7 @@ public class FriendsTogetherFragment3 extends BaseFragment {
         for (int i = 0;i<permissions.length;i++){
             if (permissions[i].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)){
                 if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                    requestPermission();
+//                    requestPermission();
                 } else {
                     preLoadYouJu(mList);
                 }

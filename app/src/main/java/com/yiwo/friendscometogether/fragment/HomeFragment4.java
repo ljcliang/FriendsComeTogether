@@ -556,28 +556,6 @@ public class HomeFragment4 extends BaseFragment {
         }
 
     }
-    private static final int PERMISSION_REQUEST_CODE_STORAGE = 1001;
-    private void requestPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE_STORAGE);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        Log.d("读写内存权限,","permissionsSize:"+permissions.length+"///"+"grantResultsSize:"+grantResults.length);
-        for (int i = 0;i<permissions.length;i++){
-            if (permissions[i].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)){
-                if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                    requestPermission();
-                } else {
-                }
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
 
 
     private int[] getDisplayMetrics(Context context) {

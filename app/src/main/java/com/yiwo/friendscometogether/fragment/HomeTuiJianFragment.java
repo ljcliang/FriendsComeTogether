@@ -889,9 +889,6 @@ public class HomeTuiJianFragment extends BaseFragment {
         SonicEngine.getInstance().cleanCache();
     }
 
-
-    private static final int PERMISSION_REQUEST_CODE_STORAGE = 1001;
-
     @OnClick({R.id.ll_wenlvzixun, R.id.ll_zuixinzhaomu, R.id.ll_mianshuishangpin, R.id.ll_tejiabuwei, R.id.ll_jingdiandaka,
             R.id.rl_duizhangpuzi,
                 R.id.rl_iv_gg0,R.id.rl_iv_gg1,R.id.rl_iv_gg2,R.id.rl_iv_gg3,
